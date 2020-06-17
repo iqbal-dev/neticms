@@ -1,0 +1,100 @@
+.topmenu-wrapper{
+    background: $primaryColorLight;
+    .navbar{
+        padding: 0px;
+    }
+    .dropdown-menu{
+        border-radius: 0px;
+        border:none;
+        padding: 0em;
+        margin-top: 2px;
+        background: $primaryColorLight;
+        width: max-content;
+        .nav-item{
+            background: $primaryColorLight;
+            border-bottom: 2px solid $colorWhite;
+        }
+        .dropdown{
+            a{
+                padding-right: 2em !important;
+                position: relative;
+                width: max-content;
+                &.dropdown-toggle::after{
+                    margin-left: 1.255em;
+                    position: absolute;
+                    right: 12px;
+                    top: 20px !important;
+                    transform: rotate(270deg);
+                }
+            }
+        }
+    }
+    .dropdown-menu-right {
+        right: auto;
+        left: auto;
+        top: 100%;
+        .nav-item{
+            a{
+                padding: 0.5em !important;
+            }
+        }
+        .dropdown-menu-right {
+            right: auto;
+            left: 101.5%;
+            top: -2px;
+        }
+    }
+    .nav-item{
+        a{
+            color: $colorWhite;
+            font-size: 18px;
+            padding: 1em !important;
+            &:hover{
+                background: $orangeColor;
+            }
+        }
+        
+        &.dropdown{
+            a{
+                padding-right: 2em !important;
+                position: relative;
+                width: 100%;
+                &.dropdown-toggle::after{
+                    margin-left: 1.255em;
+                    position: absolute;
+                    right: 12px;
+                    top: 30px;
+                }
+            }
+        }
+    }
+}
+.notice-wrapper{
+    background: $orangeColor;
+    .notice-title{
+        background: $orangeColorDark;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+        color: $colorWhite;
+        padding:5px 10px;
+        width: 160px;
+        display: flex;
+        align-items: center;
+    }
+    .notice{
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        margin-left: 15px;
+        color: $colorWhite;
+        p{
+            padding:5px 10px;
+            margin-bottom: 0;
+            color: $colorWhite;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            margin-left: 2px;
+        }
+    }
+}

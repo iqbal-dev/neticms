@@ -1,0 +1,59 @@
+
+.h1{
+    font-size: 50px;
+}
+.example-wrapper{
+    .example{
+        .className{
+            
+        }
+    }
+}
+
+.example-wrapper > .example > .className{
+
+}//css
+
+.example-wrapper{
+    &.example{
+        
+    }
+}
+.example-wrapper.example{
+
+} //css
+
+
+//scss hover
+.className{
+    @extend .h1;
+    font-size: 40px;
+    a{
+        &:hover{
+
+        }   
+    }
+}
+
+@mixin fixheight($e) {
+    height: $e;
+}
+
+.fixed-height-400{
+    @include fixheight(400px);
+}
+
+.fixed-height-400{
+    height: 400px;
+}
+.box-1{
+    .box-2{
+        height: 100px;
+        width: 100px;
+        background: rebeccapurple;
+        margin: 5px;
+    }
+    
+}
+
+

@@ -1,0 +1,222 @@
+.footer-wrapper{
+    position: relative;
+    z-index: 1;
+    .address-bg{
+        position: relative;
+        &::after{
+            position: absolute;
+            content: "";
+            height: 300px;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            background: $primaryColorLight;
+            z-index: -1;
+        }
+    }
+    .address-wrapper-full {
+        padding: 1.5em;
+        border-radius: 15px;
+        background: $colorWhite;
+        -webkit-box-shadow: -1px -3px 3px 3px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: -1px -3px 3px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: -1px -3px 3px 3px rgba(0, 0, 0, 0.1);
+        .icon{
+            color: $orangeColor;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .title{
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .content{
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .address-wrapper, .phone-wrapper, .email-wrapper{
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        @media screen and (min-width:767px){
+            .phone-wrapper{
+                position: relative;
+                &::before{
+                    content: "";
+                    height: 90px;
+                    width: 1px;
+                    background: $colorBlack;
+                    position: absolute;
+                    left: 0px;
+                    top: 65px;
+                }
+                &::after{
+                    content: "";
+                    height: 90px;
+                    width: 1px;
+                    background: $colorBlack;
+                    position: absolute;
+                    right: 0px;
+                    top: 65px;
+                }
+            }
+        }
+    }
+
+    .footer-main-wrapper{
+        background: $primaryColorLight;
+        padding-top: 60px;
+        // position: absolute;
+        width: 100%;
+        top: 105px;
+        z-index: -1;
+        .footer-logo-wrapper{
+            img{
+                height: 165px;
+                width: 165px;
+            }
+            .counter-wrapper{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                padding: 30px 20px;
+                border: 1px solid $grayColor;
+                border-radius: 10px;
+                span{
+                    color: $colorWhite;
+                    font-size: 15px;
+                    font-weight: 700;
+                }
+            }
+        }
+        .footer-widget-wrapper{
+            margin-bottom: 20px;
+            .widget-title {
+                font-size: 16px;
+                font-weight: 700;
+                border-bottom: 3px solid $colorWhite;
+                padding-bottom: 15px;
+                color: $colorWhite;
+                
+            }
+            .nav{
+                margin-top: 35px;
+                li{
+                    a{
+                        color: $colorWhite;
+                        font-weight: 15px;
+                        line-height: 1.8;
+                       &:hover{
+                           text-decoration: none;
+                       } 
+                    }
+
+                    list-style: none;
+                    padding-right: 15px;
+                    &:last-child{
+                        padding-right: 0px;
+                    }
+                    &:first-child:hover{
+                        a{
+                            color: #0084ff;
+                        }
+                    }
+                    &:nth-child(n+2):hover{
+                        a{
+                            color: #00acee;
+                        }
+                    }
+                    &:nth-child(n+3):hover{
+                        a{
+                            color: #FF0000;
+                        }
+                    }
+                    &:last-child:hover{
+                        a{
+                            color: #0077b5;
+                        }
+                    }
+                }
+            }
+            .footer-contact-form{
+                margin-top: 35px;
+                .form-group{
+                    margin-bottom: 7px;
+                    .form-control{
+                        background: $primaryColorDark;
+                        border-color: $primaryColorDark;
+                        color: $primaryColorLight;
+                        font-size: 16px;
+                        &::placeholder{
+                            color: $primaryColorLight;
+                        }
+                    }
+                }
+                button{
+                    background: $orangeColor;
+                    border-color: $orangeColor;
+                }
+                .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:focus{
+                    box-shadow: 0 0 0 0.2rem rgba(255, 78, 49,0.2);
+                }
+            }
+        }
+    }
+    .copywrite-wrapper{
+        background: $primaryColorDark;
+        padding: 22px 0px;
+        .copy-right-left{
+            p{
+                color: $colorWhite;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 15px;
+                margin-bottom: 0px;
+            }
+        }
+        .copy-right-menu{
+            margin-top: 20px;
+            a{
+                color: $colorWhite;
+                padding: 0 15px;
+                text-decoration: none;
+            }
+            li{
+                &:last-child{
+                    a{
+                        padding-right: 0px;
+                    }
+                }
+                &:first-child{
+                    a{
+                        padding-left: 0px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width:767px){
+    .footer-wrapper{
+        .copywrite-wrapper{
+            .copy-right-menu{
+                margin-top: 0px;
+            }
+        }
+        .address-bg{
+            position: relative;
+            &::after{
+                position: absolute;
+                content: "";
+                height: 70px;
+                width: 100%;
+                bottom: 0;
+                left: 0;
+                background: $primaryColorLight;
+                z-index: -1;
+            }
+        }
+    } 
+}
