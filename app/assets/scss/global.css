@@ -1192,6 +1192,7 @@
       color: gray;
       margin: 0 0 0 10px; }
   .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group {
+    position: relative;
     display: flex;
     width: 100%;
     margin-bottom: 8px; }
@@ -1207,6 +1208,40 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       border: none; }
+    .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group.custom-dropdown {
+      position: relative;
+      border-radius: .25rem; }
+      .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group.custom-dropdown::after {
+        content: '>';
+        font: 30px "Consolas", monospace;
+        font-weight: 600;
+        color: #f23010;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        background-color: #ffffff;
+        width: 28px;
+        height: 28px;
+        line-height: 1;
+        top: 0;
+        left: 0;
+        position: absolute;
+        pointer-events: none;
+        border-radius: 50%;
+        text-align: center;
+        padding: 0px 0px 30px 0;
+        margin: 4px 0px 0px 10px; }
+      .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group.custom-dropdown::before {
+        content: '';
+        background-color: #ffffff;
+        width: 28px;
+        height: 28px;
+        top: 0;
+        left: 0;
+        position: absolute; }
+      .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group.custom-dropdown .form-control {
+        padding-left: 50px; }
 
 .result-body-header .result-body-header-inside {
   box-shadow: 0 2px 20px 0px #ccc;
@@ -1241,6 +1276,7 @@
       color: gray;
       margin: 0 0 0 10px; }
   .result-body-header .result-body-header-inside .form .form-inline .form-group {
+    position: relative;
     display: flex;
     width: 100%;
     margin-bottom: 8px; }
@@ -1256,6 +1292,40 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       border: none; }
+    .result-body-header .result-body-header-inside .form .form-inline .form-group.custom-dropdown {
+      position: relative;
+      border-radius: .25rem; }
+      .result-body-header .result-body-header-inside .form .form-inline .form-group.custom-dropdown::after {
+        content: '>';
+        font: 30px "Consolas", monospace;
+        font-weight: 600;
+        color: #f23010;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        background-color: #ffffff;
+        width: 28px;
+        height: 28px;
+        line-height: 1;
+        top: 0;
+        left: 0;
+        position: absolute;
+        pointer-events: none;
+        border-radius: 50%;
+        text-align: center;
+        padding: 0px 0px 30px 0;
+        margin: 4px 0px 0px 10px; }
+      .result-body-header .result-body-header-inside .form .form-inline .form-group.custom-dropdown::before {
+        content: '';
+        background-color: #ffffff;
+        width: 28px;
+        height: 28px;
+        top: 0;
+        left: 0;
+        position: absolute; }
+      .result-body-header .result-body-header-inside .form .form-inline .form-group.custom-dropdown .form-control {
+        padding-left: 50px; }
 
 .fees-info-main {
   border: 1px solid red; }

@@ -362,6 +362,7 @@
             .form{
                 .form-inline{
                     .form-group{
+                        position: relative;
                         display: flex;
                         width: 100%;
                         margin-bottom: 8px;
@@ -381,6 +382,47 @@
                             border-bottom-left-radius: 0;
                             border: none;
                             // border-color: $orangeColorDark;
+                        }
+
+                        &.custom-dropdown{
+                            position: relative;
+                            border-radius: .25rem;
+                            
+                            &::after {
+                                content: '>';
+                                font: 30px "Consolas", monospace;
+                                font-weight: 600;
+                                color: $orangeColorDark;
+                                -webkit-transform: rotate(90deg);
+                                -moz-transform: rotate(90deg);
+                                -ms-transform: rotate(90deg);
+                                transform: rotate(90deg);
+                                background-color: #ffffff;
+                                width: 28px;
+                                height: 28px;
+                                line-height: 1;
+                                top: 0;
+                                left: 0;
+                                position: absolute;
+                                pointer-events: none;
+                                border-radius: 50%;
+                                text-align: center;
+                                padding: 0px 0px 30px 0;
+                                margin: 4px 0px 0px 10px;
+                            }
+                            &::before {
+                                content: '';
+                                background-color: #ffffff;
+                                width: 28px;
+                                height: 28px;
+                                top: 0;
+                                left: 0;
+                                position: absolute;
+                            }
+
+                            .form-control{
+                                padding-left: 50px;
+                            }
                         }
                     }
                     

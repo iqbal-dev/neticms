@@ -36,8 +36,8 @@ export class SectionWiseResult extends React.Component {
 
         <BreadcrumComponent
           pageTitle="Section Wise Result"
-          menuStepFirst="Academic Info"
-          menuStepSenond="Student Attendance"
+          menuStepFirst="Result Info"
+          menuStepSenond="Semester Exam"
           menuStepThird="Section Wise"
         />
 
@@ -92,38 +92,32 @@ export class SectionWiseResult extends React.Component {
                     </div>
                     <div className="col-lg-6 form">
                       <Form inline>
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
+                        <FormGroup className="custom-dropdown">
+                          <Input type="select" name="academic-year">
+                            <option>Select Academic Year</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </Input>
                         </FormGroup>
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
+                        <FormGroup className="custom-dropdown">
+                          <Input type="select" name="exam-type">
+                            <option>Select Exam Type</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </Input>
                         </FormGroup>
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
-                        </FormGroup>
-
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
+                        <FormGroup className="custom-dropdown">
+                          <Input type="select" name="section">
+                            <option>Select Section</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </Input>
                         </FormGroup>
 
                         <Button class="btn explore-btn">Search</Button>
