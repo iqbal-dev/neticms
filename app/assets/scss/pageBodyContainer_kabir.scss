@@ -231,7 +231,12 @@
                 tr{
                     border-bottom: 2px solid #fff;
 
+                    &:hover td{
+                        color: $orangeColor;
+                    }
+
                     td{
+                        transition: all .3s ease-in-out;
                         border-top: none;
                         color: $colorBlack;
                         font-size: 18px;
@@ -242,7 +247,7 @@
                         }
 
                         &:nth-child(odd){
-                            background-color: #dfdfdf;
+                            background-color: #f7f7f7;
                             text-align: center;
                         }
 
@@ -252,7 +257,7 @@
                         }
 
                         &:nth-child(2){
-                            background-color: $tableHeaderTransparent;
+                            background-color: #fff9f9;
                         }
 
                         &:last-child::after{
@@ -265,6 +270,35 @@
                             top: 0;
                             
                         }
+
+                        .attendance{
+                            position: relative;
+                            
+                            &:before{
+                                position: absolute;
+                                content: "";
+                                width: 10px;
+                                height: 10px;
+                                bottom: 4px;
+                                border-radius: 50%;
+                                border: 2px solid #ffffff;
+                            }
+                            &.passed:before{
+                                background-color: $colorPresent;
+                            }
+                            &.failed:before{
+                                background-color: $colorAbsent;
+                            }
+                            
+                            
+                            img{
+                                width: 45px;
+                                height: 45px;
+                                border: 2px solid #000000;
+                                border-radius: 50%;
+                                overflow: hidden;
+                            }
+                        }
                     }
                 }
             }
@@ -273,11 +307,11 @@
                 tbody{
                     tr{
                         td{
-                            &.present::after{
+                            &.present::after, &.passed::after{
                                 background-color: $colorPresent;
                             }
 
-                            &.absent::after{
+                            &.absent::after, &.failed::after{
                                 background-color: $colorAbsent;
                             }
 
@@ -302,6 +336,9 @@
 
             .legend-with-percent{
                 margin-left: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
                 &.present{
                     .title{
@@ -349,7 +386,7 @@
                         width: 14px;
                         height: 14px;
                         left: -20px;
-                        top: 2px;
+                        top: 4px;
                     }
                 }
 
@@ -359,75 +396,85 @@
                 }
             }
 
-            .form{
-                .form-inline{
-                    .form-group{
-                        position: relative;
-                        display: flex;
-                        width: 100%;
-                        margin-bottom: 8px;
+            
+        }
+        
+    }
+}
 
-                        .form-control{
-                            background-color: #f2f2f2;
-                            border: none;
-                            flex: 1 0 70%;
-                            border-top-right-radius: 0;
-                            border-bottom-right-radius: 0;
-                        }
+.form{
+    .form-inline{
+        .form-group{
+            position: relative;
+            display: flex;
+            width: 100%;
+            margin-bottom: 8px;
 
-                        button{
-                            flex: 1 0 30%;
-                            background-color: $orangeColorDark;
-                            border-top-left-radius: 0;
-                            border-bottom-left-radius: 0;
-                            border: none;
-                            // border-color: $orangeColorDark;
-                        }
+            .form-control{
+                background-color: #f2f2f2;
+                color: #818181;
+                border: none;
+                flex: 1 0 70%;
+                // border-top-right-radius: 0;
+                // border-bottom-right-radius: 0;
+                width: 100%;
+            }
 
-                        &.custom-dropdown{
-                            position: relative;
-                            border-radius: .25rem;
-                            
-                            &::after {
-                                content: '>';
-                                font: 30px "Consolas", monospace;
-                                font-weight: 600;
-                                color: $orangeColorDark;
-                                -webkit-transform: rotate(90deg);
-                                -moz-transform: rotate(90deg);
-                                -ms-transform: rotate(90deg);
-                                transform: rotate(90deg);
-                                background-color: #ffffff;
-                                width: 28px;
-                                height: 28px;
-                                line-height: 1;
-                                top: 0;
-                                left: 0;
-                                position: absolute;
-                                pointer-events: none;
-                                border-radius: 50%;
-                                text-align: center;
-                                padding: 0px 0px 30px 0;
-                                margin: 4px 0px 0px 10px;
-                            }
-                            &::before {
-                                content: '';
-                                background-color: #ffffff;
-                                width: 28px;
-                                height: 28px;
-                                top: 0;
-                                left: 0;
-                                position: absolute;
-                            }
+            button{
+                flex: 1 0 30%;
+                background-color: $orangeColorDark;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                border: none;
+                // border-color: $orangeColorDark;
+            }
 
-                            .form-control{
-                                padding-left: 50px;
-                            }
-                        }
-                    }
-                    
+            &.custom-dropdown{
+                position: relative;
+                border-radius: .25rem;
+                overflow: hidden;
+                
+                &::after {
+                    content: '>';
+                    font: 30px "Consolas", monospace;
+                    font-weight: 600;
+                    color: $orangeColorDark;
+                    -webkit-transform: rotate(90deg);
+                    -moz-transform: rotate(90deg);
+                    -ms-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                    background-color: #ffffff;
+                    width: 28px;
+                    height: 28px;
+                    line-height: 1;
+                    top: 0;
+                    left: 0;
+                    position: absolute;
+                    pointer-events: none;
+                    border-radius: 50%;
+                    text-align: center;
+                    padding: 0px 0px 30px 0;
+                    margin: 4px 0px 0px 10px;
+                }
+                &::before {
+                    content: '';
+                    background-color: #f2f2f2;
+                    width: 28px;
+                    height: 38px;
+                    top: 0;
+                    right: 0;
+                    position: absolute;
+                }
+
+                .form-control{
+                    padding-left: 50px;
                 }
             }
+        }
+
+        .full-width{
+            border: none;
+            width: 100%;
         }
         
     }

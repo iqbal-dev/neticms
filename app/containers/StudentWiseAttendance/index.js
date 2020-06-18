@@ -1,6 +1,6 @@
 /**
  *
- * SectionWiseResult
+ * StudentWiseAttendance
  *
  */
 
@@ -14,40 +14,99 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { Table } from 'reactstrap';
-import { Chart } from 'react-google-charts';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectSectionWiseResult from './selectors';
+import makeSelectStudentWiseAttendance from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { Table } from 'reactstrap';
+import { Chart } from 'react-google-charts';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SectionWiseResult extends React.Component {
+export class StudentWiseAttendance extends React.Component {
   render() {
     return (
       <div>
         <Helmet>
-          <title>SectionWiseResult</title>
-          <meta name="description" content="Description of SectionWiseResult" />
+          <title>StudentWiseAttendance</title>
+          <meta
+            name="description"
+            content="Description of StudentWiseAttendance"
+          />
         </Helmet>
         {/* <FormattedMessage {...messages.header} /> */}
 
         <BreadcrumComponent
-          pageTitle="Section Wise Result"
-          menuStepFirst="Result Info"
-          menuStepSenond="Semester Exam"
-          menuStepThird="Section Wise"
+          pageTitle="Student Wise Attendance"
+          menuStepFirst="Academic Info"
+          menuStepSenond="Student Attendance"
+          menuStepThird="Student Wise"
         />
 
         <section>
           <div className="container-fluid">
+
             <div className="container p-t-60">
               <div className="row">
-                <div className="col-md-12 result-body-header">
-                  <div className="row result-body-header-inside">
+                <div className="col-md-12 attendance-body-header">
+                  <div className="row attendance-body-header-inside">
+                    {/* <div className="row"> */}
+                      <div className="col-md-12 col-lg-12 form">
+                        <Form inline>
+                          {/* <div className="row"> */}
+                            <div className="col-md-12 col-lg-3">
+                              <FormGroup className=" custom-input-text">
+                                <Input type="text" name="academic-year">
+                                </Input>
+                              </FormGroup>
+                            </div>
+
+                            <div className="col-md-5 col-lg-3">
+                              <FormGroup>
+                                <Input
+                                  type="date"
+                                  name="date"
+                                  id="exampleDate"
+                                  placeholder="date placeholder"
+                                />
+                              </FormGroup>
+                            </div>
+
+                            <div className="col-md-7 col-lg-6">
+                              <FormGroup>
+                                <Input
+                                  type="date"
+                                  name="date"
+                                  id="exampleDate"
+                                  placeholder="date placeholder"
+                                />
+                                <Button class="btn explore-btn">Search</Button>
+                              </FormGroup>
+                            </div>
+
+                          {/* </div> */}
+                        </Form>
+                      </div>
+                    {/* </div> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="container">
+              <div className="row">
+                <div className="offset-md-1 col-md-10">
+                  <div className="custom-title-border-center" />
+                </div>
+              </div>
+            </div>
+
+            <div className="container p-t-60">
+              <div className="row">
+                <div className="col-md-12 attendance-body-header">
+                  <div className="row attendance-body-header-inside">
                     <div className="col-md-6 col-lg-3">
                       <Chart
                         width="200px"
@@ -225,17 +284,18 @@ export class SectionWiseResult extends React.Component {
             </div>
           </div>
         </div>
+        
       </div>
     );
   }
 }
 
-SectionWiseResult.propTypes = {
+StudentWiseAttendance.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  sectionWiseResult: makeSelectSectionWiseResult(),
+  studentWiseAttendance: makeSelectStudentWiseAttendance(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -249,11 +309,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'sectionWiseResult', reducer });
-const withSaga = injectSaga({ key: 'sectionWiseResult', saga });
+const withReducer = injectReducer({ key: 'studentWiseAttendance', reducer });
+const withSaga = injectSaga({ key: 'studentWiseAttendance', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(SectionWiseResult);
+)(StudentWiseAttendance);

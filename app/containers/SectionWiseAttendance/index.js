@@ -181,7 +181,7 @@ export class SectionWiseAttendance extends React.Component {
                   </div>
                 </di>
               </div>
-              <div className="row m-t-40">
+              {/* <div className="row m-t-40">
                 <div className="col-md-12">
                   <div className="text-center m-t-40">
                     <button className="btn explore-btn-lg">
@@ -189,7 +189,7 @@ export class SectionWiseAttendance extends React.Component {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
