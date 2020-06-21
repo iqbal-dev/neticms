@@ -22,6 +22,9 @@
 .m-t-30{
     margin-top : 30px;
 }   
+.m-t-40{
+    margin-top : 40px;
+} 
 .m-b-40{
     margin-bottom : 40px;
 } 
@@ -622,6 +625,9 @@
     border-top: 1px solid $titleBorderColor;
     margin: 10px 0px;
     position: relative;
+    &.no-border{
+        border-top: none;
+    }
     &::after{
         content: "";
         position: absolute;
@@ -1224,5 +1230,31 @@
         }
      }
 }
-
+.infrastructure-content-wrapper{
+    padding: 50px;
+    background: $grayColorLight;
+    border-radius: 25px;
+}
+.infrastructure-content-image{
+    position: relative;
+    img{
+        border-radius: 25px;
+        max-height: 300px;
+        object-fit: cover;
+        &.box-shadow{
+            box-shadow: 2px 8px 21px 0px rgba(0, 0, 0, 0.50);
+        }
+    }
+    &::after{
+        width: 199px;
+        background: $grayColorLight;
+        content: "";
+        position: absolute;
+        left: -100px;
+        top: -61px;
+        z-index: -1;
+        height: 421px;
+        border-radius: 25px;
+    }
+}
 
