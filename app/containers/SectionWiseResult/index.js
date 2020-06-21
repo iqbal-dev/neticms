@@ -132,10 +132,10 @@ export class SectionWiseResult extends React.Component {
             <div className="container p-t-60">
               <div className="row">
                 <div className="col-md-12">
-                  <div className="page-inner-title">
+                  <div className="page-inner-title with-print">
                     <h2>
-                      Total Student Found{' '}
-                      <span className="text-orange">(1212)</span>
+                      <span>Total Student Found<span className="text-orange">(1212)</span></span>
+                      <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span>
                     </h2>
                     <div className="custom-title-border-left" />
                   </div>

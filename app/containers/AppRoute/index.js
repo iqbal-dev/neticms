@@ -23,6 +23,8 @@ import StuffInformation from 'containers/StuffInformation';
 import SectionWiseResult from '../SectionWiseResult';
 import SectionWiseAttendance from '../SectionWiseAttendance';
 import StudentWiseAttendance from '../StudentWiseAttendance';
+import FailList from '../FailList';
+import StudentInfo from '../StudentInfo';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -65,9 +67,11 @@ export default function AppRoute() {
       />
       <Route exact path="/student-wise-attendance" component={StudentWiseAttendance}/>
       <Route exact path="/section-wise-result" component={SectionWiseResult} />
+      <Route exact path="/fail-list" component={FailList} />
       <Route exact path="/example" component={ExampleDesign} />
       <Route exact path="/all-teachers" component={TeacherInformation} />
       <Route exact path="/fees-info" component={FeesInfo} />
+      <Route exact path="/Student-info" component={StudentInfo} />
 
       <Route exact path="/stuff_information" component={StuffInformation} />
       <Route path="" component={NotFoundPage} />
