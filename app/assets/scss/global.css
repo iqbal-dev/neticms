@@ -900,26 +900,26 @@
   .content-wrapper .book-list-wrapper .book-list-image:hover .book-image-zoom {
     display: block; }
 
-.booklist-popup-wrapper .modal-body {
-  padding: 40px !important; }
-  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list-image {
+.booklist-popup-wrapper .modal-body, .event-gallery-modal .modal-body {
+  padding: 40px; }
+  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list-image, .event-gallery-modal .modal-body .book-list-wrapper .book-list-image {
     width: 260px; }
-  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list > tr > td {
+  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list > tr > td, .event-gallery-modal .modal-body .book-list-wrapper .book-list > tr > td {
     padding-top: 0px;
     padding-bottom: 0px; }
-  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list tr {
+  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list tr, .event-gallery-modal .modal-body .book-list-wrapper .book-list tr {
     width: 100% !important;
     border-bottom: none; }
-  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list td:first-child {
+  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list td:first-child, .event-gallery-modal .modal-body .book-list-wrapper .book-list td:first-child {
     width: auto;
     max-width: initial;
     border-right: none; }
-  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list td {
+  .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list td, .event-gallery-modal .modal-body .book-list-wrapper .book-list td {
     font-size: 20px; }
-    .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list td .title {
+    .booklist-popup-wrapper .modal-body .book-list-wrapper .book-list td .title, .event-gallery-modal .modal-body .book-list-wrapper .book-list td .title {
       font-size: 27px;
       font-weight: 600; }
-.booklist-popup-wrapper .close-btn {
+.booklist-popup-wrapper .close-btn, .event-gallery-modal .close-btn {
   width: 50px;
   height: 50px;
   background: #ff4e31;
@@ -930,15 +930,15 @@
   position: absolute;
   top: -25px;
   right: -25px; }
-  .booklist-popup-wrapper .close-btn i {
+  .booklist-popup-wrapper .close-btn i, .event-gallery-modal .close-btn i {
     color: #fff;
     font-size: 24px; }
 
 @media screen and (min-width: 1080px) {
-  .booklist-popup-wrapper {
+  .booklist-popup-wrapper, .event-gallery-modal {
     max-width: 945px !important; } }
 @media screen and (min-width: 767px) and (max-width: 1020px) {
-  .booklist-popup-wrapper {
+  .booklist-popup-wrapper, .event-gallery-modal {
     max-width: 700px !important; } }
 .page-inner-title {
   margin-bottom: 60px; }
@@ -948,26 +948,69 @@
     font-family: 'Montserrat', sans-serif;
     color: #000; }
 
-.class-rooms-slider .carousel .thumbs {
+.class-rooms-slider .carousel .thumbs, .event-gallery-modal .carousel .thumbs {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   width: 100%; }
-.class-rooms-slider .carousel .thumb {
+.class-rooms-slider .carousel .thumb, .event-gallery-modal .carousel .thumb {
   padding-left: 0;
   width: 100px !important; }
-  .class-rooms-slider .carousel .thumb img {
+  .class-rooms-slider .carousel .thumb img, .event-gallery-modal .carousel .thumb img {
     height: 100px; }
-.class-rooms-slider .carousel .thumbs-wrapper {
+.class-rooms-slider .carousel .thumbs-wrapper, .event-gallery-modal .carousel .thumbs-wrapper {
   margin: 10px; }
-.class-rooms-slider .carousel.carousel-slider .control-arrow {
+.class-rooms-slider .carousel.carousel-slider .control-arrow, .event-gallery-modal .carousel.carousel-slider .control-arrow {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  margin: auto; }
-.class-rooms-slider .carousel.carousel-slider .control-arrow:hover {
+  margin: auto;
+  opacity: 1 !important; }
+.class-rooms-slider .carousel.carousel-slider .control-arrow:hover, .event-gallery-modal .carousel.carousel-slider .control-arrow:hover {
   background: #ff4e31; }
-.class-rooms-slider .carousel .carousel-status, .class-rooms-slider .carousel .control-dots {
+.class-rooms-slider .carousel .carousel-status, .event-gallery-modal .carousel .carousel-status, .class-rooms-slider .carousel .control-dots, .event-gallery-modal .carousel .control-dots {
+  display: none; }
+
+.event-gallery-modal .modal-content {
+  border-radius: 0px; }
+  .event-gallery-modal .modal-content .modal-body {
+    padding: 20px 0px; }
+.event-gallery-modal .slider-wrapper {
+  padding: 0px 50px; }
+  .event-gallery-modal .slider-wrapper .slide {
+    opacity: 0; }
+    .event-gallery-modal .slider-wrapper .slide.selected {
+      opacity: 1; }
+  .event-gallery-modal .slider-wrapper .img-fluid {
+    width: 100% !important; }
+.event-gallery-modal .control-arrow {
+  height: 50px !important;
+  width: 30px !important;
+  border-radius: 0% !important;
+  margin: auto;
+  opacity: 1 !important;
+  background: #ff4e31 !important; }
+  .event-gallery-modal .control-arrow.control-disabled {
+    opacity: 1 !important; }
+@media screen and (min-width: 767px) {
+  .event-gallery-modal .slider-wrapper {
+    padding: 0px 150px; }
+    .event-gallery-modal .slider-wrapper .slide {
+      opacity: 0; }
+      .event-gallery-modal .slider-wrapper .slide.selected {
+        opacity: 1; }
+  .event-gallery-modal .control-arrow {
+    height: 80px !important;
+    width: 60px !important;
+    border-radius: 0% !important;
+    margin: auto;
+    opacity: 1 !important;
+    background: #ff4e31 !important; }
+    .event-gallery-modal .control-arrow.control-disabled {
+      opacity: 1 !important; } }
+.event-gallery-modal.no-thumble .carousel .thumbs-wrapper {
+  display: none !important; }
+.event-gallery-modal .no-thumble .thumbs-wrapper {
   display: none; }
 
 .page-main-text p {
@@ -1117,6 +1160,18 @@
       font-weight: 800;
       line-height: 2.5;
       color: #000; }
+.dress-code-tab-wrapper .tab-panel-wrapper {
+  margin-top: 20px;
+  padding: 50px;
+  background-color: #f2f2f2; }
+  .dress-code-tab-wrapper .tab-panel-wrapper .page-inner-title {
+    margin-bottom: 30px; }
+    .dress-code-tab-wrapper .tab-panel-wrapper .page-inner-title h2 {
+      font-size: 24px;
+      color: #ff4e31; }
+  .dress-code-tab-wrapper .tab-panel-wrapper .content p {
+    font-size: 18px;
+    line-height: 1.8; }
 
 .custom-table .section-wise-attendance-table thead tr {
   background: #f23010;

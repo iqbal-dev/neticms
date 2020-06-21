@@ -20,6 +20,8 @@ import TeacherInformation from 'containers/TeacherInformation';
 import FeesInfo from 'containers/FeesInfo';
 
 import StuffInformation from 'containers/StuffInformation';
+import EventGallery from 'containers/EventGallery';
+import BasicInfrastucture from 'containers/BasicInfrastucture';
 import SectionWiseResult from '../SectionWiseResult';
 import SectionWiseAttendance from '../SectionWiseAttendance';
 
@@ -68,6 +70,8 @@ export default function AppRoute() {
       <Route exact path="/fees-info" component={FeesInfo} />
 
       <Route exact path="/stuff_information" component={StuffInformation} />
+      <Route exact path="/event_gallery" component={EventGallery} />
+      <Route exact path="/infrastucture" component={BasicInfrastucture} />
       <Route path="" component={NotFoundPage} />
     </Switch>
   );
