@@ -1173,6 +1173,62 @@
     font-size: 18px;
     line-height: 1.8; }
 
+.form .form-inline .form-group {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin-bottom: 8px; }
+  .form .form-inline .form-group .form-control {
+    background-color: #f2f2f2;
+    color: #818181;
+    border: none;
+    flex: 1 0 70%;
+    width: 100%; }
+  .form .form-inline .form-group button {
+    flex: 1 0 30%;
+    background-color: #f23010;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: none; }
+  .form .form-inline .form-group.custom-dropdown {
+    position: relative;
+    border-radius: .25rem;
+    overflow: hidden; }
+    .form .form-inline .form-group.custom-dropdown::after {
+      content: '>';
+      font: 30px "Consolas", monospace;
+      font-weight: 600;
+      color: #f23010;
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+      background-color: #ffffff;
+      width: 28px;
+      height: 28px;
+      line-height: 1;
+      top: 0;
+      left: 0;
+      position: absolute;
+      pointer-events: none;
+      border-radius: 50%;
+      text-align: center;
+      padding: 0px 0px 30px 0;
+      margin: 4px 0px 0px 10px; }
+    .form .form-inline .form-group.custom-dropdown::before {
+      content: '';
+      background-color: #f2f2f2;
+      width: 28px;
+      height: 38px;
+      top: 0;
+      right: 0;
+      position: absolute; }
+    .form .form-inline .form-group.custom-dropdown .form-control {
+      padding-left: 50px; }
+.form .form-inline .full-width {
+  border: none;
+  width: 100%; }
+
 .custom-table .section-wise-attendance-table thead tr {
   background: #f23010;
   border: none;
@@ -1184,7 +1240,10 @@
     font-weight: 700; }
 .custom-table .section-wise-attendance-table tbody tr {
   border-bottom: 2px solid #fff; }
+  .custom-table .section-wise-attendance-table tbody tr:hover td {
+    color: #ff4e31; }
   .custom-table .section-wise-attendance-table tbody tr td {
+    transition: all .3s ease-in-out;
     border-top: none;
     color: #000;
     font-size: 18px;
@@ -1192,13 +1251,13 @@
     .custom-table .section-wise-attendance-table tbody tr td:nth-child(even) {
       text-align: center; }
     .custom-table .section-wise-attendance-table tbody tr td:nth-child(odd) {
-      background-color: #dfdfdf;
+      background-color: #f7f7f7;
       text-align: center; }
     .custom-table .section-wise-attendance-table tbody tr td:first-child {
       background-color: #efefef;
       text-align: left; }
     .custom-table .section-wise-attendance-table tbody tr td:nth-child(2) {
-      background-color: #ffedea; }
+      background-color: #fff9f9; }
     .custom-table .section-wise-attendance-table tbody tr td:last-child::after {
       background-color: gray;
       position: absolute;
@@ -1207,9 +1266,29 @@
       height: 100%;
       right: 0;
       top: 0; }
-.custom-table .section-wise-attendance-table.attendance-symbol tbody tr td.present::after {
+    .custom-table .section-wise-attendance-table tbody tr td .attendance {
+      position: relative; }
+      .custom-table .section-wise-attendance-table tbody tr td .attendance:before {
+        position: absolute;
+        content: "";
+        width: 10px;
+        height: 10px;
+        bottom: 4px;
+        border-radius: 50%;
+        border: 2px solid #ffffff; }
+      .custom-table .section-wise-attendance-table tbody tr td .attendance.passed:before {
+        background-color: #1dbc60; }
+      .custom-table .section-wise-attendance-table tbody tr td .attendance.failed:before {
+        background-color: #ff0000; }
+      .custom-table .section-wise-attendance-table tbody tr td .attendance img {
+        width: 45px;
+        height: 45px;
+        border: 2px solid #000000;
+        border-radius: 50%;
+        overflow: hidden; }
+.custom-table .section-wise-attendance-table.attendance-symbol tbody tr td.present::after, .custom-table .section-wise-attendance-table.attendance-symbol tbody tr td.passed::after {
   background-color: #1dbc60; }
-.custom-table .section-wise-attendance-table.attendance-symbol tbody tr td.absent::after {
+.custom-table .section-wise-attendance-table.attendance-symbol tbody tr td.absent::after, .custom-table .section-wise-attendance-table.attendance-symbol tbody tr td.failed::after {
   background-color: #ff0000; }
 .custom-table .section-wise-attendance-table.attendance-symbol tbody tr td.on-time::after {
   background-color: #002749; }
@@ -1220,7 +1299,10 @@
   align-items: center;
   padding: 20px; }
   .attendance-body-header .attendance-body-header-inside .legend-with-percent {
-    margin-left: 20px; }
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
     .attendance-body-header .attendance-body-header-inside .legend-with-percent.present .title::before {
       background-color: #1dbc60; }
     .attendance-body-header .attendance-body-header-inside .legend-with-percent.present .percent {
@@ -1242,26 +1324,10 @@
         width: 14px;
         height: 14px;
         left: -20px;
-        top: 2px; }
+        top: 4px; }
     .attendance-body-header .attendance-body-header-inside .legend-with-percent .percent {
       color: gray;
       margin: 0 0 0 10px; }
-  .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group {
-    display: flex;
-    width: 100%;
-    margin-bottom: 8px; }
-    .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group .form-control {
-      background-color: #f2f2f2;
-      border: none;
-      flex: 1 0 70%;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0; }
-    .attendance-body-header .attendance-body-header-inside .form .form-inline .form-group button {
-      flex: 1 0 30%;
-      background-color: #f23010;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border: none; }
 
 .result-body-header .result-body-header-inside {
   box-shadow: 0 2px 20px 0px #ccc;
@@ -1269,7 +1335,10 @@
   align-items: center;
   padding: 20px; }
   .result-body-header .result-body-header-inside .legend-with-percent {
-    margin-left: 20px; }
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
     .result-body-header .result-body-header-inside .legend-with-percent.present .title::before {
       background-color: #1dbc60; }
     .result-body-header .result-body-header-inside .legend-with-percent.present .percent {
@@ -1291,26 +1360,10 @@
         width: 14px;
         height: 14px;
         left: -20px;
-        top: 2px; }
+        top: 4px; }
     .result-body-header .result-body-header-inside .legend-with-percent .percent {
       color: gray;
       margin: 0 0 0 10px; }
-  .result-body-header .result-body-header-inside .form .form-inline .form-group {
-    display: flex;
-    width: 100%;
-    margin-bottom: 8px; }
-    .result-body-header .result-body-header-inside .form .form-inline .form-group .form-control {
-      background-color: #f2f2f2;
-      border: none;
-      flex: 1 0 70%;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0; }
-    .result-body-header .result-body-header-inside .form .form-inline .form-group button {
-      flex: 1 0 30%;
-      background-color: #f23010;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border: none; }
 
 .fees-info-main {
   border: 1px solid red; }
