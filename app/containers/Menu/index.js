@@ -7,48 +7,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectMenu from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
-
 import {
   Nav,
   NavItem,
-  Dropdown,
-  DropdownItem,
   DropdownToggle,
   DropdownMenu,
   NavLink,
   Navbar,
-  NavbarBrand,
   Collapse,
   UncontrolledDropdown,
-  NavbarText,
   NavbarToggler,
 } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
+import makeSelectMenu from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Menu extends React.Component {
-
-  toggle = () => { };
+  toggle = () => {};
 
   render() {
-
     const info = JSON.parse(getUrlInfoLocally());
-    // let instituteHostNm = info.urlName;
-
-    console.log('menu-UrlInfoLocally', info);
-
     return (
       <div>
         <section className="topmenu-wrapper">
@@ -61,7 +48,7 @@ export class Menu extends React.Component {
                     <Collapse navbar>
                       <Nav className="mr-auto" navbar>
                         <NavItem>
-                          <NavLink href="#">Home</NavLink>
+                          <NavLink href="/demo">Home</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                           <DropdownToggle nav caret>
@@ -77,10 +64,14 @@ export class Menu extends React.Component {
                                   <NavLink href="#">Welcome Speech</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Comittee</NavLink>
+                                  <NavLink href="/committee/demo2">
+                                    Comittee
+                                  </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Donor Member</NavLink>
+                                  <NavLink href="/donors/demo2">
+                                    Donor Member
+                                  </NavLink>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
@@ -90,13 +81,17 @@ export class Menu extends React.Component {
                               </DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <NavLink href="#">Teacher</NavLink>
+                                  <NavLink href="/all-teachers">
+                                    Teacher
+                                  </NavLink>
                                 </NavItem>
                                 <NavItem>
                                   <NavLink href="#">Student</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Staff</NavLink>
+                                  <NavLink href="/stuff_information">
+                                    Staff
+                                  </NavLink>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
@@ -123,19 +118,23 @@ export class Menu extends React.Component {
                               </DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <NavLink href="#">Book List</NavLink>
+                                  <NavLink href="/booklist/demo2">
+                                    Book List
+                                  </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Uniform</NavLink>
+                                  <NavLink href="/dressCode">Uniform</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Fees Info</NavLink>
+                                  <NavLink href="/fees-info">Fees Info</NavLink>
                                 </NavItem>
                                 <NavItem>
                                   <NavLink href="#">Seat Info</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Syllabus</NavLink>
+                                  <NavLink href="/syllabus-info">
+                                    Syllabus
+                                  </NavLink>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
@@ -148,7 +147,9 @@ export class Menu extends React.Component {
                                   <NavLink href="#">Instiute Wise</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Section Wise</NavLink>
+                                  <NavLink href="/section-wise-attendance">
+                                    Section Wise
+                                  </NavLink>
                                 </NavItem>
                                 <NavItem>
                                   <NavLink href="#">Student Wise</NavLink>
@@ -200,7 +201,9 @@ export class Menu extends React.Component {
                                   <NavLink href="#">Fail List</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Section wise</NavLink>
+                                  <NavLink href="/section-wise-result">
+                                    Section wise
+                                  </NavLink>
                                 </NavItem>
                                 <NavItem>
                                   <NavLink href="#">Individual</NavLink>
@@ -324,7 +327,11 @@ export class Menu extends React.Component {
                   <div className="d-flex">
                     <div className="notice-title">Latest News</div>
                     <div className="notice">
-                      <i className="far fa-square"></i><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, Class will be close.</p>
+                      <i className="far fa-square" />
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, Class will be close.
+                      </p>
                     </div>
                   </div>
                 </div>

@@ -21,8 +21,11 @@ import FeesInfo from 'containers/FeesInfo';
 import TeacherAttendance from 'containers/TeacherAttendance';
 
 import StuffInformation from 'containers/StuffInformation';
+import EventGallery from 'containers/EventGallery';
+import BasicInfrastucture from 'containers/BasicInfrastucture';
 import SectionWiseResult from '../SectionWiseResult';
 import SectionWiseAttendance from '../SectionWiseAttendance';
+import StudentWiseAttendance from '../StudentWiseAttendance';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -63,6 +66,7 @@ export default function AppRoute() {
         path="/section-wise-attendance"
         component={SectionWiseAttendance}
       />
+      <Route exact path="/student-wise-attendance" component={StudentWiseAttendance}/>
       <Route exact path="/section-wise-result" component={SectionWiseResult} />
       <Route exact path="/example" component={ExampleDesign} />
       <Route exact path="/all-teachers" component={TeacherInformation} />
@@ -70,7 +74,10 @@ export default function AppRoute() {
       <Route exact path="/teacher-attendance" component={TeacherAttendance} />
 
       <Route exact path="/stuff_information" component={StuffInformation} />
+      <Route exact path="/event_gallery" component={EventGallery} />
+      <Route exact path="/infrastucture" component={BasicInfrastucture} />
       <Route path="" component={NotFoundPage} />
+      
     </Switch>
   );
 }
