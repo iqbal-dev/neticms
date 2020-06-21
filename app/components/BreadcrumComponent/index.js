@@ -9,15 +9,14 @@ import React from 'react';
 // import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 class BreadcrumComponent extends React.PureComponent {
   render() {
     return (
       <div>
-        <div>
         <div className="page-title-wrapper">
           <div className="container-fluid">
             <div className="container">
@@ -35,16 +34,33 @@ class BreadcrumComponent extends React.PureComponent {
               <div className="row">
                 <div className="offset-lg-4 col-lg-8">
                   <Breadcrumb>
-                    <BreadcrumbItem><a href="#">{this.props.menuStepFirst}</a></BreadcrumbItem>
-                    <BreadcrumbItem><a href="#">{this.props.menuStepSenond}</a></BreadcrumbItem>
-                    <BreadcrumbItem active>{this.props.menuStepThird}</BreadcrumbItem>
+                    {this.props.menuStepFirst ? (
+                      <BreadcrumbItem>
+                        <a href="#">{this.props.menuStepFirst}</a>
+                      </BreadcrumbItem>
+                    ) : (
+                      ''
+                    )}
+                    {this.props.menuStepSenond ? (
+                      <BreadcrumbItem>
+                        <a href="#">{this.props.menuStepSenond}</a>
+                      </BreadcrumbItem>
+                    ) : (
+                      ''
+                    )}
+                    {this.props.menuStepThird ? (
+                      <BreadcrumbItem active>
+                        {this.props.menuStepThird}
+                      </BreadcrumbItem>
+                    ) : (
+                      ''
+                    )}
                   </Breadcrumb>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }

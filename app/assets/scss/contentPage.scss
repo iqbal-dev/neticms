@@ -823,7 +823,7 @@
 }
 .booklist-popup-wrapper{
     .modal-body{
-        padding: 40px !important;
+        padding: 40px;
         .book-list-wrapper{
             .book-list-image{
                 width: 260px;
@@ -913,12 +913,81 @@
                 width: 50px;
                 border-radius: 50%;
                 margin: auto;
+                opacity: 1 !important;
             }
             .control-arrow:hover{
                 background: $orangeColor;
             }
         }
         .carousel-status, .control-dots{
+            display: none;
+        }
+    }
+    
+}
+.event-gallery-modal{
+    @extend .class-rooms-slider;
+    @extend .booklist-popup-wrapper;
+    
+    .modal-content{
+        border-radius: 0px;
+        .modal-body{
+            padding: 20px 0px;
+        }
+    }
+    .slider-wrapper{
+        padding: 0px 50px;
+        .slide{
+            opacity: 0;
+            &.selected{
+                opacity: 1;
+            }
+        }
+    }
+    
+    .control-arrow {
+        height: 50px !important;
+        width: 30px !important;
+        border-radius: 0% !important;
+        margin: auto;
+        opacity: 1 !important;
+        background: $orangeColor !important;
+        &.control-disabled{
+            opacity: 1 !important;
+        }
+    }
+    @media screen and (min-width:767px){
+        .slider-wrapper{
+            padding: 0px 150px;
+            .slide{
+                opacity: 0;
+                &.selected{
+                    opacity: 1;
+                }
+            }
+            
+        }
+        .control-arrow {
+            height: 80px !important;
+            width: 60px !important;
+            border-radius: 0% !important;
+            margin: auto;
+            opacity: 1 !important;
+            background: $orangeColor !important;
+            &.control-disabled{
+                opacity: 1 !important;
+            }
+        }
+    }
+    &.no-thumble{
+        .carousel{
+            .thumbs-wrapper{
+                display: none !important;
+            }
+        }
+    }
+    .no-thumble{
+        .thumbs-wrapper{
             display: none;
         }
     }
@@ -1136,6 +1205,24 @@
             }
         }
     }
+    .tab-panel-wrapper{
+        margin-top: 20px;
+        padding: 50px;
+        background-color: $grayColorLight;
+        .page-inner-title{
+            h2{
+                font-size: 24px;
+                color: $orangeColor;
+            }
+            margin-bottom: 30px;
+        }
+        .content{
+            p{
+                font-size: 18px;
+                line-height: 1.8;
+            }
+        }
+     }
 }
 
 
