@@ -16,6 +16,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
   Form,
+  Input,
   Button,
   Col,
   Container,
@@ -28,6 +29,7 @@ import {
   CardText,
   CardBody,
   CardHeader,
+  FormGroup,
 } from 'reactstrap';
 import makeSelectFeesInfo from './selectors';
 import reducer from './reducer';
@@ -41,8 +43,8 @@ export class FeesInfo extends React.Component {
     return (
       <div>
         <Helmet>
-          <title>Fees Info</title>
-          <meta name="description" content="Description of Fees Info" />
+          <title>FeesInfo</title>
+          <meta name="description" content="Description of FeesInfo" />
         </Helmet>
         <BreadcrumComponent
           pageTitle="Fees Info"
@@ -55,13 +57,37 @@ export class FeesInfo extends React.Component {
             <div className="container-fluid">
               <div className="container p-t-60">
                 <Row>
-                  <Col lg="6"> Showing result for class seven</Col>
-                  <Col lg="6">button will go here</Col>
+                  <div className="fees-info-subheader">
+                    <Col sm="12" lg="6">
+                      {' '}
+                      Showing result for <span>Class Seven</span>
+                    </Col>
+                    <Col sm="12" lg="6" className="search-dropdown">
+                      <Input
+                        type="select"
+                        name="select"
+                        id="class-search-dropdown"
+                      >
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </Input>
+                      <Button className="btn explore-btn">Search</Button>
+                    </Col>
+                  </div>
                 </Row>
                 <Row>
                   <Col md="4">
                     <Card border="primary">
-                      <CardHeader>Fee Name</CardHeader>
+                      <CardHeader>
+                        Fee Name
+                        <span>
+                          <i className="fas fa-info pr-2" />
+                        </span>
+                      </CardHeader>
+
                       <CardBody>
                         <CardText>
                           <table>
@@ -71,7 +97,9 @@ export class FeesInfo extends React.Component {
                             </tr>
                             <tr>
                               <td>Amount</td>
-                              <td>: 5000/-BDT </td>
+                              <td>
+                                : <span>5000/-BDT</span>{' '}
+                              </td>
                             </tr>
                             <tr>
                               <td>Payment Mode</td>
@@ -81,6 +109,178 @@ export class FeesInfo extends React.Component {
                         </CardText>
                       </CardBody>
                     </Card>
+                  </Col>
+
+                  <Col md="4">
+                    <Card border="primary">
+                      <CardHeader>
+                        Fee Name
+                        <span>
+                          <i className="fas fa-info pr-2" />
+                        </span>
+                      </CardHeader>
+
+                      <CardBody>
+                        <CardText>
+                          <table>
+                            <tr>
+                              <td>Group </td>
+                              <td>: Science </td>
+                            </tr>
+                            <tr>
+                              <td>Amount</td>
+                              <td>
+                                : <span>5000/-BDT</span>{' '}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Payment Mode</td>
+                              <td>: Monthly </td>
+                            </tr>
+                          </table>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+
+                  <Col md="4">
+                    <Card border="primary">
+                      <CardHeader>
+                        Fee Name
+                        <span>
+                          <i className="fas fa-info pr-2" />
+                        </span>
+                      </CardHeader>
+
+                      <CardBody>
+                        <CardText>
+                          <table>
+                            <tr>
+                              <td>Group </td>
+                              <td>: Science </td>
+                            </tr>
+                            <tr>
+                              <td>Amount</td>
+                              <td>
+                                : <span>5000/-BDT</span>{' '}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Payment Mode</td>
+                              <td>: Monthly </td>
+                            </tr>
+                          </table>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+
+                  <Col md="4">
+                    <Card border="primary">
+                      <CardHeader>
+                        Fee Name
+                        <span>
+                          <i className="fas fa-info pr-2" />
+                        </span>
+                      </CardHeader>
+
+                      <CardBody>
+                        <CardText>
+                          <table>
+                            <tr>
+                              <td>Group </td>
+                              <td>: Science </td>
+                            </tr>
+                            <tr>
+                              <td>Amount</td>
+                              <td>
+                                : <span>5000/-BDT</span>{' '}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Payment Mode</td>
+                              <td>: Monthly </td>
+                            </tr>
+                          </table>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+
+                  <Col md="4">
+                    <Card border="primary">
+                      <CardHeader>
+                        Fee Name
+                        <span>
+                          <i className="fas fa-info pr-2" />
+                        </span>
+                      </CardHeader>
+
+                      <CardBody>
+                        <CardText>
+                          <table>
+                            <tr>
+                              <td>Group </td>
+                              <td>: Science </td>
+                            </tr>
+                            <tr>
+                              <td>Amount</td>
+                              <td>
+                                : <span>5000/-BDT</span>{' '}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Payment Mode</td>
+                              <td>: Monthly </td>
+                            </tr>
+                          </table>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+
+                  <Col md="4">
+                    <Card border="primary">
+                      <CardHeader>
+                        Fee Name
+                        <span>
+                          <i className="fas fa-info pr-2" />
+                        </span>
+                      </CardHeader>
+
+                      <CardBody>
+                        <CardText>
+                          <table>
+                            <tr>
+                              <td>Group </td>
+                              <td>: Science </td>
+                            </tr>
+                            <tr>
+                              <td>Amount</td>
+                              <td>
+                                : <span>5000/-BDT</span>{' '}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Payment Mode</td>
+                              <td>: Monthly </td>
+                            </tr>
+                          </table>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={4}>
+                    <div className="fees-details-dialog">
+                      <h3>Fee Details</h3>
+                      <p>
+                        Lorem Ipsum has been the industry's standard dummy text
+                        ever since the 1500s, when an unknown printer took a
+                        galley of type and scrambled
+                      </p>
+                    </div>
                   </Col>
                 </Row>
               </div>

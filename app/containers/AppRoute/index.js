@@ -18,6 +18,7 @@ import SyllabusInfo from 'containers/SyllabusInfo';
 import ExampleDesign from 'containers/ExampleDesign';
 import TeacherInformation from 'containers/TeacherInformation';
 import FeesInfo from 'containers/FeesInfo';
+import TeacherAttendance from 'containers/TeacherAttendance';
 
 import StuffInformation from 'containers/StuffInformation';
 import SectionWiseResult from '../SectionWiseResult';
@@ -66,6 +67,7 @@ export default function AppRoute() {
       <Route exact path="/example" component={ExampleDesign} />
       <Route exact path="/all-teachers" component={TeacherInformation} />
       <Route exact path="/fees-info" component={FeesInfo} />
+      <Route exact path="/teacher-attendance" component={TeacherAttendance} />
 
       <Route exact path="/stuff_information" component={StuffInformation} />
       <Route path="" component={NotFoundPage} />
