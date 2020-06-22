@@ -22,7 +22,8 @@ import FeesInfo from 'containers/FeesInfo';
 import StuffInformation from 'containers/StuffInformation';
 import SectionWiseResult from '../SectionWiseResult';
 import SectionWiseAttendance from '../SectionWiseAttendance';
-
+import AllNotice from 'containers/AllNotice';
+ 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
   const aboutRouteNm = `/${instituteHostNm}${'/about'.toString()}`;
@@ -67,6 +68,7 @@ export default function AppRoute() {
       <Route exact path="/all-teachers" component={TeacherInformation} />
       <Route exact path="/fees-info" component={FeesInfo} />
 
+      <Route exact path="/all-notice" component={AllNotice} />
       <Route exact path="/stuff_information" component={StuffInformation} />
       <Route path="" component={NotFoundPage} />
     </Switch>
