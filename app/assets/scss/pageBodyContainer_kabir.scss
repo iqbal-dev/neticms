@@ -2,217 +2,20 @@
     font-family: $fontName, sans-serif !important;
 }
 
-@mixin membersMainView($memberCategory){
-    $colorPrimary: $primaryColorDark;
-    $colorSecondary: $primaryColorLight;
-    
-    .#{$memberCategory}-main{
-        h2{
-            // @include h2-borderBottom();
-            padding: 0px 0 20px 0px;
-            margin: 0px 0 20px 0;
-        }
-
-        hr{
-            border: 1px solid #f3f3f3;
-            margin: -23px 0 80px 0;
-        }
-        
-        .student-pay-slip-data, .section-wise-attendance-data{
-            hr{
-                margin: -23px 0 50px 0;
-            }
-        }
-        
-        > .ui-widget{
-            width: 100%;
-        }
-        
-        .#{$memberCategory}-data{
-            /*padding: 0 40px 40px 40px;*/
-            /*padding: 0;*/
-            
-            .header-with-print{
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                
-                button{
-                    width: auto;
-                    background-color: transparent;
-                    color: #000000;
-                    border: none;
-                }
-            }
-            
-            .ui-datagrid-content{
-                /*padding: 0px 14px;*/
-                padding: 0px 0px;
-                
-                .booklist-data-inside, 
-                .feelist-data-inside, 
-                .seatlist-data-inside, 
-                .syllabuslist-data-inside, 
-                .downloadcorner-data-inside, 
-                .studentlist-data-inside, 
-                .studentpayslip-data-inside, 
-                .studentpayslip-data-inside-details,
-                .section-wise-attendance-data-inside{
-                    display: flex;
-                    flex-wrap: wrap;
-                    transition: all 1s;
-
-                    .img-div{
-                        flex: 0 1 auto;
-                        width: 140px;
-                        height: 180px;
-                        background-color: #fdfdfd;
-                        transition: all .5s;
-                        
-                        &.overlay{
-                            position: absolute;
-                            align-items: center;
-                            display: flex;
-                            justify-content: center;
-                            font-size: 20px;
-                            opacity: 0;
-                        }
-                    }
-
-                    .description{
-                        flex: 1 1 auto;
-                        padding: 0 40px 0px 40px;
-                        max-width: 625px;
-                        transition: all 1s;
-
-                        .description-title{
-                            color: $colorPrimary;
-                            font-size: 16px;
-                            margin-bottom: 5px;
-                        }
-
-                        .description-inside{
-                            div{
-                                margin-bottom: 3px;
-
-                                label{
-                                    font-size: 12px;
-                                }
-                            }
-                        }
-                    }
-                    
-                    
-                }
-            }
-                
-                
-            
-            .section-wise-attendance-data-inside{
-                /*padding: 20px;*/
-                
-                .ui-datatable-tablewrapper{
-                    overflow: hidden;
-                    
-                    table{
-                        width: 100%;
-                        border: 1px solid #EFEFEF;
-                        
-                        thead{
-                            tr{
-                                th{
-                                    background-color: $colorSecondary;
-                                    color: #ffffff;
-                                    border: none;
-                                    font-size: 12px;
-                                    padding: 16px 12px;
-                                    
-                                    &:first-child{
-                                        text-align: left;
-                                    }
-                                }
-                            }
-                        }
-                        tbody{
-                            
-                            tr{
-                                border: 1px solid #EFEFEF;
-                                
-                                &:nth-child(odd){
-                                    background-color: transparent;
-                                }
-                                
-                                td{
-                                    padding: 16px 12px;
-
-                                    .attendance{
-                                        position: relative;
-                                        
-                                        &:before{
-                                            position: absolute;
-                                            content: "";
-                                            width: 10px;
-                                            height: 10px;
-                                            bottom: 4px;
-                                            border-radius: 50%;
-                                            border: 2px solid #ffffff;
-                                        }
-                                        &.present:before{
-                                            background-color: #3CD846;
-                                        }
-                                        &.absent:before{
-                                            background-color: #FF0000;
-                                        }
-                                        &.delay:before{
-                                            background-color: #896CDB;
-                                        }
-                                        
-                                        
-                                        img{
-                                            width: 45px;
-                                            height: 45px;
-                                            border: 2px solid red;
-                                            border-radius: 50%;
-                                        }
-                                    }
-                                    
-                                    .img-in-result{
-                                        img{
-                                            width: 45px;
-                                            height: 45px;
-                                            border: 2px solid $colorSecondary;
-                                            border-radius: 14px;
-                                        }
-                                    }
-                                    
-                                    &:nth-child(even){
-                                        background-color: #F8F8F8;
-                                    }
-
-                                    &:nth-child(n+1){
-                                        text-align: center;
-                                    }
-
-                                    &:first-child{
-                                        text-align: left;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            /*.........section-wise-attendance-data-inside END (Teacher & Student)...........*/ 
-            
-        }
-    }
-}
-
 @mixin customTableSection($className) {
     .custom-table{
         .#{$className}{
+            &.center{
+                text-align: center;
+
+                tbody{
+                    tr{
+                        td{
+                            text-align: center !important;
+                        }
+                    }
+                }
+            }
             thead{
                 tr{
                     background: $orangeColorDark;
@@ -231,7 +34,12 @@
                 tr{
                     border-bottom: 2px solid #fff;
 
+                    &:hover td{
+                        color: $orangeColor;
+                    }
+
                     td{
+                        transition: all .3s ease-in-out;
                         border-top: none;
                         color: $colorBlack;
                         font-size: 18px;
@@ -242,7 +50,7 @@
                         }
 
                         &:nth-child(odd){
-                            background-color: #dfdfdf;
+                            background-color: #f7f7f7;
                             text-align: center;
                         }
 
@@ -252,7 +60,7 @@
                         }
 
                         &:nth-child(2){
-                            background-color: $tableHeaderTransparent;
+                            background-color: #fff9f9;
                         }
 
                         &:last-child::after{
@@ -265,6 +73,110 @@
                             top: 0;
                             
                         }
+
+                        .attendance{
+                            position: relative;
+                            
+                            &:before{
+                                position: absolute;
+                                content: "";
+                                width: 10px;
+                                height: 10px;
+                                bottom: 4px;
+                                border-radius: 50%;
+                                border: 2px solid #ffffff;
+                            }
+                            &.passed:before{
+                                background-color: $colorPresent;
+                            }
+                            &.failed:before{
+                                background-color: $colorAbsent;
+                            }
+                            
+                            
+                            img{
+                                width: 45px;
+                                height: 45px;
+                                border: 2px solid #000000;
+                                border-radius: 50%;
+                                overflow: hidden;
+                            }
+                        }
+
+                        .legend-with-percent{
+                            margin-left: 30px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+            
+                            &.present{
+                                .title{
+                                    &::before{
+                                        background-color: $colorPresent;
+                                    }
+                                }
+                
+                                .percent{
+                                    color: $colorPresent;
+                                }
+                            }
+            
+                            &.absent{
+                                .title{
+                                    &::before{
+                                        background-color: $colorAbsent;
+                                    }
+                                }
+                
+                                .percent{
+                                    color: $colorAbsent;
+                                }
+                            }
+            
+                            &.delay{
+                                .title{
+                                    &::before{
+                                        background-color: $colorDelayTime;
+                                    }
+                                }
+                
+                                .percent{
+                                    color: $colorDelayTime;
+                                }
+                            }
+
+                            &.on-leave{
+                                .title{
+                                    &::before{
+                                        background-color: $colorOnLeave;
+                                    }
+                                }
+                
+                                .percent{
+                                    color: $colorOnLeave;
+                                }
+                            }
+            
+                            .title{
+                                position: relative;
+            
+                                &::before{
+                                    position: absolute;
+                                    content: '';
+                                    background-color: gray;
+                                    width: 14px;
+                                    height: 14px;
+                                    left: -20px;
+                                    top: 6px;
+                                    border-radius: 50%;
+                                }
+                            }
+            
+                            .percent{
+                                color: gray;
+                                margin: 0 0 0 10px;
+                            }
+                        }
                     }
                 }
             }
@@ -273,16 +185,20 @@
                 tbody{
                     tr{
                         td{
-                            &.present::after{
+                            &.present::after, &.passed::after{
                                 background-color: $colorPresent;
                             }
 
-                            &.absent::after{
+                            &.absent::after, &.failed::after{
                                 background-color: $colorAbsent;
                             }
 
-                            &.on-time::after{
-                                background-color: $colorOnTime;
+                            &.delay::after{
+                                background-color: $colorDelayTime;
+                            }
+
+                            &.on-leave::after{
+                                background-color: $colorOnLeave;
                             }
                         }
                     }
@@ -298,10 +214,13 @@
             box-shadow: 0 2px 20px 0px #ccc;
             margin: 0;
             align-items: center;
-            padding: 20px;
+            padding: 30px 0;
 
             .legend-with-percent{
                 margin-left: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
 
                 &.present{
                     .title{
@@ -327,15 +246,27 @@
                     }
                 }
 
-                &.on-time{
+                &.delay{
                     .title{
                         &::before{
-                            background-color: $colorOnTime;
+                            background-color: $colorDelayTime;
                         }
                     }
     
                     .percent{
-                        color: $colorOnTime;
+                        color: $colorDelayTime;
+                    }
+                }
+
+                &.on-leave{
+                    .title{
+                        &::before{
+                            background-color: $colorOnLeave;
+                        }
+                    }
+    
+                    .percent{
+                        color: $colorOnLeave;
                     }
                 }
 
@@ -349,7 +280,7 @@
                         width: 14px;
                         height: 14px;
                         left: -20px;
-                        top: 2px;
+                        top: 4px;
                     }
                 }
 
@@ -359,39 +290,459 @@
                 }
             }
 
-            .form{
-                .form-inline{
-                    .form-group{
-                        display: flex;
-                        width: 100%;
-                        margin-bottom: 8px;
+            
+            .attendance{
+                position: relative;
+                text-align: center;
 
-                        .form-control{
-                            background-color: #f2f2f2;
-                            border: none;
-                            flex: 1 0 70%;
-                            border-top-right-radius: 0;
-                            border-bottom-right-radius: 0;
-                        }
+                img{
+                    width: 100px;
+                    height: 100px;
+                    border: 2px solid #000000;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+            }
 
-                        button{
-                            flex: 1 0 30%;
-                            background-color: $orangeColorDark;
-                            border-top-left-radius: 0;
-                            border-bottom-left-radius: 0;
-                            border: none;
-                            // border-color: $orangeColorDark;
+            .info{
+                .table{
+                    margin-bottom: 0;
+
+                    tbody{
+                        tr{
+                            td{
+                                padding: 3px 0;
+                                font-weight: 500;
+                                font-size: 14px;
+
+                                &:nth-child(odd){
+                                    font-weight: 500;
+                                }
+                                &:nth-child(even){
+                                    font-weight: 400;
+                                }
+                            }
                         }
                     }
                     
                 }
             }
+
+            .roll-no{
+                padding: 10px 0;
+                text-align: center;
+                border: 1px solid black;
+                height: 90px;
+                font-size: 14px;
+                border-radius: 5px;
+                line-height: 30px;
+
+                .title{
+
+                }
+
+                .value{
+                    font-size: 18px;
+                    font-weight: bold;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+    }
+
+    .info-header-title{
+        div{
+            h5{
+                font-weight: bold;
+            }
+        }
+    }
+
+    .custom-title-border-center{
+        margin: 60px 0;
+    }
+}
+
+.form{
+    .form-inline{
+        .form-group{
+            position: relative;
+            display: flex;
+            width: 100%;
+            margin-bottom: 8px;
+
+            .form-control{
+                background-color: #f2f2f2;
+                color: #818181;
+                border: none;
+                flex: 1 0 70%;
+                // border-top-right-radius: 0;
+                // border-bottom-right-radius: 0;
+                width: 100%;
+            }
+
+            button{
+                flex: 1 0 30%;
+                background-color: $orangeColorDark;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                border: none;
+                // border-color: $orangeColorDark;
+
+                &.all-border-radious{
+                    border-top-left-radius: .25rem;
+                    border-bottom-left-radius: .25rem;
+                }
+            }
+
+            &.custom-dropdown{
+                position: relative;
+                border-radius: .25rem;
+                overflow: hidden;
+                
+                &::after {
+                    content: '>';
+                    font: 30px "Consolas", monospace;
+                    font-weight: 600;
+                    color: $orangeColorDark;
+                    -webkit-transform: rotate(90deg);
+                    -moz-transform: rotate(90deg);
+                    -ms-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                    background-color: #ffffff;
+                    width: 28px;
+                    height: 28px;
+                    line-height: 1;
+                    top: 0;
+                    left: 0;
+                    position: absolute;
+                    pointer-events: none;
+                    border-radius: 50%;
+                    text-align: center;
+                    padding: 0px 0px 30px 0;
+                    margin: 4px 0px 0px 10px;
+                }
+                &::before {
+                    content: '';
+                    background-color: #f2f2f2;
+                    width: 28px;
+                    height: 38px;
+                    top: 0;
+                    right: 0;
+                    position: absolute;
+                }
+
+                .form-control{
+                    padding-left: 50px;
+                }
+            }
+        }
+
+        .full-width{
+            border: none;
+            width: 100%;
         }
         
     }
 }
 
+.page-inner-title{
+    &.with-print{
+        h2{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .print{
+                font-size: 14px;
+
+                i{
+                    color: #000000;
+                }
+            }
+        }
+    }
+}
+
+/*.........Student LIST INSIDE START...........*/ 
+                
+.studentlist-data-inside{
+    // background-color: orange;
+    display: flex;
+    flex-wrap: wrap;
+    transition: all 1s;
+
+    .img-div{
+        flex: 0 1 auto;
+        width: 140px;
+        height: 180px;
+        background-color: #fdfdfd;
+        transition: all .5s;
+        
+        &.overlay{
+            position: absolute;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            font-size: 20px;
+            opacity: 0;
+        }
+    }
+
+    // .description{
+        
+    //     .description-title{
+            
+    //     }
+
+    //     .description-inside{
+    //         div{
+    //             margin-bottom: 3px;
+
+    //             label{
+    //                 font-size: 12px;
+    //             }
+    //         }
+    //     }
+    // }
+    
+    .description{
+        flex: 1 1 auto;
+        padding: 0 40px 0px 40px;
+        max-width: 625px;
+        transition: all 1s;
+
+        border: 1px solid #E8E8E8;
+        border-radius: 4px;
+        margin: 0 0px 25px 0;
+        padding: 0px 0px;
+        box-shadow: 0px 8px 25px #00000003;
+        max-width: none;
+        
+        &:hover {
+            background-color: #efefef;
+        }
+        
+        
+        
+        .description-inside{
+            color: $primaryColorDark;
+            font-size: 16px;
+            margin-bottom: 5px;
+            padding: 5px 0px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            
+            &:hover .class-name > label{
+                color: $primaryColorLight;
+            }
+            
+            &:hover .download-corner-button.ui-button{
+                background-color: $primaryColorDark;
+            }
+            
+            > div{
+                .student-details{
+        
+                    div{
+                        display: flex;
+                        align-items: center;
+                        padding: 1px 0;
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: $primaryColorLight;
+                        height: 25px;
+    
+                        > label{
+                            min-width: 110px;
+                            font-size: 12px;
+                            color: $primaryColorDark;
+                            font-weight: 400;
+                            margin-bottom: unset;
+                        }
+                    }
+                    
+                }
+                // > div{
+                //     > div{
+                //         display: flex;
+                //         align-items: center;
+                //         padding: 1px 0;
+                //         font-size: 13px;
+                //         font-weight: 600;
+                //         color: $primaryColorDark;
+                //         height: 25px;
+                        
+                //         > label{
+                //             min-width: 110px;
+                //             font-size: 12px;
+                //             color: #8A8A8A;
+                //             font-weight: 400;
+                //         }
+                //     }
+                // }
+                
+            }
+            
+            .roll-no{
+                text-align: center;
+                
+                .roll-no-title{
+                    font-size: 13px;
+                    font-weight: 600;
+                }
+                
+                label{
+                    // color: $primaryColorLight;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
+            
+            .student-img{
+                display: flex;
+                justify-content: center;
+                position: relative;
+                
+                .img-div{
+                    width: 85px;
+                    height: 85px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                }
+                
+                &:before{
+                    position: absolute;
+                    content: "";
+                    width: 1px;
+                    height: 86%;
+                    background-color: #f1f1f1;
+                    left: 0;
+                }
+            }
+            
+            .student-gender{
+                text-align: center;
+                
+                i{
+                    font-size: 30px;
+                    color: $primaryColorDark;
+                    opacity: .5;
+                }
+            }
+            
+            .student-custom-id{
+                text-align: center;
+                position: relative;
+                
+                &:before{
+                    position: absolute;
+                    content: "";
+                    width: 1px;
+                    height: 86%;
+                    background-color: #f1f1f1;
+                    left: 0;
+                }
+                
+                .roll-no-title{
+                    font-size: 13px;
+                    font-weight: 600;
+                }
+
+                label{
+                    // color: #1C2D8C;
+                    font-size: 20px;
+                }
+            }
+            
+            .group-name{
+                position: relative;
+                padding: 0 15px;
+                
+                div{
+                    margin-bottom: 10px;
+                    span{
+                        background-color: $primaryColorDark;
+                        color: #ffffff;
+                        border-radius: 3px;
+                        padding: 2px 6px;
+                    }
+                    
+                    label{
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+                
+                &:before{
+                    position: absolute;
+                    content: "";
+                    width: 1px;
+                    height: 100%;
+                    background-color: #f1f1f1;
+                    left: 0;
+                }
+
+                &:after{
+                    position: absolute;
+                    content: "";
+                    width: 1px;
+                    height: 100%;
+                    background-color: #f1f1f1;
+                    right: 10px;
+                }
+            }
+            
+            .group-name-title{
+                div{
+                    margin-bottom: 10px;
+                    span{
+                        background-color: transparent;
+                        color: $primaryColorLight;
+                        border-radius: 3px;
+                        padding: 2px 0px;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+                    
+                    label{
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                }
+                
+                &:before{
+                    display: none
+                }
+
+                &:after{
+                    display: none
+                }
+            }
+            
+            .ui-button{
+                background-color: $primaryColorLight;
+                border-radius: 4px;
+                border: none;
+                float: right;
+            }
+            
+
+        }
+    }
+    
+    
+    
+}
+
+/*.........Student LIST INSIDE END...........*/ 
+
 @include customTableSection("section-wise-attendance-table"); 
+@include customTableSection("student-wise-attendance-table"); 
 @include bodyHeader("attendance-body-header"); 
 @include bodyHeader("result-body-header"); 
 // @include membersMainView("section-wise-attendance"); 

@@ -22,6 +22,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import donorImage from '../../assets/img/donor-image.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SectionWiseResult extends React.Component {
@@ -36,8 +37,8 @@ export class SectionWiseResult extends React.Component {
 
         <BreadcrumComponent
           pageTitle="Section Wise Result"
-          menuStepFirst="Academic Info"
-          menuStepSenond="Student Attendance"
+          menuStepFirst="Result Info"
+          menuStepSenond="Semester Exam"
           menuStepThird="Section Wise"
         />
 
@@ -47,7 +48,7 @@ export class SectionWiseResult extends React.Component {
               <div className="row">
                 <div className="col-md-12 result-body-header">
                   <div className="row result-body-header-inside">
-                    <div className="col-lg-3">
+                    <div className="col-md-6 col-lg-3">
                       <Chart
                         width="200px"
                         height="200px"
@@ -77,7 +78,7 @@ export class SectionWiseResult extends React.Component {
                         rootProps={{ 'data-testid': '1' }}
                       />
                     </div>
-                    <div className="col-lg-3 m-t-30 m-b-30 ">
+                    <div className="col-md-6 col-lg-3 m-t-30 m-b-30 ">
                       <div className="legend-with-percent present">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">Passed</span>
@@ -90,43 +91,37 @@ export class SectionWiseResult extends React.Component {
                         <span className="percent">( 13.3% )</span>
                       </div>
                     </div>
-                    <div className="col-lg-6 form">
+                    <div className="col-md-12 col-lg-6 form">
                       <Form inline>
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
+                        <FormGroup className="custom-dropdown">
+                          <Input type="select" name="academic-year">
+                            <option>Select Academic Year</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </Input>
                         </FormGroup>
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
+                        <FormGroup className="custom-dropdown">
+                          <Input type="select" name="exam-type">
+                            <option>Select Exam Type</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </Input>
                         </FormGroup>
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
-                        </FormGroup>
-
-                        <FormGroup>
-                          <Input
-                            type="date"
-                            name="date"
-                            id="exampleDate"
-                            placeholder="date placeholder"
-                          />
+                        <FormGroup className="custom-dropdown">
+                          <Input type="select" name="section">
+                            <option>Select Section</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </Input>
                         </FormGroup>
 
-                        <Button class="btn explore-btn">Search</Button>
+                        <Button className="btn explore-btn full-width">Search</Button>
                       </Form>
                     </div>
                   </div>
@@ -137,10 +132,10 @@ export class SectionWiseResult extends React.Component {
             <div className="container p-t-60">
               <div className="row">
                 <div className="col-md-12">
-                  <div className="page-inner-title">
+                  <div className="page-inner-title with-print">
                     <h2>
-                      Total Student Found{' '}
-                      <span className="text-orange">(1212)</span>
+                      <span>Total Student Found<span className="text-orange">(1212)</span></span>
+                      <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span>
                     </h2>
                     <div className="custom-title-border-left" />
                   </div>
@@ -158,46 +153,59 @@ export class SectionWiseResult extends React.Component {
                     >
                       <thead>
                         <tr>
-                          <th>Section Name</th>
-                          <th>Total Students</th>
-                          <th>Present</th>
-                          <th>Absent</th>
-                          <th>Delay</th>
-                          <th>Leave</th>
+                          <th>Photo</th>
+                          <th>Student ID</th>
+                          <th>Roll No</th>
+                          <th>Student Name</th>
+                          <th>Total Marks</th>
+                          <th>GPA</th>
+                          <th>Grade</th>
                           {/* <th className="text-center">Action</th> */}
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>Class Ten Section - A</td>
-                          <td>57</td>
-                          <td>57</td>
-                          <td>00</td>
-                          <td>07</td>
-                          <td className="present">00</td>
+                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
+                          <td>100024</td>
+                          <td>1</td>
+                          <td>Md. Shahrear Kabir</td>
+                          <td>549.60</td>
+                          <td>4.88</td>
+                          <td className="passed">A</td>
                         </tr>
                         <tr>
-                          <td>Class One Section - A</td>
-                          <td>65</td>
-                          <td>65</td>
-                          <td>00</td>
-                          <td>00</td>
-                          <td className="absent">00</td>
+                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
+                          <td>100024</td>
+                          <td>2</td>
+                          <td>Md. Shahrear Kabir 2</td>
+                          <td>549.60</td>
+                          <td>4.88</td>
+                          <td className="passed">A</td>
                         </tr>
                         <tr>
-                          <td>Class Five Section - B</td>
-                          <td>45</td>
-                          <td>42</td>
-                          <td>03</td>
-                          <td>05</td>
-                          <td className="on-time">00</td>
+                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
+                          <td>100024</td>
+                          <td>3</td>
+                          <td>Md. Shahrear Kabir 3</td>
+                          <td>549.60</td>
+                          <td>5.00</td>
+                          <td className="passed">A+</td>
+                        </tr>
+                        <tr>
+                          <td><div className="attendance failed"><img src={donorImage}/></div></td>
+                          <td>100030</td>
+                          <td>4</td>
+                          <td>Md. Shahrear Kabir 4</td>
+                          <td>120.60</td>
+                          <td>00</td>
+                          <td className="failed">F</td>
                         </tr>
                       </tbody>
                     </Table>
                   </div>
                 </di>
               </div>
-              <div className="row m-t-40">
+              {/* <div className="row m-t-40">
                 <div className="col-md-12">
                   <div className="text-center m-t-40">
                     <button className="btn explore-btn-lg">
@@ -205,7 +213,7 @@ export class SectionWiseResult extends React.Component {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>

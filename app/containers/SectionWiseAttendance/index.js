@@ -94,7 +94,7 @@ export class SectionWiseAttendance extends React.Component {
                         <span className="percent">( 13.3% )</span>
                       </div>
 
-                      <div className="legend-with-percent on-time">
+                      <div className="legend-with-percent delay">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">On</span>
                         <span className="percent">( 13.3% )</span>
@@ -109,7 +109,7 @@ export class SectionWiseAttendance extends React.Component {
                             id="exampleDate"
                             placeholder="date placeholder"
                           />
-                          <Button class="btn explore-btn">Search</Button>
+                          <Button className="btn explore-btn">Search</Button>
                         </FormGroup>
                       </Form>
                     </div>
@@ -174,14 +174,14 @@ export class SectionWiseAttendance extends React.Component {
                           <td>42</td>
                           <td>03</td>
                           <td>05</td>
-                          <td className="on-time">00</td>
+                          <td className="delay">00</td>
                         </tr>
                       </tbody>
                     </Table>
                   </div>
                 </di>
               </div>
-              <div className="row m-t-40">
+              {/* <div className="row m-t-40">
                 <div className="col-md-12">
                   <div className="text-center m-t-40">
                     <button className="btn explore-btn-lg">
@@ -189,7 +189,7 @@ export class SectionWiseAttendance extends React.Component {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>

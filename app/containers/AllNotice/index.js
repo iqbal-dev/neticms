@@ -39,9 +39,9 @@ export class AllNotice extends React.Component {
             <div className="container p-t-10">
 
               <div className="row" >
-                <div className="col-md-12 ">
+                <div className="col-md-12 all-notice-bg">
 
-                  <div className='all-notice-wrapper '>
+                  <div className='all-notice-wrapper m-b-20'>
                     <div className='notice-wrapper'>
 
                       <div className="row" >
@@ -87,11 +87,28 @@ export class AllNotice extends React.Component {
 
               </div>
 
+              <div className="row m-t-40">
+                <div className="col-md-12">
+                  <div className="text-center m-t-40">
+                    <button class="btn explore-btn-lg">Explore all <i class="fas fa-angle-right"></i></button>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+          <div className="container">
+            <div className="row">
+              <div className="offset-md-1 col-md-10">
+                <div className="custom-title-border-center"></div>
+              </div>
             </div>
           </div>
 
+          </div>
+
         </section>
-      </div>
+      </div >
 
     );
   }

@@ -6,8 +6,15 @@
     padding-top: 20px;
   }
 
-.all-notice-wrapper{
+  .all-notice-bg{
     padding: 30px;
+    background-color: $grayColorLight;
+  }
+  .m-b-20{
+      margin-bottom: 20px;
+  }
+
+.all-notice-wrapper{
     padding-bottom: 0;
     background-color: $grayColorLight;
 }
@@ -16,4 +23,8 @@
     background-color: $colorWhite;
     padding: 15px;
     border: 1px solid $grayColor;
+
+    p{
+        font-size: 18px;
+    }
 }

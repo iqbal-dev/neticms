@@ -18,12 +18,19 @@ import SyllabusInfo from 'containers/SyllabusInfo';
 import ExampleDesign from 'containers/ExampleDesign';
 import TeacherInformation from 'containers/TeacherInformation';
 import FeesInfo from 'containers/FeesInfo';
+import TeacherAttendance from 'containers/TeacherAttendance';
 
 import StuffInformation from 'containers/StuffInformation';
+import EventGallery from 'containers/EventGallery';
+import BasicInfrastucture from 'containers/BasicInfrastucture';
 import SectionWiseResult from '../SectionWiseResult';
 import SectionWiseAttendance from '../SectionWiseAttendance';
 import AllNotice from 'containers/AllNotice';
  
+import StudentWiseAttendance from '../StudentWiseAttendance';
+import FailList from '../FailList';
+import StudentInfo from '../StudentInfo';
+
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
   const aboutRouteNm = `/${instituteHostNm}${'/about'.toString()}`;
@@ -63,14 +70,21 @@ export default function AppRoute() {
         path="/section-wise-attendance"
         component={SectionWiseAttendance}
       />
+      <Route exact path="/student-wise-attendance" component={StudentWiseAttendance}/>
       <Route exact path="/section-wise-result" component={SectionWiseResult} />
+      <Route exact path="/fail-list" component={FailList} />
       <Route exact path="/example" component={ExampleDesign} />
       <Route exact path="/all-teachers" component={TeacherInformation} />
       <Route exact path="/fees-info" component={FeesInfo} />
+      <Route exact path="/Student-info" component={StudentInfo} />
+      <Route exact path="/teacher-attendance" component={TeacherAttendance} />
 
       <Route exact path="/all-notice" component={AllNotice} />
       <Route exact path="/stuff_information" component={StuffInformation} />
+      <Route exact path="/event_gallery" component={EventGallery} />
+      <Route exact path="/infrastucture" component={BasicInfrastucture} />
       <Route path="" component={NotFoundPage} />
+      
     </Switch>
   );
 }
