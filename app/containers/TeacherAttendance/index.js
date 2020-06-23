@@ -22,6 +22,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import donorImage from '../../assets/img/donor-image.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TeacherAttendance extends React.Component {
@@ -160,21 +161,25 @@ export class TeacherAttendance extends React.Component {
                         </thead>
                         <tbody>
                           <tr>
-                            <td>Class Ten Section - A</td>
+                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
+
                             <td>57</td>
                             <td>57</td>
                             <td>00</td>
                             <td className="present">00</td>
                           </tr>
                           <tr>
-                            <td>Class One Section - A</td>
+                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
+
                             <td>65</td>
                             <td>65</td>
                             <td>00</td>
-                            <td className="absent">00</td>
+                            <td className="present">00</td>
+
                           </tr>
                           <tr>
-                            <td>Class Five Section - B</td>
+                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
+
                             <td>45</td>
                             <td>42</td>
                             <td>05</td>
