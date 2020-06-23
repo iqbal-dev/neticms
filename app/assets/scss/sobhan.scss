@@ -1,0 +1,30 @@
+.p-t-10{
+    padding-top : 10px;
+}
+
+.p-t-20 {
+    padding-top: 20px;
+  }
+
+  .all-notice-bg{
+    padding: 30px;
+    background-color: $grayColorLight;
+  }
+  .m-b-20{
+      margin-bottom: 20px;
+  }
+
+.all-notice-wrapper{
+    padding-bottom: 0;
+    background-color: $grayColorLight;
+}
+
+.notice-wrapper{
+    background-color: $colorWhite;
+    padding: 15px;
+    border: 1px solid $grayColor;
+
+    p{
+        font-size: 18px;
+    }
+}

@@ -25,6 +25,8 @@ import EventGallery from 'containers/EventGallery';
 import BasicInfrastucture from 'containers/BasicInfrastucture';
 import SectionWiseResult from '../SectionWiseResult';
 import SectionWiseAttendance from '../SectionWiseAttendance';
+import AllNotice from 'containers/AllNotice';
+ 
 import StudentWiseAttendance from '../StudentWiseAttendance';
 import FailList from '../FailList';
 import StudentInfo from '../StudentInfo';
@@ -81,6 +83,7 @@ export default function AppRoute() {
       <Route exact path="/individual-result" component={IndividualResult} />
       <Route exact path="/teacher-attendance" component={TeacherAttendance} />
 
+      <Route exact path="/all-notice" component={AllNotice} />
       <Route exact path="/stuff_information" component={StuffInformation} />
       <Route exact path="/event_gallery" component={EventGallery} />
       <Route exact path="/infrastucture" component={BasicInfrastucture} />
