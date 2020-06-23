@@ -30,6 +30,8 @@ import AllNotice from 'containers/AllNotice';
 import StudentWiseAttendance from '../StudentWiseAttendance';
 import FailList from '../FailList';
 import StudentInfo from '../StudentInfo';
+import { MeritList } from '../MeritList';
+import { SeatInfo } from '../SeatInfo';
 import FindPayslip from '../FindPayslip';
 import WelcomeSpeech from '../WelcomeSpeech';
 import IndividualResult from '../IndividualResult';
@@ -83,6 +85,10 @@ export default function AppRoute() {
       <Route exact path="/welcome-speech" component={WelcomeSpeech} />
       <Route exact path="/individual-result" component={IndividualResult} />
       <Route exact path="/teacher-attendance" component={TeacherAttendance} />
+      <Route exact path="/merit-list" component={MeritList} />
+      <Route exact path="/seat-info" component={SeatInfo} />
+
+
 
       <Route exact path="/all-notice" component={AllNotice} />
       <Route exact path="/stuff_information" component={StuffInformation} />

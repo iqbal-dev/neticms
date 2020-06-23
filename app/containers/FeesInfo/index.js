@@ -36,9 +36,23 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import { Popover, PopoverHeader, PopoverBody } from "reactstrap";
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class FeesInfo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      feeDetailsDialog: false,
+    }
+
+  }
+
+  toggle = () => {
+    this.setState({ feeDetailsDialog: true});
+
+  }
   render() {
     return (
       <div>
@@ -283,6 +297,10 @@ export class FeesInfo extends React.Component {
                     </div>
                   </Col>
                 </Row>
+                {/* <Popover placement="right" isOpen={feeDetailsDialog} target="Popover1" toggle={this.toggle}>
+                  <PopoverHeader>Popover Title</PopoverHeader>
+                  <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+                </Popover> */}
               </div>
             </div>
           </div>
