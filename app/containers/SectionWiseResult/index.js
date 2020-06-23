@@ -78,7 +78,7 @@ export class SectionWiseResult extends React.Component {
                         rootProps={{ 'data-testid': '1' }}
                       />
                     </div>
-                    <div className="col-md-6 col-lg-3 m-t-30 m-b-30 ">
+                    <div className="col-md-6 col-lg-3">
                       <div className="legend-with-percent present">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">Passed</span>
@@ -121,7 +121,9 @@ export class SectionWiseResult extends React.Component {
                           </Input>
                         </FormGroup>
 
-                        <Button className="btn explore-btn full-width">Search</Button>
+                        <Button className="btn explore-btn full-width all-border-radious">
+                          <i class="fas fa-chevron-circle-right mr-3"></i> Search
+                        </Button>
                       </Form>
                     </div>
                   </div>
@@ -135,7 +137,7 @@ export class SectionWiseResult extends React.Component {
                   <div className="page-inner-title with-print">
                     <h2>
                       <span>Total Student Found<span className="text-orange">(1212)</span></span>
-                      <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span>
+                      <span className="print text-orange"><i className="fas fa-print text-secondary"></i> Print Result</span>
                     </h2>
                     <div className="custom-title-border-left" />
                   </div>
@@ -165,34 +167,34 @@ export class SectionWiseResult extends React.Component {
                       </thead>
                       <tbody>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
+                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
                           <td>100024</td>
                           <td>1</td>
                           <td>Md. Shahrear Kabir</td>
                           <td>549.60</td>
                           <td>4.88</td>
-                          <td className="passed">A</td>
+                          <td className="failed">A</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
+                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
                           <td>100024</td>
                           <td>2</td>
                           <td>Md. Shahrear Kabir 2</td>
                           <td>549.60</td>
                           <td>4.88</td>
-                          <td className="passed">A</td>
+                          <td className="failed">A</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
+                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
                           <td>100024</td>
                           <td>3</td>
                           <td>Md. Shahrear Kabir 3</td>
                           <td>549.60</td>
                           <td>5.00</td>
-                          <td className="passed">A+</td>
+                          <td className="failed">A+</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance failed"><img src={donorImage}/></div></td>
+                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
                           <td>100030</td>
                           <td>4</td>
                           <td>Md. Shahrear Kabir 4</td>

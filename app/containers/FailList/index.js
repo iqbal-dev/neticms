@@ -35,6 +35,13 @@ export class FailList extends React.Component {
         </Helmet>
         {/* <FormattedMessage {...messages.header} /> */}
 
+        <BreadcrumComponent
+          pageTitle="Fail List"
+          menuStepFirst="Result Info"
+          menuStepSenond="Semister Exam"
+          menuStepThird="Fail List"
+        />
+
         <section>
           <div className="container-fluid">
 
@@ -128,7 +135,7 @@ export class FailList extends React.Component {
                       </thead>
                       <tbody>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
+                          <td><center className="attendance passed"><img src={donorImage} /></center></td>
                           <td>100024</td>
                           <td>1</td>
                           <td>Md. Shahrear Kabir</td>
@@ -136,7 +143,7 @@ export class FailList extends React.Component {
                           <td>04</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
+                          <td><center className="attendance passed"><img src={donorImage} /></center></td>
                           <td>100024</td>
                           <td>2</td>
                           <td>Md. Shahrear Kabir 2</td>
@@ -144,7 +151,7 @@ export class FailList extends React.Component {
                           <td>02</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
+                          <td><center className="attendance passed"><img src={donorImage} /></center></td>
                           <td>100024</td>
                           <td>3</td>
                           <td>Md. Shahrear Kabir 3</td>
@@ -152,7 +159,7 @@ export class FailList extends React.Component {
                           <td>01</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance failed"><img src={donorImage} /></div></td>
+                          <td><center className="attendance failed"><img src={donorImage} /></center></td>
                           <td>100030</td>
                           <td>4</td>
                           <td>Md. Shahrear Kabir 4</td>

@@ -28,6 +28,8 @@ import SectionWiseAttendance from '../SectionWiseAttendance';
 import StudentWiseAttendance from '../StudentWiseAttendance';
 import FailList from '../FailList';
 import StudentInfo from '../StudentInfo';
+import WelcomeSpeech from '../WelcomeSpeech';
+import IndividualResult from '../IndividualResult';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -75,6 +77,8 @@ export default function AppRoute() {
       <Route exact path="/all-teachers" component={TeacherInformation} />
       <Route exact path="/fees-info" component={FeesInfo} />
       <Route exact path="/Student-info" component={StudentInfo} />
+      <Route exact path="/welcome-speech" component={WelcomeSpeech} />
+      <Route exact path="/individual-result" component={IndividualResult} />
       <Route exact path="/teacher-attendance" component={TeacherAttendance} />
 
       <Route exact path="/stuff_information" component={StuffInformation} />
