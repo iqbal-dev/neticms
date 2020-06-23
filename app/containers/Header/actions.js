@@ -4,13 +4,20 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_INSTITUTE_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE, SET_LOADER, 
-  SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS,
+import { DEFAULT_ACTION, SET_ACCESS_TOKEN, SET_INSTITUTE_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, 
+  SET_NOTICE, SET_LOADER, SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS,
  } from './constants';
 
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
+  };
+}
+
+export function setAccessToken(accessToken) {
+  return {
+    type: SET_ACCESS_TOKEN,
+    accessToken,
   };
 }
 

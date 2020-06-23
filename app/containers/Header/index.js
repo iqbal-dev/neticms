@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Container, Row, Col } from 'reactstrap';
-import makeSelectHeader from './selectors';
+import makeSelectHeader, { makeSelectAccessToken } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -37,10 +37,12 @@ export class Header extends React.Component {
 
     const date = new Date();
 
+    console.log('accessToken-in-index', this.props.accessToken);
+    
     // console.log('homePage Date', date.getDay(), date.getMonth(), date.getDate(), date.getFullYear());
     // console.log('homePage Date', getFullDayName(date.getDay()), getFullMonthName(date.getMonth()), date.getDate(), date.getFullYear());
     let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ', ' + date.getDate() + ', ' + date.getFullYear();
-    console.log('fullDateInEng', fullDateInEng);
+    // console.log('fullDateInEng', fullDateInEng);
 
     let instituteName = '';
     let instituteAddress = '';
@@ -121,6 +123,7 @@ Header.propTypes = {
 const mapStateToProps = createStructuredSelector({
   header: makeSelectHeader(),
   instituteUrlInfo: makeSelectInstituteUrlInfo(),
+ accessToken: makeSelectAccessToken()
 });
 
 function mapDispatchToProps(dispatch) {

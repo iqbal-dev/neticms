@@ -91,5 +91,5 @@ export function* fetch_WelcomeSpeech() {
 // }
 
 export default function* homePageSaga() {
-  yield fetch_WelcomeSpeech();
+  // yield fetch_WelcomeSpeech();
 }

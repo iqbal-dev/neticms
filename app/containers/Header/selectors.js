@@ -10,6 +10,9 @@ const selectHeaderDomain = state => state.get('header', initialState);
 /**
  * Other specific selectors
  */
+const makeSelectAccessToken= () =>
+createSelector(selectHeaderDomain, substate => substate.get('accessToken'));
+
 const makeSelectInstituteUrlInfo = () =>
 createSelector(selectHeaderDomain, substate => substate.get('urlInfo'));
 
@@ -43,6 +46,7 @@ const makeSelectHeader = () =>
 export default makeSelectHeader;
 export {
    selectHeaderDomain,
+   makeSelectAccessToken,
    makeSelectInstituteUrlInfo,
   //  makeSelectUrld,
   makeSelectMenuList,
