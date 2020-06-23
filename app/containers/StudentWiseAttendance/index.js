@@ -114,7 +114,7 @@ export class StudentWiseAttendance extends React.Component {
             <div className="container">
               <div className="row">
                 <div className="col-md-12 attendance-body-header">
-                  <div className="row attendance-body-header-inside">
+                  <div className="row attendance-body-header-inside justify-content-md-center">
                     <div className="col-md-6 col-lg-2 img">
                       <div className="attendance present"><img src={donorImage}/></div>
                     </div>
@@ -141,14 +141,14 @@ export class StudentWiseAttendance extends React.Component {
                       </Table>
                     </div>
 
-                    <div className="col-md-6 col-lg-1 roll-no">
+                    <div className="col-md-3 col-lg-1 roll-no">
                       <div className="title">Roll No.</div>
                       <div className="value text-orange">123</div>
                     </div>
                     
-                    <div className="col-lg-2">
+                    <div className="col-md-12 col-lg-2">
                       <Chart
-                        width="120px"
+                        width="100%"
                         height="120px"
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
@@ -177,7 +177,7 @@ export class StudentWiseAttendance extends React.Component {
                         rootProps={{ 'data-testid': '1' }}
                       />
                     </div>
-                    <div className="col-lg-3 m-t-30 m-b-30 ">
+                    <div className="col-md-12 col-lg-3 ">
                       <div className="legend-with-percent present">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">Present</span>

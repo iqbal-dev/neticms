@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectStuffInformation from './selectors';
+import makeSelectStuffInformation, { makeSelectStuffInfoList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -24,7 +24,11 @@ import donorImage from '../../assets/img/donor-image.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StuffInformation extends React.Component {
+
   render() {
+
+    console.log('info-list', this.props.staffInfoList);
+
     return (
       <div>
         <BreadcrumComponent
@@ -61,31 +65,10 @@ export class StuffInformation extends React.Component {
                     </div>
                     <div className="grid-social">
                       <ul className="d-flex justify-content-center w-100 nav">
-                        <li>
-                          <a
-                            href="#"
-                            className="phone"
-                            href="#"
-                            phoneNumber="+88016808080"
-                          >
-                            <i className="fas fa-phone" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fas fa-envelope" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fab fa-facebook-f" />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i className="fab fa-linkedin-in" />
-                          </a>
-                        </li>
+                        <li><a className="phone" href="#" phoneNumber="+88016808080"><i className="fas fa-phone" /></a></li>
+                        <li><a href="#"><i className="fas fa-envelope" /></a></li>
+                        <li><a href="#"><i className="fab fa-facebook-f" /></a></li>
+                        <li><a href="#"><i className="fab fa-linkedin-in" /></a></li>
                       </ul>
                     </div>
                   </div>
@@ -101,10 +84,12 @@ export class StuffInformation extends React.Component {
 
 StuffInformation.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  staffInfoList: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   stuffInformation: makeSelectStuffInformation(),
+  staffInfoList: makeSelectStuffInfoList(),
 });
 
 function mapDispatchToProps(dispatch) {
