@@ -195,7 +195,6 @@ export class DressCode extends React.Component {
                           </div>
                         </div>
                       </TabPane>
-
                       <TabPane tabId="2">
                         <div className="tab-panel-wrapper">
                           <div className="row">

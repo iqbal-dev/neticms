@@ -58,7 +58,7 @@ export class StudentWiseAttendance extends React.Component {
                           {/* <div className="row"> */}
                             <div className="col-md-12 col-lg-3">
                               <FormGroup className=" custom-input-text">
-                                <Input type="text" name="academic-year">
+                                <Input type="text" name="academic-year" placeholder="Enter Your Student ID Number">
                                 </Input>
                               </FormGroup>
                             </div>
@@ -82,7 +82,7 @@ export class StudentWiseAttendance extends React.Component {
                                   id="exampleDate"
                                   placeholder="date placeholder"
                                 />
-                                <Button class="btn explore-btn">Search</Button>
+                                <Button className="btn explore-btn">Search</Button>
                               </FormGroup>
                             </div>
 
@@ -103,20 +103,60 @@ export class StudentWiseAttendance extends React.Component {
               </div>
             </div>
 
-            <div className="container p-t-60">
+            <div className="container info-header-title">
+              <div className="row">
+                <h5 className="col-lg-12">
+                  Showing result for  <span className="text-orange">Student ID: 5214578P ( 01 Jan - 2020 to 16 Feb -2020 )</span>
+                </h5>
+              </div>
+            </div>
+
+            <div className="container">
               <div className="row">
                 <div className="col-md-12 attendance-body-header">
                   <div className="row attendance-body-header-inside">
-                    <div className="col-md-6 col-lg-3">
+                    <div className="col-md-6 col-lg-2 img">
+                      <div className="attendance present"><img src={donorImage}/></div>
+                    </div>
+
+                    <div className="col-md-6 col-lg-4 info">
+                      <Table
+                        borderless
+                        className="student-wise-attendance"
+                      >
+                        <tbody>
+                          <tr>
+                            <td>Student Name</td>
+                            <td className="text-orange">: Md. Shahrear Kabir</td>
+                          </tr>
+                          <tr>
+                            <td>Student ID</td>
+                            <td>: Md. Shahrear Kabir 2</td>
+                          </tr>
+                          <tr>
+                            <td>Institute ID</td>
+                            <td>: Md. Shahrear Kabir 3</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </div>
+
+                    <div className="col-md-6 col-lg-1 roll-no">
+                      <div className="title">Roll No.</div>
+                      <div className="value text-orange">123</div>
+                    </div>
+                    
+                    <div className="col-lg-2">
                       <Chart
-                        width="200px"
-                        height="200px"
+                        width="120px"
+                        height="120px"
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
                         data={[
-                          ['Result', 'count'],
-                          ['Passed', 11],
-                          ['Failed', 2],
+                          ['Attendance', 'count'],
+                          ['Present', 11],
+                          ['Absent', 2],
+                          ['On Time', 2],
                         ]}
                         options={{
                           // title: 'My Daily Activities',
@@ -137,52 +177,26 @@ export class StudentWiseAttendance extends React.Component {
                         rootProps={{ 'data-testid': '1' }}
                       />
                     </div>
-                    <div className="col-md-6 col-lg-3 m-t-30 m-b-30 ">
+                    <div className="col-lg-3 m-t-30 m-b-30 ">
                       <div className="legend-with-percent present">
                         {/* <span className="symbol-squire"></span> */}
-                        <span className="title">Passed</span>
+                        <span className="title">Present</span>
                         <span className="percent">( 73.3% )</span>
                       </div>
 
                       <div className="legend-with-percent absent">
                         {/* <span className="symbol-squire"></span> */}
-                        <span className="title">Failed</span>
+                        <span className="title">Absent</span>
+                        <span className="percent">( 13.3% )</span>
+                      </div>
+
+                      <div className="legend-with-percent delay">
+                        {/* <span className="symbol-squire"></span> */}
+                        <span className="title">On</span>
                         <span className="percent">( 13.3% )</span>
                       </div>
                     </div>
-                    <div className="col-md-12 col-lg-6 form">
-                      <Form inline>
-                        <FormGroup className="custom-dropdown">
-                          <Input type="select" name="academic-year">
-                            <option>Select Academic Year</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </Input>
-                        </FormGroup>
-                        <FormGroup className="custom-dropdown">
-                          <Input type="select" name="exam-type">
-                            <option>Select Exam Type</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </Input>
-                        </FormGroup>
-                        <FormGroup className="custom-dropdown">
-                          <Input type="select" name="section">
-                            <option>Select Section</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </Input>
-                        </FormGroup>
 
-                        <Button className="btn explore-btn full-width">Search</Button>
-                      </Form>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -206,58 +220,49 @@ export class StudentWiseAttendance extends React.Component {
               <div className="row">
                 <di className="col-md-12">
                   <div className="table-responsive custom-table">
-                    <Table
+                  <Table
                       responsive
-                      className="section-wise-attendance-table attendance-symbol"
+                      className="student-wise-attendance-table attendance-symbol center"
                     >
                       <thead>
                         <tr>
-                          <th>Photo</th>
-                          <th>Student ID</th>
-                          <th>Roll No</th>
-                          <th>Student Name</th>
-                          <th>Total Marks</th>
-                          <th>GPA</th>
-                          <th>Grade</th>
+                          <th>Date</th>
+                          <th>Day</th>
+                          <th>Status</th>
+                          <th>Present Time</th>
                           {/* <th className="text-center">Action</th> */}
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
-                          <td>100024</td>
-                          <td>1</td>
-                          <td>Md. Shahrear Kabir</td>
-                          <td>549.60</td>
-                          <td>4.88</td>
-                          <td className="passed">A</td>
+                          <td>22-07-2020</td>
+                          <td>Thursday</td>
+                          <td>
+                            <div className="legend-with-percent present">
+                              <span className="title">Present</span>
+                            </div>
+                          </td>
+                          <td className="present">09:53 AM</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
-                          <td>100024</td>
-                          <td>2</td>
-                          <td>Md. Shahrear Kabir 2</td>
-                          <td>549.60</td>
-                          <td>4.88</td>
-                          <td className="passed">A</td>
+                          <td>21-07-2020</td>
+                          <td>Wednesday</td>
+                          <td>
+                            <div className="legend-with-percent absent">
+                              <span className="title">Absent</span>
+                            </div>
+                          </td>
+                          <td className="absent">00:00</td>
                         </tr>
                         <tr>
-                          <td><div className="attendance passed"><img src={donorImage}/></div></td>
-                          <td>100024</td>
-                          <td>3</td>
-                          <td>Md. Shahrear Kabir 3</td>
-                          <td>549.60</td>
-                          <td>5.00</td>
-                          <td className="passed">A+</td>
-                        </tr>
-                        <tr>
-                          <td><div className="attendance failed"><img src={donorImage}/></div></td>
-                          <td>100030</td>
-                          <td>4</td>
-                          <td>Md. Shahrear Kabir 4</td>
-                          <td>120.60</td>
-                          <td>00</td>
-                          <td className="failed">F</td>
+                          <td>20-07-2020</td>
+                          <td>Tuesday</td>
+                          <td>
+                            <div className="legend-with-percent delay">
+                              <span className="title">Delay</span>
+                            </div>
+                          </td>
+                          <td className="delay">10.17 AM</td>
                         </tr>
                       </tbody>
                     </Table>

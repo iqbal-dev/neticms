@@ -1,8 +1,92 @@
 .fees-info-main {
-    border: 1px solid red;
+    div.col-md-4 {
+        padding-bottom: 30px;
+    }
+
     div.card-header {
-        color: blue;
+        font-size: 16px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        color: $orangeColor;
+        position: relative;
 
     }
+
+    td:nth-child(2) {
+        padding-left: 30px;
+        span {
+            font-weight: 700;
+            color: $primaryColorDark;
+        }
+    }
+
+    i.fas.fa-info.pr-2 {
+       position: absolute;
+       right: 5px;
+       top: 17px;
+    }
+
+    i.fas.fa-info.pr-2::before {
+        background: #fff;
+        border-radius: 70px;
+        height: 140px;
+        width: 140px;
+    }
+
+    .fees-details-dialog {
+    position: absolute;
+    visibility: hidden;
+    bottom: 135px;
+    right: -315px;
+    background: #fff;
+    padding: 20px;
+    text-align: left;
+    // max-height: 166px;
+    width: 325px;
+    border-radius: 5px;
+    -webkit-box-shadow: 1px -1px 18px 1px rgba(0,0,0,0.17);
+    -moz-box-shadow: 1px -1px 18px 1px rgba(0,0,0,0.17);
+    box-shadow: 1px -1px 18px 1px rgba(0,0,0,0.17);
+    // overflow-y: scroll;
+     h3 {
+        font-weight: 700;
+        color: $orangeColor;
+        font-size: 16px;
+     }
+    }
+
+    .fees-info-subheader {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding-bottom: 20px;
+        &:first-child {
+            font-weight: 700;
+            color: $primaryColorDark;
+            span {
+                color: $orangeColor;
+            }
+        }
+
+        select#class-search-dropdown.form-control {
+            width: 250px !important;
+            display: flex !important;
+
+        }
+
+        div.col-lg-6.search-dropdown {
+            display: flex !important;
+            justify-content: flex-end;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+
+
+     
+     
+       
+    }
+
 
 }

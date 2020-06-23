@@ -40,7 +40,7 @@ export class SyllabusInfo extends React.Component {
 
         <section>
           <div className="container-fluid">
-            <div className="container p-t-60">
+            {/* <div className="container p-t-60">
               <div className="row">
                 <div className="col-md-12">
                   <div className="page-inner-title">
@@ -49,9 +49,9 @@ export class SyllabusInfo extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div className="container">
+            <div className="container m-t-40">
               <div className="row">
                 <di className="col-md-12">
                   <div className="table-responsive custom-table">
