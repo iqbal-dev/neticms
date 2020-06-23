@@ -22,6 +22,9 @@
 .m-t-30{
     margin-top : 30px;
 }   
+.m-t-40{
+    margin-top : 40px;
+} 
 .m-b-40{
     margin-bottom : 40px;
 } 
@@ -33,6 +36,9 @@
 } 
 .p-t-60{
     padding-top : 60px;
+} 
+.p-r-15{
+    padding-right : 15px;
 } 
 .m-b-30{
     margin-bottom : 30px;
@@ -50,9 +56,9 @@
     color: $orangeColor;
 }
 .box-shadow{
-    -webkit-box-shadow: -0.5px 2px 2px 0px rgba(153,153,153,1);
-    -moz-box-shadow: -0.5px 2px 2px 0px rgba(153,153,153,1);
-    box-shadow: -0.5px 2px 2px 0px rgba(153,153,153,1);
+    -webkit-box-shadow: -0.5px 2px 2px 0px rgba(153,153,153,0.5);
+    -moz-box-shadow: -0.5px 2px 2px 0px rgba(153,153,153,0.5);
+    box-shadow: -0.5px 2px 2px 0px rgba(153,153,153,0.5);
 }
 .explore-btn-lg{
     background: $orangeColor !important;
@@ -622,6 +628,9 @@
     border-top: 1px solid $titleBorderColor;
     margin: 10px 0px;
     position: relative;
+    &.no-border{
+        border-top: none;
+    }
     &::after{
         content: "";
         position: absolute;
@@ -1224,5 +1233,162 @@
         }
      }
 }
-
-
+.infrastructure-content-wrapper{
+    padding: 50px;
+    background: $grayColorLight;
+    border-radius: 25px;
+}
+.infrastructure-content-image{
+    position: relative;
+    img{
+        border-radius: 25px;
+        max-height: 300px;
+        object-fit: cover;
+        margin-top: 30px;
+        &.box-shadow{
+            box-shadow: 2px 8px 21px 0px rgba(0, 0, 0, 0.50);
+        }
+    }
+    .attendance-body-header-inside{
+        margin:10;
+    }
+    @media screen and (min-width:767px){
+        .attendance-body-header-inside{
+            margin:0;
+        }
+        img{
+            margin-top: 0px;
+        }
+        &::after{
+            width: 199px;
+            background: $grayColorLight;
+            content: "";
+            position: absolute;
+            left: -100px;
+            top: -61px;
+            z-index: -1;
+            height: 421px;
+            border-radius: 25px;
+        }
+    }
+    
+}
+.find-pay-slip-info-wrapper{
+    -webkit-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
+    -moz-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
+    box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    .student-info-table {
+        margin-left: 25px;
+        margin-top: 20px;
+        .table{
+            margin-bottom: 0px;
+            tr{
+                padding-bottom: 15px;
+                display: block;
+                &:last-child{
+                    padding-bottom: 0px;
+                }
+                &:first-child{
+                    td{
+                        &:last-child{
+                            color: $orangeColor;
+                        }
+                    }
+                }
+                td{
+                    border-top: none;
+                    padding: 0;
+                    font-weight: 600;
+                    &:first-child{
+                        width: 140px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+    
+    .roll-no-box {
+        height: 140px;
+        width: 120px;
+        border: 1px solid;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        span{
+            padding-bottom: 20px;
+            display: block;
+            font-size: 18px;
+        }
+        h1{
+            color: $orangeColor;
+            font-size: 36px;
+            font-weight: 700;
+        }
+    }
+}
+.payslip-tab-wrapper{
+    .nav-tabs{
+        margin-bottom: 10px;
+        .nav-item{
+            width: 50%;
+            background:$primaryColorDark;
+            .nav-link{
+                border-radius: 0px;
+                &.active{
+                    background: $orangeColor;
+                }
+                &:hover{
+                    border: none;
+                }
+                p{
+                    color: $colorWhite;
+                    font-weight: 600;
+                    margin-bottom: 0px;
+                    font-size: 24px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .panel-border{
+        border-top: 15px solid  $orangeColor;
+        margin-bottom: 25px;
+        position: relative;
+        &::after{
+            position: absolute;
+            background: $orangeColor;
+            height: 15px;
+            width: 15px;
+            content: "";
+            transform: rotate(45deg);
+            left: 49.5%;
+            top: -10px;
+        }
+    }
+    .student-info-box-wrapper{
+        border: 1px solid $colorBlack;
+        .student-info-box-title{
+            font-size: 18px;
+            font-weight: 700;
+            padding: 10px;
+            border-bottom: 1px solid $colorBlack;
+            span{
+                color: $orangeColor;
+            }
+        }
+        .student-info-table{
+            margin: 0px;
+            padding: 10px;
+        }
+    }
+    .find-pay-slip-info-wrapper{
+        box-shadow: none;
+    }
+}
