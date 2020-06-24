@@ -25,7 +25,61 @@ import positionIcon from '../../assets/img/positionIcon.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class IndividualResult extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        studentID: "",
+        mobileNo: "",
+        year: "",
+        examType: "",
+        errors: {}
+    }
+  }
+
+  onChangeInputField = (event) =>{
+    let { errors } = this.state
+    // console.log('e', event.target.value);
+    errors[event.target.name] = ''
+    this.setState({
+      [event.target.name]: event.target.value, errors
+    });
+  }
+
+  handleError = () => {
+    let { errors } = this.state
+    let formIsValid = true;
+    if (!this.state.studentID) {
+      errors["studentID"] = "Student Id can't left empty"
+      formIsValid = false;
+    }
+
+    if (!this.state.mobileNo) {
+      errors["mobileNo"] = "Mobile No. can't left empty"
+      formIsValid = false;
+    }
+
+    if (!this.state.year) {
+      errors["year"] = "Year can't left empty"
+      formIsValid = false;
+    }
+
+    if (!this.state.examType) {
+      errors["examType"] = "Exam type can't left empty"
+      formIsValid = false;
+    }
+
+    this.setState({ errors })
+    return formIsValid;
+  }
+
+  onSearchStudentInfo = () =>{
+    if(this.handleError()){
+
+    }
+  }
+  
   render() {
+    let { errors } =this.state
     return (
       <div>
         <Helmet>
@@ -62,45 +116,60 @@ export class IndividualResult extends React.Component {
                             <FormGroup className="custom-dropdown">
                               <Input
                                 type="text"
-                                name="studentID"
-                                id="studentID"
                                 placeholder="Write Student Id"
+                                name="studentID" 
+                                onChange={this.onChangeInputField}
                               />
                             </FormGroup>
+                            <div className="error-message"> { errors['studentID'] }</div>
                             <FormGroup className="custom-dropdown">
-                              <Input type="select" name="exam-type">
-                                <option>Select Academic Year</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                              <Input 
+                                type="select" 
+                                name="year" 
+                                onChange={this.onChangeInputField}
+                              >
+                                <option value=''>Select Academic Year</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
                               </Input>
                             </FormGroup>
+                            <div className="error-message"> { errors['year'] }</div>
                           </div> 
 
                           <div className="col-md-12 col-lg-4">
                             <FormGroup className="custom-dropdown">
                               <Input
                                 type="text"
-                                name="studentID"
-                                id="studentID"
+                                name="mobileNo"
                                 placeholder="Write Reg. Mobile No."
+                                onChange={this.onChangeInputField}
                               />
                             </FormGroup>
+                            <div className="error-message"> { errors['mobileNo'] }</div>
                             <FormGroup className="custom-dropdown">
-                              <Input type="select" name="examType">
-                                <option>Select Exam Type</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                              <Input 
+                                type="select" 
+                                name="examType" 
+                                onChange={this.onChangeInputField}
+                              >
+                                <option value=''>Select Exam Type</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
                               </Input>
                             </FormGroup>
+                            <div className="error-message"> { errors['examType'] }</div>
                           </div>
 
                           <div className="col-md-12 col-lg-3">
                             <FormGroup>
-                              <Button className="btn explore-btn full-width all-border-radious">
+                              <Button 
+                                className="btn explore-btn full-width all-border-radious"
+                                onClick={ this.onSearchStudentInfo}
+                              >
                                 <i class="fas fa-chevron-circle-right mr-3"></i> Search
                               </Button>
                             </FormGroup>

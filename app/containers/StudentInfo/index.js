@@ -24,7 +24,49 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StudentInfo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        class: "",
+        group: "",
+        errors: {}
+    }
+  }
+
+  onChangeInputField = (event) =>{
+    let { errors } = this.state
+    // console.log('e', event.target.value);
+    errors[event.target.name] = ''
+    this.setState({
+      [event.target.name]: event.target.value, errors
+    });
+  }
+
+  handleError = () => {
+    let { errors } = this.state
+    let formIsValid = true;
+    if (!this.state.class) {
+      errors["class"] = "Class can't left empty"
+      formIsValid = false;
+    }
+
+    if (!this.state.group) {
+      errors["group"] = "Group can't left empty"
+      formIsValid = false;
+    }
+
+    this.setState({ errors })
+    return formIsValid;
+  }
+
+  onSearchStudentInfo = () =>{
+    if(this.handleError()){
+
+    }
+  }
+
   render() {
+    let { errors } =this.state
     return (
       <div>
         <Helmet>
@@ -53,30 +95,41 @@ export class StudentInfo extends React.Component {
                           {/* <div className="row"> */}
                             <div className="col-md-12 col-lg-4">
                               <FormGroup className="custom-dropdown">
-                                <Input type="select" name="academic-year">
-                                  <option>Select Academic Year</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                <Input 
+                                  type="select" 
+                                  name="class" 
+                                  onChange={this.onChangeInputField}
+                                  // value={ this.state.class }
+                                >
+                                  <option value=''>Choose a class</option>
+                                  <option value='2'>2</option>
+                                  <option value='3'>3</option>
+                                  <option value='4'>4</option>
+                                  <option value='5'>5</option>
                                 </Input>
                               </FormGroup>
+                              <div className="error-message"> { errors['class'] }</div>
                             </div>
 
                             <div className="col-md-12 col-lg-5">
                               <FormGroup className="custom-dropdown with-search-btn">
-                                <Input type="select" name="academic-year">
-                                  <option>Select Academic Year</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                <Input 
+                                  type="select" 
+                                  name="group" 
+                                  onChange={this.onChangeInputField}
+                                >
+                                  <option value=''>Select a group</option>
+                                  <option value='2'>2</option>
+                                  <option value='3'>3</option>
+                                  <option value='4'>4</option>
+                                  <option value='5'>5</option>
                                 </Input>
                               
-                                <Button className="btn explore-btn">
+                                <Button className="btn explore-btn" onClick={ this.onSearchStudentInfo}>
                                   <i class="fas fa-chevron-circle-right"></i> Search
                                 </Button>
                               </FormGroup>
+                              <div className="error-message"> { errors['group'] }</div>
                             </div>
 
                             <div className="col-md-12 col-lg-1 d-sm-none d-md-none d-lg-block">
@@ -85,8 +138,11 @@ export class StudentInfo extends React.Component {
 
                             <div className="col-md-12 col-lg-2">
                               <FormGroup className="">
-                                <Button className="btn explore-btn all-border-radious download-btn-dark">
-                                <i class="fas fa-download"></i> Download
+                                <Button 
+                                  className="btn explore-btn all-border-radious download-btn-dark"
+                                  // onClick={ this.onSearchStudentInfo}
+                                >
+                                  <i class="fas fa-download"></i> Download
                                 </Button>
                               </FormGroup>
                               

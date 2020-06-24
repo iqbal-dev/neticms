@@ -26,7 +26,54 @@ import donorImage from '../../assets/img/donor-image.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FailList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        year: "",
+        examType: "",
+        section: "",
+        errors: {}
+    }
+  }
+
+  onChangeInputField = (event) =>{
+    let { errors } = this.state
+    // console.log('e', event.target.value);
+    errors[event.target.name] = ''
+    this.setState({
+      [event.target.name]: event.target.value, errors
+    });
+  }
+
+  handleError = () => {
+    let { errors } = this.state
+    let formIsValid = true;
+    if (!this.state.year) {
+      errors["year"] = "Year can't left empty"
+      formIsValid = false;
+    }
+
+    if (!this.state.examType) {
+      errors["examType"] = "Exam type can't left empty"
+      formIsValid = false;
+    }
+
+    if (!this.state.section) {
+      errors["section"] = "Section can't left empty"
+      formIsValid = false;
+    }
+
+    this.setState({ errors })
+    return formIsValid;
+  }
+
+  onSearchStudentInfo = () =>{
+    if(this.handleError()){
+
+    }
+  }
   render() {
+    let { errors } =this.state
     return (
       <div>
         <Helmet>
@@ -53,43 +100,63 @@ export class FailList extends React.Component {
                       <Form inline>
                         <div className="col-md-6 col-lg-3">
                           <FormGroup className="custom-dropdown">
-                            <Input type="select" name="academic-year">
-                              <option>Select Academic Year</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                            <Input
+                              type="select"
+                              name="year"
+                              onChange={this.onChangeInputField}
+                            >
+                              <option value=''>Select Academic Year</option>
+                              <option value='2'>2</option>
+                              <option value='3'>3</option>
+                              <option value='4'>4</option>
+                              <option value='5'>5</option>
                             </Input>
                           </FormGroup>
+                          <div className="error-message"> { errors['year'] }</div>
                         </div>
 
                         <div className="col-md-6 col-lg-3">
                           <FormGroup className="custom-dropdown">
-                            <Input type="select" name="academic-year">
-                              <option>Select Exam Type</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                            <Input
+                              type="select"
+                              name="examType"
+                              onChange={this.onChangeInputField}
+                            >
+                              <option value=''>Select Exam Type</option>
+                              <option value='2'>2</option>
+                              <option value='3'>3</option>
+                              <option value='4'>4</option>
+                              <option value='5'>5</option>
                             </Input>
                           </FormGroup>
+                          <div className="error-message"> {errors['examType']}</div>
                         </div>
 
                         <div className="col-md-6 col-lg-3">
                           <FormGroup className="custom-dropdown">
-                            <Input type="select" name="academic-year">
-                              <option>Select a Section</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                            <Input
+                              type="select"
+                              name="section"
+                              onChange={this.onChangeInputField}
+                            >
+                              <option value=''>Select a Section</option>
+                              <option value='2'>2</option>
+                              <option value='3'>3</option>
+                              <option value='4'>4</option>
+                              <option value='5'>5</option>
                             </Input>
                           </FormGroup>
+                          <div className="error-message"> {errors['section']}</div>
                         </div>
 
                         <div className="col-md-6 col-lg-3">
                           <FormGroup>
-                            <Button className="btn explore-btn all-border-radious">Search</Button>
+                            <Button 
+                              className="btn explore-btn all-border-radious"
+                              onClick={this.onSearchStudentInfo}
+                            >
+                              Search
+                            </Button>
                           </FormGroup>
                         </div>
                       </Form>
