@@ -1,13 +1,40 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
-import { BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_welcomeSpeechBy_urlId, fetch_menu_urlName, fetch_noticeBy_urlId, fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId } from '../../utils/serviceUrl';
+import { BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_welcomeSpeechBy_urlId, fetch_menu_urlName, fetch_noticeBy_urlId, fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM } from '../../utils/serviceUrl';
 import { getMethod } from '../../utils/baseMethod';
 
-import { setInstituteUrlInfo, setWelcomeSpeech, setMenu, setNotice, setHistoryDetails, setTopEvents } from './actions';
+import { setInstituteUrlInfo, setWelcomeSpeech, setMenu, setNotice, setHistoryDetails, setTopEvents, setAccessToken } from './actions';
 import { setUrlInfoLocally } from '../../utils/localStorageMethod';
 import { setUrlId } from '../HomePage/actions';
 
 // Individual exports for testing
+
+export function* fetch_emAuthToken() {
+
+  var FormData = require('form-data');
+  var data = new FormData();
+  data.append('grant_type', 'client_credentials');
+
+  const requestURL = BASE_URL_EM.concat(fetch_em_token);
+  const options = {
+    method: 'POST',
+    headers:
+    {
+      'authorization': 'Basic bmV0aXdvcmxkLXdlYi1yZWFkLXdyaXRlLWNsaWVudDo5UU5uenczSg==',
+    },
+    body: data
+  };
+  try {
+    const response = yield call(request, requestURL, options);
+    yield put(setAccessToken(response.access_token))
+    console.log('token-response', response);
+
+  } catch (error) {
+    console.log('token-response-err', error);
+  }
+
+}
+
 let urlInfoId = '';
 
 export function* fetch_InstituteUrlInfo_byUrlName() {
@@ -27,11 +54,11 @@ export function* fetch_InstituteUrlInfo_byUrlName() {
   console.log('inst-url-info-response', response);
   try {
 
-    if (response) { 
+    if (response) {
       urlInfoId = response.urlInfoDTO.urlInfoID;
       yield put(setInstituteUrlInfo(response));
       setUrlInfoLocally(JSON.stringify(response));
-      yield put(setUrlId(response)); 
+      yield put(setUrlId(response));
 
       yield fetch_Menu_byUrlId();
       yield fetch_InstituteTopNotices_byUrlId();
@@ -63,7 +90,7 @@ export function* fetch_Menu_byUrlId() {
 
 export function* fetch_LatestNews() {
 
-  const requestURL =BASE_URL.concat(fetch_latestNews);
+  const requestURL = BASE_URL.concat(fetch_latestNews);
   const options = {
     method: 'GET',
     headers: {
@@ -101,7 +128,7 @@ export function* fetch_InstituteTopNotices_byUrlId() {
 export function* fetch_WelcomeSpeech_byUrlId() {
 
   // console.log('header-urlInfo', urlInfoId);
-  
+
   const requestURL = BASE_URL.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
@@ -120,7 +147,7 @@ export function* fetch_WelcomeSpeech_byUrlId() {
 export function* fetch_instituteHistory_byUrlId() {
 
   // console.log('history func', urlInfoId);
-  
+
   const requestURL = BASE_URL.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
@@ -139,7 +166,7 @@ export function* fetch_instituteHistory_byUrlId() {
 export function* fetch_instituteTopEvent_byUrlId() {
 
   // console.log('history func', urlInfoId);
-  
+
   const requestURL = BASE_URL.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
@@ -156,5 +183,6 @@ export function* fetch_instituteTopEvent_byUrlId() {
 }
 
 export default function* landingPageSaga() {
+  yield fetch_emAuthToken();
   yield fetch_InstituteUrlInfo_byUrlName();
 }

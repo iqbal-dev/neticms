@@ -4,7 +4,9 @@
 
 //for Development only
 export const BASE_URL = 'http://3.211.144.191:9001';
+export const BASE_URL_EM = 'http://3.211.144.191:8080';
 
+export const fetch_em_token = '/oauth/token';
 export const fetch_urlMappingInfoBy_urlName = '/client_dws/url-mapping/dws/dws/by';
 export const fetch_menu_urlName = '/client_dws/menu/config/by/urlid';
 export const fetch_welcomeSpeechBy_urlId = '/client_dws/speech/get/by/welcome-status-urlid';
