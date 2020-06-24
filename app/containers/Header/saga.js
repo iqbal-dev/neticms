@@ -192,14 +192,14 @@ export function* fetch_classNameBy_typeId() {
   let token = yield select(makeSelectAccessToken())
   console.log("TOKEN>>>>>>>>>>>>>>", token);
 
-  let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
-  console.log("instituteUrlInfo", instituteUrlInfo);
-  let instituteID = instituteUrlInfo && instituteUrlInfo.coreUrlMappingDTOs[0] && instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
+  // let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
+  // console.log("instituteUrlInfo", instituteUrlInfo);
+  // let instituteID = instituteUrlInfo && instituteUrlInfo.coreUrlMappingDTOs[0] && instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
 
-  console.log("instituteID", instituteID);
+  // console.log("instituteID", instituteID);
   
   
-  const requestURL = BASE_URL_EM.concat(fetch_className_typeId).concat('?instituteId=').concat(instituteID);
+  const requestURL = BASE_URL_EM.concat(fetch_className_typeId).concat('?instituteId=').concat('10012');
   const options = {
     method: 'GET',
     headers: {
