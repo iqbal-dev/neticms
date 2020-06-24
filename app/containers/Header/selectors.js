@@ -43,6 +43,9 @@ createSelector(selectHeaderDomain, substate => substate.get('topEvents'));
 const makeSelectHeader = () =>
   createSelector(selectHeaderDomain, substate => substate.toJS());
 
+const makeSelectClassList = () =>
+  createSelector(selectHeaderDomain, substate => substate.get('classList'));
+
 export default makeSelectHeader;
 export {
    selectHeaderDomain,
@@ -55,4 +58,5 @@ export {
   makeSelectNoticeList,
   makeSelectHistoryDetails,
   makeSelectTopEvents,
+  makeSelectClassList,
 };

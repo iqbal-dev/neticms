@@ -1319,6 +1319,12 @@
   width: 1px;
   margin: 0 auto; }
 
+.custom-input-text, .custom-dropdown {
+  margin-bottom: 0 !important; }
+  .custom-input-text.m-t-10, .custom-dropdown.m-t-10 {
+    margin: 16px 0 0 0;
+    margin-bottom: 0 !important; }
+
 .form .form-inline .form-group {
   position: relative;
   display: flex;

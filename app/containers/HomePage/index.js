@@ -38,7 +38,8 @@ import {
   makeSelectNoticeList,
   makeSelectHistoryDetails,
   makeSelectInstituteUrlInfo,
-  makeSelectTopEvents
+  makeSelectTopEvents,
+  makeSelectClassList
 } from '../Header/selectors';
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 /* eslint-disable react/prefer-stateless-function */
@@ -114,6 +115,8 @@ export class HomePage extends React.Component {
     // console.log('instituteTopEventList', this.props.instituteTopEventList);
     // console.log('urlInfo', this.props.urlInfo);
 
+    // console.log("this.props.classList:::::::::::::::::::::::", this.props.classList);
+    
     return (
       <div>
         <Slider notice={this.props.noticeList} />
@@ -504,6 +507,7 @@ const mapStateToProps = createStructuredSelector({
   instituteHistory: makeSelectHistoryDetails(),
   instituteTopEvents: makeSelectTopEvents(),
   loaderStatus: makeSelectLoaderStatus(),
+  classList: makeSelectClassList(),
 });
 
 function mapDispatchToProps(dispatch) {
