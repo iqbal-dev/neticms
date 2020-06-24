@@ -16,3 +16,5 @@ export const fetch_instituteTopEventBy_urlId = '/client_dws/event/top-five/by/ur
 export const submit_footerContactForm = '';
 export const fetch_latestNews = '';
 export const fetch_staffsInformaions = '/nw/sa-point/basic/list/by/category/with/photo'
+
+export const fetch_className_typeId = '/core/setting/class-configuration/list';

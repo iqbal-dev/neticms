@@ -5,7 +5,7 @@
  */
 
 import { DEFAULT_ACTION, SET_ACCESS_TOKEN, SET_INSTITUTE_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, 
-  SET_NOTICE, SET_LOADER, SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS,
+  SET_NOTICE, SET_LOADER, SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS, SET_CLASS_LIST_BY_TYPE_ID
  } from './constants';
 
 export function defaultAction() {
@@ -88,5 +88,12 @@ export function setErrorMessage(errorMsg) {
   return {
     type: SET_ERROR_MESSAGE,
     errorMsg,
+  };
+}
+
+export function setClassListByTypeId(classList) {
+  return {
+    type: SET_CLASS_LIST_BY_TYPE_ID,
+    classList,
   };
 }

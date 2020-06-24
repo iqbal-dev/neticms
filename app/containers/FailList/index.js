@@ -23,6 +23,9 @@ import { Chart } from 'react-google-charts';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
+import {
+  makeSelectClassList, makeSelectInstituteUrlInfo
+} from '../Header/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FailList extends React.Component {
@@ -74,6 +77,10 @@ export class FailList extends React.Component {
   }
   render() {
     let { errors } =this.state
+    
+
+    // console.log("this.props.classList:::::::::::::::::>>>>>>:::::::::", this.props.classList);
+    console.log("this.props.urlInfoDetails:::::::::::::::::>>>>>>:::::::::", this.props.urlInfoDetails);
     return (
       <div>
         <Helmet>
@@ -99,7 +106,7 @@ export class FailList extends React.Component {
                     <div className="col-md-12 col-lg-12 form">
                       <Form inline>
                         <div className="col-md-6 col-lg-3">
-                          <FormGroup className="custom-dropdown">
+                          <FormGroup className="custom-input-text">
                             <Input
                               type="select"
                               name="year"
@@ -133,7 +140,7 @@ export class FailList extends React.Component {
                         </div>
 
                         <div className="col-md-6 col-lg-3">
-                          <FormGroup className="custom-dropdown">
+                          <FormGroup className="custom-input-text">
                             <Input
                               type="select"
                               name="section"
@@ -269,7 +276,9 @@ FailList.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  classList: makeSelectClassList(),
   failList: makeSelectFailList(),
+  urlInfoDetails: makeSelectInstituteUrlInfo(),
 });
 
 function mapDispatchToProps(dispatch) {

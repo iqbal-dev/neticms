@@ -22,3 +22,5 @@ export const SET_TOP_EVENT = 'app/Header/SET_TOP_EVENT';
 
 export const SET_LOADER = 'app/Header/SET_LOADER';
 export const SET_ERROR_MESSAGE = 'app/Header/SET_ERROR_MESSAGE';
+
+export const SET_CLASS_LIST_BY_TYPE_ID = 'app/Header/SET_CLASS_LIST_BY_TYPE_ID';
