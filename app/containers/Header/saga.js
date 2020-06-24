@@ -26,7 +26,7 @@ export function* fetch_emAuthToken() {
   };
   try {
     const response = yield call(request, requestURL, options);
-    yield put(setAccessToken(response.access_token))
+    yield put(setAccessToken(response))
     console.log('token-response', response);
 
   } catch (error) {
