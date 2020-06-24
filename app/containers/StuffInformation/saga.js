@@ -11,13 +11,15 @@ import { makeSelectAccessToken } from '../Header/selectors';
 export function* fetchStuffsInfoList() {
 
   const token = yield select(makeSelectAccessToken());
+  console.log('token.access_token', token.access_token);
+  
   // const requestURL = '3.211.144.191:8080/nw/sa-point/basic/list/by/category/with/photo?categoryName=Teacher&instituteId=10060'
   const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Teacher").concat('&instituteId=').concat("10060");
   const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': token.access_token,
+      'Authorization': 'bearer ' +token.access_token,
     },
   };
   const response = yield call(request, requestURL, options);
