@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SUBMIT_SEARCH_BUTTON } from './constants';
+import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SUBMIT_SEARCH_BUTTON,SET_EXAM_LIST } from './constants';
 
 export function defaultAction() {
   return {
@@ -13,6 +13,8 @@ export function defaultAction() {
 }
 
 export function setAcademicYear(academicYear) {
+  console.log('action academicYear',academicYear);
+
   return {
     type: SET_ACADEMIC_YEAR,
     academicYear
@@ -24,3 +26,11 @@ export function submitSearchButton() {
     type: SUBMIT_SEARCH_BUTTON,
   };
 }
+
+export function setExamListInfo(examList) {
+  return {
+    type: SET_EXAM_LIST,
+    examList
+  };
+}
+

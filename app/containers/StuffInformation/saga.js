@@ -1,10 +1,11 @@
-import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../utils/request';
 import { BASE_URL, fetch_staffsInformaions, BASE_URL_EM } from '../../utils/serviceUrl';
 import { getMethod, getMethodWithAuth } from '../../utils/baseMethod';
-
+import {STUFF_SEARCH_BUTTON} from './constants'
 import { setStaffInfoList } from './actions';
 import { makeSelectAccessToken } from '../Header/selectors';
+import {makeSelectStuffRowData} from './selectors'
 
 export function* fetch_stuffsInfoList() {
 
@@ -28,6 +29,29 @@ export function* fetch_stuffsInfoList() {
 
 }
 
-export default function* stuffInformationSaga() {
-  yield fetch_stuffsInfoList();
+
+
+export function* fetch_stuffsInfoBySearch() {
+
+    console.log("search function clicked");
+    let rowData = yield select(makeSelectStuffRowData());
+
+    console.log("rowData clicked", rowData);
+
+
 }
+
+
+
+
+
+
+
+export default function* stuffInformationSaga() {
+  // yield fetch_stuffsInfoList();
+  yield takeLatest(STUFF_SEARCH_BUTTON, fetch_stuffsInfoBySearch );
+
+  
+}
+
+

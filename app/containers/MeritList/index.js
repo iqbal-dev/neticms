@@ -34,7 +34,7 @@ export class MeritList extends React.Component {
     this.state = {}
   }
 
-  onchangeAcademicYear = (e) => {
+  onchangeAcademicYear(e) {
      this.props.onchangeAcademicYearId(e.target.value)
      };
 
@@ -45,6 +45,16 @@ export class MeritList extends React.Component {
       { key: 2020, value: 2020 },
       { key: 2019, value: 2019 },
     ];
+
+    let sectionList = [
+      { key: 'Section-A', value: 'Section-A' },
+      { key: 'Section-B', value: 'Section-B' },
+    ]
+
+    let examList = [
+      { key: 'Exam-A', value: 'Exam-A' },
+      { key: 'Exam-B', value: 'Exam-B' },
+    ]
 
     // if (this.props.academicYearList && this.props.academicYearList.lenght) {
     //   key & value bind
@@ -80,7 +90,7 @@ export class MeritList extends React.Component {
                           <Input
                             type="select" 
                             name="academic-year"
-                            onChange={(e) => this.onchangeAcademicYear(e)}
+                            onChange={this.onchangeAcademicYear.bind(this)}
                             value={this.props.academicYear}
                           >
                            {academicYearOptions.map(item => (
@@ -92,27 +102,24 @@ export class MeritList extends React.Component {
 
                       <div className="col-md-6 col-lg-3">
                         <FormGroup className="custom-dropdown">
-                          <Input type="select" name="academic-year">
-                            <option>Select Exam Type</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                          <Input type="select" name="section-list">
+                          {sectionList.map(item => (
+                             <option value={item.value}>{item.key}</option>
+                           ))}
                           </Input>
                         </FormGroup>
                       </div>
 
                       <div className="col-md-6 col-lg-3">
                         <FormGroup className="custom-dropdown">
-                          <Input type="select" name="academic-year">
-                            <option>Select a Section</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                          <Input type="select" name="exam-list">
+                          {examList.map(item => (
+                             <option value={item.value}>{item.key}</option>
+                           ))}
                           </Input>
                         </FormGroup>
                       </div>
+
 
                       <div className="col-md-6 col-lg-3">
                         <FormGroup>
@@ -248,8 +255,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onchangeAcademicYearId : (evt) => {
-      console.log('evt',evt);
-      dispatch(setAcademicYear(e.target.value))
+      dispatch(setAcademicYear(evt.value))
     },
     submitSearch: (evt) => dispatch(submitSearchButton()),
   };

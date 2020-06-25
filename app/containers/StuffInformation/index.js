@@ -21,6 +21,8 @@ import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 
 import donorImage from '../../assets/img/donor-image.png';
+import { Button } from 'reactstrap';
+import { onSubmitStuffInfoSearchBtn, onSubmitStuffInfoSetRowData } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StuffInformation extends React.Component {
@@ -41,6 +43,8 @@ export class StuffInformation extends React.Component {
           <div className="container-fluid">
             <div className="container p-t-60">
               <div className="row">
+              <Button className="btn explore-btn all-border-radious" onClick={this.props.submitSearch}>Search</Button>
+
                 <div className="col-md-12">
                   <div className="page-inner-title">
                     <h2 className="text-orange">List of Stuff's</h2>
@@ -84,7 +88,8 @@ export class StuffInformation extends React.Component {
 
 StuffInformation.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  staffInfoList: PropTypes.any
+  staffInfoList: PropTypes.any,
+  submitSearch: PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -95,6 +100,16 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    submitSearch: (evt) => {
+      console.log('dispatch',dispatch);
+      console.log('evt',evt);
+      dispatch(onSubmitStuffInfoSetRowData('rowData')),
+
+
+      dispatch(onSubmitStuffInfoSearchBtn())
+    },
+
+
   };
 }
 
