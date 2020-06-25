@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectMeritList, { makeSelectAcademicYear } from './selectors';
+import  makeSelectMeritList, { makeSelectAcademicYear}   from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -35,7 +35,7 @@ export class MeritList extends React.Component {
   }
 
   onchangeAcademicYear = (e) => {
-    //  this.props.onchangeAcademicYearId(e.target.value)
+     this.props.onchangeAcademicYearId(e.target.value)
      };
 
   render() {
@@ -74,20 +74,19 @@ export class MeritList extends React.Component {
                 <div className="col-md-12 attendance-body-header">
                   <div className="row attendance-body-header-inside">
                     <div className="col-md-12 col-lg-12 form">
-                      {/* <Form inline> */}
+                      <Form inline>
                       <div className="col-md-6 col-lg-3">
                         <FormGroup className="custom-dropdown">
                           <Input
-                            type="text" name="academic-year"
+                            type="select" 
+                            name="academic-year"
                             onChange={(e) => this.onchangeAcademicYear(e)}
                             value={this.props.academicYear}
-                          />
-                          {/* <option>Select Academic Year</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option> */}
-                          {/* </Input> */}
+                          >
+                           {academicYearOptions.map(item => (
+                             <option value={item.value}>{item.key}</option>
+                           ))}
+                           </Input>
                         </FormGroup>
                       </div>
 
@@ -120,7 +119,7 @@ export class MeritList extends React.Component {
                           <Button className="btn explore-btn all-border-radious" onClick={this.props.submitSearch}>Search</Button>
                         </FormGroup>
                       </div>
-                      {/* </Form> */}
+                      </Form>
                     </div>
                   </div>
                 </div>
@@ -241,15 +240,15 @@ MeritList.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   meritList: makeSelectMeritList(),
-  // sectionList: makeSelectSectionList(),
+  sectionList: makeSelectSectionList(),
   academicYear: makeSelectAcademicYear(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onchangeAcademicYearId: (evt) => {
-      console.log('dispatch', evt);
+    onchangeAcademicYearId : (evt) => {
+      console.log('evt',evt);
       dispatch(setAcademicYear(e.target.value))
     },
     submitSearch: (evt) => dispatch(submitSearchButton()),

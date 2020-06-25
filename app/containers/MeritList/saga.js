@@ -6,7 +6,7 @@ import { SUBMIT_SEARCH_BUTTON, SET_ACADEMIC_YEAR } from './constants';
 
 export function* fetch_SectionListByAcademicYear() {
 
-  console.log('academic-year', yield select(makeSelectAcademicYear()));
+  console.log('academic-year in merit list', yield select(makeSelectAcademicYear()));
 
 }
 
