@@ -104,7 +104,7 @@ export class FailList extends React.Component {
                     <div className="col-md-12 col-lg-12 form">
                       <Form inline>
                         <div className="col-md-6 col-lg-3">
-                          <FormGroup className="custom-input-text">
+                          <FormGroup className="custom-dropdown">
                             <Input
                               type="select"
                               name="year"
@@ -138,7 +138,7 @@ export class FailList extends React.Component {
                         </div>
 
                         <div className="col-md-6 col-lg-3">
-                          <FormGroup className="custom-input-text">
+                          <FormGroup className="custom-dropdown">
                             <Input
                               type="select"
                               name="section"
