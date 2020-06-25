@@ -11,6 +11,8 @@ const selectMeritListDomain = state => state.get('meritList', initialState);
  * Other specific selectors
  */
 
+const makeSelectAcademicYear = () =>
+  createSelector(selectMeritListDomain, substate => substate.get('academicYear'));
 /**
  * Default selector used by MeritList
  */
@@ -19,4 +21,6 @@ const makeSelectMeritList = () =>
   createSelector(selectMeritListDomain, substate => substate.toJS());
 
 export default makeSelectMeritList;
-export { selectMeritListDomain };
+export {
+   selectMeritListDomain,
+  makeSelectAcademicYear };

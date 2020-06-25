@@ -186,7 +186,6 @@ export function* fetch_instituteTopEvent_byUrlId() {
 
 }
 
-
 export function* fetch_sectionList() {
   let token = yield select(makeSelectAccessToken());
   let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
@@ -208,10 +207,6 @@ export function* fetch_sectionList() {
     } catch (error) { }
   };
 
-
-
-
-  
 export function* fetch_classNameBy_typeId() {
 
   // console.log('history func', urlInfoId);
@@ -243,11 +238,10 @@ export function* fetch_classNameBy_typeId() {
 
 }
 
-
 export default function* landingPageSaga() {
   yield fetch_emAuthToken();
   yield fetch_InstituteUrlInfo_byUrlName();
-  yield fetch_sectionList();
+  // yield fetch_sectionList();
   yield fetch_classNameBy_typeId();
   
 }
