@@ -20,3 +20,6 @@ export const fetch_sectionListBy_instituteID = '/core/setting/class-configuratio
 
 
 export const fetch_className_typeId = '/core/setting/class-configuration/list';
+
+export const fetch_examListBy_classConfigID = '/exam/configuration/list/by/class-config-id';
+
