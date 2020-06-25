@@ -23,6 +23,9 @@ import { Chart } from 'react-google-charts';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
+import {
+  makeSelectClassList
+} from '../Header/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FailList extends React.Component {
@@ -74,6 +77,8 @@ export class FailList extends React.Component {
   }
   render() {
     let { errors } =this.state
+
+    console.log("this.props.classList:::::::::::::::::>>>>>>:::::::::", this.props.classList);
     return (
       <div>
         <Helmet>
@@ -269,6 +274,7 @@ FailList.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  classList: makeSelectClassList(),
   failList: makeSelectFailList(),
 });
 

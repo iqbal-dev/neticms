@@ -1,13 +1,14 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
 import { BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_welcomeSpeechBy_urlId, fetch_menu_urlName, fetch_noticeBy_urlId, fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_sectionListBy_instituteID } from '../../utils/serviceUrl';
+import {   fetch_className_typeId } from '../../utils/serviceUrl';
 import { getMethod } from '../../utils/baseMethod';
 
-import { setInstituteUrlInfo, setWelcomeSpeech, setMenu, setNotice, setHistoryDetails, setTopEvents, setAccessToken } from './actions';
+import { setInstituteUrlInfo, setWelcomeSpeech, setMenu, setNotice, setHistoryDetails, setTopEvents, setAccessToken, setClassListByTypeId } from './actions';
 import { setUrlInfoLocally } from '../../utils/localStorageMethod';
 import { setUrlId } from '../HomePage/actions';
 import { makeSelectInstituteUrlInfo, makeSelectAccessToken  } from './selectors';
-
+// import { makeSelectUrlInfo } from '../HomePage/selectors';
 
 // Individual exports for testing
 
@@ -67,6 +68,7 @@ export function* fetch_InstituteUrlInfo_byUrlName() {
       yield fetch_WelcomeSpeech_byUrlId();
       yield fetch_instituteHistory_byUrlId();
       yield fetch_instituteTopEvent_byUrlId();
+      // yield fetch_classNameBy_typeId();
     }
 
   } catch (error) { }
@@ -203,6 +205,40 @@ export function* fetch_sectionList() {
   console.log('section list response', response);
   try {
     yield put(setSectionList(response.item));
+    } catch (error) { }
+  };
+
+
+
+
+  
+export function* fetch_classNameBy_typeId() {
+
+  // console.log('history func', urlInfoId);
+
+  let token = yield select(makeSelectAccessToken())
+  console.log("TOKEN>>>>>>>>>>>>>>", token);
+
+  // let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
+  // console.log("instituteUrlInfo", instituteUrlInfo);
+  // let instituteID = instituteUrlInfo && instituteUrlInfo.coreUrlMappingDTOs[0] && instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
+
+  // console.log("instituteID", instituteID);
+  
+  const requestURL = BASE_URL_EM.concat(fetch_className_typeId).concat('?instituteId=').concat('10012');
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + token.access_token,
+
+    },
+  };
+
+  const response = yield call(request, requestURL, options);
+  console.log('ClassList Response>>>>>>>>>>>>>>>>', response);
+  try {
+    yield put(setClassListByTypeId(response.item));
   } catch (error) { }
 
 }
@@ -212,4 +248,6 @@ export default function* landingPageSaga() {
   yield fetch_emAuthToken();
   yield fetch_InstituteUrlInfo_byUrlName();
   yield fetch_sectionList();
+  yield fetch_classNameBy_typeId();
+  
 }

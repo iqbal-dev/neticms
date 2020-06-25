@@ -25,3 +25,4 @@ export const SET_ERROR_MESSAGE = 'app/Header/SET_ERROR_MESSAGE';
 
 export const SET_SECTION_LIST = 'app/Header/SET_SECTION_LIST';
 
+export const SET_CLASS_LIST_BY_TYPE_ID = 'app/Header/SET_CLASS_LIST_BY_TYPE_ID';

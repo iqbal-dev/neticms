@@ -29,6 +29,16 @@
     // }
 }
 
+.custom-input-text, .custom-dropdown{
+    // margin: 0 0 0px 0;
+    margin-bottom: 0 !important;
+    
+    &.m-t-10{
+        margin: 16px 0 0 0;
+        margin-bottom: 0 !important;
+    }
+}
+
 @mixin font-selector($fontName){
     font-family: $fontName, sans-serif !important;
 }
@@ -433,6 +443,14 @@
             display: flex;
             width: 100%;
             margin-bottom: 8px;
+
+            // &.custom-input-text, &.custom-dropdown{
+            //     margin: 0 0 0px 0;
+                
+            //     &.m-t-10{
+            //         margin-top: 16px;
+            //     }
+            // }
 
             .form-control{
                 background-color: #f2f2f2;

@@ -113,7 +113,7 @@ export class IndividualResult extends React.Component {
                       <div className="row form">
                         <Form inline className="col-lg-12">
                           <div className="col-md-12 col-lg-4">
-                            <FormGroup className="custom-dropdown">
+                            <FormGroup className=" custom-input-text">
                               <Input
                                 type="text"
                                 placeholder="Write Student Id"
@@ -122,7 +122,7 @@ export class IndividualResult extends React.Component {
                               />
                             </FormGroup>
                             <div className="error-message"> { errors['studentID'] }</div>
-                            <FormGroup className="custom-dropdown">
+                            <FormGroup className="custom-dropdown m-t-10">
                               <Input 
                                 type="select" 
                                 name="year" 
@@ -139,7 +139,7 @@ export class IndividualResult extends React.Component {
                           </div> 
 
                           <div className="col-md-12 col-lg-4">
-                            <FormGroup className="custom-dropdown">
+                            <FormGroup className="custom-dropdown custom-input-text">
                               <Input
                                 type="text"
                                 name="mobileNo"
@@ -148,7 +148,7 @@ export class IndividualResult extends React.Component {
                               />
                             </FormGroup>
                             <div className="error-message"> { errors['mobileNo'] }</div>
-                            <FormGroup className="custom-dropdown">
+                            <FormGroup className="custom-dropdown m-t-10">
                               <Input 
                                 type="select" 
                                 name="examType" 
