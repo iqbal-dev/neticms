@@ -5,7 +5,7 @@
  */
 
 import { DEFAULT_ACTION, SET_ACCESS_TOKEN, SET_INSTITUTE_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, 
-  SET_NOTICE, SET_LOADER, SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS,
+  SET_NOTICE, SET_LOADER, SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS, SET_SECTION_LIST,
  } from './constants';
 
 export function defaultAction() {
@@ -90,3 +90,11 @@ export function setErrorMessage(errorMsg) {
     errorMsg,
   };
 }
+
+export function setSectionList(sectionList) {
+  return {
+    type: SET_SECTION_LIST,
+    sectionList,
+  };
+}
+

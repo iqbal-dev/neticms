@@ -34,6 +34,9 @@ createSelector(selectHeaderDomain, substate => substate.get('historyDetails'));
 const makeSelectTopEvents = () =>
 createSelector(selectHeaderDomain, substate => substate.get('topEvents'));
 
+const makeSelectSectionList = () =>
+createSelector(selectHeaderDomain, substate => substate.get('sectionList'));
+
 // const makeSelectUrld = () =>
 // createSelector(selectHeaderDomain, substate => substate.get('urlId'));
 /**
@@ -55,4 +58,5 @@ export {
   makeSelectNoticeList,
   makeSelectHistoryDetails,
   makeSelectTopEvents,
+  makeSelectSectionList,
 };

@@ -22,10 +22,12 @@ import donorImage from '../../assets/img/donor-image.png';
 import { Table } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import { makeSelectSectionList } from '../Header/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class MeritList extends React.Component {
   render() {
+    console.log("in merit componenet",this.props.sectionList);
     return (
       <div>
       <Helmet>
@@ -212,6 +214,7 @@ MeritList.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   meritList: makeSelectMeritList(),
+  sectionList: makeSelectSectionList()
 });
 
 function mapDispatchToProps(dispatch) {

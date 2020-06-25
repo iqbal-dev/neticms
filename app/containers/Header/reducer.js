@@ -7,7 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION, SET_INSTITUTE_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE, SET_LOADER,
-  SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS, SET_ACCESS_TOKEN
+  SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS, SET_ACCESS_TOKEN, SET_SECTION_LIST
 } from './constants';
 
 export const initialState = fromJS({
@@ -59,6 +59,9 @@ function headerReducer(state = initialState, action) {
 
     case SET_ERROR_MESSAGE:
       return state.set('errorMsg', action.errorMsg);
+
+    case SET_SECTION_LIST:
+      return state.set('sectionList', action.sectionList);
 
     default:
       return state;

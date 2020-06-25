@@ -1,11 +1,13 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
-import { BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_welcomeSpeechBy_urlId, fetch_menu_urlName, fetch_noticeBy_urlId, fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM } from '../../utils/serviceUrl';
+import { BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_welcomeSpeechBy_urlId, fetch_menu_urlName, fetch_noticeBy_urlId, fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_sectionListBy_instituteID } from '../../utils/serviceUrl';
 import { getMethod } from '../../utils/baseMethod';
 
 import { setInstituteUrlInfo, setWelcomeSpeech, setMenu, setNotice, setHistoryDetails, setTopEvents, setAccessToken } from './actions';
 import { setUrlInfoLocally } from '../../utils/localStorageMethod';
 import { setUrlId } from '../HomePage/actions';
+import { makeSelectInstituteUrlInfo, makeSelectAccessToken  } from './selectors';
+
 
 // Individual exports for testing
 
@@ -182,7 +184,32 @@ export function* fetch_instituteTopEvent_byUrlId() {
 
 }
 
+
+export function* fetch_sectionList() {
+  let token = yield select(makeSelectAccessToken());
+  let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
+  let instituteID = instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
+  console.log('instituteUrlInfo',instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId);
+  const requestURL = BASE_URL_EM.concat(fetch_sectionListBy_instituteID).concat('?instituteId=').concat(instituteID);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + token.access_token,
+
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('section list response', response);
+  try {
+    yield put(setSectionList(response.item));
+  } catch (error) { }
+
+}
+
+
 export default function* landingPageSaga() {
   yield fetch_emAuthToken();
   yield fetch_InstituteUrlInfo_byUrlName();
+  yield fetch_sectionList();
 }
