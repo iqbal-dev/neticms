@@ -27,6 +27,12 @@ import {
   makeSelectClassList
 } from '../Header/selectors';
 
+import { 
+  makeChangeAcademicYear,
+  makeChangeSection,
+  makeChangeExamType
+} from './actions'
+
 /* eslint-disable react/prefer-stateless-function */
 export class FailList extends React.Component {
   constructor(props) {
@@ -76,9 +82,11 @@ export class FailList extends React.Component {
     }
   }
   render() {
-    let { errors } =this.state
+    let { errors } = this.state
+    let { classList } = this.props
 
     console.log("this.props.classList:::::::::::::::::>>>>>>:::::::::", this.props.classList);
+    
     return (
       <div>
         <Helmet>
@@ -108,7 +116,7 @@ export class FailList extends React.Component {
                             <Input
                               type="select"
                               name="year"
-                              onChange={this.onChangeInputField}
+                              onChange={this.props.onChangeAcademicYear}
                             >
                               <option value=''>Select Academic Year</option>
                               <option value='2'>2</option>
@@ -124,8 +132,32 @@ export class FailList extends React.Component {
                           <FormGroup className="custom-dropdown">
                             <Input
                               type="select"
+                              name="section"
+                              onChange={this.props.onChangeSection}
+                            >
+                              <option value=''>Select a Section</option>
+                              
+                              {
+                                classList && classList.map( (item, index) =>
+                                  <option 
+                                    key={ index }
+                                    value={ item.classConfigId }
+                                  >
+                                    { item.classShiftSection }
+                                  </option>
+                                )
+                              }
+                            </Input>
+                          </FormGroup>
+                          <div className="error-message"> {errors['section']}</div>
+                        </div>
+
+                        <div className="col-md-6 col-lg-3">
+                          <FormGroup className="custom-dropdown">
+                            <Input
+                              type="select"
                               name="examType"
-                              onChange={this.onChangeInputField}
+                              onChange={this.props.onChangeExamType}
                             >
                               <option value=''>Select Exam Type</option>
                               <option value='2'>2</option>
@@ -137,22 +169,7 @@ export class FailList extends React.Component {
                           <div className="error-message"> {errors['examType']}</div>
                         </div>
 
-                        <div className="col-md-6 col-lg-3">
-                          <FormGroup className="custom-dropdown">
-                            <Input
-                              type="select"
-                              name="section"
-                              onChange={this.onChangeInputField}
-                            >
-                              <option value=''>Select a Section</option>
-                              <option value='2'>2</option>
-                              <option value='3'>3</option>
-                              <option value='4'>4</option>
-                              <option value='5'>5</option>
-                            </Input>
-                          </FormGroup>
-                          <div className="error-message"> {errors['section']}</div>
-                        </div>
+                        
 
                         <div className="col-md-6 col-lg-3">
                           <FormGroup>
@@ -271,6 +288,7 @@ export class FailList extends React.Component {
 
 FailList.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  submitSearch: PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -281,6 +299,20 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeAcademicYear: (evt) => {
+      console.log('dispatch year evt', evt.target.value);
+      dispatch(makeChangeAcademicYear(evt.target.value))
+    },
+
+    onChangeSection: (evt) => {
+      console.log('dispatch section evt', evt.target.value);
+      dispatch(makeChangeSection(evt.target.value))
+    },
+
+    onChangeExamType: (evt) => {
+      console.log('dispatch exam evt', evt.target.value);
+      dispatch(makeChangeExamType(evt.target.value))
+    },
   };
 }
 
