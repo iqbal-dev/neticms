@@ -7,6 +7,7 @@ import {
 import { BASE_URL_EM } from '../../utils/serviceUrl';
 import { makeSelectAccessToken } from '../Header/selectors';
 import request from '../../utils/request';
+import { setFailListData } from './actions';
 
 
 export function* makeChangeAcademicYear(data) {
@@ -25,7 +26,7 @@ export function* getFailListData() {
   console.log("......................................................................................... Saga");
   // console.log('history func', urlInfoId);
 
-  let token = yield select(makeSelectAccessToken())
+  let token = JSON.parse(localStorage.getItem('token'))
   console.log("TOKEN>>>>>>>>>>>>>>", token);
 
   // let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());

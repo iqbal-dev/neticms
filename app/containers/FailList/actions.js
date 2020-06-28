@@ -42,7 +42,7 @@ export function makeChangeExamType(examTypeData) {
   };
 }
 
-export function setFailListData(classList) {
+export function setFailListData(failListData) {
   return {
     type: SET_FAIL_LIST_DATA,
     failListData,

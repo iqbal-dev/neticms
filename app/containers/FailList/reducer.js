@@ -9,10 +9,13 @@ import {
   DEFAULT_ACTION, 
   SET_ON_CHANGE_ACADEMIC_YEAR, 
   SET_ON_CHANGE_SECTION, 
-  SET_ON_CHANGE_EXAM_TYPE
+  SET_ON_CHANGE_EXAM_TYPE,
+  SET_FAIL_LIST_DATA
 } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  failListData: []
+});
 
 function failListReducer(state = initialState, action) {
   switch (action.type) {
@@ -27,6 +30,9 @@ function failListReducer(state = initialState, action) {
 
     case SET_ON_CHANGE_EXAM_TYPE:
       return state.set('changeSection', action.changeSection);
+
+    case SET_FAIL_LIST_DATA:
+      return state.set('failListData', action.failListData);
 
     default:
       return state;
