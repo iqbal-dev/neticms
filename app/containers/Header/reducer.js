@@ -8,10 +8,12 @@ import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION, SET_INSTITUTE_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE, SET_LOADER,
   SET_ERROR_MESSAGE, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_LATEST_NEWS, SET_ACCESS_TOKEN, SET_SECTION_LIST,
-  SET_CLASS_LIST_BY_TYPE_ID
+  SET_CLASS_LIST_BY_TYPE_ID,
+  SET_APP_HEADER_DATA
 } from './constants';
 
 export const initialState = fromJS({
+  headerData: '',
   accessToken: '',
   urlInfo: '',
   urlId: '',
@@ -28,6 +30,9 @@ function headerReducer(state = initialState, action) {
 
     case DEFAULT_ACTION:
       return state;
+
+      case SET_APP_HEADER_DATA:
+      return state.set('headerData', action.headerData);
 
     case SET_ACCESS_TOKEN:
       return state.set('accessToken', action.accessToken);

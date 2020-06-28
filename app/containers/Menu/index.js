@@ -48,7 +48,7 @@ export class Menu extends React.Component {
                     <Collapse navbar>
                       <Nav className="mr-auto" navbar>
                         <NavItem>
-                          <NavLink href="/demo">Home</NavLink>
+                          <NavLink href="/home">Home</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                           <DropdownToggle nav caret>
@@ -195,10 +195,10 @@ export class Menu extends React.Component {
                               </DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <NavLink href="#">Merit List</NavLink>
+                                  <NavLink href="meritList">Merit List</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Fail List</NavLink>
+                                  <NavLink href="failList">Fail List</NavLink>
                                 </NavItem>
                                 <NavItem>
                                   <NavLink href="/section-wise-result">

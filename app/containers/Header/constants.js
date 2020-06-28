@@ -6,6 +6,8 @@
 
 export const DEFAULT_ACTION = 'app/Header/DEFAULT_ACTION';
 
+export const SET_APP_HEADER_DATA = 'app/Header/SET_APP_HEADER_DATA';
+
 export const SET_ACCESS_TOKEN = 'app/Header/SET_ACCESS_TOKEN';
 
 export const SET_INSTITUTE_URL_INFO = 'app/Header/SET_INSTITUTE_URL_INFO';

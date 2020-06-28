@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import  makeSelectMeritList, { makeSelectAcademicYear}   from './selectors';
+import makeSelectMeritList, { makeSelectAcademicYear } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -35,11 +35,12 @@ export class MeritList extends React.Component {
   }
 
   onchangeAcademicYear(e) {
-     this.props.onchangeAcademicYearId(e.target.value)
-     };
+    this.props.onchangeAcademicYearId(e.target.value)
+  };
 
   render() {
-    // console.log("in merit componenet", this.props.sectionList);
+
+    console.log("in merit componenet", this.props.sectionList);
 
     let academicYearOptions = [
       { key: 2020, value: 2020 },
@@ -85,47 +86,46 @@ export class MeritList extends React.Component {
                   <div className="row attendance-body-header-inside">
                     <div className="col-md-12 col-lg-12 form">
                       <Form inline>
-                      <div className="col-md-6 col-lg-3">
-                        <FormGroup className="custom-dropdown">
-                          <Input
-                            type="select" 
-                            name="academic-year"
-                            onChange={this.onchangeAcademicYear.bind(this)}
-                            value={this.props.academicYear}
-                          >
-                           {academicYearOptions.map(item => (
-                             <option value={item.value}>{item.key}</option>
-                           ))}
-                           </Input>
-                        </FormGroup>
-                      </div>
+                        <div className="col-md-6 col-lg-3">
+                          <FormGroup className="custom-dropdown">
+                            <Input
+                              type="select"
+                              name="academic-year"
+                              onChange={this.onchangeAcademicYear.bind(this)}
+                              value={this.props.academicYear}
+                            >
+                              {academicYearOptions.map(item => (
+                                <option value={item.value}>{item.key}</option>
+                              ))}
+                            </Input>
+                          </FormGroup>
+                        </div>
 
-                      <div className="col-md-6 col-lg-3">
-                        <FormGroup className="custom-dropdown">
-                          <Input type="select" name="section-list">
-                          {sectionList.map(item => (
-                             <option value={item.value}>{item.key}</option>
-                           ))}
-                          </Input>
-                        </FormGroup>
-                      </div>
+                        <div className="col-md-6 col-lg-3">
+                          <FormGroup className="custom-dropdown">
+                            <Input type="select" name="section-list">
+                              {sectionList.map(item => (
+                                <option value={item.value}>{item.key}</option>
+                              ))}
+                            </Input>
+                          </FormGroup>
+                        </div>
 
-                      <div className="col-md-6 col-lg-3">
-                        <FormGroup className="custom-dropdown">
-                          <Input type="select" name="exam-list">
-                          {examList.map(item => (
-                             <option value={item.value}>{item.key}</option>
-                           ))}
-                          </Input>
-                        </FormGroup>
-                      </div>
+                        <div className="col-md-6 col-lg-3">
+                          <FormGroup className="custom-dropdown">
+                            <Input type="select" name="exam-list">
+                              {examList.map(item => (
+                                <option value={item.value}>{item.key}</option>
+                              ))}
+                            </Input>
+                          </FormGroup>
+                        </div>
 
-
-                      <div className="col-md-6 col-lg-3">
-                        <FormGroup>
-                          <Button className="btn explore-btn all-border-radious" onClick={this.props.submitSearch}>Search</Button>
-                        </FormGroup>
-                      </div>
+                        <div className="col-md-6 col-lg-3">
+                          <FormGroup>
+                            <Button className="btn explore-btn all-border-radious" onClick={this.props.submitSearch}>Search</Button>
+                          </FormGroup>
+                        </div>
                       </Form>
                     </div>
                   </div>
@@ -254,7 +254,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onchangeAcademicYearId : (evt) => {
+    onchangeAcademicYearId: (evt) => {
       dispatch(setAcademicYear(evt.value))
     },
     submitSearch: (evt) => dispatch(submitSearchButton()),

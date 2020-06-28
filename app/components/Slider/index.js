@@ -42,24 +42,9 @@ class Slider extends React.Component {
       },
     ];
 
-    console.log('ntc-list', this.props.notice);
+    // console.log('ntc-list', this.props.notice);
     let noticeArrayList = [];
-    if (!this.props.notice == '') {
-      console.log('ntc-condition-true');
-      noticeArrayList = this.props.notice;
-      // let listItem = document.getElementById("notice-list");
-      // this.props.notice.map((singleNotice) => {
-      //   let listValue = document.createElement("li");
-      //   listValue.textContent = <a href="#">
-      //   <span>
-      //     Publish on <i className="fas fa-calendar-alt" />{' '}
-      //     Aprill 05, 2020
-      //   </span>
-      //   <h4>{singleNotice.noticeTitle}</h4>
-      // </a>
-      //   listItem.appendChild(listValue);
-      // })
-    }
+    if (!this.props.notice == '') { noticeArrayList = this.props.notice; }
 
     return (
       <div className="home-slider-wrapper">
@@ -87,17 +72,6 @@ class Slider extends React.Component {
                         </a>
                       </li>
                     ))}
-
-                    {/* <li>
-                      <a href="#">
-                        <span>
-                          Publish on <i className="fas fa-calendar-alt" />{' '}
-                          Aprill 05, 2020
-                        </span>
-                        <h4>School will be close till June 30, 2020</h4>
-                      </a>
-                    </li>
-                     */}
                   </ul>
                   <a className="allNotice" href="#">
                     Read All

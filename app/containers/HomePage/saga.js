@@ -1,95 +1,223 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
-import { BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId } from '../../utils/serviceUrl';
-// import { getMethod } from '../../utils/baseMethod';
+import {
+  BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId,
+  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM
+} from '../../utils/serviceUrl';
+import {
+  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken
+} from './actions';
 
-import { setInstituteUrlInfo, setUrlInfo, setWelcomeSpeech, setNotice, setUrlId } from './actions';
-import { getUrlInfoLocally } from '../../utils/localStorageMethod';
-import { makeSelectInstituteUrlInfo } from '../Header/selectors';
-import { makeSelectUrlId } from './selectors';
-import { fetch_WelcomeSpeech_byUrlId } from '../Header/saga';
+let urlInfoId = '';
 
-// Individual exports for testing
+export function* fetch_instituteUrlInfo_byUrlName() {
 
-// export function* fetch_InstituteUrlInfo_byUrlName() {
+  let instituteHostNm = window.location.pathname.slice(1);
+  // console.log('instituteHostNm', instituteHostNm);
 
-//   let instituteHostNm = window.location.pathname.slice(1);
-//   // console.log('instituteHostNm', instituteHostNm);
+  const requestURL = BASE_URL.concat(fetch_urlMappingInfoBy_urlName).concat('?urlName=').concat(instituteHostNm);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('response', response);
+  try {
 
-//   const requestURL = BASE_URL.concat(fetch_urlMappingInfoBy_urlName).concat('?urlName=').concat(instituteHostNm);
-//   const options = {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       // 'Authorization': tokenData.token_type + " " + tokenData.access_token,
-//     },
-//   };
-//   const response = yield call(request, requestURL, options);
-//   console.log('response', response);
-//   try {
+    if (response) {
 
-//     yield put(setUrlInfo(response));
+      let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+      console.log('after-response', instituteUrlInfo);
 
-//     let urlInfoObj = {
-//       urlName: response.urlInfoDTO.urlName,
-//       urlInfoID: response.urlInfoDTO.urlInfoID,
-//       instituteName: response.urlInfoDTO.instituteName,
-//       instituteAddress: response.urlInfoDTO.instituteAddress,
-//       instituteContact: response.urlInfoDTO.instituteContact,
-//       instituteEmail: response.urlInfoDTO.instituteEmail,
-//     }
+      if (instituteUrlInfo == null) {
 
-//     setUrlInfoLocally(JSON.stringify(urlInfoObj));
+        urlInfoId = response.urlInfoDTO.urlInfoID;
+        let instituteInfoArr = [{
+          key: 1,
+          urlName: response.urlInfoDTO.urlName,
+          urlInfoID: response.urlInfoDTO.urlInfoID,
+          instituteName: response.urlInfoDTO.instituteName,
+          instituteAddress: response.urlInfoDTO.instituteAddress,
+          instituteContact: response.urlInfoDTO.instituteContact,
+          instituteEmail: response.urlInfoDTO.instituteEmail,
+        }]
 
-//     yield fetch_Menu_byUrlId(response.urlInfoDTO.urlInfoID);
-//     yield fetch_WelcomeSpeech_byUrlId(response.urlInfoDTO.urlInfoID);
-//     yield fetch_InstituteNotice_byUrlId(response.urlInfoDTO.urlInfoID);
-//   } catch (error) { }
+        localStorage.setItem('instituteInfo', JSON.stringify(instituteInfoArr));
 
-// }
+      } else {
 
-// export function* fetch_Menu_byUrlId(urlId) {
+        var instituteInfo = JSON.parse(localStorage.instituteInfo);
+        console.log('instituteInfo length', instituteInfo.length);
 
-//   const requestURL = BASE_URL.concat(fetch_menu_urlName).concat('?urlid=').concat(urlId);
-//   const options = {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   };
-//   const response = yield call(request, requestURL, options);
-//   // console.log('menu response', response);
-//   try {
-//     yield put(setWelcomeSpeech(response));
-//   } catch (error) { }
+        for (var i = 0; i < instituteInfo.length; i++) {
+          //look for match with name
+          if (response.urlInfoDTO.urlName !== instituteInfo[i].urlName) {
 
-// }
+            urlInfoId = response.urlInfoDTO.urlInfoID;
 
-export function* fetch_WelcomeSpeech() {
-  yield fetch_WelcomeSpeech_byUrlId();
+            instituteInfo[i].urlName = response.urlInfoDTO.urlName;
+            instituteInfo[i].urlInfoID = response.urlInfoDTO.urlInfoID;
+            instituteInfo[i].instituteName = response.urlInfoDTO.instituteName;
+            instituteInfo[i].instituteAddress = response.urlInfoDTO.instituteAddress;
+            instituteInfo[i].instituteContact = response.urlInfoDTO.instituteContact;
+            instituteInfo[i].instituteEmail = response.urlInfoDTO.instituteEmail;
+            break;
+          }
+        }
+        localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
+
+      }
+
+      yield put(setUrlInfo(response));
+      yield fetch_emAuthToken();
+      yield fetch_Menu_byUrlId();
+      yield fetch_InstituteTopNotices_byUrlId();
+      yield fetch_WelcomeSpeech_byUrlId();
+      yield fetch_instituteHistory_byUrlId();
+      yield fetch_instituteTopEvent_byUrlId();
+
+    }
+
+    console.log('after updt', JSON.parse(localStorage.instituteInfo));
+
+  } catch (error) { }
+
 }
 
-// export function* fetch_InstituteNotice_byUrlId(urlId) {
+export function* fetch_emAuthToken() {
 
-//   let urlInfoId = { urlInfoID: urlId }
-//   // console.log('urlInfoId', urlInfoId);
+  var FormData = require('form-data');
+  var data = new FormData();
+  data.append('grant_type', 'client_credentials');
 
-//   const requestURL = BASE_URL.concat(fetch_noticeBy_urlId);
-//   const options = {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(urlInfoId)
-//   };
-//   const response = yield call(request, requestURL, options);
-//   // console.log('InstituteNotice response', response);
-//   try {
-//     yield put(setNotice(response));
-//   } catch (error) { }
+  const requestURL = BASE_URL_EM.concat(fetch_em_token);
+  const options = {
+    method: 'POST',
+    headers:
+    {
+      'authorization': 'Basic bmV0aXdvcmxkLXdlYi1yZWFkLXdyaXRlLWNsaWVudDo5UU5uenczSg==',
+    },
+    body: data
+  };
+  try {
+    const response = yield call(request, requestURL, options);
+    localStorage.setItem('token', JSON.stringify(response));
 
-// }
+    // yield put(setAccessToken(response))
+    console.log('token-response', response);
+  } catch (error) { console.log('token-response-err', error); }
+
+}
+
+export function* fetch_Menu_byUrlId() {
+
+  const requestURL = BASE_URL.concat(fetch_menu_urlName).concat('?urlid=').concat(urlInfoId);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  // console.log('menu response', response);
+  try {
+    yield put(setMenu(response));
+  } catch (error) { }
+
+}
+
+export function* fetch_LatestNews() {
+
+  const requestURL = BASE_URL.concat(fetch_LatestNews);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  // console.log('menu response', response);
+  try {
+    yield put(setLatestNews(response));
+  } catch (error) { }
+
+}
+
+export function* fetch_InstituteTopNotices_byUrlId() {
+
+  let reqUrlInfoId = { urlInfoID: urlInfoId }
+
+  const requestURL = BASE_URL.concat(fetch_noticeBy_urlId);
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(reqUrlInfoId)
+  };
+  const response = yield call(request, requestURL, options);
+  // console.log('InstituteNotice response', response);
+  try {
+    yield put(setNotice(response));
+  } catch (error) { }
+
+}
+
+export function* fetch_WelcomeSpeech_byUrlId() {
+
+  // console.log('header-urlInfo', urlInfoId);
+
+  const requestURL = BASE_URL.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  // console.log('WelcomeSpeech response', response[0]);
+  try {
+    yield put(setWelcomeSpeech(response[0]));
+  } catch (error) { }
+
+}
+
+export function* fetch_instituteHistory_byUrlId() {
+
+  const requestURL = BASE_URL.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  // console.log('inst-history response', response);
+  try {
+    yield put(setHistoryDetails(response[0]));
+  } catch (error) { }
+
+}
+
+export function* fetch_instituteTopEvent_byUrlId() {
+
+  const requestURL = BASE_URL.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  // console.log('inst-topEvent response', response);
+  try {
+    yield put(setTopEvents(response));
+  } catch (error) { }
+
+}
 
 export default function* homePageSaga() {
-  // yield fetch_WelcomeSpeech();
+  yield fetch_instituteUrlInfo_byUrlName();
 }

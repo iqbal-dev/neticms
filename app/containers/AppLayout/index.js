@@ -5,8 +5,6 @@
  */
 
 import React from 'react';
-import { Switch, Route, BrowserRouter as Router} from 'react-router-dom';
-
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -21,22 +19,55 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import AboutUs from 'containers/AboutUs';
+import { AppHeader } from './AppHeader';
+import { Menu } from '../Menu';
+import { AppFooter } from './AppFooter';
+import { Footer } from '../Footer';
+import { Header } from '../Header';
+import { makeSelectUrlInfo } from '../HomePage/selectors';
 
-export default function AppLayout(match) {
+/* eslint-disable react/prefer-stateless-function */
+export class AppLayout extends React.Component {
+  render() {
 
-  let instituteHostNm = window.location.pathname.slice(1).toString();
-  let aboutRouteNm = '/' + instituteHostNm + '/about'.toString();
-  // console.log('aboutRoute', match);
-
-  return (
-    <Route
-      path="/about/nhmsc"
-      render={({ match }) => {
-        
-        component={AboutUs}
-      }}
-    />
-  );
-
+    return (
+      <div>
+        <AppHeader />
+        <Menu />
+        <div>
+          {this.props.children}
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 }
+
+AppLayout.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({
+  appLayout: makeSelectAppLayout(),
+  urlInfoObjLayout: makeSelectUrlInfo()
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+const withReducer = injectReducer({ key: 'appLayout', reducer });
+const withSaga = injectSaga({ key: 'appLayout', saga });
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(AppLayout);
