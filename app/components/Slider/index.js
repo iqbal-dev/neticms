@@ -42,7 +42,7 @@ class Slider extends React.Component {
       },
     ];
 
-    // console.log('ntc-list', this.props.notice);
+    console.log('ntc-list-slider', this.props.notice);
     let noticeArrayList = [];
     if (!this.props.notice == '') { noticeArrayList = this.props.notice; }
 

@@ -8,8 +8,6 @@ import {
   setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken
 } from './actions';
 
-let urlInfoId = '';
-
 export function* fetch_instituteUrlInfo_byUrlName() {
 
   let instituteHostNm = window.location.pathname.slice(1);
@@ -70,13 +68,15 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
       }
 
+      let getInstituteUrlInfo = JSON.parse(localStorage.instituteInfo);
+
       yield put(setUrlInfo(response));
       yield fetch_emAuthToken();
-      yield fetch_Menu_byUrlId();
-      yield fetch_InstituteTopNotices_byUrlId();
-      yield fetch_WelcomeSpeech_byUrlId();
-      yield fetch_instituteHistory_byUrlId();
-      yield fetch_instituteTopEvent_byUrlId();
+      yield fetch_Menu_byUrlId(getInstituteUrlInfo[0].urlInfoID);
+      yield fetch_InstituteTopNotices_byUrlId(getInstituteUrlInfo[0].urlInfoID);
+      yield fetch_WelcomeSpeech_byUrlId(getInstituteUrlInfo[0].urlInfoID);
+      yield fetch_instituteHistory_byUrlId(getInstituteUrlInfo[0].urlInfoID);
+      yield fetch_instituteTopEvent_byUrlId(getInstituteUrlInfo[0].urlInfoID);
 
     }
 
@@ -111,7 +111,7 @@ export function* fetch_emAuthToken() {
 
 }
 
-export function* fetch_Menu_byUrlId() {
+export function* fetch_Menu_byUrlId(urlInfoId) {
 
   const requestURL = BASE_URL.concat(fetch_menu_urlName).concat('?urlid=').concat(urlInfoId);
   const options = {
@@ -145,8 +145,10 @@ export function* fetch_LatestNews() {
 
 }
 
-export function* fetch_InstituteTopNotices_byUrlId() {
+export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
 
+  console.log('urlInfoId-saga', urlInfoId);
+  
   let reqUrlInfoId = { urlInfoID: urlInfoId }
 
   const requestURL = BASE_URL.concat(fetch_noticeBy_urlId);
@@ -165,7 +167,7 @@ export function* fetch_InstituteTopNotices_byUrlId() {
 
 }
 
-export function* fetch_WelcomeSpeech_byUrlId() {
+export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
 
   // console.log('header-urlInfo', urlInfoId);
 
@@ -184,7 +186,7 @@ export function* fetch_WelcomeSpeech_byUrlId() {
 
 }
 
-export function* fetch_instituteHistory_byUrlId() {
+export function* fetch_instituteHistory_byUrlId(urlInfoId) {
 
   const requestURL = BASE_URL.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
   const options = {
@@ -201,7 +203,7 @@ export function* fetch_instituteHistory_byUrlId() {
 
 }
 
-export function* fetch_instituteTopEvent_byUrlId() {
+export function* fetch_instituteTopEvent_byUrlId(urlInfoId) {
 
   const requestURL = BASE_URL.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
