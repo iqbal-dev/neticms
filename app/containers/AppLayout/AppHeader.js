@@ -17,12 +17,10 @@ export class AppHeader extends React.Component {
 
     render() {
 
-
         let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
 
         const date = new Date();
         let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ', ' + date.getDate() + ', ' + date.getFullYear();
-
 
         let instituteName = '';
         let instituteAddress = '';
@@ -30,9 +28,6 @@ export class AppHeader extends React.Component {
         //     instituteName = instituteUrlInfo[0].instituteName;
         //     instituteAddress = instituteUrlInfo[0].instituteAddress;
         // }
-
-        console.log('instituteName', instituteName);
-        console.log('get Test state', this.state.testState);
 
         return (
             <header className="header-wrapper pt-4 pb-4">
