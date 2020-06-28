@@ -24,7 +24,6 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { makeSelectSectionList } from '../Header/selectors';
 import { setAcademicYear, submitSearchButton } from './actions';
-import appLayoutReducer from '../AppLayout/reducer';
 import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */

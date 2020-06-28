@@ -26,10 +26,10 @@ export class AppHeader extends React.Component {
 
         let instituteName = '';
         let instituteAddress = '';
-        if (!instituteUrlInfo.length == 0 || !instituteUrlInfo == undefined) {
-            instituteName = instituteUrlInfo[0].instituteName;
-            instituteAddress = instituteUrlInfo[0].instituteAddress;
-        }
+        // if (!instituteUrlInfo == undefined || !instituteUrlInfo == null) {
+        //     instituteName = instituteUrlInfo[0].instituteName;
+        //     instituteAddress = instituteUrlInfo[0].instituteAddress;
+        // }
 
         console.log('instituteName', instituteName);
         console.log('get Test state', this.state.testState);
@@ -45,8 +45,8 @@ export class AppHeader extends React.Component {
                                         <img src={logo} />
                                     </div>
                                     <div className="inst-title-wrapper">
-                                        <h1 className="ins-title">{instituteUrlInfo.length ? instituteUrlInfo[0].instituteName : ''}</h1>
-                                        <address>{instituteUrlInfo.length ? instituteUrlInfo[0].instituteAddress : ''}</address>
+                                        <h1 className="ins-title">{instituteUrlInfo && instituteUrlInfo.length ? instituteUrlInfo[0].instituteName : ''}</h1>
+                                        <address>{instituteUrlInfo && instituteUrlInfo.length ? instituteUrlInfo[0].instituteAddress : ''}</address>
                                         <span>Neti ID : {this.props.appHeaderData}</span>
                                     </div>
                                 </div>
