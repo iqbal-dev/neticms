@@ -5,7 +5,6 @@ import HomePage from 'containers/HomePage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import AboutUs from 'containers/AboutUs';
 import History from 'containers/History';
-import AppLayout from 'containers/AppLayout';
 import BookList from 'containers/BookList';
 import AllEventsList from 'containers/AllEventsList';
 import ClassRooms from 'containers/ClassRooms';
@@ -28,13 +27,13 @@ import SectionWiseAttendance from '../SectionWiseAttendance';
 import AllNotice from 'containers/AllNotice';
 
 import StudentWiseAttendance from '../StudentWiseAttendance';
-import FailList from '../FailList';
-import StudentInfo from '../StudentInfo';
-import { MeritList } from '../MeritList';
-import { SeatInfo } from '../SeatInfo';
-import FindPayslip from '../FindPayslip';
-import WelcomeSpeech from '../WelcomeSpeech';
-import IndividualResult from '../IndividualResult';
+import FailList from 'containers/FailList';
+import StudentInfo from 'containers/StudentInfo';
+import  MeritList  from 'containers/MeritList';
+import SeatInfo  from 'containers/SeatInfo';
+import FindPayslip from 'containers/FindPayslip';
+import WelcomeSpeech from 'containers/WelcomeSpeech';
+import IndividualResult from 'containers/IndividualResult';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
