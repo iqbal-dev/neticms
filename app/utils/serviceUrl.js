@@ -3,8 +3,9 @@
 // export const BASE_URL = 'http://34.202.31.220:9001';
 
 //for Development only
-export const BASE_URL = 'http://3.211.144.191:9001';
-export const BASE_URL_EM = 'http://3.211.144.191:8080';
+export const BASE_URL = 'https://api.netizendev.com:2087';
+// export const BASE_URL = 'http://3.211.144.191:9001';
+export const BASE_URL_EM = 'https://api.netizendev.com:2083';
 
 export const fetch_em_token = '/oauth/token';
 export const fetch_urlMappingInfoBy_urlName = '/client_dws/url-mapping/dws/dws/by';
@@ -18,9 +19,4 @@ export const fetch_latestNews = '';
 export const fetch_staffsInformaions = '/nw/sa-point/basic/list/by/category/with/photo'
 export const fetch_coreSettingsListBy_typeId = '/core/setting/list/by-type-id'; // fetch list by typeid
 
-
-
 export const fetch_examListBy_classConfigID = '/exam/configuration/list/by/class-config-id';
-
-
-

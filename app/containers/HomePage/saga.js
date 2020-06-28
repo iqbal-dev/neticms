@@ -27,11 +27,12 @@ export function* fetch_instituteUrlInfo_byUrlName() {
     if (response) {
 
       let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-      console.log('after-response', instituteUrlInfo);
+      // console.log('after-response', instituteUrlInfo);
 
       if (instituteUrlInfo == null) {
 
-        urlInfoId = response.urlInfoDTO.urlInfoID;
+        // console.log('truee');
+
         let instituteInfoArr = [{
           key: 1,
           urlName: response.urlInfoDTO.urlName,
@@ -47,13 +48,12 @@ export function* fetch_instituteUrlInfo_byUrlName() {
       } else {
 
         var instituteInfo = JSON.parse(localStorage.instituteInfo);
-        console.log('instituteInfo length', instituteInfo.length);
+        // console.log('instituteInfo length', instituteInfo);
 
         for (var i = 0; i < instituteInfo.length; i++) {
           //look for match with name
           if (response.urlInfoDTO.urlName !== instituteInfo[i].urlName) {
-
-            urlInfoId = response.urlInfoDTO.urlInfoID;
+            console.log('not match');
 
             instituteInfo[i].urlName = response.urlInfoDTO.urlName;
             instituteInfo[i].urlInfoID = response.urlInfoDTO.urlInfoID;
@@ -68,19 +68,20 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
       }
 
-      let getInstituteUrlInfo = JSON.parse(localStorage.instituteInfo);
+      // let getInstituteUrlInfo = JSON.parse(localStorage.instituteInfo);
+      console.log(JSON.parse(localStorage.instituteInfo));
 
       yield put(setUrlInfo(response));
       yield fetch_emAuthToken();
-      yield fetch_Menu_byUrlId(getInstituteUrlInfo[0].urlInfoID);
-      yield fetch_InstituteTopNotices_byUrlId(getInstituteUrlInfo[0].urlInfoID);
-      yield fetch_WelcomeSpeech_byUrlId(getInstituteUrlInfo[0].urlInfoID);
-      yield fetch_instituteHistory_byUrlId(getInstituteUrlInfo[0].urlInfoID);
-      yield fetch_instituteTopEvent_byUrlId(getInstituteUrlInfo[0].urlInfoID);
+      yield fetch_Menu_byUrlId(response.urlInfoDTO.urlInfoID);
+      yield fetch_InstituteTopNotices_byUrlId(response.urlInfoDTO.urlInfoID);
+      yield fetch_WelcomeSpeech_byUrlId(response.urlInfoDTO.urlInfoID);
+      yield fetch_instituteHistory_byUrlId(response.urlInfoDTO.urlInfoID);
+      yield fetch_instituteTopEvent_byUrlId(response.urlInfoDTO.urlInfoID);
 
     }
 
-    console.log('after updt', JSON.parse(localStorage.instituteInfo));
+    // console.log('after updt', JSON.parse(localStorage.instituteInfo));
 
   } catch (error) { }
 
@@ -147,8 +148,6 @@ export function* fetch_LatestNews() {
 
 export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
 
-  console.log('urlInfoId-saga', urlInfoId);
-  
   let reqUrlInfoId = { urlInfoID: urlInfoId }
 
   const requestURL = BASE_URL.concat(fetch_noticeBy_urlId);
