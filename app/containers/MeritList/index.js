@@ -24,6 +24,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { makeSelectSectionList } from '../Header/selectors';
 import { setAcademicYear, submitSearchButton } from './actions';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class MeritList extends React.Component {
@@ -40,7 +41,6 @@ export class MeritList extends React.Component {
 
   render() {
 
-    console.log("in merit componenet", this.props.sectionList);
 
     let academicYearOptions = [
       { key: 2020, value: 2020 },
@@ -61,10 +61,10 @@ export class MeritList extends React.Component {
     //   key & value bind
     // }
 
-    console.log('academicYear-index', this.props.academicYear);
 
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>MeritList</title>
           <meta name="description" content="Description of MeritList" />
@@ -234,7 +234,7 @@ export class MeritList extends React.Component {
             </div>
           </div>
         </div>
-
+  </AppLayout>
       </div>
     );
   }

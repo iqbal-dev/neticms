@@ -16,10 +16,11 @@ export const fetch_instituteTopEventBy_urlId = '/client_dws/event/top-five/by/ur
 export const submit_footerContactForm = '';
 export const fetch_latestNews = '';
 export const fetch_staffsInformaions = '/nw/sa-point/basic/list/by/category/with/photo'
-export const fetch_sectionListBy_instituteID = '/core/setting/class-configuration/list';
+export const fetch_coreSettingsListBy_typeId = '/core/setting/list/by-type-id'; // fetch list by typeid
 
 
-export const fetch_className_typeId = '/core/setting/class-configuration/list';
 
 export const fetch_examListBy_classConfigID = '/exam/configuration/list/by/class-config-id';
+
+
 

@@ -42,7 +42,7 @@ class Slider extends React.Component {
       },
     ];
 
-    // console.log('ntc-list', this.props.notice);
+    console.log('ntc-list-slider', this.props.notice);
     let noticeArrayList = [];
     if (!this.props.notice == '') { noticeArrayList = this.props.notice; }
 
@@ -61,7 +61,6 @@ class Slider extends React.Component {
                 <div id="notice-list" className="notice-board">
                   <ul>
                     {noticeArrayList.map(singleNotice => (
-                      // console.log('singleNotice in ul', singleNotice);
                       <li key={singleNotice.noticeID}>
                         <a href="#">
                           <span>
