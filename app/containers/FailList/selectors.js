@@ -28,7 +28,7 @@ const makeChangeExamType = () =>
   createSelector(selectFailListDomain, substate => substate.get('changeExamType'));
 
 const makeSelectFailListData = () =>
-  createSelector(selectFailListDomain, substate => substate.get('selectFailListData'));
+  createSelector(selectFailListDomain, substate => substate.get('failListData'));
 
 
 export default makeSelectFailList;

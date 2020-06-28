@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectFailList from './selectors';
+import { makeSelectFailListData } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -84,9 +84,9 @@ export class FailList extends React.Component {
   }
   render() {
     let { errors } = this.state
-    let { classList } = this.props
+    let { classList, failList } = this.props
 
-    console.log("this.props.classList:::::::::::::::::>>>>>>:::::::::", this.props.classList);
+    console.log("this.props.failList:::::::::::::::::>>>>>>:::::::::", this.props.failList);
     
     return (
       <div>
@@ -174,7 +174,7 @@ export class FailList extends React.Component {
                         
 
                         <div className="col-md-6 col-lg-3">
-                          <FormGroup>
+                          <FormGroup className="mb-0">
                             <Button 
                               className="btn explore-btn all-border-radious"
                               onClick={this.onSearchStudentInfo}
@@ -223,38 +223,22 @@ export class FailList extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td><center className="attendance passed"><img src={donorImage} /></center></td>
-                          <td>100024</td>
-                          <td>1</td>
-                          <td>Md. Shahrear Kabir</td>
-                          <td>549.60</td>
-                          <td>04</td>
-                        </tr>
-                        <tr>
-                          <td><center className="attendance passed"><img src={donorImage} /></center></td>
-                          <td>100024</td>
-                          <td>2</td>
-                          <td>Md. Shahrear Kabir 2</td>
-                          <td>549.60</td>
-                          <td>02</td>
-                        </tr>
-                        <tr>
-                          <td><center className="attendance passed"><img src={donorImage} /></center></td>
-                          <td>100024</td>
-                          <td>3</td>
-                          <td>Md. Shahrear Kabir 3</td>
-                          <td>549.60</td>
-                          <td>01</td>
-                        </tr>
-                        <tr>
-                          <td><center className="attendance failed"><img src={donorImage} /></center></td>
-                          <td>100030</td>
-                          <td>4</td>
-                          <td>Md. Shahrear Kabir 4</td>
-                          <td>120.60</td>
-                          <td>01</td>
-                        </tr>
+                        {
+                          failList ?
+                            failList.map((item, index) =>
+                              <tr>
+                                <td><center className="attendance failed"><img src={donorImage} /></center></td>
+                                <td>{item.customStudentId}</td>
+                                <td>{item.studentRoll}</td>
+                                <td>{item.studentName}</td>
+                                <td>{item.totalMarks}</td>
+                                <td>{item.numOfFailedSubjects}</td>
+                              </tr>
+                            )
+                            
+                            :<tr><td colSpan='5'>No Data Found</td></tr>
+                        }
+                        
                       </tbody>
                     </Table>
                   </div>
@@ -289,12 +273,13 @@ export class FailList extends React.Component {
 
 FailList.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  submitSearch: PropTypes.func
+  submitSearch: PropTypes.func,
+  failList: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
   classList: makeSelectClassList(),
-  failList: makeSelectFailList(),
+  failList: makeSelectFailListData(),
 });
 
 function mapDispatchToProps(dispatch) {
