@@ -32,7 +32,7 @@ export function* submit_Contact_Form() {
     body: JSON.stringify(requestedObj)
   };
   const response = yield call(request, requestURL, options);
-  console.log('submit response', response);
+  // console.log('submit response', response);
   try {
     console.log('submit-footer-contact', response);
 

@@ -56,7 +56,7 @@ export class Footer extends React.Component {
 
   render() {
 
-    console.log('footer-data', this.props.instituteUrlInfo);
+    // console.log('footer-data', this.props.instituteUrlInfo);
 
     let instituteName = '';
     let instituteAddress = '';

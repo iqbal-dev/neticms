@@ -12,13 +12,33 @@ const selectHomePageDomain = state => state.get('homePage', initialState);
  */
 
 const makeSelectUrlInfo = () =>
-createSelector(selectHomePageDomain, substate => substate.get('urlInfo'));
+  createSelector(selectHomePageDomain, substate => substate.get('urlInfo'));
 
 const makeSelectUrlId = () =>
   createSelector(selectHomePageDomain, substate => substate.get('urlId'));
 
+const makeSelectAccessToken = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('accessToken'));
 
-  const makeSelectLoaderStatus = () =>
+const makeSelectMenuList = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('menuList'));
+
+const makeSelectLatestNewsList = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('newsList'));
+
+const makeSelectWelcomeSpeech = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('welcomeSpeech'));
+
+const makeSelectNoticeList = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('noticeList'));
+
+const makeSelectHistoryDetails = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('historyDetails'));
+
+const makeSelectTopEvents = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('topEvents'));
+
+const makeSelectLoaderStatus = () =>
   createSelector(selectHomePageDomain, substate => substate.get('loadingStatus'));
 /**
  * Default selector used by HomePage
@@ -33,5 +53,11 @@ export {
   makeSelectUrlInfo,
   makeSelectLoaderStatus,
   makeSelectUrlId,
-
+  makeSelectAccessToken,
+  makeSelectMenuList,
+  makeSelectLatestNewsList,
+  makeSelectWelcomeSpeech,
+  makeSelectNoticeList,
+  makeSelectHistoryDetails,
+  makeSelectTopEvents,
 };

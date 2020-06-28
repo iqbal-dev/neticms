@@ -26,6 +26,7 @@ import donorImage from '../../assets/img/donor-image.png';
 import {
   makeSelectClassList
 } from '../Header/selectors';
+import { AppLayout } from '../AppLayout';
 
 import { 
   makeChangeAcademicYear,
@@ -89,6 +90,7 @@ export class FailList extends React.Component {
     
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>FailList</title>
           <meta name="description" content="Description of FailList" />
@@ -188,8 +190,6 @@ export class FailList extends React.Component {
               </div>
             </div>
 
-            
-
             <div className="container p-t-60">
               <div className="row">
                 <div className="col-md-12">
@@ -281,6 +281,7 @@ export class FailList extends React.Component {
           </div>
         </div>
 
+        </AppLayout>
       </div>
     );
   }

@@ -29,10 +29,10 @@ const AppWrapper = styled.div`
 export default function App() {
   return (
     <AppWrapper>
-      <Header />
-      <Menu />
+      {/* <Header /> */}
+      {/* <Menu /> */}
       <AppRoute />
-      <Footer />
+      {/* <Footer /> */}
       <GlobalStyle />
     </AppWrapper>
   );
