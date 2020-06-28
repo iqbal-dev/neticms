@@ -9,7 +9,8 @@ import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SET_EXAM_LIST } from './constants';
 
 export const initialState = fromJS({
   academicYear: '',
-  examList: ''
+  examList: '',
+  academicYearList: ''
 });
 
 function meritListReducer(state = initialState, action) {
@@ -22,6 +23,9 @@ function meritListReducer(state = initialState, action) {
 
       case SET_EXAM_LIST:
       return state.set('examList', action.examList);
+
+      case SET_ACADEMIC_YEAR_LIST:
+        return state.set('academicYearList', action.academicYearList);
 
     default:
       return state;

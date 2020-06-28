@@ -61,7 +61,6 @@ class Slider extends React.Component {
                 <div id="notice-list" className="notice-board">
                   <ul>
                     {noticeArrayList.map(singleNotice => (
-                      // console.log('singleNotice in ul', singleNotice);
                       <li key={singleNotice.noticeID}>
                         <a href="#">
                           <span>
