@@ -9,13 +9,15 @@ import {makeSelectStuffRowData} from './selectors'
 
 export function* fetch_stuffsInfoList() {
 
-  const token = yield select(makeSelectAccessToken());
-  const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Staff").concat('&instituteId=').concat("10060");
+  const token = JSON.parse(localStorage.getItem("token")) ;
+  console.log("TOKENNNNN:::", token);
+  
+  const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Staff").concat('&instituteId=').concat("10020");
   const options =     {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + token
+      'Authorization': token.token_type + ' ' + token.access_token
     }
   }
   // getMethodWithAuth(token.access_token);
@@ -48,7 +50,7 @@ export function* fetch_stuffsInfoBySearch() {
 
 
 export default function* stuffInformationSaga() {
-  // yield fetch_stuffsInfoList();
+  yield fetch_stuffsInfoList();
   yield takeLatest(STUFF_SEARCH_BUTTON, fetch_stuffsInfoBySearch );
 
   
