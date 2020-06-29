@@ -54,29 +54,31 @@ export class StuffInformation extends React.Component {
               </div>
 
               <div className="row">
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image">
-                      <img src={donorImage} className="mx-auto d-block" />
-                    </div>
-                    <div className="grid-content text-center">
-                      <div className="grid-title">
-                        <h3>Munsi Ashik Mahmud</h3>
+                {this.props.staffInfoList.map( (item, index) =>
+                  <div className="col-md-4">
+                    <div className="grid-list-wrapper">
+                      <div className="grid-image">
+                        <img src={donorImage} className="mx-auto d-block" />
                       </div>
-                      <div className="grid-subtitle-title">
-                        <h4>Vice President, Brac Bank</h4>
+                      <div className="grid-content text-center">
+                        <div className="grid-title">
+                          <h3>{item.staffName}</h3>
+                        </div>
+                        <div className="grid-subtitle-title">
+                          <h4>{item.designationName}</h4>
+                        </div>
                       </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a className="phone" href="#" phoneNumber="+88016808080"><i className="fas fa-phone" /></a></li>
-                        <li><a href="#"><i className="fas fa-envelope" /></a></li>
-                        <li><a href="#"><i className="fab fa-facebook-f" /></a></li>
-                        <li><a href="#"><i className="fab fa-linkedin-in" /></a></li>
-                      </ul>
+                      <div className="grid-social">
+                        <ul className="d-flex justify-content-center w-100 nav">
+                          <li><a className="phone" href="#" phoneNumber={item.staffMobile1}><i className="fas fa-phone" /></a></li>
+                          <li><a className="phone" href="#" phoneNumber={item.staffEmail}><i className="fas fa-envelope" /></a></li>
+                          <li><a href="#"><i className="fab fa-facebook-f" /></a></li>
+                          <li><a href="#"><i className="fab fa-linkedin-in" /></a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
