@@ -40,6 +40,13 @@ const makeSelectTopEvents = () =>
 
 const makeSelectLoaderStatus = () =>
   createSelector(selectHomePageDomain, substate => substate.get('loadingStatus'));
+
+const makeSelectAcademicYearList = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('academicYearList'));
+
+const makeSelectSectionList = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('sectionList'));
+
 /**
  * Default selector used by HomePage
  */
@@ -60,4 +67,6 @@ export {
   makeSelectNoticeList,
   makeSelectHistoryDetails,
   makeSelectTopEvents,
+  makeSelectAcademicYearList,
+  makeSelectSectionList,
 };

@@ -18,24 +18,36 @@ const selectFailListDomain = state => state.get('failList', initialState);
 const makeSelectFailList = () =>
   createSelector(selectFailListDomain, substate => substate.toJS());
 
-const makeChangeAcademicYear = () =>
-  createSelector(selectFailListDomain, substate => substate.get('changeAcademicYear'));
+const makeSelectAcademicYearList = () =>
+  createSelector(selectFailListDomain, substate => substate.get('yearList'));
 
-const makeChangeSection = () =>
-  createSelector(selectFailListDomain, substate => substate.get('changeSection'));
+const makeSelectSectionList = () =>
+  createSelector(selectFailListDomain, substate => substate.get('sectionList'));
 
-const makeChangeExamType = () =>
-  createSelector(selectFailListDomain, substate => substate.get('changeExamType'));
+const makeSelectExamList = () =>
+  createSelector(selectFailListDomain, substate => substate.get('examList'));
+
+const makeSelectAcademicYear = () =>
+  createSelector(selectFailListDomain, substate => substate.get('acYear'));
+
+const makeSelectClassConfigId = () =>
+  createSelector(selectFailListDomain, substate => substate.get('classConfigId'));
+
+const makeSelectExamConfigId = () =>
+  createSelector(selectFailListDomain, substate => substate.get('examConfigId'));
 
 const makeSelectFailListData = () =>
   createSelector(selectFailListDomain, substate => substate.get('failListData'));
 
-
 export default makeSelectFailList;
-export { 
-  selectFailListDomain, 
-  makeChangeAcademicYear,
-  makeChangeSection,
-  makeChangeExamType,
-  makeSelectFailListData
+export {
+  selectFailListDomain,
+  makeSelectAcademicYearList,
+  makeSelectSectionList,
+  makeSelectExamList,
+
+  makeSelectAcademicYear,
+  makeSelectClassConfigId,
+  makeSelectExamConfigId,
+  makeSelectFailListData,
 };

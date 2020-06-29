@@ -18,5 +18,8 @@ export const submit_footerContactForm = '';
 export const fetch_latestNews = '';
 export const fetch_staffsInformaions = '/nw/sa-point/basic/list/by/category/with/photo'
 export const fetch_coreSettingsListBy_typeId = '/core/setting/list/by-type-id'; // fetch list by typeid
+export const fetch_coreSettingsClassConfigurationListBy_instituteId = '/core/setting/class-configuration/list'; // class-shift-section list
 
 export const fetch_examListBy_classConfigID = '/exam/configuration/list/by/class-config-id';
+
+export const fetch_sectionWiseFailList = '/nw/sa-point/student/section-wise/result/failed/details';
