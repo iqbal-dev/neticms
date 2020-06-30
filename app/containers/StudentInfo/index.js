@@ -21,19 +21,20 @@ import messages from './messages';
 import donorImage from '../../assets/img/donor-image.png';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StudentInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        class: "",
-        group: "",
-        errors: {}
+      class: "",
+      group: "",
+      errors: {}
     }
   }
 
-  onChangeInputField = (event) =>{
+  onChangeInputField = (event) => {
     let { errors } = this.state
     // console.log('e', event.target.value);
     errors[event.target.name] = ''
@@ -59,122 +60,123 @@ export class StudentInfo extends React.Component {
     return formIsValid;
   }
 
-  onSearchStudentInfo = () =>{
-    if(this.handleError()){
+  onSearchStudentInfo = () => {
+    if (this.handleError()) {
 
     }
   }
 
   render() {
-    let { errors } =this.state
+    let { errors } = this.state
     return (
       <div>
-        <Helmet>
-          <title>StudentInfo</title>
-          <meta name="description" content="Description of StudentInfo" />
-        </Helmet>
-        {/* <FormattedMessage {...messages.header} /> */}
+        <AppLayout>
+          <Helmet>
+            <title>StudentInfo</title>
+            <meta name="description" content="Description of StudentInfo" />
+          </Helmet>
+          {/* <FormattedMessage {...messages.header} /> */}
 
-        <BreadcrumComponent
-          pageTitle="Student's Info"
-          menuStepFirst="Home"
-          menuStepSenond="Administration"
-          menuStepThird="Student's Info"
-        />   
+          <BreadcrumComponent
+            pageTitle="Student's Info"
+            menuStepFirst="Home"
+            menuStepSenond="Administration"
+            menuStepThird="Student's Info"
+          />
 
-        <section>
-          <div className="container-fluid">
+          <section>
+            <div className="container-fluid">
 
-          <div className="container p-t-60">
-              <div className="row">
-                <div className="col-md-12 attendance-body-header">
-                  <div className="row attendance-body-header-inside">
-                    {/* <div className="row"> */}
+              <div className="container p-t-60">
+                <div className="row">
+                  <div className="col-md-12 attendance-body-header">
+                    <div className="row attendance-body-header-inside">
+                      {/* <div className="row"> */}
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
                           {/* <div className="row"> */}
-                            <div className="col-md-12 col-lg-4">
-                              <FormGroup className="custom-dropdown">
-                                <Input 
-                                  type="select" 
-                                  name="class" 
-                                  onChange={this.onChangeInputField}
-                                  // value={ this.state.class }
-                                >
-                                  <option value=''>Choose a class</option>
-                                  <option value='2'>2</option>
-                                  <option value='3'>3</option>
-                                  <option value='4'>4</option>
-                                  <option value='5'>5</option>
-                                </Input>
-                              </FormGroup>
-                              <div className="error-message"> { errors['class'] }</div>
-                            </div>
+                          <div className="col-md-12 col-lg-4">
+                            <FormGroup className="custom-dropdown">
+                              <Input
+                                type="select"
+                                name="class"
+                                onChange={this.onChangeInputField}
+                              // value={ this.state.class }
+                              >
+                                <option value=''>Choose a class</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
+                              </Input>
+                            </FormGroup>
+                            <div className="error-message"> {errors['class']}</div>
+                          </div>
 
-                            <div className="col-md-12 col-lg-5">
-                              <FormGroup className="custom-dropdown with-search-btn">
-                                <Input 
-                                  type="select" 
-                                  name="group" 
-                                  onChange={this.onChangeInputField}
-                                >
-                                  <option value=''>Select a group</option>
-                                  <option value='2'>2</option>
-                                  <option value='3'>3</option>
-                                  <option value='4'>4</option>
-                                  <option value='5'>5</option>
-                                </Input>
-                              
-                                <Button className="btn explore-btn" onClick={ this.onSearchStudentInfo}>
-                                  <i class="fas fa-chevron-circle-right"></i> Search
+                          <div className="col-md-12 col-lg-5">
+                            <FormGroup className="custom-dropdown with-search-btn">
+                              <Input
+                                type="select"
+                                name="group"
+                                onChange={this.onChangeInputField}
+                              >
+                                <option value=''>Select a group</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
+                              </Input>
+
+                              <Button className="btn explore-btn" onClick={this.onSearchStudentInfo}>
+                                <i class="fas fa-chevron-circle-right"></i> Search
                                 </Button>
-                              </FormGroup>
-                              <div className="error-message"> { errors['group'] }</div>
-                            </div>
+                            </FormGroup>
+                            <div className="error-message"> {errors['group']}</div>
+                          </div>
 
-                            <div className="col-md-12 col-lg-1 d-sm-none d-md-none d-lg-block">
-                              <div className="vertical-border"></div>
-                            </div>
+                          <div className="col-md-12 col-lg-1 d-sm-none d-md-none d-lg-block">
+                            <div className="vertical-border"></div>
+                          </div>
 
-                            <div className="col-md-12 col-lg-2">
-                              <FormGroup className="">
-                                <Button 
-                                  className="btn explore-btn all-border-radious download-btn-dark"
-                                  // onClick={ this.onSearchStudentInfo}
-                                >
-                                  <i class="fas fa-download"></i> Download
+                          <div className="col-md-12 col-lg-2">
+                            <FormGroup className="">
+                              <Button
+                                className="btn explore-btn all-border-radious download-btn-dark"
+                              // onClick={ this.onSearchStudentInfo}
+                              >
+                                <i class="fas fa-download"></i> Download
                                 </Button>
-                              </FormGroup>
-                              
-                            </div>
+                            </FormGroup>
+
+                          </div>
 
                           {/* </div> */}
                         </Form>
                       </div>
-                    {/* </div> */}
+                      {/* </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-1 col-md-10">
-                  <div className="custom-title-border-center" />
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-1 col-md-10">
+                    <div className="custom-title-border-center" />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="container info-header-title">
-              <div className="row">
-                <h5 className="col-lg-12">
-                  Showing result for  <span className="text-orange">Class Seven, Group - A (56 Students)</span>
-                </h5>
+              <div className="container info-header-title">
+                <div className="row">
+                  <h5 className="col-lg-12">
+                    Showing result for  <span className="text-orange">Class Seven, Group - A (56 Students)</span>
+                  </h5>
+                </div>
               </div>
-            </div>
 
-            <div className="container">
-              <div className="row">
+              <div className="container">
+                <div className="row">
 
                   <div class="col-md-12 studentlist-data-inside">
                     <div class="description">
@@ -217,19 +219,19 @@ export class StudentInfo extends React.Component {
                     </div>
                   </div>
 
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div className="container">
+            <div className="row">
+              <div className="offset-md-1 col-md-10">
+                <div className="custom-title-border-center" />
               </div>
             </div>
           </div>
-        </section>
-
-        <div className="container">
-          <div className="row">
-            <div className="offset-md-1 col-md-10">
-              <div className="custom-title-border-center" />
-            </div>
-          </div>
-        </div>
-
+        </AppLayout>
       </div>
     );
   }
