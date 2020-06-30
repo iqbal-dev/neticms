@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectStudentInfo from './selectors';
+import makeSelectStudentInfo, { makeSelectClassNameINfo } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -67,6 +67,8 @@ export class StudentInfo extends React.Component {
   };
 
   render() {
+    console.log('classNamesList', this.props.classNamesList);
+    
     const { errors } = this.state;
     return (
       <div>
@@ -248,10 +250,12 @@ export class StudentInfo extends React.Component {
 
 StudentInfo.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  classNamesList : PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   studentInfo: makeSelectStudentInfo(),
+  classNamesList: makeSelectClassNameINfo()
 });
 
 function mapDispatchToProps(dispatch) {
