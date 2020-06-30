@@ -99,7 +99,7 @@ export function* fetch_failList() {
   let classConfigId = yield select(makeSelectClassConfigId());
   let examConfigId = yield select(makeSelectExamConfigId());
 
-  // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
+  console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
 
   const requestURL = BASE_URL_EM.concat(fetch_sectionWiseFailList).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
