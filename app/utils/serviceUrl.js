@@ -4,7 +4,7 @@
 
 //for Development only
 
-export const BASE_URL_NETICMS = 'https://api.netizendev.com:2096';
+export const BASE_URL_NETI_CMS = 'https://api.netizendev.com:2096';
 export const BASE_URL_EM = 'https://api.netizendev.com:2083';
 
 export const fetch_em_token = '/oauth/token';

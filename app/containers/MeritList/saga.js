@@ -21,10 +21,10 @@ export function* fetch_meritList() {
 }
 
 export function* fetch_examList() {
-  let token = yield select(makeSelectAccessToken());
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
+
   // let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
   // let instituteID = instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
-  console.log("token in merit list saga", token)
   let instituteID = '10012';
   let classConfigId = '100155';
   console.log('instituteUrlInfo',instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId);
@@ -33,7 +33,7 @@ export function* fetch_examList() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + token.access_token,
+      'Authorization': 'bearer ' + emToken.access_token,
 
     },
   };
@@ -48,7 +48,8 @@ export function* fetch_examList() {
   export function* fetch_AcademicYearList() {
     console.log("saga");
     let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-    let token = JSON.parse(localStorage.getItem('token'));
+    let emToken = JSON.parse(localStorage.getItem('emToken'));
+
   
     // let instituteID =  instituteUrlInfo && instituteUrlInfo.coreUrlMappingDTOs && instituteUrlInfo.coreUrlMappingDTOs[0] && instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO && instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
     const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat('10012');
@@ -56,13 +57,13 @@ export function* fetch_examList() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'bearer ' + token.access_token,
+        'Authorization': 'bearer ' + emToken.access_token,
   
       },
     };
     try {
       const response = yield call(request, requestURL, options);
-      console.log('ac-year', response);
+      console.log('ac-year merit list', response);
   
       yield put(setAcademicYearList(response.item));
     } catch (error) { }

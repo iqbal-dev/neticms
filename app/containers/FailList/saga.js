@@ -13,7 +13,8 @@ import { makeSelectAcademicYear, makeSelectClassConfigId, makeSelectExamConfigId
 export function* fetch_AcademicYearList() {
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  let token = JSON.parse(localStorage.getItem('token'));
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
+
 
   let instituteID = '10020';
   const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteID);
@@ -21,7 +22,7 @@ export function* fetch_AcademicYearList() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + token.access_token,
+      'Authorization': 'bearer ' + emToken.access_token,
 
     },
   };
@@ -36,14 +37,15 @@ export function* fetch_AcademicYearList() {
 
 export function* fetch_classShiftSectionBy_instituteId() {
 
-  let token = JSON.parse(localStorage.getItem('token'));
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
+
 
   const requestURL = BASE_URL_EM.concat(fetch_coreSettingsClassConfigurationListBy_instituteId).concat('?instituteId=').concat('10020');
   const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + token.access_token,
+      'Authorization': 'bearer ' + emToken.access_token,
     },
   };
   const response = yield call(request, requestURL, options);
@@ -56,7 +58,8 @@ export function* fetch_classShiftSectionBy_instituteId() {
 
 export function* fetch_examListBy_sectionId() {
 
-  let token = JSON.parse(localStorage.getItem('token'));
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
+
 
   let classConfigId = yield select(makeSelectClassConfigId());
   console.log('classConfigId', classConfigId);
@@ -66,7 +69,7 @@ export function* fetch_examListBy_sectionId() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + token.access_token,
+      'Authorization': 'bearer ' + emToken.access_token,
     },
   };
   const response = yield call(request, requestURL, options);
@@ -77,7 +80,7 @@ export function* fetch_examListBy_sectionId() {
 
 export function* fetch_failList() {
 
-  let token = JSON.parse(localStorage.getItem('token'));
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
   let acYear = yield select(makeSelectAcademicYear());
   let classConfigId = yield select(makeSelectClassConfigId());
   let examConfigId = yield select(makeSelectExamConfigId());
@@ -89,7 +92,7 @@ export function* fetch_failList() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + token.access_token,
+      'Authorization': 'bearer ' + emToken.access_token,
     },
   };
 
