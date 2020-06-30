@@ -79,7 +79,8 @@ export class HomePage extends React.Component {
     const date = new Date();
 
     console.log('urlInfoAll', this.props.urlInfoAll);
-    console.log('notice List', this.props.noticeList);
+    console.log('token-homepage', this.props.accessToken);
+    // console.log('notice List', this.props.noticeList);
     // console.log('loader status', this.props.loaderStatus);
 
     let instituteName = '';
@@ -497,6 +498,7 @@ HomePage.propTypes = {
   instituteHistory: PropTypes.any,
   instituteTopEvents: PropTypes.any,
   loaderStatus: PropTypes.any,
+  accessToken: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -508,6 +510,7 @@ const mapStateToProps = createStructuredSelector({
   instituteHistory: makeSelectHistoryDetails(),
   instituteTopEvents: makeSelectTopEvents(),
   loaderStatus: makeSelectLoaderStatus(),
+  accessToken: makeSelectAccessToken(),
 });
 
 function mapDispatchToProps(dispatch) {

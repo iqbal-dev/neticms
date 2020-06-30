@@ -21,3 +21,11 @@ export const SET_HISTORY_DETAILS = 'app/HomePage/SET_HISTORY_DETAILS';
 export const SET_TOP_EVENT = 'app/HomePage/SET_TOP_EVENT';
 
 export const SET_LOADER = 'app/HomePage/SET_LOADER';
+
+// for global list
+
+export const SET_ACADEMIC_YEAR_LIST = 'app/HomePage/SET_ACADEMIC_YEAR_LIST';
+export const SET_SECTION_LIST = 'app/HomePage/SET_SECTION_LIST';
+
+
+

@@ -2,11 +2,13 @@ import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
 import {
   BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId,
-  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM
+  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId
 } from '../../utils/serviceUrl';
 import {
-  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken
+  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken, setGlobalAcademicYearList, setGlobalSectionList
 } from './actions';
+import { makeSelectAccessToken } from './selectors';
+import { setAcademicYearList } from '../FailList/actions';
 
 export function* fetch_instituteUrlInfo_byUrlName() {
 
@@ -104,6 +106,7 @@ export function* fetch_emAuthToken() {
   };
   try {
     const response = yield call(request, requestURL, options);
+    yield put(setAccessToken(response));
     localStorage.setItem('token', JSON.stringify(response));
 
     // yield put(setAccessToken(response))
@@ -122,7 +125,6 @@ export function* fetch_Menu_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('menu response', response);
   try {
     yield put(setMenu(response));
   } catch (error) { }
@@ -139,7 +141,6 @@ export function* fetch_LatestNews() {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('menu response', response);
   try {
     yield put(setLatestNews(response));
   } catch (error) { }
@@ -159,7 +160,6 @@ export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
     body: JSON.stringify(reqUrlInfoId)
   };
   const response = yield call(request, requestURL, options);
-  // console.log('InstituteNotice response', response);
   try {
     yield put(setNotice(response));
   } catch (error) { }
@@ -167,8 +167,6 @@ export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
 }
 
 export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
-
-  // console.log('header-urlInfo', urlInfoId);
 
   const requestURL = BASE_URL.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
@@ -178,7 +176,6 @@ export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('WelcomeSpeech response', response[0]);
   try {
     yield put(setWelcomeSpeech(response[0]));
   } catch (error) { }
@@ -195,7 +192,6 @@ export function* fetch_instituteHistory_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('inst-history response', response);
   try {
     yield put(setHistoryDetails(response[0]));
   } catch (error) { }
@@ -212,13 +208,51 @@ export function* fetch_instituteTopEvent_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('inst-topEvent response', response);
   try {
     yield put(setTopEvents(response));
   } catch (error) { }
 
 }
 
+export function* fetch_academicYearListBy_typeId() {
+
+  let token = yield select(makeSelectAccessToken());
+  const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat('10608');
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + token.access_token,
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('home-saga', response);
+  yield put(setGlobalAcademicYearList(response.item));
+
+}
+
+export function* fetch_classShiftSectionBy_typeId() {
+
+  let token = yield select(makeSelectAccessToken());
+  const requestURL = BASE_URL_EM.concat(fetch_coreSettingsClassConfigurationListBy_instituteId).concat('?instituteId=').concat('10608');
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + token.access_token,
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('home-saga-sec', response);
+  yield put(setAcademicYearList(response.item));
+
+  // yield put(setGlobalSectionList(response.item));
+
+}
+
 export default function* homePageSaga() {
   yield fetch_instituteUrlInfo_byUrlName();
+  yield fetch_academicYearListBy_typeId();
+  yield fetch_classShiftSectionBy_typeId();
+
 }
