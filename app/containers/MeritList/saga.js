@@ -3,6 +3,8 @@ import { makeSelectAcademicYear } from './selectors';
 import { SUBMIT_SEARCH_BUTTON, SET_ACADEMIC_YEAR, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST } from './constants';
 import {  fetch_examListBy_classConfigID, BASE_URL_EM, fetch_coreSettingsListBy_typeId  } from '../../utils/serviceUrl';
 import { makeSelectAccessToken } from '../Header/selectors';
+import { setAcademicYearList } from './actions';
+
 
 // Individual exports for testing
 
@@ -44,19 +46,12 @@ export function* fetch_examList() {
 
 
   export function* fetch_AcademicYearList() {
+    console.log("saga");
     let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
     let token = JSON.parse(localStorage.getItem('token'));
-
-
-    // let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
-    // let instituteID = instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
-    console.log("instituteUrlInfo merit list", instituteUrlInfo)
-    console.log("token merit list", token)
-
-    // let instituteID = '10012';
-    // let typeID = '2101';
-    // console.log('instituteUrlInfo',instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId);
-    const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat(typeID).concat('&instituteId=').concat(instituteID);
+  
+    let instituteID = '10020';
+    const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteID);
     const options = {
       method: 'GET',
       headers: {
@@ -65,16 +60,17 @@ export function* fetch_examList() {
   
       },
     };
-    const response = yield call(request, requestURL, options);
-    console.log('acedemic yr list response', response);
-    // try {
-    //   yield put(setSectionList(response.item));
-    //   } catch (error) { }
+    try {
+      const response = yield call(request, requestURL, options);
+      console.log('ac-year', response);
+  
+      yield put(setAcademicYearList(response.item));
+    } catch (error) { }
     }; 
 
 export default function* meritListSaga() {
-  // See example in containers/HomePage/saga.js
   yield fetch_AcademicYearList();
+  // See example in containers/HomePage/saga.js
   // yield fetch_examList();
   // yield takeLatest(SET_ACADEMIC_YEAR, fetch_SectionListByAcademicYear);
   // yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_meritList);
