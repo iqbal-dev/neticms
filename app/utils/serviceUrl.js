@@ -25,3 +25,8 @@ export const fetch_examListBy_classConfigID = '/exam/configuration/list/by/class
 export const fetchTeacherListByCategoryName = '/nw/sa-point/basic/list/by/category/with/photo';
 
 export const fetch_sectionWiseFailList = '/nw/sa-point/student/section-wise/result/failed/details';
+
+export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
+
+
+

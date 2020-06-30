@@ -2,20 +2,19 @@ import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../utils/request';
 
 import {
-  fetch_examListBy_classConfigID, BASE_URL_EM, fetch_coreSettingsListBy_typeId
+  fetch_examListBy_classConfigID, BASE_URL_EM,fetch_sectionWiseMeritList, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId
 } from '../../utils/serviceUrl';
 
 import {
-  SUBMIT_SEARCH_BUTTON, SET_ACADEMIC_YEAR, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST
+  SUBMIT_SEARCH_BUTTON, SET_ACADEMIC_YEAR, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST, SET_ON_CHANGE_SECTION
 } from './constants';
 import {
-  setAcademicYearList
+  setAcademicYearList, setSectionList, setExamList, setMeritListData
 } from './actions';
 import {
-  makeSelectAcademicYear
+  makeSelectAcademicYear, makeSelectClassConfigId, makeSelectExamConfigId
 } from './selectors';
 
-import { makeSelectAccessToken } from '../Header/selectors';
 
 // Individual exports for testing
 
@@ -43,47 +42,86 @@ export function* fetch_AcademicYearList() {
   } catch (error) { }
 };
 
-export function* fetch_SectionListByAcademicYear() {
-
-  console.log('academic-year in merit list', yield select(makeSelectAcademicYear()));
-
-}
-
-export function* fetch_meritList() {
-
-  console.log('saga-merit-list-search-btn-called');
-
-}
-
-export function* fetch_examList() {
+export function* fetch_classShiftSectionBy_instituteId() {
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let emToken = JSON.parse(localStorage.getItem('emToken'));
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
-  // let instituteUrlInfo = yield select(makeSelectInstituteUrlInfo());
-  // let instituteID = instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
-  let instituteID = '10012';
-  let classConfigId = '100155';
-  console.log('instituteUrlInfo', instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId);
-  const requestURL = BASE_URL_EM.concat(fetch_examListBy_classConfigID).concat('?classConfigId=').concat(classConfigId).concat('&instituteId=').concat(instituteID);
+
+  const requestURL = BASE_URL_EM.concat(fetch_coreSettingsClassConfigurationListBy_instituteId).concat('?instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'bearer ' + emToken.access_token,
-
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('xm list response', response);
-  // try {
-  //   yield put(setSectionList(response.item));
-  //   } catch (error) { }
-};
+  console.log('home-saga-sec', response);
+  yield put(setSectionList(response.item));
+
+}
+
+export function* fetch_examListBy_sectionId() {
+
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
+
+  let classConfigId = yield select(makeSelectClassConfigId());
+  console.log('classConfigId', classConfigId);
+
+  const requestURL = BASE_URL_EM.concat(fetch_examListBy_classConfigID).concat('?instituteId=').concat(instituteId).concat('&classConfigId=').concat(classConfigId);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + emToken.access_token,
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('home-saga-sec', response);
+  yield put(setExamList(response.item));
+
+}
+
+
+
+export function* fetch_meritList() {
+
+  let emToken = JSON.parse(localStorage.getItem('emToken'));  
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+  let acYear = yield select(makeSelectAcademicYear());
+  let classConfigId = yield select(makeSelectClassConfigId());
+  let examConfigId = yield select(makeSelectExamConfigId());
+
+  console.log('acyear', acYear);
+  
+  const requestURL = BASE_URL_EM.concat(fetch_sectionWiseMeritList).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + emToken.access_token,
+    },
+  };
+
+  const response = yield call(request, requestURL, options);
+  console.log('merit LIST Res', response);
+  try {
+    yield put(setMeritListData(response.item));
+  } catch (error) { }
+
+}
 
 export default function* meritListSaga() {
   yield fetch_AcademicYearList();
-  // See example in containers/HomePage/saga.js
-  // yield fetch_examList();
-  yield takeLatest(SET_ACADEMIC_YEAR, fetch_SectionListByAcademicYear);
-  // yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_meritList);
-
+  yield fetch_classShiftSectionBy_instituteId();
+  yield takeLatest(SET_ON_CHANGE_SECTION, fetch_examListBy_sectionId);
+  yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_meritList)
 }
