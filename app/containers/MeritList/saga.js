@@ -50,8 +50,8 @@ export function* fetch_examList() {
     let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
     let token = JSON.parse(localStorage.getItem('token'));
   
-    let instituteID = '10020';
-    const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteID);
+    // let instituteID =  instituteUrlInfo && instituteUrlInfo.coreUrlMappingDTOs && instituteUrlInfo.coreUrlMappingDTOs[0] && instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO && instituteUrlInfo.coreUrlMappingDTOs[0].edumanDetailsInfoDTO.instituteId;
+    const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat('10012');
     const options = {
       method: 'GET',
       headers: {
@@ -72,7 +72,7 @@ export default function* meritListSaga() {
   yield fetch_AcademicYearList();
   // See example in containers/HomePage/saga.js
   // yield fetch_examList();
-  // yield takeLatest(SET_ACADEMIC_YEAR, fetch_SectionListByAcademicYear);
+  yield takeLatest(SET_ACADEMIC_YEAR, fetch_SectionListByAcademicYear);
   // yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_meritList);
 
 
