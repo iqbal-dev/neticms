@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_PANEL_TAB_STATUS } from './constants';
+import { DEFAULT_ACTION, SET_PANEL_TAB_STATUS, SET_ON_CHANGE_ACADEMIC_YEAR } from './constants';
 
 export function defaultAction() {
   return {
@@ -16,5 +16,12 @@ export function setActivePanel(activeId) {
   return {
     type: SET_PANEL_TAB_STATUS,
     activeId
+  };
+}
+
+export function makeChangeAcademicYear(acYear) {
+  return {
+    type: SET_ON_CHANGE_ACADEMIC_YEAR,
+    acYear
   };
 }
