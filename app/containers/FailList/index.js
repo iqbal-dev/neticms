@@ -69,7 +69,7 @@ export class FailList extends React.Component {
     let { errors } = this.state;
     let formIsValid = true;
 
-    if (this.props.academicYear == '') {
+    if (this.props.acYear == '') {
       errors["year"] = "Year can't left empty"
       formIsValid = false;
     }
@@ -89,7 +89,7 @@ export class FailList extends React.Component {
   }
 
   onSearchStudentInfo = () => {
-    if (this.handleError()) {this.props.onSubmitSearch();}
+    if (true) {this.props.onSubmitSearch();}
   }
 
   render() {
