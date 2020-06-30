@@ -14,19 +14,26 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectTeacherInformation from './selectors';
+import makeSelectTeacherInformation, { makeSelectTeacherInformationList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import donorImage from '../../assets/img/donor-image.png';
+import demoImageMale from '../../assets/img/demo-image.jpg';
+import demoImageFemale from '../../assets/img/demo-image-female.jpg';
+
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import { AppLayout } from '../AppLayout';
 
 
 /* eslint-disable react/prefer-stateless-function */
 export class TeacherInformation extends React.PureComponent {
   render() {
+    
+    let teachers = this.props.teacherList;
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>TeacherInformation</title>
           <meta
@@ -48,147 +55,41 @@ export class TeacherInformation extends React.PureComponent {
                 </div>
               </div>
               <div className="row">
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image teachers">
-                      <img src={donorImage} className="mx-auto d-block"/>
-                    </div>
-                    <div className="grid-content text-center">
-                        <div className="grid-title">
-                          <h3>Munsi Ashik Mahmud</h3>
+                {
+                  teachers.map((item) => {
+                    return(
+                      <div className="col-md-4">
+                        <div className="grid-list-wrapper">
+                          {
+                            item.gender == "Male" ? <div className="grid-image teachers">
+                            {item.image ? <img src={item.imageName} className="mx-auto d-block"/> : <img src={demoImageMale} className="mx-auto d-block"/>}
+                          </div> : <div className="grid-image teachers">
+                            {item.image ? <img src={item.imageName} className="mx-auto d-block"/> : <img src={demoImageFemale} className="mx-auto d-block"/>}
+                          </div>
+                          }
+                          <div className="grid-content text-center">
+                              <div className="grid-title">
+                                {item.staffName ? <h3>{item.staffName}</h3> : <h3>No Name</h3>}
+                              </div>
+                              <div className="grid-subtitle-title">
+                                {item.staffName ? <h4>{item.designationName}</h4> : <h4>No Data</h4>}
+                              </div>
+                          </div>
+                          <div className="grid-social">
+                            <ul className="d-flex justify-content-center w-100 nav">
+                              
+                              {item.staffMobile1 ? <li><a className="phone" href="#" phoneNumber={item.staffMobile1}><i class="fas fa-phone"></i></a></li> : <li><a className="phone" href="#" phoneNumber="No Phone Found"><i class="fas fa-phone"></i></a></li>}
+                              {item.staffEmail ? <li><a href="#" className="phone" phoneNumber={item.staffEmail}><i class="fas fa-envelope"></i></a></li> : <li><a href="#" phoneNumber="No Email Found"><i class="fas fa-envelope"></i></a></li>}
+                              <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                              <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                          </div>
                         </div>
-                        <div className="grid-subtitle-title">
-                          <h4>Vice President, Brac Bank</h4>
-                        </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a className="phone" href="#" phoneNumber="+88016808080"><i class="fas fa-phone"></i></a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image teachers">
-                      <img src={donorImage} className="mx-auto d-block"/>
-                    </div>
-                    <div className="grid-content text-center">
-                        <div className="grid-title">
-                          <h3>Munsi Ashik Mahmud</h3>
-                        </div>
-                        <div className="grid-subtitle-title">
-                          <h4>Vice President, Brac Bank</h4>
-                        </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a href="#" className="phone" href="#" phoneNumber="+88016808080"><i class="fas fa-phone"></i></a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image teachers">
-                      <img src={donorImage} className="mx-auto d-block"/>
-                    </div>
-                    <div className="grid-content text-center">
-                        <div className="grid-title">
-                          <h3>Munsi Ashik Mahmud</h3>
-                        </div>
-                        <div className="grid-subtitle-title">
-                          <h4>Vice President, Brac Bank</h4> 
-                        </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a href="#" className="phone" href="#" phoneNumber="+88016808080"><i class="fas fa-phone"></i></a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image teachers">
-                      <img src={donorImage} className="mx-auto d-block"/>
-                    </div>
-                    <div className="grid-content text-center">
-                        <div className="grid-title">
-                          <h3>Munsi Ashik Mahmud</h3>
-                        </div>
-                        <div className="grid-subtitle-title">
-                          <h4>Vice President, Brac Bank</h4>
-                        </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a href="#" className="phone" href="#" phoneNumber="+88016808080"><i class="fas fa-phone"></i></a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image teachers">
-                      <img src={donorImage} className="mx-auto d-block"/>
-                    </div>
-                    <div className="grid-content text-center">
-                        <div className="grid-title">
-                          <h3>Munsi Ashik Mahmud</h3>
-                        </div>
-                        <div className="grid-subtitle-title">
-                          <h4>Vice President, Brac Bank</h4>
-                        </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a href="#" className="phone" href="#" phoneNumber="+88016808080"><i class="fas fa-phone"></i></a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image teachers">
-                      <img src={donorImage} className="mx-auto d-block"/>
-                    </div>
-                    <div className="grid-content text-center">
-                        <div className="grid-title">
-                          <h3>Munsi Ashik Mahmud</h3>
-                        </div>
-                        <div className="grid-subtitle-title">
-                          <h4>Vice President, Brac Bank</h4>
-                        </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a href="#" className="phone" href="#" phoneNumber="+88016808080"><i class="fas fa-phone"></i></a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                      </div>
+                    )                    
+                  })
+                }
+              </div> 
             </div>
             <div className="container">
               <div className="row">
@@ -199,6 +100,7 @@ export class TeacherInformation extends React.PureComponent {
             </div>
           </div>
         </section>
+        </AppLayout>
       </div>
     );
   }
@@ -206,10 +108,12 @@ export class TeacherInformation extends React.PureComponent {
 
 TeacherInformation.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  teacherList: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
   teacherInformation: makeSelectTeacherInformation(),
+  teacherList: makeSelectTeacherInformationList()
 });
 
 function mapDispatchToProps(dispatch) {

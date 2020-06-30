@@ -21,7 +21,7 @@ function bookListReducer(state = initialState, action) {
       const status = state.get('modalVisible');
       return state.set('modalVisible', !status);
 
-    case SET_MODAL_STATUS:
+    case SET_BOOK_LIST:
       return state.set('bookList', action.bookList);
 
       setBookList;
