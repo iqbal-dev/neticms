@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectMeritList, { makeSelectAcademicYear } from './selectors';
+import makeSelectMeritList, { makeSelectAcademicYear, makeSelecAcademicYearList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -41,7 +41,8 @@ export class MeritList extends React.Component {
 
   render() {
 
-
+   let { academicYearList } = this.props;
+   console.log("academicYearList merit list",academicYearList);
     let academicYearOptions = [
       { key: 2020, value: 2020 },
       { key: 2019, value: 2019 },
@@ -249,6 +250,8 @@ const mapStateToProps = createStructuredSelector({
   meritList: makeSelectMeritList(),
   sectionList: makeSelectSectionList(),
   academicYear: makeSelectAcademicYear(),
+  academicYearList: makeSelecAcademicYearList(),
+
 });
 
 function mapDispatchToProps(dispatch) {

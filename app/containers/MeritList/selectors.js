@@ -17,7 +17,7 @@ const makeSelectAcademicYear = () =>
 const makeSelectExamList = () =>
   createSelector(selectMeritListDomain, substate => substate.get('examList'));
 
-  const makeSelecAcademicYearList = () =>
+const makeSelecAcademicYearList = () =>
   createSelector(selectMeritListDomain, substate => substate.get('academicYearList'));
 /**
  * Default selector used by MeritList

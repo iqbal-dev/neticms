@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SET_EXAM_LIST } from './constants';
+import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SET_EXAM_LIST,SET_ACADEMIC_YEAR_LIST } from './constants';
 
 export const initialState = fromJS({
   academicYear: '',
