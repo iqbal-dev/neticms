@@ -80,7 +80,7 @@ export class MeritList extends React.Component {
                               onChange={this.props.onChangeAcademicYear}
                             >
                               <option value=''>Select Academic Year</option>
-                              {academicYearList && academicYearList.map(item => (<option key={item.name} value={this.props.academicYear}>{item.name}</option>))}
+                              {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
 
                             </Input>
                           </FormGroup>
@@ -166,61 +166,24 @@ export class MeritList extends React.Component {
                       </thead>
                       <tbody>
 
-                      {/* {
+                      {
                             meritList ?
                             meritList.map((item, index) =>
                                 <tr>
+                                  <td>{item.meritPosition}</td>
                                   <td><center className="attendance failed"><img src={donorImage} /></center></td>
-                                  <td>{item.customStudentId}</td>
+                                  <td>{item.studentId}</td>
                                   <td>{item.studentRoll}</td>
                                   <td>{item.studentName}</td>
                                   <td>{item.totalMarks}</td>
-                                  <td>{item.numOfFailedSubjects}</td>
+                                  <td>{item.gradingPoint}</td>
+                                  <td>{item.letterGrade}</td>
                                 </tr>
                               )
 
                               : <tr><td colSpan='5'>No Data Found</td></tr>
-                          } */}
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-                          <td>100024</td>
-                          <td>1</td>
-                          <td>Md. Shahrear Kabir</td>
-                          <td>549.60</td>
-                          <td>04</td>
-                          <td>A+</td>
-                        </tr>
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-                          <td>100024</td>
-                          <td>2</td>
-                          <td>Md. Shahrear Kabir 2</td>
-                          <td>549.60</td>
-                          <td>02</td>
-                          <td>A+</td>
-                        </tr>
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-                          <td>100024</td>
-                          <td>3</td>
-                          <td>Md. Shahrear Kabir 3</td>
-                          <td>549.60</td>
-                          <td>01</td>
-                          <td>A+</td>
-                        </tr>
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance failed"><img src={donorImage} /></div></td>
-                          <td>100030</td>
-                          <td>4</td>
-                          <td>Md. Shahrear Kabir 4</td>
-                          <td>120.60</td>
-                          <td>01</td>
-                          <td>A+</td>
-                        </tr>
+                          }
+                     
                       </tbody>
                     </Table>
                   </div>

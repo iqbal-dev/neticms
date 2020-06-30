@@ -133,7 +133,7 @@ console.log('examType', this.props.examConfigId);
                                 onChange={this.props.onChangeAcademicYear}
                               >
                                 <option value=''>Select Academic Year</option>
-                                {academicYearList && academicYearList.map(item => (<option key={item.name} value={this.props.academicYear}>{item.name}</option>))}
+                                {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
                               </Input>
                             </FormGroup>
                             <div className="error-message"> {errors['year']}</div>
