@@ -56,18 +56,18 @@ export class Footer extends React.Component {
 
   render() {
 
-    // console.log('footer-data', this.props.instituteUrlInfo);
+    let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
 
     let instituteName = '';
     let instituteAddress = '';
     let instituteContact = '';
     let instituteEmail = '';
 
-    if (this.props.instituteUrlInfo) {
-      instituteName = this.props.instituteUrlInfo.urlInfoDTO.instituteName;
-      instituteAddress = this.props.instituteUrlInfo.urlInfoDTO.instituteAddress;
-      instituteContact = this.props.instituteUrlInfo.urlInfoDTO.instituteContact;
-      instituteEmail = this.props.instituteUrlInfo.urlInfoDTO.instituteEmail;
+    if (instituteUrlInfo && instituteUrlInfo.length) {
+      instituteName = instituteUrlInfo[0].instituteName;
+      instituteAddress = instituteUrlInfo[0].instituteAddress;
+      instituteContact = instituteUrlInfo[0].instituteContact;
+      instituteEmail =instituteUrlInfo[0].instituteEmail;
     }
 
     return (

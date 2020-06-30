@@ -2,7 +2,7 @@ import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
 import {
   BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId,
-  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId
+  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, BASE_URL_NETI_CMS, BASE_URL_NETICMS
 } from '../../utils/serviceUrl';
 import {
   setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken, setGlobalAcademicYearList, setGlobalSectionList
@@ -15,7 +15,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
   let instituteHostNm = window.location.pathname.slice(1);
   // console.log('instituteHostNm', instituteHostNm);
 
-  const requestURL = BASE_URL.concat(fetch_urlMappingInfoBy_urlName).concat('?urlName=').concat(instituteHostNm);
+  const requestURL = BASE_URL_NETICMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
   const options = {
     method: 'GET',
     headers: {
@@ -33,16 +33,16 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
       if (instituteUrlInfo == null) {
 
-        // console.log('truee');
-
         let instituteInfoArr = [{
           key: 1,
-          urlName: response.urlInfoDTO.urlName,
-          urlInfoID: response.urlInfoDTO.urlInfoID,
-          instituteName: response.urlInfoDTO.instituteName,
-          instituteAddress: response.urlInfoDTO.instituteAddress,
-          instituteContact: response.urlInfoDTO.instituteContact,
-          instituteEmail: response.urlInfoDTO.instituteEmail,
+          urlName: response.item.urlName,
+          cmsId: response.item.cmsId,
+          emInstituteList: response.item.edumanInstituteList,
+          instituteName: response.item.instituteName,
+          instituteAddress: response.item.instituteAddress,
+          instituteContact: response.item.instituteContact,
+          instituteEmail: response.item.instituteEmail,
+          logoName: response.item.logoName
         }]
 
         localStorage.setItem('instituteInfo', JSON.stringify(instituteInfoArr));
@@ -54,15 +54,18 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
         for (var i = 0; i < instituteInfo.length; i++) {
           //look for match with name
-          if (response.urlInfoDTO.urlName !== instituteInfo[i].urlName) {
+          if (response.item.urlName !== instituteInfo[i].urlName) {
             console.log('not match');
 
-            instituteInfo[i].urlName = response.urlInfoDTO.urlName;
-            instituteInfo[i].urlInfoID = response.urlInfoDTO.urlInfoID;
-            instituteInfo[i].instituteName = response.urlInfoDTO.instituteName;
-            instituteInfo[i].instituteAddress = response.urlInfoDTO.instituteAddress;
-            instituteInfo[i].instituteContact = response.urlInfoDTO.instituteContact;
-            instituteInfo[i].instituteEmail = response.urlInfoDTO.instituteEmail;
+            instituteInfo[i].urlName = response.item.urlName;
+            instituteInfo[i].cmsId = response.item.cmsId;
+            instituteInfo[i].instituteName = response.item.instituteName;
+            instituteInfo[i].instituteAddress = response.item.instituteAddress;
+            instituteInfo[i].instituteContact = response.item.instituteContact;
+            instituteInfo[i].instituteEmail = response.item.instituteEmail;
+            instituteInfo[i].logoName = response.logoName;
+            instituteInfo[i].emInstituteList = response.item.edumanInstituteList
+
             break;
           }
         }
@@ -70,16 +73,15 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
       }
 
-      // let getInstituteUrlInfo = JSON.parse(localStorage.instituteInfo);
-      console.log(JSON.parse(localStorage.instituteInfo));
+      // console.log(JSON.parse(localStorage.instituteInfo));
 
-      yield put(setUrlInfo(response));
+      yield put(setUrlInfo(response.item));
       yield fetch_emAuthToken();
-      yield fetch_Menu_byUrlId(response.urlInfoDTO.urlInfoID);
-      yield fetch_InstituteTopNotices_byUrlId(response.urlInfoDTO.urlInfoID);
-      yield fetch_WelcomeSpeech_byUrlId(response.urlInfoDTO.urlInfoID);
-      yield fetch_instituteHistory_byUrlId(response.urlInfoDTO.urlInfoID);
-      yield fetch_instituteTopEvent_byUrlId(response.urlInfoDTO.urlInfoID);
+      yield fetch_Menu_byUrlId(response.item.cmsId);
+      yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
+      yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
+      yield fetch_instituteHistory_byUrlId(response.item.cmsId);
+      yield fetch_instituteTopEvent_byUrlId(response.item.cmsId);
 
     }
 
@@ -107,7 +109,7 @@ export function* fetch_emAuthToken() {
   try {
     const response = yield call(request, requestURL, options);
     yield put(setAccessToken(response));
-    localStorage.setItem('token', JSON.stringify(response));
+    localStorage.setItem('emToken', JSON.stringify(response));
 
     // yield put(setAccessToken(response))
     console.log('token-response', response);
@@ -117,7 +119,7 @@ export function* fetch_emAuthToken() {
 
 export function* fetch_Menu_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL.concat(fetch_menu_urlName).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETICMS.concat(fetch_menu_urlName).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
@@ -133,7 +135,7 @@ export function* fetch_Menu_byUrlId(urlInfoId) {
 
 export function* fetch_LatestNews() {
 
-  const requestURL = BASE_URL.concat(fetch_LatestNews);
+  const requestURL = BASE_URL_NETICMS.concat(fetch_LatestNews);
   const options = {
     method: 'GET',
     headers: {
@@ -151,7 +153,7 @@ export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
 
   let reqUrlInfoId = { urlInfoID: urlInfoId }
 
-  const requestURL = BASE_URL.concat(fetch_noticeBy_urlId);
+  const requestURL = BASE_URL_NETICMS.concat(fetch_noticeBy_urlId);
   const options = {
     method: 'POST',
     headers: {
@@ -168,7 +170,7 @@ export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
 
 export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETICMS.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
@@ -184,7 +186,7 @@ export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
 
 export function* fetch_instituteHistory_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETICMS.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
@@ -200,7 +202,7 @@ export function* fetch_instituteHistory_byUrlId(urlInfoId) {
 
 export function* fetch_instituteTopEvent_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETICMS.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
@@ -252,7 +254,7 @@ export function* fetch_classShiftSectionBy_typeId() {
 
 export default function* homePageSaga() {
   yield fetch_instituteUrlInfo_byUrlName();
-  yield fetch_academicYearListBy_typeId();
-  yield fetch_classShiftSectionBy_typeId();
+  // yield fetch_academicYearListBy_typeId();
+  // yield fetch_classShiftSectionBy_typeId();
 
 }

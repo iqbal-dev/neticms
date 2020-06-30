@@ -76,6 +76,7 @@ export class HomePage extends React.Component {
   }
 
   render() {
+
     const date = new Date();
 
     console.log('urlInfoAll', this.props.urlInfoAll);
@@ -89,7 +90,7 @@ export class HomePage extends React.Component {
     let welComeSpeech = '';
 
     if (this.props.urlInfo) {
-      instituteName = this.props.urlInfo.urlInfoDTO.instituteName;
+      instituteName = this.props.urlInfo.instituteName;
     }
 
     if (!this.props.welComeInfo == '') {
