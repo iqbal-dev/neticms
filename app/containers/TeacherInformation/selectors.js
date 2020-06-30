@@ -12,6 +12,9 @@ const selectTeacherInformationDomain = state =>
  * Other specific selectors
  */
 
+const makeSelectTeacherInformationList = () =>
+  createSelector(selectTeacherInformationDomain, substate => substate.get('teacherList'));
+
 /**
  * Default selector used by TeacherInformation
  */
@@ -20,4 +23,4 @@ const makeSelectTeacherInformation = () =>
   createSelector(selectTeacherInformationDomain, substate => substate.toJS());
 
 export default makeSelectTeacherInformation;
-export { selectTeacherInformationDomain };
+export { selectTeacherInformationDomain, makeSelectTeacherInformationList };

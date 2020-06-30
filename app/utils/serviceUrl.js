@@ -20,3 +20,4 @@ export const fetch_staffsInformaions = '/nw/sa-point/basic/list/by/category/with
 export const fetch_coreSettingsListBy_typeId = '/core/setting/list/by-type-id'; // fetch list by typeid
 
 export const fetch_examListBy_classConfigID = '/exam/configuration/list/by/class-config-id';
+export const fetchTeacherListByCategoryName = '/nw/sa-point/basic/list/by/category/with/photo';
