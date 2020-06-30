@@ -9,7 +9,7 @@ import {
   makeSelectEmail,
   makeSelectMessageDetails,
 } from './selectors';
-import { fetch_noticeBy_urlId, BASE_URL } from '../../utils/serviceUrl';
+import { fetch_noticeBy_urlId, BASE_URL_NETI_CMS, } from '../../utils/serviceUrl';
 
 export function* submit_Contact_Form() {
 
@@ -23,7 +23,7 @@ export function* submit_Contact_Form() {
     message: yield select(makeSelectMessageDetails()),
   }
 
-  const requestURL = BASE_URL.concat(fetch_noticeBy_urlId);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_noticeBy_urlId);
   const options = {
     method: 'POST',
     headers: {

@@ -13,11 +13,12 @@ import { makeSelectAcademicYear, makeSelectClassConfigId, makeSelectExamConfigId
 export function* fetch_AcademicYearList() {
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
   let emToken = JSON.parse(localStorage.getItem('emToken'));
 
-
-  let instituteID = '10020';
-  const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteID);
+  const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -37,10 +38,14 @@ export function* fetch_AcademicYearList() {
 
 export function* fetch_classShiftSectionBy_instituteId() {
 
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
   let emToken = JSON.parse(localStorage.getItem('emToken'));
 
-
-  const requestURL = BASE_URL_EM.concat(fetch_coreSettingsClassConfigurationListBy_instituteId).concat('?instituteId=').concat('10020');
+  const requestURL = BASE_URL_EM.concat(fetch_coreSettingsClassConfigurationListBy_instituteId).concat('?instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -58,13 +63,17 @@ export function* fetch_classShiftSectionBy_instituteId() {
 
 export function* fetch_examListBy_sectionId() {
 
-  let emToken = JSON.parse(localStorage.getItem('emToken'));
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
 
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
 
   let classConfigId = yield select(makeSelectClassConfigId());
   console.log('classConfigId', classConfigId);
 
-  const requestURL = BASE_URL_EM.concat(fetch_examListBy_classConfigID).concat('?instituteId=').concat('10020').concat('&classConfigId=').concat(classConfigId);
+  const requestURL = BASE_URL_EM.concat(fetch_examListBy_classConfigID).concat('?instituteId=').concat(instituteId).concat('&classConfigId=').concat(classConfigId);
   const options = {
     method: 'GET',
     headers: {
@@ -80,14 +89,19 @@ export function* fetch_examListBy_sectionId() {
 
 export function* fetch_failList() {
 
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
   let emToken = JSON.parse(localStorage.getItem('emToken'));
   let acYear = yield select(makeSelectAcademicYear());
   let classConfigId = yield select(makeSelectClassConfigId());
   let examConfigId = yield select(makeSelectExamConfigId());
 
   // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
-  
-  const requestURL = BASE_URL_EM.concat(fetch_sectionWiseFailList).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat('10020');
+
+  const requestURL = BASE_URL_EM.concat(fetch_sectionWiseFailList).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -108,7 +122,7 @@ export default function* failListSaga() {
 
   yield fetch_AcademicYearList();
   yield fetch_classShiftSectionBy_instituteId(),
-  yield takeLatest(SET_ON_CHANGE_SECTION, fetch_examListBy_sectionId);
+    yield takeLatest(SET_ON_CHANGE_SECTION, fetch_examListBy_sectionId);
   yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_failList)
 
 }
