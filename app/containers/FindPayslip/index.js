@@ -14,7 +14,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectFindPayslip, { makeSelectTabPanelStatus } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { Button, Input, Form, FormGroup, Table } from 'reactstrap';
@@ -24,6 +23,11 @@ import donorImage from '../../assets/img/donor-image.png';
 import classnames from 'classnames';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import { setActivePanel } from '../DressCode/actions';
+import { 
+  makeSelectFindPayslip,
+  makeSelectTabPanelStatus,
+  makeSelectAcademicYearList 
+} from './selectors';
 
 
 
@@ -32,6 +36,11 @@ export class FindPayslip extends React.PureComponent {
   toggleTab = tabId => this.props.onChangeTabPanel(tabId);
 
   render() {
+    let { academicYearList } = this.props;
+
+    console.log("this.props.failList container ::::::::::::::", this.props.academicYear, this.props.classConfigId, this.props.examConfigId);
+
+
     return (
       <div>
         <Helmet>
@@ -56,15 +65,22 @@ export class FindPayslip extends React.PureComponent {
                       <Form inline>
                         {/* <div className="row"> */}
                         <div className="col-md-5">
-                          <FormGroup className=" custom-input-text">
-                            <Input type="text" name="academic-year" placeholder="Enter Your Student ID Number">
+                          <FormGroup className="custom-dropdown">
+                            <Input
+                              type="select"
+                              name="year"
+                              onChange={this.props.onChangeAcademicYear}
+                            >
+                              <option value=''>Select Academic Year</option>
+                              {academicYearList && academicYearList.map(item => (<option key={item.name} value={this.props.academicYear}>{item.name}</option>))}
                             </Input>
                           </FormGroup>
+                          <div className="error-message"> {errors['year']}</div>
                         </div>
 
                         <div className="col-md-7">
                           <FormGroup>
-                            <Input type="text" name="academic-year" placeholder="Enter Your Student ID Number"></Input>
+                            <Input type="text" name="studentID" placeholder="Enter Your Student ID Number"></Input>
 
                             <Button className="btn explore-btn">Search</Button>
                           </FormGroup>
@@ -239,6 +255,8 @@ FindPayslip.propTypes = {
 const mapStateToProps = createStructuredSelector({
   findPayslip: makeSelectFindPayslip(),
   tabVisibleStatus: makeSelectTabPanelStatus(), // /last day work
+
+  academicYearList: makeSelectAcademicYearList(),
 });
 
 function mapDispatchToProps(dispatch) {
