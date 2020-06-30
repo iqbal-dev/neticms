@@ -64,12 +64,12 @@ export class Menu extends React.Component {
                                   <NavLink href="#">Welcome Speech</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="/committee/demo2">
+                                  <NavLink href="/committee">
                                     Comittee
                                   </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="/donors/demo2">
+                                  <NavLink href="/donors">
                                     Donor Member
                                   </NavLink>
                                 </NavItem>
@@ -81,7 +81,7 @@ export class Menu extends React.Component {
                               </DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <NavLink href="/all-teachers">
+                                  <NavLink href="/all_teachers">
                                     Teacher
                                   </NavLink>
                                 </NavItem>
@@ -118,7 +118,7 @@ export class Menu extends React.Component {
                               </DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <NavLink href="/booklist/demo2">
+                                  <NavLink href="/booklist">
                                     Book List
                                   </NavLink>
                                 </NavItem>
@@ -126,13 +126,13 @@ export class Menu extends React.Component {
                                   <NavLink href="/dressCode">Uniform</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="/fees-info">Fees Info</NavLink>
+                                  <NavLink href="/fees_info">Fees Info</NavLink>
                                 </NavItem>
                                 <NavItem>
                                   <NavLink href="#">Seat Info</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="/syllabus-info">
+                                  <NavLink href="/syllabus_info">
                                     Syllabus
                                   </NavLink>
                                 </NavItem>
@@ -147,12 +147,12 @@ export class Menu extends React.Component {
                                   <NavLink href="#">Instiute Wise</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="/section-wise-attendance">
+                                  <NavLink href="/sectionWise_attendance">
                                     Section Wise
                                   </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="#">Student Wise</NavLink>
+                                  <NavLink href="/studentWise_attendance">Student Wise</NavLink>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
@@ -195,13 +195,13 @@ export class Menu extends React.Component {
                               </DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <NavLink href="meritList">Merit List</NavLink>
+                                  <NavLink href="/meritList">Merit List</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="failList">Fail List</NavLink>
+                                  <NavLink href="/failList">Fail List</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                  <NavLink href="/section-wise-result">
+                                  <NavLink href="/sectionWise_result">
                                     Section wise
                                   </NavLink>
                                 </NavItem>

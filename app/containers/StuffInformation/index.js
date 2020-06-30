@@ -43,7 +43,6 @@ export class StuffInformation extends React.Component {
           <div className="container-fluid">
             <div className="container p-t-60">
               <div className="row">
-              <Button className="btn explore-btn all-border-radious" onClick={this.props.submitSearch}>Search</Button>
 
                 <div className="col-md-12">
                   <div className="page-inner-title">
@@ -107,10 +106,8 @@ function mapDispatchToProps(dispatch) {
       console.log('evt',evt);
       dispatch(onSubmitStuffInfoSetRowData('rowData')),
 
-
       dispatch(onSubmitStuffInfoSearchBtn())
     },
-
 
   };
 }
