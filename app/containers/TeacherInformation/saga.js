@@ -10,8 +10,7 @@ export function* teacherInformationSaga() {
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   
-  let token = JSON.parse(localStorage.getItem('token'));
-
+  let token = JSON.parse(localStorage.getItem('emToken'));
   
   const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Teacher").concat('&instituteId=').concat("10060");
   

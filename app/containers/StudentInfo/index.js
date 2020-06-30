@@ -15,13 +15,14 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectStudentInfo, { makeSelectClassNameINfo } from './selectors';
+import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo}  from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import donorImage from '../../assets/img/donor-image.png';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
+import { classNameListDropDown } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StudentInfo extends React.Component {
@@ -36,7 +37,6 @@ export class StudentInfo extends React.Component {
 
   onChangeInputField = event => {
     const { errors } = this.state;
-    // console.log('e', event.target.value);
     errors[event.target.name] = '';
     this.setState({
       [event.target.name]: event.target.value,
@@ -67,7 +67,11 @@ export class StudentInfo extends React.Component {
   };
 
   render() {
-    console.log('classNamesList', this.props.classNamesList);
+
+    let classNameArray = [];
+    let classNameDropDown = this.props.classNamesDropDown;
+    
+
     
     const { errors } = this.state;
     return (
@@ -105,10 +109,13 @@ export class StudentInfo extends React.Component {
                                 // value={ this.state.class }
                               >
                                 <option value="">Choose a class</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
+                                {
+                                  classNameDropDown.map(item => {
+                                    return(
+                                      <option value={item.classObject.name}>{item.classObject.name}</option>
+                                    )
+                                  })
+                                }
                               </Input>
                             </FormGroup>
                             <div className="error-message"> {errors.class}</div>
@@ -122,10 +129,13 @@ export class StudentInfo extends React.Component {
                                 onChange={this.onChangeInputField}
                               >
                                 <option value="">Select a group</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
+                                {
+                                  classNameDropDown.map(item => {
+                                    return(
+                                      <option value={item.classConfigId}>{item.classShiftSection}</option>
+                                    )
+                                  })
+                                }
                               </Input>
 
                               <Button
@@ -250,12 +260,12 @@ export class StudentInfo extends React.Component {
 
 StudentInfo.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  classNamesList : PropTypes.any
+  classNamesDropDown: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   studentInfo: makeSelectStudentInfo(),
-  classNamesList: makeSelectClassNameINfo()
+  classNamesDropDown: makeSelectClassNameDropDownINfo()
 });
 
 function mapDispatchToProps(dispatch) {

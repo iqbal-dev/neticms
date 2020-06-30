@@ -2,10 +2,10 @@ import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import { CLASS_NAME_LIST } from './constants';
 import { BASE_URL_EM, fetch_coreSettingsClassConfigurationListBy_instituteId } from '../../utils/serviceUrl';
 import request from '../../utils/request';
-import {classNameList} from './actions';
+import { classNameListDropDown} from './actions';
 
 export function* fetchClassName(){
-  let token = JSON.parse(localStorage.getItem('token'));
+  let token = JSON.parse(localStorage.getItem('emToken'));
   console.log('token', token);
   
   const requestURL = BASE_URL_EM.concat(fetch_coreSettingsClassConfigurationListBy_instituteId).concat('?instituteId=').concat('10060');
@@ -20,7 +20,7 @@ export function* fetchClassName(){
 
 
   try {
-    yield put(classNameList(response.item));
+    yield put(classNameListDropDown(response.item));
     console.log('response.item', response.item);
     
   } catch (error) { }
