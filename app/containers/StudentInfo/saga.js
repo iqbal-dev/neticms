@@ -3,6 +3,7 @@ import { CLASS_NAME_LIST } from './constants';
 import { BASE_URL_EM, fetch_coreSettingsClassConfigurationListBy_instituteId } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 import { classNameListDropDown} from './actions';
+import { makeSelectClassNameSelected } from './selectors';
 
 export function* fetchClassName(){
   let token = JSON.parse(localStorage.getItem('emToken'));
@@ -25,6 +26,11 @@ export function* fetchClassName(){
     
   } catch (error) { }
 
+}
+
+export function* fetchStudentInformation(){
+ 
+  
 }
 
 // Individual exports for testing
