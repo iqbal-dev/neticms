@@ -24,12 +24,10 @@ import classnames from 'classnames';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import { setActivePanel } from '../DressCode/actions';
 import { 
-  makeSelectFindPayslip,
+  // makeSelectFindPayslip,
   makeSelectTabPanelStatus,
   makeSelectAcademicYearList 
 } from './selectors';
-
-
 
 /* eslint-disable react/prefer-stateless-function */
 export class FindPayslip extends React.PureComponent {
@@ -39,7 +37,6 @@ export class FindPayslip extends React.PureComponent {
     let { academicYearList } = this.props;
 
     console.log("this.props.failList container ::::::::::::::", this.props.academicYear, this.props.classConfigId, this.props.examConfigId);
-
 
     return (
       <div>
@@ -233,7 +230,6 @@ export class FindPayslip extends React.PureComponent {
           </div>
         </section>
 
-
         <div className="container">
           <div className="row">
             <div className="offset-md-1 col-md-10">
@@ -253,7 +249,7 @@ FindPayslip.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  findPayslip: makeSelectFindPayslip(),
+  // findPayslip: makeSelectFindPayslip(),
   tabVisibleStatus: makeSelectTabPanelStatus(), // /last day work
 
   academicYearList: makeSelectAcademicYearList(),
