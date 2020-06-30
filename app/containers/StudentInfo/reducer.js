@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import { DEFAULT_ACTION, CLASS_NAME_LIST } from './constants';
 
 export const initialState = fromJS({
-  classNameList:[]
+  classNameList: [],
 });
 
 function studentInfoReducer(state = initialState, action) {

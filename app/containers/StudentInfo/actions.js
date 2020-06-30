@@ -10,13 +10,11 @@ export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
   };
-
 }
 
 export function classNameList(classNamesList) {
   return {
     type: CLASS_NAME_LIST,
-    classNamesList
+    classNamesList,
   };
-
 }
