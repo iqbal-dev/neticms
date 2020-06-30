@@ -18,16 +18,8 @@ export class AppHeader extends React.Component {
     render() {
 
         let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-
         const date = new Date();
         let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ', ' + date.getDate() + ', ' + date.getFullYear();
-
-        let instituteName = '';
-        let instituteAddress = '';
-        // if (!instituteUrlInfo == undefined || !instituteUrlInfo == null) {
-        //     instituteName = instituteUrlInfo[0].instituteName;
-        //     instituteAddress = instituteUrlInfo[0].instituteAddress;
-        // }
 
         return (
             <header className="header-wrapper pt-4 pb-4">
