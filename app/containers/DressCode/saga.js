@@ -1,13 +1,13 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import { setDressCodeList } from './actions';
-import { BASE_URL, fetch_urlMappingInfoBy_urlName } from '../../utils/serviceUrl';
+import {  fetch_urlMappingInfoBy_urlName, BASE_URL_NETI_CMS } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 
 export function* fetchDressCodeList() {
 
   console.log('fetchDressCodeList -saga');
   let instituteHostNm = '';
-  const requestURL = BASE_URL.concat(fetch_urlMappingInfoBy_urlName).concat('?urlName=').concat(instituteHostNm);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat('?urlName=').concat(instituteHostNm);
   const options = {
     method: 'GET',
     headers: {

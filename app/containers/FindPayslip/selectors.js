@@ -13,6 +13,10 @@ const selectFindPayslipDomain = state => state.get('findPayslip', initialState);
 const makeSelectTabPanelStatus = () =>
 createSelector(selectFindPayslipDomain, substate => substate.get('activeTab'));
 
+const makeSelectAcademicYearList = () =>
+  createSelector(selectFindPayslipDomain, substate => substate.get('yearList'));
+
+
 /**
  * Default selector used by FindPayslip
  */
@@ -23,4 +27,5 @@ const makeSelectFindPayslip = () =>
 export default makeSelectFindPayslip;
 export { selectFindPayslipDomain,
   makeSelectTabPanelStatus,
+  makeSelectAcademicYearList,
 };

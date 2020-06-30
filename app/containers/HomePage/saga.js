@@ -2,7 +2,7 @@ import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
 import {
   BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId,
-  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, BASE_URL_NETI_CMS, BASE_URL_NETICMS
+  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, BASE_URL_NETI_CMS, BASE_URL_NW
 } from '../../utils/serviceUrl';
 import {
   setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken, setGlobalAcademicYearList, setGlobalSectionList
@@ -15,7 +15,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
   let instituteHostNm = window.location.pathname.slice(1);
   // console.log('instituteHostNm', instituteHostNm);
 
-  const requestURL = BASE_URL_NETICMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
   const options = {
     method: 'GET',
     headers: {
@@ -119,7 +119,7 @@ export function* fetch_emAuthToken() {
 
 export function* fetch_Menu_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL_NETICMS.concat(fetch_menu_urlName).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NW.concat(fetch_menu_urlName).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
@@ -135,7 +135,7 @@ export function* fetch_Menu_byUrlId(urlInfoId) {
 
 export function* fetch_LatestNews() {
 
-  const requestURL = BASE_URL_NETICMS.concat(fetch_LatestNews);
+  const requestURL = BASE_URL_NW.concat(fetch_LatestNews);
   const options = {
     method: 'GET',
     headers: {
@@ -153,7 +153,7 @@ export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
 
   let reqUrlInfoId = { urlInfoID: urlInfoId }
 
-  const requestURL = BASE_URL_NETICMS.concat(fetch_noticeBy_urlId);
+  const requestURL = BASE_URL_NW.concat(fetch_noticeBy_urlId);
   const options = {
     method: 'POST',
     headers: {
@@ -170,7 +170,7 @@ export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
 
 export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL_NETICMS.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NW.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
@@ -186,7 +186,7 @@ export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
 
 export function* fetch_instituteHistory_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL_NETICMS.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NW.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
@@ -202,7 +202,7 @@ export function* fetch_instituteHistory_byUrlId(urlInfoId) {
 
 export function* fetch_instituteTopEvent_byUrlId(urlInfoId) {
 
-  const requestURL = BASE_URL_NETICMS.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NW.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
   const options = {
     method: 'GET',
     headers: {
