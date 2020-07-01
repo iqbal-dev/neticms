@@ -26,8 +26,11 @@ import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import { setActivePanel } from '../DressCode/actions';
 import { AppLayout } from '../AppLayout';
 import { makeChangeAcademicYear, makeChangeStudentID, submitSearchHandle } from './actions';
-
-
+import { 
+  // makeSelectFindPayslip,
+  makeSelectTabPanelStatus,
+  makeSelectAcademicYearList 
+} from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FindPayslip extends React.PureComponent {
@@ -268,7 +271,7 @@ FindPayslip.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  findPayslip: makeSelectFindPayslip(),
+  // findPayslip: makeSelectFindPayslip(),
   tabVisibleStatus: makeSelectTabPanelStatus(), // /last day work
 
   academicYearList: makeSelectAcademicYearList(),

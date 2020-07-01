@@ -14,7 +14,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectMeritList, { makeSelectAcademicYear, makeSelecAcademicYearList } from './selectors';
+import makeSelectMeritList, { makeSelectMeritListData, makeSelectSectionList, makeSelectAcademicYear, makeSelecAcademicYearList,  makeSelectExamConfigId,makeSelectClassConfigId, makeSelectExamList
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -22,8 +23,7 @@ import donorImage from '../../assets/img/donor-image.png';
 import { Table } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
-import { makeSelectSectionList } from '../Header/selectors';
-import { setAcademicYear, submitSearchButton } from './actions';
+import { setAcademicYear, submitSearchButton, makeChangeSection, makeChangeExamType } from './actions';
 import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -32,36 +32,21 @@ export class MeritList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = {
+      errors: {}
+
+    }
   }
 
-  onchangeAcademicYear(e) {
-    this.props.onchangeAcademicYearId(e.target.value)
-  };
-
   render() {
+    let { errors } = this.state
 
-   let { academicYearList } = this.props;
-   console.log("academicYearList merit list",academicYearList);
-    let academicYearOptions = [
-      { key: 2020, value: 2020 },
-      { key: 2019, value: 2019 },
-    ];
+   let { academicYearList, sectionList, examList, classList, meritList } = this.props;
+   console.log('meritList',meritList);
+   console.log('props.academicYear',this.props.academicYear);
 
-    let sectionList = [
-      { key: 'Section-A', value: 'Section-A' },
-      { key: 'Section-B', value: 'Section-B' },
-    ]
-
-    let examList = [
-      { key: 'Exam-A', value: 'Exam-A' },
-      { key: 'Exam-B', value: 'Exam-B' },
-    ]
-
-    // if (this.props.academicYearList && this.props.academicYearList.lenght) {
-    //   key & value bind
-    // }
-
+ 
+  
 
     return (
       <div>
@@ -91,35 +76,45 @@ export class MeritList extends React.Component {
                           <FormGroup className="custom-dropdown">
                             <Input
                               type="select"
-                              name="academic-year"
-                              onChange={this.onchangeAcademicYear.bind(this)}
-                              value={this.props.academicYear}
+                              name="year"
+                              onChange={this.props.onChangeAcademicYear}
                             >
-                              {academicYearOptions.map(item => (
-                                <option value={item.value}>{item.key}</option>
-                              ))}
+                              <option value=''>Select Academic Year</option>
+                              {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
+
                             </Input>
                           </FormGroup>
+                          <div className="error-message"> {errors['year']}</div>
+
                         </div>
 
                         <div className="col-md-6 col-lg-3">
                           <FormGroup className="custom-dropdown">
-                            <Input type="select" name="section-list">
-                              {sectionList.map(item => (
-                                <option value={item.value}>{item.key}</option>
-                              ))}
+                            <Input type="select" name="section" onChange={this.props.onChangeSection}
+>
+                            <option value=''>Select a Section</option>
+                                {
+                                  sectionList && sectionList.map((item, index) =>
+                                    <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
+                                  )
+                                }
                             </Input>
                           </FormGroup>
+                          <div className="error-message"> {errors['section']}</div>
                         </div>
 
                         <div className="col-md-6 col-lg-3">
                           <FormGroup className="custom-dropdown">
-                            <Input type="select" name="exam-list">
-                              {examList.map(item => (
-                                <option value={item.value}>{item.key}</option>
-                              ))}
+                            <Input type="select" name="examType" onChange={this.props.onChangeExamType}
+>
+                            <option value=''>Select Exam</option>
+                                {examList && examList.map(item => (
+                                  <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
+                                ))}
                             </Input>
                           </FormGroup>
+                          <div className="error-message"> {errors['examType']}</div>
+
                         </div>
 
                         <div className="col-md-6 col-lg-3">
@@ -170,46 +165,25 @@ export class MeritList extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-                          <td>100024</td>
-                          <td>1</td>
-                          <td>Md. Shahrear Kabir</td>
-                          <td>549.60</td>
-                          <td>04</td>
-                          <td>A+</td>
-                        </tr>
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-                          <td>100024</td>
-                          <td>2</td>
-                          <td>Md. Shahrear Kabir 2</td>
-                          <td>549.60</td>
-                          <td>02</td>
-                          <td>A+</td>
-                        </tr>
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-                          <td>100024</td>
-                          <td>3</td>
-                          <td>Md. Shahrear Kabir 3</td>
-                          <td>549.60</td>
-                          <td>01</td>
-                          <td>A+</td>
-                        </tr>
-                        <tr>
-                          <td>04</td>
-                          <td><div className="attendance failed"><img src={donorImage} /></div></td>
-                          <td>100030</td>
-                          <td>4</td>
-                          <td>Md. Shahrear Kabir 4</td>
-                          <td>120.60</td>
-                          <td>01</td>
-                          <td>A+</td>
-                        </tr>
+
+                      {
+                            meritList ?
+                            meritList.map((item, index) =>
+                                <tr>
+                                  <td>{item.meritPosition}</td>
+                                  <td><center className="attendance failed"><img src={donorImage} /></center></td>
+                                  <td>{item.studentId}</td>
+                                  <td>{item.studentRoll}</td>
+                                  <td>{item.studentName}</td>
+                                  <td>{item.totalMarks}</td>
+                                  <td>{item.gradingPoint}</td>
+                                  <td>{item.letterGrade}</td>
+                                </tr>
+                              )
+
+                              : <tr><td colSpan='5'>No Data Found</td></tr>
+                          }
+                     
                       </tbody>
                     </Table>
                   </div>
@@ -247,20 +221,26 @@ MeritList.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  meritList: makeSelectMeritList(),
+  meritList: makeSelectMeritListData(),
   sectionList: makeSelectSectionList(),
-  academicYear: makeSelectAcademicYear(),
   academicYearList: makeSelecAcademicYearList(),
+  examList: makeSelectExamList(),
 
+  
+  academicYear: makeSelectAcademicYear(),
+  classConfigId: makeSelectClassConfigId(),
+  examConfigId: makeSelectExamConfigId(),
+  
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onchangeAcademicYearId: (evt) => {
-      dispatch(setAcademicYear(evt.value))
-    },
-    submitSearch: (evt) => dispatch(submitSearchButton()),
+    onChangeAcademicYear: (evt) => { dispatch(setAcademicYear(evt.target.value)) },
+    onChangeSection: (evt) => { dispatch(makeChangeSection(evt.target.value)) },
+    onChangeExamType: (evt) => { dispatch(makeChangeExamType(evt.target.value)) },
+
+    submitSearch: () => { dispatch(submitSearchButton()) },
   };
 }
 

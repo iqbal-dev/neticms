@@ -6,6 +6,7 @@
 
 export const BASE_URL_NETI_CMS = 'https://api.netizendev.com:2096';
 export const BASE_URL_EM = 'https://api.netizendev.com:2083';
+export const BASE_URL_NW = 'https://api.netizendev.com:2087';
 
 export const fetch_em_token = '/oauth/token';
 // export const fetch_urlMappingInfoBy_urlName = '/client_dws/url-mapping/dws/dws/by';
@@ -26,3 +27,8 @@ export const fetchTeacherListByCategoryName = '/nw/sa-point/basic/list/by/catego
 
 export const fetch_sectionWiseFailList = '/nw/sa-point/student/section-wise/result/failed/details';
 export const fetch_student_paySlipList = '/nw/student-point/accounts/unpaid-invoice/search/by/custom-student-id';
+
+export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
+
+
+
