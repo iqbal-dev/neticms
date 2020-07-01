@@ -14,7 +14,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectFindPayslip, { makeSelectTabPanelStatus, makeSelectAcademicYearList, makeSelectAcademicYear, makeSelectStudentID, makeSelectFindPayslipData } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { Button, Input, Form, FormGroup, Table } from 'reactstrap';
@@ -25,12 +24,24 @@ import classnames from 'classnames';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import { setActivePanel } from '../DressCode/actions';
 import { AppLayout } from '../AppLayout';
-import { makeChangeAcademicYear, makeChangeStudentID, submitSearchHandle } from './actions';
 import { 
-  // makeSelectFindPayslip,
-  makeSelectTabPanelStatus,
-  makeSelectAcademicYearList 
+  makeChangeAcademicYear, 
+  makeChangeStudentID, 
+  submitSearchHandle 
+} from './actions';
+import { 
+  makeSelectTabPanelStatus, 
+  makeSelectAcademicYearList, 
+  makeSelectAcademicYear, 
+  makeSelectStudentID, 
+  makeSelectFindPayslipData 
 } from './selectors';
+
+// import { 
+//   // makeSelectFindPayslip,
+//   makeSelectTabPanelStatus,
+//   makeSelectAcademicYearList 
+// } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FindPayslip extends React.PureComponent {
