@@ -10,10 +10,13 @@ export function* teacherInformationSaga() {
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   
-  let token = JSON.parse(localStorage.getItem('token'));
-
+  let token = JSON.parse(localStorage.getItem('emToken'));
+  console.log('instituteUrlInfo', instituteUrlInfo);
   
-  const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Teacher").concat('&instituteId=').concat("10060");
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+  
+  const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Teacher").concat('&instituteId=').concat(instituteId);
   
   const options = {
     method: 'GET',
@@ -27,6 +30,8 @@ export function* teacherInformationSaga() {
 
   try {
     yield put(teacherInformationList(response.item));
+    console.log('response.item', response.item);
+    
   } catch (error) { }
 
 }

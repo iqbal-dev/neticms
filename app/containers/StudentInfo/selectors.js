@@ -10,10 +10,12 @@ const selectStudentInfoDomain = state => state.get('studentInfo', initialState);
 /**
  * Other specific selectors
  */
-const makeSelectClassNameINfo = () =>
-  createSelector(selectStudentInfoDomain, substate =>
-    substate.get('classNameList'),
-  );
+
+const makeSelectClassNameDropDownINfo = () =>
+  createSelector(selectStudentInfoDomain, substate => substate.get('classNamesDropdown'));
+
+const makeSelectClassNameSelected = () =>
+  createSelector(selectStudentInfoDomain, substate => substate.get('classNameSelected'));
 
 /**
  * Default selector used by StudentInfo
@@ -23,4 +25,4 @@ const makeSelectStudentInfo = () =>
   createSelector(selectStudentInfoDomain, substate => substate.toJS());
 
 export default makeSelectStudentInfo;
-export { selectStudentInfoDomain, makeSelectClassNameINfo };
+export { selectStudentInfoDomain, makeSelectClassNameDropDownINfo, makeSelectClassNameSelected };
