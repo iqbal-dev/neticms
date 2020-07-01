@@ -1,8 +1,19 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { fetch_coreSettingsListBy_typeId, BASE_URL_EM, fetch_sectionWiseFailList, fetch_student_paySlipList } from '../../utils/serviceUrl';
-import { setAcademicYearList } from './actions';
+import { 
+  fetch_coreSettingsListBy_typeId, 
+  BASE_URL_EM, 
+  fetch_sectionWiseFailList, 
+  fetch_student_paySlipList 
+} from '../../utils/serviceUrl';
+import { 
+  setAcademicYearList, 
+  setPaySlipListData 
+} from './actions';
 import request from '../../utils/request';
-import { makeSelectAcademicYear, makeSelectStudentID, setFailListData } from './selectors';
+import { 
+  makeSelectAcademicYear,
+  makeSelectStudentID,
+} from './selectors';
 import { SUBMIT_SEARCH_BUTTON } from './constants';
 
 export function* fetch_AcademicYearList() {
@@ -42,7 +53,7 @@ export function* fetch_PaySlipList() {
 
   // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
   
-  const requestURL = BASE_URL_EM.concat(fetch_student_paySlipList).concat('?customStudentId=').concat(stdID).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat('10020');
+  const requestURL = BASE_URL_EM.concat(fetch_student_paySlipList).concat('?customStudentId=').concat(stdID).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat('13000');
   const options = {
     method: 'GET',
     headers: {
@@ -52,9 +63,9 @@ export function* fetch_PaySlipList() {
   };
 
   const response = yield call(request, requestURL, options);
-  console.log('PAY SLIP LIST Response>>>>>>>>>>>>>>>>', response);
+  console.log('PAY SLIP LIST Response>>>>>>>>>>>>>>>>', response.item);
   try {
-    yield put(setFailListData(response.item));
+    yield put(setPaySlipListData(response.item));
   } catch (error) { }
 
 }

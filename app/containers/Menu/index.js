@@ -26,7 +26,7 @@ import { Container } from 'reactstrap';
 import makeSelectMenu from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
 
@@ -115,7 +115,9 @@ export class Menu extends React.Component {
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Fees Info</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='#' className='nav-link'> Find Due Info </Link></NavItem>
+                                <NavItem>
+                                  <Link to='studentWise_attendance' className='nav-link'>Find Due Info</Link>
+                                </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 

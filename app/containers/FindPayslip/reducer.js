@@ -16,6 +16,7 @@ import {
 
 export const initialState = fromJS({
   activeTab: '1',
+  paySlipListData:[],
 });
 
 function findPayslipReducer(state = initialState, action) {
