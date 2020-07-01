@@ -23,7 +23,10 @@ const makeSelectStudentID = () =>
   createSelector(selectFindPayslipDomain, substate => substate.get('stdID'));
 
 const makeSelectFindPayslipData = () =>
-  createSelector(selectFindPayslipDomain, substate => substate.get('payslipData'));
+  createSelector(selectFindPayslipDomain, substate => substate.get('paySlipListData'));
+
+// const setPaySlipListData = () =>
+//   createSelector(selectFindPayslipDomain, substate => substate.get('payslipListData'));
 
 /**
  * Default selector used by FindPayslip
@@ -38,5 +41,6 @@ export { selectFindPayslipDomain,
   makeSelectAcademicYearList,
   makeSelectAcademicYear,
   makeSelectStudentID,
-  makeSelectFindPayslipData
+  makeSelectFindPayslipData,
+  // setPaySlipListData
 };

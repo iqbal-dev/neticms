@@ -53,9 +53,14 @@ export class FindPayslip extends React.PureComponent {
 
   render() {
     // let { errors } = this.state
-    let { academicYearList } = this.props;
+    let { academicYearList, makeSelectFindPayslipData, academicYear } = this.props;
 
-    console.log("this.props.academicYearList ::::::::::::::", this.props.academicYear);
+    let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+    let instituteId = '';
+    { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
+
+    console.log("this.props.makeSelectFindPayslipData ::::::::::::::", makeSelectFindPayslipData);
 
     return (
       <div>
@@ -90,7 +95,7 @@ export class FindPayslip extends React.PureComponent {
                                 // value={ this.props.academicYear}
                               >
                                 <option value=''>Select Academic Year</option>
-                                {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
+                                {academicYearList && academicYearList.map(item => (<option key={item.name} value={academicYear || item.name}>{item.name}</option>))}
                               </Input>
                             </FormGroup>
                             {/* <div className="error-message"> {errors['year']}</div> */}
@@ -142,15 +147,15 @@ export class FindPayslip extends React.PureComponent {
                             <Table>
                               <tr>
                                 <td>Student Name</td>
-                                <td>: Sayma Rezoyana Khan</td>
+                                <td>: { makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].name }</td>
                               </tr>
                               <tr>
                                 <td>Student ID</td>
-                                <td>: 5214578P</td>
+                                <td>: { makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].customId }</td>
                               </tr>
                               <tr>
                                 <td>Institute ID</td>
-                                <td>: NTI25415478545</td>
+                                <td>: { instituteId }</td>
                               </tr>
                             </Table>
                           </div>
@@ -161,19 +166,19 @@ export class FindPayslip extends React.PureComponent {
                           <div className="roll-no-box">
                             <div className="text-center">
                               <span>Roll No.</span>
-                              <h1>112</h1>
+                              <h1>{ makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].roll }</h1>
                             </div>
                           </div>
                           <div className="student-info-table">
                             <Table>
-                              <tr>
+                              {/* <tr>
                                 <td>Total Due</td>
-                                <td>: 25000/-</td>
+                                <td>: { makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].totalDue } /-</td>
                               </tr>
                               <tr>
                                 <td>Payment Last Date</td>
                                 <td>: 22 July, 2020</td>
-                              </tr>
+                              </tr> */}
                             </Table>
                           </div>
                         </div>
@@ -220,29 +225,42 @@ export class FindPayslip extends React.PureComponent {
                         <TabPane tabId="1">
                           <div className="tab-panel-wrapper student-info">
                             <div className="row">
-                              <div className="col-md-6">
-                                <div className="student-info-box-wrapper">
-                                  <div className="student-info-box-title">
-                                    Fee Type :  <span>Tuition Fees</span>
+                              {
+                                makeSelectFindPayslipData && makeSelectFindPayslipData.map((item, index) =>
+                                  <div className="col-md-6 mb-3">
+                                    <div className="student-info-box-wrapper">
+                                      <div className="student-info-box-title">
+                                        Fee Type :  <span>{ item.feeHeadDetails }</span>
+                                      </div>
+                                      <div className="student-info-table">
+                                        <Table>
+                                          <tr>
+                                            <td>Invoice ID</td>
+                                            <td>: { item.invoiceId }</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Fee Name</td>
+                                            <td>: { item.feeSubHeadDetails }</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Total Payable</td>
+                                            <td>: { item.totalPayable }</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Paid</td>
+                                            <td>: { item.totalPaid }</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Total Due</td>
+                                            <td className='text-orange'>: { item.totalDue }</td>
+                                          </tr>
+                                        </Table>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div className="student-info-table">
-                                    <Table>
-                                      <tr>
-                                        <td>Student Name</td>
-                                        <td>: Sayma Rezoyana Khan</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Student ID</td>
-                                        <td>: 5214578P</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Institute ID</td>
-                                        <td>: NTI25415478545</td>
-                                      </tr>
-                                    </Table>
-                                  </div>
-                                </div>
-                              </div>
+                                )
+                              }
+                              
                             </div>
                           </div>
 
@@ -284,9 +302,7 @@ FindPayslip.propTypes = {
 const mapStateToProps = createStructuredSelector({
   // findPayslip: makeSelectFindPayslip(),
   tabVisibleStatus: makeSelectTabPanelStatus(), // /last day work
-
   academicYearList: makeSelectAcademicYearList(),
-
   academicYear: makeSelectAcademicYear(),
   studentID: makeSelectStudentID(),
   makeSelectFindPayslipData: makeSelectFindPayslipData(),
@@ -294,8 +310,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeTabPanel: tabId => dispatch(setActivePanel(tabId)),
     dispatch,
+    onChangeTabPanel: tabId => dispatch(setActivePanel(tabId)),
     onChangeAcademicYear: (evt) => { dispatch(makeChangeAcademicYear(evt.target.value)) },
     onChangeStudentID: (evt) => { dispatch(makeChangeStudentID(evt.target.value)) },
     onSubmitSearch: () => { dispatch(submitSearchHandle()) },

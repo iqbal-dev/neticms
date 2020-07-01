@@ -162,7 +162,7 @@ export class Menu extends React.Component {
                               </DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <NavLink href="#">Find Due Info</NavLink>
+                                  <NavLink href="/find_paySlip">Find Due Info</NavLink>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
