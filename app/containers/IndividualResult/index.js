@@ -129,7 +129,7 @@ export class IndividualResult extends React.Component {
                       <div className="col-md-6 col-lg-3 top-position">
                         <img src={positionIcon} />
                         <div>
-                          <h2>{ resultData.classPosition }</h2>
+                          <h2>{ resultData && resultData.classPosition }</h2>
                           <p>Merit Position</p>
                         </div>
                       </div>
@@ -221,7 +221,7 @@ export class IndividualResult extends React.Component {
                     <div className="page-inner-title with-print mb-4">
                       <h2>
                         <span className="font-20">
-                          Showing Result for Student ID. <span className="text-orange">{ resultData.customStudentId }</span>, Reg. Mobile No. <span className="text-orange">{ resultData.mobileNo }</span></span>
+                          Showing Result for Student ID. <span className="text-orange">{ resultData && resultData.customStudentId }</span>, Reg. Mobile No. <span className="text-orange">{ resultData.mobileNo }</span></span>
                         <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span>
                       </h2>
                       <div className="custom-title-border-left my-4" />
@@ -239,11 +239,11 @@ export class IndividualResult extends React.Component {
                         <div class="col-md-6 col-lg-2 roll-no">
                           <span class="roll-no-title">Roll No.</span>
                           <br />
-                          <label className="text-orange mb-0">{ resultData.studentRoll }</label>
+                          <label className="text-orange mb-0">{ resultData && resultData.studentRoll }</label>
                           <hr className="my-1" />
                           <span class="roll-no-title">Student ID</span>
                           <br />
-                          <label className="text-orange">{ resultData.customStudentId }</label>
+                          <label className="text-orange">{ resultData && resultData.customStudentId }</label>
                         </div>
 
                         <div class="col-md-6 col-lg-2 student-img mx-0">
@@ -257,20 +257,20 @@ export class IndividualResult extends React.Component {
 
                         <div class="col-md-6 col-lg-4">
                           <div class="col-lg-12 student-details">
-                            <div className=""><label>Student Name</label>: { resultData.studentName }</div>
-                            <div className=""><label>Father's Name</label>: { resultData.fatherName }</div>
-                            <div className=""><label>Mother's Name</label>: { resultData.motherName }</div>
-                            <div className=""><label>Reg. Mobile No.</label>: { resultData.mobileNo }</div>
+                            <div className=""><label>Student Name</label>: { resultData && resultData.studentName }</div>
+                            <div className=""><label>Father's Name</label>: { resultData && resultData.fatherName }</div>
+                            <div className=""><label>Mother's Name</label>: { resultData && resultData.motherName }</div>
+                            <div className=""><label>Reg. Mobile No.</label>: { resultData && resultData.mobileNo }</div>
                             <div className=""><label>Exam Name</label>: { /*resultData.studentName*/ }</div>
                           </div>
                         </div>
                         <div className="row vertical-border ml-md-1 px-0 d-sm-none d-md-block d-lg-block"></div>
                         <div class="col-md-6 col-lg-4 ml-md-0">
                           <div class="col-lg-12 student-details">
-                            <div className=""><label>Section</label>: { resultData.sectionName }</div>
-                            <div className=""><label>Total Marks</label>: { resultData.obtainedMarks }</div>
-                            <div className=""><label>GPA</label>: { resultData.gpa }</div>
-                            <div className=""><label>Grade</label>: { resultData.grade }</div>
+                            <div className=""><label>Section</label>: { resultData && resultData.sectionName }</div>
+                            <div className=""><label>Total Marks</label>: { resultData && resultData.obtainedMarks }</div>
+                            <div className=""><label>GPA</label>: { resultData && resultData.gpa }</div>
+                            <div className=""><label>Grade</label>: { resultData && resultData.grade }</div>
                             <div className=""><label>Academic Year</label>: { this.props.academicYear }</div>
                           </div>
                         </div>
@@ -316,6 +316,25 @@ export class IndividualResult extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
+                          {
+                            resultData ?
+                            resultData.examMarks.map((item, index) =>
+                                <tr>
+                                  <td>{item.subjectName}</td>
+                                  <td>{item.fullMarks}</td>
+                                  <td>{item.shortCode1}</td>
+                                  <td>{item.shortCode2}</td>
+                                  <td>{item.shortCode4}</td>
+                                  <td>{item.fullMarks}</td>
+                                  <td>{item.obtainedMarks}</td>
+                                  <td>{item.gpa}</td>
+                                  <td>{item.grade}</td>
+                                  
+                                </tr>
+                              )
+                              : <tr><td colSpan='9'>No Data Found</td></tr>
+                          }
+
                           <tr>
                             <td>Bangla 1st Paper</td>
                             <td>549.60</td>
