@@ -23,12 +23,14 @@ import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SectionWiseResult extends React.Component {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>SectionWiseResult</title>
           <meta name="description" content="Description of SectionWiseResult" />
@@ -227,6 +229,7 @@ export class SectionWiseResult extends React.Component {
             </div>
           </div>
         </div>
+        </AppLayout>
       </div>
     );
   }

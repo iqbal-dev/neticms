@@ -14,7 +14,7 @@ export default function NotFound() {
   return (
     <article>
       <H1>
-        <FormattedMessage {...messages.header} />
+        <FormattedMessage {...messages.header} /> +'please use your institute short url name'
       </H1>
     </article>
   );

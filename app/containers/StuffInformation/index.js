@@ -23,6 +23,7 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
 import { Button } from 'reactstrap';
 import { onSubmitStuffInfoSearchBtn, onSubmitStuffInfoSetRowData } from './actions';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StuffInformation extends React.Component {
@@ -33,6 +34,7 @@ export class StuffInformation extends React.Component {
 
     return (
       <div>
+        <AppLayout>
         <BreadcrumComponent
           pageTitle="Stuff's Information"
           menuStepFirst="Home"
@@ -82,7 +84,9 @@ export class StuffInformation extends React.Component {
             </div>
           </div>
         </section>
-      </div>
+     
+        </AppLayout>
+         </div>
     );
   }
 }

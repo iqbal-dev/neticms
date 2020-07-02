@@ -24,12 +24,14 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import eventGallery from '../../assets/img/event-gallery-1.png';
 import image from './slider-image.png';
 import { setModalVisiableStatus } from './actions';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class EventGallery extends React.PureComponent {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>EventGallery</title>
           <meta name="description" content="Description of EventGallery" />
@@ -113,6 +115,7 @@ export class EventGallery extends React.PureComponent {
             </div>
           </div>
         </div>
+        </AppLayout>
       </div>
     );
   }

@@ -37,7 +37,7 @@ import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Popover, PopoverHeader, PopoverBody } from "reactstrap";
-
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FeesInfo extends React.Component {
@@ -56,6 +56,7 @@ export class FeesInfo extends React.Component {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>FeesInfo</title>
           <meta name="description" content="Description of FeesInfo" />
@@ -305,6 +306,7 @@ export class FeesInfo extends React.Component {
             </div>
           </div>
         </section>
+        </AppLayout>
       </div>
     );
   }

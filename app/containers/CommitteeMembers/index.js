@@ -20,12 +20,14 @@ import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class CommitteeMembers extends React.PureComponent {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>CommitteeMembers</title>
           <meta name="description" content="Description of CommitteeMembers" />
@@ -194,6 +196,7 @@ export class CommitteeMembers extends React.PureComponent {
             </div>
           </div>
         </section>
+        </AppLayout>
       </div>
     );
   }

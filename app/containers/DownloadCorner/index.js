@@ -20,13 +20,14 @@ import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Table } from 'reactstrap';
-
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DownloadCorner extends React.PureComponent {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>ClassRooms</title>
           <meta name="description" content="Description of ClassRooms" />
@@ -95,6 +96,7 @@ export class DownloadCorner extends React.PureComponent {
             </div>
           </div>
         </section>
+        </AppLayout>
       </div>
     );
   }

@@ -20,12 +20,14 @@ import saga from './saga';
 import messages from './messages';
 import { Container, Row, Col } from 'reactstrap';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class History extends React.Component {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>History</title>
           <meta name="description" content="Description of History" />
@@ -66,7 +68,7 @@ export class History extends React.Component {
           </Container>
 
         </section>
-
+        </AppLayout>
       </div>
     );
   }

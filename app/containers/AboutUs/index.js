@@ -24,6 +24,8 @@ import { makeSelectUrlId, makeSelectUrlInfo } from '../HomePage/selectors';
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
 
 import { makeSelectHistory } from './selectors';
+import { AppLayout } from '../AppLayout';
+import BreadcrumComponent from '../../components/BreadcrumComponent';
 /* eslint-disable react/prefer-stateless-function */
 export class AboutUs extends React.Component {
   constructor(props) {
@@ -47,34 +49,46 @@ export class AboutUs extends React.Component {
 
     return (
       <div>
-        <Helmet>
-          <title>AboutUs</title>
-          <meta name="description" content="Description of AboutUs" />
-        </Helmet>
-        <Container className="mt-3">
-          <Row xs="1" sm="2" md="12">
-            <Col className="col-md-12">
-              <Breadcrumb>
-                <BreadcrumbItem>
-                  <a href="#">Home</a>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>Library</BreadcrumbItem>
-              </Breadcrumb>
-            </Col>
-          </Row>
-        </Container>
-        <section className="post-wrapper">
-          <Container>
+        <AppLayout>
+          <Helmet>
+            <title>AboutUs</title>
+            <meta name="description" content="Description of AboutUs" />
+          </Helmet>
+          <BreadcrumComponent
+          pageTitle="Institute Details"
+          menuStepFirst="Institute Info"
+          menuStepSenond="About"
+          menuStepThird="Institute Details"
+        /> 
+          {/* <Container className="mt-3">
             <Row xs="1" sm="2" md="12">
               <Col className="col-md-12">
-                <div className="post">
-                  <h3>About Us</h3>
-                  <p>{aboutDetails}</p>
-                </div>
+                <Breadcrumb>
+                  <BreadcrumbItem>
+                    <a href="#">Home</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="#">Institute Info</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem active>About</BreadcrumbItem>
+                </Breadcrumb>
               </Col>
             </Row>
-          </Container>
-        </section>
+          </Container> */}
+          <section className="post-wrapper">
+            <Container>
+              <Row xs="1" sm="2" md="12">
+                <Col className="col-md-12">
+                  <div className="post">
+                    <h3>About Us</h3>
+                    <p>{aboutDetails}</p>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+
+        </AppLayout>
       </div>
     );
   }

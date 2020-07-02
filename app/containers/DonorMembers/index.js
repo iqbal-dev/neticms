@@ -22,6 +22,7 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
 
 import {makeSelectDonorMembersList} from './selectors';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DonorMembers extends React.PureComponent {
@@ -31,6 +32,7 @@ export class DonorMembers extends React.PureComponent {
     
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>DonorMembers</title>
           <meta name="description" content="Description of DonorMembers" />
@@ -193,6 +195,7 @@ export class DonorMembers extends React.PureComponent {
             </div>
           </div>
         </section>
+        </AppLayout>
       </div>
     );
   }

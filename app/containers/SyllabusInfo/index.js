@@ -20,12 +20,15 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SyllabusInfo extends React.Component {
   render() {
     return (
       <div>
+      <AppLayout>
+
         <Helmet>
           <title>SyllabusInfo</title>
           <meta name="description" content="Description of SyllabusInfo" />
@@ -123,6 +126,7 @@ export class SyllabusInfo extends React.Component {
             </div>
           </div>
         </div>
+        </AppLayout>
       </div>
     );
   }

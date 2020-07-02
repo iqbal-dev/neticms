@@ -19,12 +19,14 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from './../../components/BreadcrumComponent';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SeatInfo extends React.Component {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>SeatInfo</title>
           <meta name="description" content="Description of SeatInfo" />
@@ -202,6 +204,7 @@ export class SeatInfo extends React.Component {
         </div>
         </div>
       </section>
+      </AppLayout>
       </div>
     );
   }
