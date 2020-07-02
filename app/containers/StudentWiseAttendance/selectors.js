@@ -8,6 +8,15 @@ import { initialState } from './reducer';
 const selectStudentWiseAttendanceDomain = state =>
   state.get('studentWiseAttendance', initialState);
 
+const makeSelectStudentID = () =>
+  createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('studentID'));
+
+const makeSelectAttendanceFromDate = () =>
+createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceFromDate'));
+
+const makeSelectAttendancToeDate = () =>
+createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceToDate'));
+
 /**
  * Other specific selectors
  */
@@ -22,4 +31,8 @@ const makeSelectStudentWiseAttendance = () =>
   );
 
 export default makeSelectStudentWiseAttendance;
-export { selectStudentWiseAttendanceDomain };
+export { selectStudentWiseAttendanceDomain,
+  makeSelectStudentID,
+  makeSelectAttendanceFromDate,
+  makeSelectAttendancToeDate
+ };
