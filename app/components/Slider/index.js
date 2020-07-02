@@ -16,8 +16,10 @@ import Slide_4 from './slider-4.png';
 import Slide_1 from './slider-1.jpg';
 import Slide_3 from './slider-3.jpg';
 /* eslint-disable react/prefer-stateless-function */
+import { Link } from 'react-router-dom';
+
 class Slider extends React.Component {
-  
+
   render() {
 
     const items = [
@@ -62,13 +64,12 @@ class Slider extends React.Component {
                 </div>
                 <div id="notice-list" className="notice-board">
                   <ul>
-                    
                     {noticeArrayList.slice(0, 5).map(singleNotice => (
                       <li key={singleNotice.noticeID}>
-                        <a href="#">
+                        <Link to={{ pathname: '/all_notice', personWiseTokenInfo: noticeArrayList}} target='_blank' >
                           <span>Publish on <i className="fas fa-calendar-alt" />{singleNotice.noticeIssueDate}</span>
                           <h4>{singleNotice.noticeTitle}</h4>
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

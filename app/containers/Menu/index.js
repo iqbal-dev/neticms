@@ -185,7 +185,7 @@ export class Menu extends React.Component {
                               <DropdownMenu right>
 
                                 <NavItem><Link to='#' className='nav-link'>Academic Calendar</Link> </NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Instiute Notice</Link> </NavItem>
+                                <NavItem><Link to='/all_notice' className='nav-link'>Instiute Notice</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Important Link</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Download Corner</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Job Circular</Link> </NavItem>
