@@ -28,7 +28,12 @@ export const fetchTeacherListByCategoryName = '/nw/sa-point/basic/list/by/catego
 export const fetch_sectionWiseFailList = '/nw/sa-point/student/section-wise/result/failed/details';
 export const fetch_student_paySlipList = '/nw/student-point/accounts/unpaid-invoice/search/by/custom-student-id';
 
-export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
+export const fetch_group_names_by_classConfigId = '/core/setting/group-configuration/list/by/class-config-id';
+
+export const fetch_student_info_by_groupConfigId = '/nw/sa-point/student/list/by/class-config-id';
+
+
+
 
 export const fetch_teacherAttendanceListBy_date = '/nw/staff-attendance/date-wise/multiple/staff/attendance/details';
 

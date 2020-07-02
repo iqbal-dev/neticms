@@ -15,65 +15,35 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo}  from './selectors';
+import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo, makeSelectGroupNameDropDownINfo, makeSelectGroupList, makeStudentInfoResult, makeSelectClassNameSelected}  from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import donorImage from '../../assets/img/donor-image.png';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
-import { classNameListDropDown } from './actions';
+import { classNameListDropDown, classNameSelectedMethod, classGroupListDropDown, submitSearchButton, groupNameSelectedMethod } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StudentInfo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      class: '',
-      group: '',
-      errors: {},
-    };
+
   }
 
-  onChangeInputField = event => {
-    const { errors } = this.state;
-    errors[event.target.name] = '';
-    this.setState({
-      [event.target.name]: event.target.value,
-      errors,
-    });
-  };
 
-  handleError = () => {
-    const { errors } = this.state;
-    let formIsValid = true;
-    if (!this.state.class) {
-      errors.class = "Class can't left empty";
-      formIsValid = false;
-    }
 
-    if (!this.state.group) {
-      errors.group = "Group can't left empty";
-      formIsValid = false;
-    }
 
-    this.setState({ errors });
-    return formIsValid;
-  };
 
-  onSearchStudentInfo = () => {
-    if (this.handleError()) {
-    }
-  };
 
   render() {
 
-    let classNameArray = [];
-    let classNameDropDown = this.props.classNamesDropDown;
-    
 
+    let classNameDropDown = this.props.classNamesDropDown;
+    let classGroupDropDown = this.props.groupList;
+    let studentInfiList = this.props.searchResult;
+    console.log('classNameSelected', this.props.classNameSelected);
     
-    const { errors } = this.state;
     return (
       <div>
         <AppLayout>
@@ -105,20 +75,20 @@ export class StudentInfo extends React.Component {
                               <Input
                                 type="select"
                                 name="class"
-                                onChange={this.onChangeInputField}
+                                onChange={this.props.onChangeClassName}
                                 // value={ this.state.class }
                               >
                                 <option value="">Choose a class</option>
                                 {
-                                  classNameDropDown.map(item => {
+                                  classNameDropDown && classNameDropDown.map(item => {
                                     return(
-                                      <option value={item.classObject.name}>{item.classObject.name}</option>
+                                      <option value={item.classConfigId}>{item.classShiftSection}</option>
                                     )
                                   })
                                 }
                               </Input>
                             </FormGroup>
-                            <div className="error-message"> {errors.class}</div>
+                            <div className="error-message"> </div>
                           </div>
 
                           <div className="col-md-12 col-lg-5">
@@ -126,13 +96,13 @@ export class StudentInfo extends React.Component {
                               <Input
                                 type="select"
                                 name="group"
-                                onChange={this.onChangeInputField}
+                                onChange={this.props.onChangeGroupName}
                               >
                                 <option value="">Select a group</option>
                                 {
-                                  classNameDropDown.map(item => {
+                                  classGroupDropDown && classGroupDropDown.map(item => {
                                     return(
-                                      <option value={item.classConfigId}>{item.classShiftSection}</option>
+                                      <option value={item.groupConfigId}>{item.groupObject.name}</option>
                                     )
                                   })
                                 }
@@ -140,13 +110,13 @@ export class StudentInfo extends React.Component {
 
                               <Button
                                 className="btn explore-btn"
-                                onClick={this.onSearchStudentInfo}
+                                onClick={this.props.submitSearch}
                               >
                                 <i className="fas fa-chevron-circle-right" />{' '}
                                 Search
                               </Button>
                             </FormGroup>
-                            <div className="error-message"> {errors.group}</div>
+                            <div className="error-message"> </div>
                           </div>
 
                           <div className="col-md-12 col-lg-1 d-sm-none d-md-none d-lg-block">
@@ -193,6 +163,7 @@ export class StudentInfo extends React.Component {
               </div>
 
               <div className="container">
+
                 <div className="row">
                   <div className="col-md-12 studentlist-data-inside">
                     <div className="description">
@@ -260,17 +231,27 @@ export class StudentInfo extends React.Component {
 
 StudentInfo.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  classNamesDropDown: PropTypes.any
+  classNamesDropDown: PropTypes.any,
+  groupList: PropTypes.any,
+  submitSearch: PropTypes.func,
+  searchResult: PropTypes.any,
+  classNameSelected: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   studentInfo: makeSelectStudentInfo(),
-  classNamesDropDown: makeSelectClassNameDropDownINfo()
+  classNamesDropDown: makeSelectClassNameDropDownINfo(),
+  classNameSelected: makeSelectClassNameSelected(),
+  groupList: makeSelectGroupList(),
+  searchResult: makeStudentInfoResult(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeClassName: (evt) => { dispatch(classNameSelectedMethod(evt.target.value)) },
+    onChangeGroupName: (evt) => { dispatch(groupNameSelectedMethod(evt.target.value)) },
+    submitSearch: () => { dispatch(submitSearchButton()) },
   };
 }
 
