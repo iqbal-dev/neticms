@@ -116,7 +116,7 @@ export class Menu extends React.Component {
                               <DropdownToggle nav caret>Fees Info</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <Link to='studentWise_attendance' className='nav-link'>Find Due Info</Link>
+                                  <Link to='find_paySlip' className='nav-link'>Find Due Info</Link>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
@@ -147,7 +147,7 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/failList' className='nav-link'>Fail List</Link>
                                 </NavItem>
                                 <NavItem><Link to='/sectionWise_result' className='nav-link'>Section wise </Link> </NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Individual</Link> </NavItem>
+                                <Link to='individual_result' className='nav-link'>Individual</Link>
                               </DropdownMenu>
 
                             </UncontrolledDropdown>

@@ -30,3 +30,6 @@ export const fetch_student_paySlipList = '/nw/student-point/accounts/unpaid-invo
 
 export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
 export const fetch_sectionWise_attendance = '/nw/student-attendance/period-wise/attendance/summary/by/date';
+
+export const fetch_examListBy_studentID_and_year = '/exam/configuration/list/by/custom-student-id';
+export const fetch_individual_result_data = '/nw/sa-point/student/result-details/by/custom-student-id';
