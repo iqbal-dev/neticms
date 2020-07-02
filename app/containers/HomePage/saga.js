@@ -169,6 +169,7 @@ export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
 
   try {
     yield put(setNotice(response.item));
+    sessionStorage.setItem('allNoticeList',  JSON.stringify(response.item));
   } catch (error) { }
 
 }

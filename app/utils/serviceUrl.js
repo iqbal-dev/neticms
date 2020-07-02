@@ -29,6 +29,9 @@ export const fetch_sectionWiseFailList = '/nw/sa-point/student/section-wise/resu
 export const fetch_student_paySlipList = '/nw/student-point/accounts/unpaid-invoice/search/by/custom-student-id';
 
 export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
+
+export const fetch_teacherAttendanceListBy_date = '/nw/staff-attendance/date-wise/multiple/staff/attendance/details';
+
 export const fetch_sectionWise_attendance = '/nw/student-attendance/period-wise/attendance/summary/by/date';
 
 export const fetch_examListBy_studentID_and_year = '/exam/configuration/list/by/custom-student-id';

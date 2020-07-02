@@ -8,6 +8,12 @@ import { initialState } from './reducer';
 const selectTeacherAttendanceDomain = state =>
   state.get('teacherAttendance', initialState);
 
+const makeSelectAttendanceDate = () =>
+createSelector(selectTeacherAttendanceDomain, substate => substate.get('attendanceDate'));
+
+const makeSelectAttendanceList = () =>
+createSelector(selectTeacherAttendanceDomain, substate => substate.get('attendanceList'));
+
 /**
  * Other specific selectors
  */
@@ -20,4 +26,8 @@ const makeSelectTeacherAttendance = () =>
   createSelector(selectTeacherAttendanceDomain, substate => substate.toJS());
 
 export default makeSelectTeacherAttendance;
-export { selectTeacherAttendanceDomain };
+export { selectTeacherAttendanceDomain,
+  makeSelectAttendanceDate ,
+  makeSelectAttendanceList
+
+};
