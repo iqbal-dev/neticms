@@ -17,18 +17,73 @@ import injectReducer from 'utils/injectReducer';
 import { Table } from 'reactstrap';
 import { Chart } from 'react-google-charts';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectTeacherAttendance from './selectors';
+import makeSelectTeacherAttendance,  {makeSelectAttendanceList} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
+import { submitSearchButton, setAttendanceDate } from './actions';
+import { AppLayout } from '../AppLayout';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class TeacherAttendance extends React.Component {
+
+  onChangeAttendanceDate = (e) => {
+    let date = e.target.value;
+    let formattedDate = date.split('-');
+    let finalDate = formattedDate[2] + '-' + formattedDate[1] + '-' + formattedDate[0];
+    this.props.onChangeAttendanceDate(finalDate);
+  
+
+
+  }
   render() {
+    let { teacherAttendanceList } = this.props;
+    let totalHr = 0
+    let totalPresentPercent  = 0
+
+    let totalAbsentPercent  = 0
+
+    let totalLeavePercent  = 0
+
+
+    if(teacherAttendanceList && teacherAttendanceList.length !== 0) {
+      totalHr = teacherAttendanceList.map(item => +item.totalHr)
+      .reduce((a, b) => {
+          return a + b;
+      }, 0);
+
+      totalPresentPercent = teacherAttendanceList.map(item => +item.totalPresent)
+      .reduce((a, b) => {
+          return a + b;
+      }, 0);
+
+      totalAbsentPercent = teacherAttendanceList.map(item => +item.totalAbsent)
+      .reduce((a, b) => {
+          return a + b;
+      }, 0);
+
+      totalLeavePercent = teacherAttendanceList.map(item => +item.totalLeave)
+      .reduce((a, b) => {
+          return a + b;
+      }, 0);
+
+
+      
+    }
+
+
+    // let chartColumnHeader = ["Active", "Inactive"];
+    // emDueBillStatus = Object.entries(body.emDueBillAmountStatus)
+    // emDueBillStatusArr.push(chartColumnHeader, ...emDueBillStatus);
+
+
     return (
       <div>
+                <AppLayout>
+
         <div>
           <Helmet>
             <title>TeacherAttendance</title>
@@ -87,25 +142,24 @@ export class TeacherAttendance extends React.Component {
                         <div className="legend-with-percent present">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Present</span>
-                          <span className="percent">( 73.3% )</span>
+                        <span className="percent">{totalHr && totalPresentPercent ? `(${+((totalHr * 100) / (totalPresentPercent * 100)) * 100} %)` : 0}</span>
                         </div>
 
                         <div className="legend-with-percent absent">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Absent</span>
-                          <span className="percent">( 13.3% )</span>
+                          <span className="percent">{totalHr && totalAbsentPercent ? `(${+((totalHr * 100) / (totalAbsentPercent * 100)) * 100} %)` : 0}</span>
                         </div>
 
-                        <div className="legend-with-percent delay">
-                          {/* <span className="symbol-squire"></span> */}
+                        {/* <div className="legend-with-percent delay">
                           <span className="title">Delay</span>
                           <span className="percent">( 13.3% )</span>
-                        </div>
+                        </div> */}
 
                         <div className="legend-with-percent on-leave">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">On Leave</span>
-                          <span className="percent">( 13.3% )</span>
+                          <span className="percent">{totalHr && totalLeavePercent ? `(${+((totalHr * 100) / (totalLeavePercent * 100)) * 100} %)` : 0}</span>
                         </div>
                       </div>
                       <div className="col-lg-6 form">
@@ -115,9 +169,12 @@ export class TeacherAttendance extends React.Component {
                               type="date"
                               name="date"
                               id="exampleDate"
+                              onChange={this.onChangeAttendanceDate}
                               placeholder="Select a date"
                             />
-                            <Button class="btn explore-btn">Search</Button>
+                            {/* <Button class="btn explore-btn">Search</Button> */}
+                            <Button className="btn explore-btn all-border-radious" onClick={this.props.submitSearch}>Search</Button>
+
                           </FormGroup>
                         </Form>
                       </div>
@@ -160,31 +217,20 @@ export class TeacherAttendance extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
+                        {
+                            teacherAttendanceList ?
+                            teacherAttendanceList.map((item, index) =>
+                                <tr>
+                                  <td><center className="attendance failed"><img src={donorImage} /></center></td>
+                                  <td>{item.customStaffId}</td>
+                                  <td>{item.staffName}</td>
+                                  <td>{item.staffDesignation}</td>
+                                  <td>{item.stringAttendanceStatus}</td>
+                                </tr>
+                              )
 
-                            <td>57</td>
-                            <td>57</td>
-                            <td>00</td>
-                            <td className="present">00</td>
-                          </tr>
-                          <tr>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-
-                            <td>65</td>
-                            <td>65</td>
-                            <td>00</td>
-                            <td className="present">00</td>
-
-                          </tr>
-                          <tr>
-                          <td><div className="attendance passed"><img src={donorImage} /></div></td>
-
-                            <td>45</td>
-                            <td>42</td>
-                            <td>05</td>
-                            <td className="on-time">00</td>
-                          </tr>
+                              : <tr><td colSpan='5'>No Data Found</td></tr>
+                          }
                         </tbody>
                       </Table>
                     </div>
@@ -211,6 +257,7 @@ export class TeacherAttendance extends React.Component {
             </div>
           </div>
         </div>
+        </AppLayout>
       </div>
     );
   }
@@ -218,15 +265,25 @@ export class TeacherAttendance extends React.Component {
 
 TeacherAttendance.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  submitSearch: PropTypes.func
+
 };
 
 const mapStateToProps = createStructuredSelector({
   teacherAttendance: makeSelectTeacherAttendance(),
+  teacherAttendanceList: makeSelectAttendanceList(),
+
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeAttendanceDate: (evt) => { 
+      console.log('evt',evt);
+      dispatch(setAttendanceDate(evt)) 
+    },
+    submitSearch: () => { dispatch(submitSearchButton()) },
+
   };
 }
 
