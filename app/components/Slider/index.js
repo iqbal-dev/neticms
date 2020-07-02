@@ -17,7 +17,9 @@ import Slide_1 from './slider-1.jpg';
 import Slide_3 from './slider-3.jpg';
 /* eslint-disable react/prefer-stateless-function */
 class Slider extends React.Component {
+  
   render() {
+
     const items = [
       {
         src: Slide_4,
@@ -60,13 +62,11 @@ class Slider extends React.Component {
                 </div>
                 <div id="notice-list" className="notice-board">
                   <ul>
-                    {noticeArrayList.map(singleNotice => (
+                    
+                    {noticeArrayList.slice(0, 5).map(singleNotice => (
                       <li key={singleNotice.noticeID}>
                         <a href="#">
-                          <span>
-                            Publish on <i className="fas fa-calendar-alt" />{' '}
-                            Aprill 05, 2020
-                          </span>
+                          <span>Publish on <i className="fas fa-calendar-alt" />{singleNotice.noticeIssueDate}</span>
                           <h4>{singleNotice.noticeTitle}</h4>
                         </a>
                       </li>

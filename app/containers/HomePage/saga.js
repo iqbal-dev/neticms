@@ -14,6 +14,10 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
   let instituteHostNm = window.location.pathname.slice(1);
   // console.log('instituteHostNm', instituteHostNm);
+  if (instituteHostNm == 'home') {
+    var instituteInfo = JSON.parse(localStorage.instituteInfo);
+    instituteHostNm = instituteInfo[0].urlName
+  }
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
   const options = {
@@ -77,7 +81,8 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
       yield put(setUrlInfo(response.item));
       yield fetch_emAuthToken();
-      yield fetch_Menu_byUrlId(response.item.cmsId);
+      // yield fetch_Menu_byUrlId(response.item.cmsId);
+      
       yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
       yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
       yield fetch_instituteHistory_byUrlId(response.item.cmsId);
@@ -149,21 +154,21 @@ export function* fetch_LatestNews() {
 
 }
 
-export function* fetch_InstituteTopNotices_byUrlId(urlInfoId) {
+export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
+  console.log('notice func', cmsId);
 
-  let reqUrlInfoId = { urlInfoID: urlInfoId }
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_noticeBy_urlId).concat('?cmsId=').concat(cmsId);
+  console.log('requestURL', requestURL);
 
-  const requestURL = BASE_URL_NW.concat(fetch_noticeBy_urlId);
   const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(reqUrlInfoId)
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
   };
   const response = yield call(request, requestURL, options);
+  console.log('instituteTopNotices_Res', response);
+
   try {
-    yield put(setNotice(response));
+    yield put(setNotice(response.item));
   } catch (error) { }
 
 }
