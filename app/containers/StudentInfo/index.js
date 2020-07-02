@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo, makeSelectGroupNameDropDownINfo, makeSelectGroupList, makeStudentInfoResult}  from './selectors';
+import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo, makeSelectGroupNameDropDownINfo, makeSelectGroupList, makeStudentInfoResult, makeSelectClassNameSelected}  from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -41,7 +41,8 @@ export class StudentInfo extends React.Component {
 
     let classNameDropDown = this.props.classNamesDropDown;
     let classGroupDropDown = this.props.groupList;
-    console.log('searchResult', this.props.searchResult);
+    let studentInfiList = this.props.searchResult;
+    console.log('classNameSelected', this.props.classNameSelected);
     
     return (
       <div>
@@ -162,6 +163,7 @@ export class StudentInfo extends React.Component {
               </div>
 
               <div className="container">
+
                 <div className="row">
                   <div className="col-md-12 studentlist-data-inside">
                     <div className="description">
@@ -233,11 +235,13 @@ StudentInfo.propTypes = {
   groupList: PropTypes.any,
   submitSearch: PropTypes.func,
   searchResult: PropTypes.any,
+  classNameSelected: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   studentInfo: makeSelectStudentInfo(),
   classNamesDropDown: makeSelectClassNameDropDownINfo(),
+  classNameSelected: makeSelectClassNameSelected(),
   groupList: makeSelectGroupList(),
   searchResult: makeStudentInfoResult(),
 });

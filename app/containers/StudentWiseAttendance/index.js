@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectStudentWiseAttendance from './selectors';
+import makeSelectStudentWiseAttendance, {makeSelectStudentID, makeSelectAttendanceFromDate,makeSelectAttendancToeDate } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -23,6 +23,8 @@ import { Chart } from 'react-google-charts';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
+import { submitSearchButton, setStudentID,setAttendanceFromDate, setAttendanceToDate,  } from './actions';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class StudentWiseAttendance extends React.Component {
@@ -58,8 +60,12 @@ export class StudentWiseAttendance extends React.Component {
                           {/* <div className="row"> */}
                             <div className="col-md-12 col-lg-3">
                               <FormGroup className=" custom-input-text">
-                                <Input type="text" name="academic-year" placeholder="Enter Your Student ID Number">
-                                </Input>
+                              <Input 
+                                type="text" 
+                                name="studentID" 
+                                placeholder="Enter Your Student ID Number"
+                                onChange={this.props.onChangeStudentID}
+                              />
                               </FormGroup>
                             </div>
 
@@ -82,7 +88,7 @@ export class StudentWiseAttendance extends React.Component {
                                   id="exampleDate"
                                   placeholder="date placeholder"
                                 />
-                                <Button className="btn explore-btn">Search</Button>
+                                <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button>
                               </FormGroup>
                             </div>
 
@@ -301,11 +307,27 @@ StudentWiseAttendance.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   studentWiseAttendance: makeSelectStudentWiseAttendance(),
+  studentID: makeSelectStudentID(),
+  attendanceFromDate: makeSelectAttendanceFromDate(),
+  attendanceToDate: makeSelectAttendancToeDate(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeStudentID: (evt) => { 
+      console.log('evt',evt);
+      dispatch(setStudentID(evt)) 
+    },
+    onChangeAttendanceFromDate: (evt) => { 
+      console.log('evt',evt);
+      dispatch(setAttendanceFromDate(evt)) 
+    },
+    onChangeAttendanceToDate: (evt) => { 
+      console.log('evt',evt);
+      dispatch(setAttendanceToDate(evt)) 
+    },
+    submitSearch: () => { dispatch(submitSearchButton()) },
   };
 }
 

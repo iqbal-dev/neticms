@@ -13,7 +13,7 @@ export const fetch_em_token = '/oauth/token';
 export const fetch_urlMappingInfoBy_urlName = '/public/cms-info/find/';
 export const fetch_menu_urlName = '/client_dws/menu/config/by/urlid';
 export const fetch_welcomeSpeechBy_urlId = '/client_dws/speech/get/by/welcome-status-urlid';
-export const fetch_noticeBy_urlId = '/client_dws/top-notices/get/by';
+export const fetch_noticeBy_urlId = '/public/notices';
 export const fetch_instituteHistoryBy_urlId = '/client_dws/aboutus/by/url-type';
 export const fetch_instituteTopEventBy_urlId = '/client_dws/event/top-five/by/urlid';
 export const submit_footerContactForm = '';
@@ -26,6 +26,7 @@ export const fetch_examListBy_classConfigID = '/exam/configuration/list/by/class
 export const fetchTeacherListByCategoryName = '/nw/sa-point/basic/list/by/category/with/photo';
 
 export const fetch_sectionWiseFailList = '/nw/sa-point/student/section-wise/result/failed/details';
+export const fetch_student_paySlipList = '/nw/student-point/accounts/unpaid-invoice/search/by/custom-student-id';
 
 export const fetch_group_names_by_classConfigId = '/core/setting/group-configuration/list/by/class-config-id';
 
@@ -34,5 +35,9 @@ export const fetch_student_info_by_groupConfigId = '/nw/sa-point/student/list/by
 
 
 
+export const fetch_teacherAttendanceListBy_date = '/nw/staff-attendance/date-wise/multiple/staff/attendance/details';
 
+export const fetch_sectionWise_attendance = '/nw/student-attendance/period-wise/attendance/summary/by/date';
 
+export const fetch_examListBy_studentID_and_year = '/exam/configuration/list/by/custom-student-id';
+export const fetch_individual_result_data = '/nw/sa-point/student/result-details/by/custom-student-id';

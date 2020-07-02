@@ -56,6 +56,8 @@ export default function AppRoute() {
       <Route exact path="/msmamun" component={HomePage} />
       <Route exact path="/rajuhs" component={HomePage} />
       <Route exact path="/spsngn" component={HomePage} />
+      <Route exact path="/ahnmuc" component={HomePage} />
+      <Route exact path="/aakhsc" component={HomePage} />
 
       <Route exact path="/home" component={HomePage} />
       <Route exact path="/about" component={AboutUs} />

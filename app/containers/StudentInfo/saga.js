@@ -62,12 +62,13 @@ export function* fetch_studentInfo(){
   let token = JSON.parse(localStorage.getItem('emToken'));
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let groupConfigId = yield select(makeSelectGroupNameSelected());
+  let classConfigId = yield select(makeSelectClassNameSelected());
   console.log('groupConfigId', groupConfigId);
   
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
-  const requestURL = BASE_URL_EM.concat(fetch_student_info_by_groupConfigId).concat('?classConfigId=').concat(groupConfigId).concat('&instituteId=').concat(instituteId);
+  const requestURL = BASE_URL_EM.concat(fetch_student_info_by_groupConfigId).concat('?classConfigId=').concat(classConfigId).concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -78,11 +79,10 @@ export function* fetch_studentInfo(){
 
   try{
     const response = yield call(request, requestURL, options);
-    console.log('groupConfigId result', response.item);
+  yield put(studentSearchResult(response.item));
 
   }catch(error){}
   
-  // yield put(studentSearchResult(result));
   
 }
 
