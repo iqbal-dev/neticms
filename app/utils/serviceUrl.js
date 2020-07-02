@@ -29,5 +29,9 @@ export const fetch_sectionWiseFailList = '/nw/sa-point/student/section-wise/resu
 
 export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
 
+export const fetch_teacherAttendanceListBy_date = '/nw/staff-attendance/date-wise/multiple/staff/attendance/details';
+
+
+
 
 
