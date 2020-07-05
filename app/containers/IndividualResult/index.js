@@ -103,6 +103,26 @@ export class IndividualResult extends React.Component {
     console.log("YEAR_LIST", academicYearList);
     console.log("EXAM_LIST", examList);//resultData
     console.log("Result Data", resultData);//resultData
+
+    let resultColumnName = []
+    let shortCodeTitle = []
+
+    for ( let i = 1 ; i <= 4 ; i++ ){
+      if(resultData && resultData['shortCode' + i + 'Name'] != null){
+        resultColumnName.push(resultData && resultData['shortCode' + i + 'Name']);
+        shortCodeTitle.push('shortCode' + i );
+      }
+    }
+
+    console.log('resultColumnName', resultColumnName);
+
+    let column = resultColumnName.map((item, index) =>
+        <th>{item}</th>
+    )
+
+    console.log("column", column, shortCodeTitle);
+    
+    
     
     return (
       <div>
@@ -304,11 +324,12 @@ export class IndividualResult extends React.Component {
                           <tr>
                             <th>Subject</th>
                             <th>Total Marks</th>
-                            <th>CT</th>
+                            { column }
+                            {/* <th>CT</th>
                             <th>CP</th>
                             <th>WR</th>
-
-                            <th>PR</th>
+                            <th>PR</th> */}
+                            <th>Full Marks</th>
                             <th>Obtained Marks</th>
                             <th>GPA</th>
                             <th>Grade</th>
@@ -318,13 +339,21 @@ export class IndividualResult extends React.Component {
                         <tbody>
                           {
                             resultData ?
-                            resultData.examMarks.map((item, index) =>
+                            resultData.examMarks && resultData.examMarks.map((item, index) =>
                                 <tr>
                                   <td>{item.subjectName}</td>
                                   <td>{item.fullMarks}</td>
-                                  <td>{item.shortCode1}</td>
+
+                                  {
+                                    shortCodeTitle.map((item2, index) => 
+                                      <td>{
+                                        item[item2]
+                                      }</td>
+                                    )
+                                  }
+                                  {/* <td>{item.shortCode1}</td>
                                   <td>{item.shortCode2}</td>
-                                  <td>{item.shortCode4}</td>
+                                  <td>{item.shortCode4}</td> */}
                                   <td>{item.fullMarks}</td>
                                   <td>{item.obtainedMarks}</td>
                                   <td>{item.gpa}</td>
@@ -335,7 +364,7 @@ export class IndividualResult extends React.Component {
                               : <tr><td colSpan='9'>No Data Found</td></tr>
                           }
 
-                          <tr>
+                          {/* <tr>
                             <td>Bangla 1st Paper</td>
                             <td>549.60</td>
                             <td>95.55</td>
@@ -376,7 +405,7 @@ export class IndividualResult extends React.Component {
                             <td>500.96</td>
                             <td>4.88</td>
                             <td>A</td>
-                          </tr>
+                          </tr> */}
                         </tbody>
                       </Table>
                     </div>
