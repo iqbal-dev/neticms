@@ -103,6 +103,21 @@ export class IndividualResult extends React.Component {
     console.log("YEAR_LIST", academicYearList);
     console.log("EXAM_LIST", examList);//resultData
     console.log("Result Data", resultData);//resultData
+
+    let resultColumnName = resultData && resultData.examList && resultData.examList.map( (item, index) => 
+      
+        <tr>
+          <th>CT</th>
+          <th>CP</th>
+          <th>WR</th>
+
+          <th>PR</th>
+        </tr>
+      
+    )
+
+    console.log('resultColumnName', resultColumnName);
+    
     
     return (
       <div>
@@ -318,7 +333,7 @@ export class IndividualResult extends React.Component {
                         <tbody>
                           {
                             resultData ?
-                            resultData.examMarks.map((item, index) =>
+                            resultData.examMarks && resultData.examMarks.map((item, index) =>
                                 <tr>
                                   <td>{item.subjectName}</td>
                                   <td>{item.fullMarks}</td>
@@ -335,7 +350,7 @@ export class IndividualResult extends React.Component {
                               : <tr><td colSpan='9'>No Data Found</td></tr>
                           }
 
-                          <tr>
+                          {/* <tr>
                             <td>Bangla 1st Paper</td>
                             <td>549.60</td>
                             <td>95.55</td>
@@ -376,7 +391,7 @@ export class IndividualResult extends React.Component {
                             <td>500.96</td>
                             <td>4.88</td>
                             <td>A</td>
-                          </tr>
+                          </tr> */}
                         </tbody>
                       </Table>
                     </div>
