@@ -16,7 +16,9 @@ import {
   SET_INDIVIDUAL_RESULT_DATA
 } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  resultData: {}
+});
 
 function individualResultReducer(state = initialState, action) {
   switch (action.type) {

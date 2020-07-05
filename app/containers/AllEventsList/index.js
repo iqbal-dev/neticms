@@ -19,18 +19,14 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from './../../components/BreadcrumComponent';
-
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AllEventsList extends React.PureComponent {
   render() {
     return (
+      <AppLayout>
       <div>
-        <Helmet>
-          <title>AllEventsList</title>
-          <meta name="description" content="Description of AllEventsList" />
-        </Helmet>
-        <FormattedMessage {...messages.header} />
         <BreadcrumComponent pageTitle="All Events" menuStepFirst="Basic Infrastructure" menuStepSenond="All Events" menuStepThird="Book List" />
       <section>
         <div className="container-fluid">
@@ -117,6 +113,7 @@ export class AllEventsList extends React.PureComponent {
         </div>
       </section>
       </div>
+      </AppLayout>
     );
   }
 }

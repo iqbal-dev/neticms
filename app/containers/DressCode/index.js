@@ -26,6 +26,7 @@ import feMaleIcon from '../../assets/img/fe-male-icon.png';
 import combineIcon from '../../assets/img/combine-icon.png';
 
 import dresscode from '../../assets/img/dresscode.png';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DressCode extends React.Component {
@@ -34,6 +35,7 @@ export class DressCode extends React.Component {
   render() {
     return (
       <div>
+        <AppLayout>
         {console.log('tabID', this.props.tabVisibleStatus)}
         <Helmet>
           <title>DressCode</title>
@@ -374,6 +376,7 @@ export class DressCode extends React.Component {
             </div>
           </div>
         </section>
+        </AppLayout>
       </div>
     );
   }

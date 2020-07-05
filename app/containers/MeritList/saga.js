@@ -15,7 +15,6 @@ import {
   makeSelectAcademicYear, makeSelectClassConfigId, makeSelectExamConfigId
 } from './selectors';
 
-
 // Individual exports for testing
 
 export function* fetch_AcademicYearList() {
@@ -48,7 +47,6 @@ export function* fetch_classShiftSectionBy_instituteId() {
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
-
   const requestURL = BASE_URL_EM.concat(fetch_coreSettingsClassConfigurationListBy_instituteId).concat('?instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
@@ -70,7 +68,6 @@ export function* fetch_examListBy_sectionId() {
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
-
   let classConfigId = yield select(makeSelectClassConfigId());
   console.log('classConfigId', classConfigId);
 
@@ -87,8 +84,6 @@ export function* fetch_examListBy_sectionId() {
   yield put(setExamList(response.item));
 
 }
-
-
 
 export function* fetch_meritList() {
 

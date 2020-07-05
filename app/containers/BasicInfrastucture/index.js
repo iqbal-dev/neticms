@@ -18,12 +18,14 @@ import reducer from './reducer';
 import saga from './saga';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import infrastructure from '../../assets/img/Infrustructure.png';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class BasicInfrastucture extends React.PureComponent {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>BasicInfrastucture</title>
           <meta
@@ -182,6 +184,7 @@ export class BasicInfrastucture extends React.PureComponent {
           </div>
 
         </section>
+        </AppLayout>
       </div>
     );
   }

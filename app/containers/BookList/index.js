@@ -26,6 +26,7 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import bookImage from '../../assets/img/book-image.png';
 import bookImageBig from '../../assets/img/book-image-big.png';
 import { setModalVisibleStatus, setSubmitClassBtn } from './actions';
+import { AppLayout } from '../AppLayout';
 
 const modal = false;
 const toggle = false;
@@ -42,6 +43,7 @@ export class BookList extends React.Component {
 
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>BookList</title>
           <meta name="description" content="Description of BookList" />
@@ -334,6 +336,7 @@ export class BookList extends React.Component {
             </div>
           </div>
         </div>
+        </AppLayout>
       </div>
     );
   }

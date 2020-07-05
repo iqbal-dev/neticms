@@ -19,17 +19,19 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class WelcomeSpeech extends React.Component {
   render() {
     return (
       <div>
+      <AppLayout>
+
         <Helmet>
           <title>WelcomeSpeech</title>
           <meta name="description" content="Description of WelcomeSpeech" />
         </Helmet>
-        {/* <FormattedMessage {...messages.header} /> */}
         <BreadcrumComponent
           pageTitle="Welcome Speech"
           menuStepFirst="Home"
@@ -122,7 +124,7 @@ export class WelcomeSpeech extends React.Component {
             </div>
           </div>
         </div>
-        
+        </AppLayout>
       </div>
     );
   }

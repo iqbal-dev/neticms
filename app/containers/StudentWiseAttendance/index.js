@@ -24,13 +24,14 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
 import { submitSearchButton, setStudentID,setAttendanceFromDate, setAttendanceToDate,  } from './actions';
-
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StudentWiseAttendance extends React.Component {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>StudentWiseAttendance</title>
           <meta
@@ -295,7 +296,7 @@ export class StudentWiseAttendance extends React.Component {
             </div>
           </div>
         </div>
-        
+        </AppLayout>
       </div>
     );
   }

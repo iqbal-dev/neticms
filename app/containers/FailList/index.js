@@ -236,7 +236,7 @@ console.log('examType', this.props.examConfigId);
                                 </tr>
                               )
 
-                              : <tr><td colSpan='5'>No Data Found</td></tr>
+                              : <tr><td colSpan='6'>No Data Found</td></tr>
                           }
 
                         </tbody>

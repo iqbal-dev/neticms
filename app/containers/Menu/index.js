@@ -59,7 +59,7 @@ export class Menu extends React.Component {
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Academic Info</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='#' className='nav-link'>Welcome Speech</Link></NavItem>
+                                <NavItem><Link to='/welcome_speech' className='nav-link'>Welcome Speech</Link></NavItem>
                                 <NavItem><Link to='/committee' className='nav-link'>Comittee</Link></NavItem>
                                 <NavItem><Link to='/donors' className='nav-link'>Donor Member</Link></NavItem>
                               </DropdownMenu>
@@ -71,7 +71,7 @@ export class Menu extends React.Component {
                               <DropdownToggle nav caret>List of</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem><Link to='/all_teachers' className='nav-link'>Teacher</Link></NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Student</Link></NavItem>
+                                <NavItem><Link to='/Student_info' className='nav-link'>Student</Link></NavItem>
                                 <NavItem><Link to='/stuff_information' className='nav-link'>Staff</Link></NavItem>
                               </DropdownMenu>
 
@@ -81,7 +81,7 @@ export class Menu extends React.Component {
 
                               <DropdownToggle nav caret>About</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='#' className='nav-link'>Instiute Details</Link></NavItem>
+                                <NavItem><Link to='/about' className='nav-link'>Instiute Details</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
                           </DropdownMenu>
@@ -98,15 +98,17 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/booklist' className='nav-link'>  Book List</Link></NavItem>
                                 <NavItem><Link to='/dressCode' className='nav-link'>  Uniform</Link></NavItem>
                                 <NavItem><Link to='/fees_info' className='nav-link'> Fees Info</Link></NavItem>
-                                <NavItem><Link to='#' className='nav-link'>  Seat Info</Link></NavItem>
+                                <NavItem><Link to='/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
                                 <NavItem><Link to='/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
+{/* not found */}
+
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Student Attendance</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='#' className='nav-link'> Instiute Wise</Link></NavItem>
+                                <NavItem><Link to='#' className='nav-link'> Instiute Wise</Link></NavItem> 
                                 <NavItem><Link to='/sectionWise_attendance' className='nav-link'> Section Wise</Link></NavItem>
                                 <NavItem><Link to='studentWise_attendance' className='nav-link'> Student Wise</Link></NavItem>
                               </DropdownMenu>
@@ -120,6 +122,8 @@ export class Menu extends React.Component {
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
+
+{/* not found */}
 
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Routine Info</DropdownToggle>
@@ -151,7 +155,7 @@ export class Menu extends React.Component {
                               </DropdownMenu>
 
                             </UncontrolledDropdown>
-
+{/* not found */}
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Public Exam</DropdownToggle>
                               <DropdownMenu right>
@@ -186,9 +190,9 @@ export class Menu extends React.Component {
 
                                 <NavItem><Link to='#' className='nav-link'>Academic Calendar</Link> </NavItem>
                                 <NavItem><Link to='/all_notice' className='nav-link'>Instiute Notice</Link> </NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Important Link</Link> </NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Download Corner</Link> </NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Job Circular</Link> </NavItem>
+                                {/* <NavItem><Link to='#' className='nav-link'>Important Link</Link> </NavItem> */}
+                                <NavItem><Link to='/download_corner' className='nav-link'>Download Corner</Link> </NavItem>
+                                {/* <NavItem><Link to='#' className='nav-link'>Job Circular</Link> </NavItem> */}
                                 <NavItem><Link to='#' className='nav-link'>Contact</Link> </NavItem>
 
                               </DropdownMenu>

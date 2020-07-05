@@ -22,12 +22,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import image from './slider-image.png';
+import { AppLayout } from '../AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ClassRooms extends React.PureComponent {
   render() {
     return (
       <div>
+        <AppLayout>
         <Helmet>
           <title>ClassRooms</title>
           <meta name="description" content="Description of ClassRooms" />
@@ -82,6 +84,7 @@ export class ClassRooms extends React.PureComponent {
             </div>
           </div>
         </section>
+        </AppLayout>
       </div>
     );
   }
