@@ -29,14 +29,11 @@ import { makeSelectUrlInfo } from '../HomePage/selectors';
 /* eslint-disable react/prefer-stateless-function */
 export class AppLayout extends React.Component {
   render() {
-
     return (
       <div>
         <AppHeader />
         <Menu />
-        <div>
-          {this.props.children}
-        </div>
+        <div>{this.props.children}</div>
         <Footer />
       </div>
     );
@@ -49,7 +46,7 @@ AppLayout.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   appLayout: makeSelectAppLayout(),
-  urlInfoObjLayout: makeSelectUrlInfo()
+  urlInfoObjLayout: makeSelectUrlInfo(),
 });
 
 function mapDispatchToProps(dispatch) {
