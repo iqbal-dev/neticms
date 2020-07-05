@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo, makeSelectGroupNameDropDownINfo, makeSelectGroupList, makeStudentInfoResult, makeSelectClassNameSelected}  from './selectors';
+import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo, makeSelectGroupNameDropDownINfo, makeSelectGroupList, makeStudentInfoResult, makeSelectClassNameSelected, makeSelectGroupNameSelected}  from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -23,16 +23,15 @@ import donorImage from '../../assets/img/donor-image.png';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 import { classNameListDropDown, classNameSelectedMethod, classGroupListDropDown, submitSearchButton, groupNameSelectedMethod } from './actions';
-
+import demoImageMale from '../../assets/img/demo-image.jpg';
 /* eslint-disable react/prefer-stateless-function */
+let classNameSelectedError = false;
+let groupNameSelectedError = false;
 export class StudentInfo extends React.Component {
   constructor(props) {
     super(props);
 
   }
-
-
-
 
 
 
@@ -42,7 +41,16 @@ export class StudentInfo extends React.Component {
     let classNameDropDown = this.props.classNamesDropDown;
     let classGroupDropDown = this.props.groupList;
     let studentInfiList = this.props.searchResult;
-    console.log('classNameSelected', this.props.classNameSelected);
+    let classNameSelected = this.props.classNameSelected;
+    
+    let classNameFind = "";
+
+    classNameDropDown.map(item => {
+      if(item.classConfigId === classNameSelected){
+        classNameFind = item.classShiftSection;
+      }
+    });
+    
     
     return (
       <div>
@@ -88,7 +96,7 @@ export class StudentInfo extends React.Component {
                                 }
                               </Input>
                             </FormGroup>
-                            <div className="error-message"> </div>
+                            {classNameSelectedError === true ? <div className="error-message"> Class Name can't Left Empty</div> : <div className="error-message"> </div>}
                           </div>
 
                           <div className="col-md-12 col-lg-5">
@@ -116,7 +124,7 @@ export class StudentInfo extends React.Component {
                                 Search
                               </Button>
                             </FormGroup>
-                            <div className="error-message"> </div>
+                            {groupNameSelectedError === true ? <div className="error-message"> Group Name can't Left Empty</div> : <div className="error-message"> </div>}
                           </div>
 
                           <div className="col-md-12 col-lg-1 d-sm-none d-md-none d-lg-block">
@@ -142,77 +150,89 @@ export class StudentInfo extends React.Component {
                   </div>
                 </div>
               </div>
-
-              <div className="container">
-                <div className="row">
-                  <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="container info-header-title">
-                <div className="row">
-                  <h5 className="col-lg-12">
-                    Showing result for{' '}
-                    <span className="text-orange">
-                      Class Seven, Group - A (56 Students)
-                    </span>
-                  </h5>
-                </div>
-              </div>
-
-              <div className="container">
-
-                <div className="row">
-                  <div className="col-md-12 studentlist-data-inside">
-                    <div className="description">
-                      <div className="col-md-12 description-inside py-4">
-                        <div className="col-md-6 col-lg-2 roll-no">
-                          <span className="roll-no-title">Roll No.</span>
-                          <br />
-                          <label className="text-orange">123</label>
-                        </div>
-
-                        <div className="col-md-6 col-lg-2 student-img">
-                          <div className="img-div">
-                            <div className="img-div overlay">
-                              <i className="fas fa-search-plus" />
-                            </div>
-                            <img src={donorImage} width="85px" height="85px" />
-                          </div>
-                        </div>
-
-                        <div className="col-md-12 col-lg-5">
-                          <div className="col-lg-12 student-details">
-                            <div className="">
-                              <label>Student Name</label>: Shahrear Kabir
-                            </div>
-                            <div className="">
-                              <label>Father's Name</label>: Father's Name
-                            </div>
-                            <div className="">
-                              <label>Mother's Name</label>: Mother's Name
-                            </div>
-                            <div className="">
-                              <label>Student Religion</label>: Islam
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="col-md-6 col-lg-1 student-gender">
-                          <i className="fas fa-male" />
-                        </div>
-                        <div className="col-md-6 col-lg-2 student-custom-id">
-                          <span className="roll-no-title">Student ID</span>
-                          <br />
-                          <label className="text-orange">321256</label>
-                        </div>
-                      </div>
+              { studentInfiList.length > 0 ? 
+                <div>
+                <div className="container">
+                  <div className="row">
+                    <div className="offset-md-1 col-md-10">
+                      <div className="custom-title-border-center" />
                     </div>
                   </div>
                 </div>
-              </div>
+  
+                <div className="container info-header-title">
+                  <div className="row">
+                    <h5 className="col-lg-12">
+                      Showing result for
+                      <span className="text-orange">
+                         Class {classNameFind ? classNameFind : ''} ({studentInfiList ? studentInfiList.length+' Students' : ''})
+                      </span>
+                    </h5>
+                  </div>
+                </div>
+  
+                <div className="container">
+                  {studentInfiList && studentInfiList.map(item => {
+                    return(
+                      <div className="row">
+                        <div className="col-md-12 studentlist-data-inside">
+                          <div className="description">
+                            <div className="col-md-12 description-inside py-4">
+                              <div className="col-md-6 col-lg-2 roll-no">
+                                <span className="roll-no-title">Roll No.</span>
+                                <br />
+                                <label className="text-orange">{item.studentRoll}</label>
+                              </div>
+  
+                              <div className="col-md-6 col-lg-2 student-img">
+                                <div className="img-div">
+                                  <div className="img-div overlay">
+                                    <i className="fas fa-search-plus" />
+                                  </div>
+                                  {item.imageName !== '' ? <img src={item.imageName} width="85px" height="85px" /> : <img src={demoImageMale} width="85px" height="85px" />}
+                                </div>
+                              </div>
+  
+                              <div className="col-md-12 col-lg-5">
+                                <div className="col-lg-12 student-details">
+                                  <div className="">
+                                    <label>Student Name</label>: {item.studentName}
+                                  </div>
+                                  <div className="">
+                                    <label>Father's Name</label>: {item.fatherName}
+                                  </div>
+                                  <div className="">
+                                    <label>Mother's Name</label>: {item.motherName}
+                                  </div>
+                                  <div className="">
+                                    <label>Student Religion</label>: {item.studentReligion}
+                                  </div>
+                                </div>
+                              </div>
+                              {item.studentGender == 'Male' ?
+                                <div className="col-md-6 col-lg-1 student-gender">
+                                  <i className="fas fa-male" />
+                                </div>
+                                :
+                                <div className="col-md-6 col-lg-1 student-gender">
+                                  <i className="fas fa-female" />
+                                </div>
+                              }
+                              
+                              <div className="col-md-6 col-lg-2 student-custom-id">
+                                <span className="roll-no-title">Student ID</span>
+                                <br />
+                                <label className="text-orange">{item.studentId}</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                </div>
+              : ''}
             </div>
           </section>
 
@@ -235,13 +255,15 @@ StudentInfo.propTypes = {
   groupList: PropTypes.any,
   submitSearch: PropTypes.func,
   searchResult: PropTypes.any,
-  classNameSelected: PropTypes.any
+  classNameSelected: PropTypes.any,
+  groupNameSelected: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   studentInfo: makeSelectStudentInfo(),
   classNamesDropDown: makeSelectClassNameDropDownINfo(),
   classNameSelected: makeSelectClassNameSelected(),
+  groupNameSelected: makeSelectGroupNameSelected(),
   groupList: makeSelectGroupList(),
   searchResult: makeStudentInfoResult(),
 });

@@ -79,7 +79,7 @@ export function* fetch_studentInfo(){
 
   try{
     const response = yield call(request, requestURL, options);
-  yield put(studentSearchResult(response.item));
+    yield put(studentSearchResult(response.item));
 
   }catch(error){}
   
