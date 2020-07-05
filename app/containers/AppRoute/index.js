@@ -34,6 +34,7 @@ import SeatInfo  from 'containers/SeatInfo';
 import FindPayslip from 'containers/FindPayslip';
 import WelcomeSpeech from 'containers/WelcomeSpeech';
 import IndividualResult from 'containers/IndividualResult';
+import GalleryImage from 'containers/admin/GalleryImage';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -91,7 +92,12 @@ export default function AppRoute() {
       <Route exact path="/infrastucture" component={BasicInfrastucture} />
       <Route exact path="/find_paySlip" component={FindPayslip} />
 
+
+      {/****** Admin Route *********/}
+      <Route exact path="/admin/galleryImage" component={GalleryImage} />
+
       <Route path="" component={NotFoundPage} />
+
 
       {/* <Route exact path='/about-us/:id' component={
         (props) =>
