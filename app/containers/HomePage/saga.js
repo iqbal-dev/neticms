@@ -1,8 +1,10 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
 import {
-  BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId,
-  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, BASE_URL_NETI_CMS, BASE_URL_NW
+  BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_noticeBy_urlId,
+  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token,
+  BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId
+  , BASE_URL_NETI_CMS, BASE_URL_NW, fetch_welcomeSpeech
 } from '../../utils/serviceUrl';
 import {
   setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken, setGlobalAcademicYearList, setGlobalSectionList
@@ -82,7 +84,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
       yield put(setUrlInfo(response.item));
       yield fetch_emAuthToken();
       // yield fetch_Menu_byUrlId(response.item.cmsId);
-      
+
       yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
       yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
       yield fetch_instituteHistory_byUrlId(response.item.cmsId);
@@ -162,21 +164,21 @@ export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
 
   const options = {
     method: 'GET',
-    headers: {'Content-Type': 'application/json'}
+    headers: { 'Content-Type': 'application/json' }
   };
   const response = yield call(request, requestURL, options);
-  console.log('instituteTopNotices_Res', response);
+  // console.log('instituteTopNotices_Res', response);
 
   try {
     yield put(setNotice(response.item));
-    sessionStorage.setItem('allNoticeList',  JSON.stringify(response.item));
+    sessionStorage.setItem('allNoticeList', JSON.stringify(response.item));
   } catch (error) { }
 
 }
 
-export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
+export function* fetch_WelcomeSpeech_byUrlId(cmsId) {
 
-  const requestURL = BASE_URL_NW.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_welcomeSpeech).concat('?cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
     headers: {
@@ -184,6 +186,8 @@ export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
+  console.log('welcome-speechRes', response);
+
   try {
     yield put(setWelcomeSpeech(response[0]));
   } catch (error) { }
