@@ -14,12 +14,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Button from '@material-ui/core/Button';
 import makeSelectGalleryImage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import {AdminPrivateLayout} from '../AdminPrivateLayout';
-import Button from '@material-ui/core/Button';
+import { AdminPrivateLayout } from '../AdminPrivateLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GalleryImage extends React.PureComponent {
