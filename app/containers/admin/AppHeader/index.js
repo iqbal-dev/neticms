@@ -1,10 +1,9 @@
 /**
  *
- * AppLayout
+ * AppHeader
  *
  */
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../assets/scss/global.css';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,38 +14,32 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAppLayout from './selectors';
+import makeSelectAppHeader from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { AppHeader } from './AppHeader';
-import { Menu } from '../Menu';
-import { AppFooter } from './AppFooter';
-import { Footer } from '../Footer';
-import { Header } from '../Header';
-import { makeSelectUrlInfo } from '../HomePage/selectors';
 /* eslint-disable react/prefer-stateless-function */
-export class AppLayout extends React.Component {
+export class AppHeader extends React.PureComponent {
   render() {
     return (
       <div>
-        <AppHeader />
-        <Menu />
-        <div>{this.props.children}</div>
-        <Footer />
+        <Helmet>
+          <title>AppHeader</title>
+          <meta name="description" content="Description of AppHeader" />
+        </Helmet>
+        <FormattedMessage {...messages.header} />
       </div>
     );
   }
 }
 
-AppLayout.propTypes = {
+AppHeader.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  appLayout: makeSelectAppLayout(),
-  urlInfoObjLayout: makeSelectUrlInfo(),
+  appHeader: makeSelectAppHeader(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -60,11 +53,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'appLayout', reducer });
-const withSaga = injectSaga({ key: 'appLayout', saga });
+const withReducer = injectReducer({ key: 'appHeader', reducer });
+const withSaga = injectSaga({ key: 'appHeader', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(AppLayout);
+)(AppHeader);
