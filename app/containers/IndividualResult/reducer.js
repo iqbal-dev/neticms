@@ -17,7 +17,9 @@ import {
 } from './constants';
 
 export const initialState = fromJS({
-  resultData: {}
+  resultData: {
+    examMarks: []
+  }
 });
 
 function individualResultReducer(state = initialState, action) {
