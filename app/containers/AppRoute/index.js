@@ -35,6 +35,9 @@ import GalleryImage from 'containers/admin/GalleryImage';
 import StudentWiseAttendance from '../StudentWiseAttendance';
 import SectionWiseAttendance from '../SectionWiseAttendance';
 import SectionWiseResult from '../SectionWiseResult';
+import AdminSeatInfo from '../../containers/admin/AdminSeatInfo';
+
+
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -102,6 +105,7 @@ export default function AppRoute() {
 
       {/** **** Admin Route ******** */}
       <Route exact path="/admin/galleryImage" component={GalleryImage} />
+      <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
 
       <Route path="" component={NotFoundPage} />
 
