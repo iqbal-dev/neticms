@@ -29,8 +29,8 @@ import AllNotice from 'containers/AllNotice';
 import StudentWiseAttendance from '../StudentWiseAttendance';
 import FailList from 'containers/FailList';
 import StudentInfo from 'containers/StudentInfo';
-import  MeritList  from 'containers/MeritList';
-import SeatInfo  from 'containers/SeatInfo';
+import MeritList from 'containers/MeritList';
+import SeatInfo from 'containers/SeatInfo';
 import FindPayslip from 'containers/FindPayslip';
 import WelcomeSpeech from 'containers/WelcomeSpeech';
 import IndividualResult from 'containers/IndividualResult';
@@ -58,6 +58,9 @@ export default function AppRoute() {
       <Route exact path="/spsngn" component={HomePage} />
       <Route exact path="/ahnmuc" component={HomePage} />
       <Route exact path="/aakhsc" component={HomePage} />
+      <Route exact path="/pkhs" component={HomePage} />
+      <Route exact path="/halimakhatungirls" component={HomePage} />
+      <Route exact path="/104454" component={HomePage} />
 
       <Route exact path="/home" component={HomePage} />
       <Route exact path="/about" component={AboutUs} />
