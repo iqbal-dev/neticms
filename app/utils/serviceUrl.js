@@ -40,3 +40,6 @@ export const fetch_sectionWise_attendance = '/nw/student-attendance/period-wise/
 
 export const fetch_examListBy_studentID_and_year = '/exam/configuration/list/by/custom-student-id';
 export const fetch_individual_result_data = '/nw/sa-point/student/result-details/by/custom-student-id';
+
+export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/section-wise/result/details';
+
