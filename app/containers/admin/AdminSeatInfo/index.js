@@ -40,7 +40,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  TablePagination
 } from '@material-ui/core';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditIcon from '@material-ui/icons/Edit';
@@ -58,7 +59,11 @@ export class AdminSeatInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addDialogVisibility: false
+      addDialogVisibility: false,
+      page: 0,
+      setPage: 0,
+      rowsPerPage: 10,
+      setRowsPerPage: 10
     }
   }
 
@@ -66,7 +71,16 @@ export class AdminSeatInfo extends React.Component {
     this.setState({ addDialogVisibility: value })
   }
 
+  setPage = page =>{
+    this.setState({ page: page })
+  }
+
+  setRowsPerPage = rowsPerPage =>{
+    this.setState({ rowsPerPage: rowsPerPage })
+  }
+
   render() {
+    let { page, rowsPerPage } = this.state
 
     function createData(serial, className, group, totalSeat, action) {
       return { serial, className, group, totalSeat, action };
@@ -83,8 +97,20 @@ export class AdminSeatInfo extends React.Component {
     const handleClickOpen = () => {
       this.setOpen(true);
     };
+
     const handleClose = () => {
       this.setOpen(false);
+    };
+
+    const handleChangePage = (event, newPage) => {
+      this.setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+      // console.log(event.target.value);
+      
+      this.setRowsPerPage(+event.target.value);
+      this.setPage(0);
     };
 
     return (
@@ -123,16 +149,24 @@ export class AdminSeatInfo extends React.Component {
                       Seat Info
                     </Typography>
 
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      className="rounded-0 shadow-none bg-success"
-                      startIcon={<AddIcon />}
-                      onClick={handleClickOpen}
+                    <Typography
+                      variant="p" 
+                      component="div" 
                     >
-                      Add New
-                    </Button>
+                      Total Found: 5
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        className="rounded-0 shadow-none bg-success ml-3"
+                        startIcon={<AddIcon />}
+                        onClick={handleClickOpen}
+                      >
+                        Add New
+                      </Button>
+                    </Typography>
+
+                    
                   </Box>
                   <Table
                     // className={classes.table}
@@ -151,7 +185,7 @@ export class AdminSeatInfo extends React.Component {
                     </TableHead>
 
                     <TableBody>
-                    {dataTableValue.map((item) => 
+                    {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => 
                       <TableRow key="">
                         <TableCell>{ item.serial }</TableCell>
                         <TableCell>{ item.className }</TableCell>
@@ -170,7 +204,17 @@ export class AdminSeatInfo extends React.Component {
                     }
                     </TableBody>
                   </Table>
+                  <TablePagination
+                    rowsPerPageOptions={[2, 10, 25, 100]}
+                    component="div"
+                    count={dataTableValue.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
                 </TableContainer>
+                
               </Grid>
             </Box>
           </Grid>
