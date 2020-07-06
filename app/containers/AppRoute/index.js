@@ -22,18 +22,22 @@ import TeacherAttendance from 'containers/TeacherAttendance';
 import StuffInformation from 'containers/StuffInformation';
 import EventGallery from 'containers/EventGallery';
 import BasicInfrastucture from 'containers/BasicInfrastucture';
-import SectionWiseResult from '../SectionWiseResult';
-import SectionWiseAttendance from '../SectionWiseAttendance';
 import AllNotice from 'containers/AllNotice';
 
-import StudentWiseAttendance from '../StudentWiseAttendance';
 import FailList from 'containers/FailList';
 import StudentInfo from 'containers/StudentInfo';
-import  MeritList  from 'containers/MeritList';
-import SeatInfo  from 'containers/SeatInfo';
+import MeritList from 'containers/MeritList';
+import SeatInfo from 'containers/SeatInfo';
 import FindPayslip from 'containers/FindPayslip';
 import WelcomeSpeech from 'containers/WelcomeSpeech';
 import IndividualResult from 'containers/IndividualResult';
+import GalleryImage from 'containers/admin/GalleryImage';
+import StudentWiseAttendance from '../StudentWiseAttendance';
+import SectionWiseAttendance from '../SectionWiseAttendance';
+import SectionWiseResult from '../SectionWiseResult';
+import AdminSeatInfo from '../../containers/admin/AdminSeatInfo';
+
+
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -71,8 +75,16 @@ export default function AppRoute() {
       <Route exact path="/dressCode" component={DressCode} />
       <Route exact path="/syllabus_info" component={SyllabusInfo} />
 
-      <Route exact path="/sectionWise_attendance" component={SectionWiseAttendance} />
-      <Route exact path="/studentWise_attendance" component={StudentWiseAttendance} />
+      <Route
+        exact
+        path="/sectionWise_attendance"
+        component={SectionWiseAttendance}
+      />
+      <Route
+        exact
+        path="/studentWise_attendance"
+        component={StudentWiseAttendance}
+      />
       <Route exact path="/sectionWise_result" component={SectionWiseResult} />
       <Route exact path="/failList" component={FailList} />
       <Route exact path="/example" component={ExampleDesign} />
@@ -91,13 +103,16 @@ export default function AppRoute() {
       <Route exact path="/infrastucture" component={BasicInfrastucture} />
       <Route exact path="/find_paySlip" component={FindPayslip} />
 
+      {/** **** Admin Route ******** */}
+      <Route exact path="/admin/galleryImage" component={GalleryImage} />
+      <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
+
       <Route path="" component={NotFoundPage} />
 
       {/* <Route exact path='/about-us/:id' component={
         (props) =>
           <AboutUs postId={props.match.params.id}/>
       />     */}
-
     </Switch>
   );
 }

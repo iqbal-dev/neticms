@@ -104,19 +104,24 @@ export class IndividualResult extends React.Component {
     console.log("EXAM_LIST", examList);//resultData
     console.log("Result Data", resultData);//resultData
 
-    let resultColumnName = resultData && resultData.examList && resultData.examList.map( (item, index) => 
-      
-        <tr>
-          <th>CT</th>
-          <th>CP</th>
-          <th>WR</th>
+    let resultColumnName = []
+    let shortCodeTitle = []
 
-          <th>PR</th>
-        </tr>
-      
-    )
+    for ( let i = 1 ; i <= 4 ; i++ ){
+      if(resultData && resultData['shortCode' + i + 'Name'] != null){
+        resultColumnName.push(resultData && resultData['shortCode' + i + 'Name']);
+        shortCodeTitle.push('shortCode' + i );
+      }
+    }
 
     console.log('resultColumnName', resultColumnName);
+
+    let column = resultColumnName.map((item, index) =>
+        <th>{item}</th>
+    )
+
+    console.log("column", column, shortCodeTitle);
+    
     
     
     return (
@@ -319,11 +324,12 @@ export class IndividualResult extends React.Component {
                           <tr>
                             <th>Subject</th>
                             <th>Total Marks</th>
-                            <th>CT</th>
+                            { column }
+                            {/* <th>CT</th>
                             <th>CP</th>
                             <th>WR</th>
-
-                            <th>PR</th>
+                            <th>PR</th> */}
+                            <th>Full Marks</th>
                             <th>Obtained Marks</th>
                             <th>GPA</th>
                             <th>Grade</th>
@@ -337,9 +343,17 @@ export class IndividualResult extends React.Component {
                                 <tr>
                                   <td>{item.subjectName}</td>
                                   <td>{item.fullMarks}</td>
-                                  <td>{item.shortCode1}</td>
+
+                                  {
+                                    shortCodeTitle.map((item2, index) => 
+                                      <td>{
+                                        item[item2]
+                                      }</td>
+                                    )
+                                  }
+                                  {/* <td>{item.shortCode1}</td>
                                   <td>{item.shortCode2}</td>
-                                  <td>{item.shortCode4}</td>
+                                  <td>{item.shortCode4}</td> */}
                                   <td>{item.fullMarks}</td>
                                   <td>{item.obtainedMarks}</td>
                                   <td>{item.gpa}</td>
