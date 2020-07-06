@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION, SET_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE,
   SET_LOADER, SET_LATEST_NEWS, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_ACCESS_TOKEN,
-  SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST,
+  SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS
 } from './constants';
 
 export const initialState = fromJS({
@@ -19,8 +19,9 @@ export const initialState = fromJS({
   historyDetails: '',
   topEvents: '',
   menuList: '',
-  welcomeSpeech: '',
   noticeList: '',
+  welcomeSpeech: '',
+  useFullLinks: '',
   loadingStatus: false,
 
   academicYearList: '',
@@ -48,11 +49,14 @@ function homePageReducer(state = initialState, action) {
     case SET_LATEST_NEWS:
       return state.set('newsList', action.newsList);
 
+    case SET_NOTICE:
+      return state.set('noticeList', action.noticeList);
+
     case SET_WELCOME_SPEECH:
       return state.set('welcomeSpeech', action.welcomeSpeech);
 
-    case SET_NOTICE:
-      return state.set('noticeList', action.noticeList);
+    case SET_USEFULL_LINKS:
+      return state.set('useFullLinks', action.useFullLinks);
 
     case SET_HISTORY_DETAILS:
       return state.set('historyDetails', action.historyDetails);

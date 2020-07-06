@@ -41,10 +41,11 @@ import {
   makeSelectAcademicYear,
   makeSelectExamConfigId,
 } from './selectors';
+import { makeSelectGlobalSectionList } from '../HomePage/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FailList extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -89,16 +90,17 @@ export class FailList extends React.Component {
   }
 
   onSearchStudentInfo = () => {
-    if (true) {this.props.onSubmitSearch();}
+    if (true) { this.props.onSubmitSearch(); }
   }
 
   render() {
 
     let { errors } = this.state
     let { academicYearList, sectionList, examList, classList, failList } = this.props;
-console.log('examType', this.props.examConfigId);
+    console.log('examType', this.props.examConfigId);
 
     console.log("this.props.failList container ::::::::::::::", this.props.academicYear, this.props.classConfigId, this.props.examConfigId);
+    console.log('globalSections-FAIL-List', this.props.globalSections);
 
     return (
       <div>
@@ -286,7 +288,7 @@ const mapStateToProps = createStructuredSelector({
   academicYear: makeSelectAcademicYear(),
   classConfigId: makeSelectClassConfigId(),
   examConfigId: makeSelectExamConfigId(),
-
+  globalSections: makeSelectGlobalSectionList(),
 });
 
 function mapDispatchToProps(dispatch) {

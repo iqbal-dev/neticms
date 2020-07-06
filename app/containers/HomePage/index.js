@@ -31,11 +31,12 @@ import Menu from '../../containers/Menu';
 import {
   makeSelectUrlInfo,
   makeSelectUrlId,
-  makeSelectAccessToken,
+  makeSelectEmAccessToken,
   makeSelectMenuList,
   makeSelectLatestNewsList,
-  makeSelectWelcomeSpeech,
   makeSelectNoticeList,
+  makeSelectWelcomeSpeech,
+  makeSelectUseFullLinks,
   makeSelectHistoryDetails,
   makeSelectTopEvents,
   makeSelectLoaderStatus,
@@ -125,11 +126,6 @@ export class HomePage extends React.Component {
 
     console.log(speakerDesignation, speakerName, welComeSpeech);
 
-    let historyDetails = '';
-    if (!this.props.instituteHistory == '') {
-      historyDetails = this.props.instituteHistory.aboutusDetails;
-    }
-
     let instituteTopEventList = [];
     // let eventStartDate = '';
 
@@ -182,63 +178,16 @@ export class HomePage extends React.Component {
                         <h2>Usefull Links</h2>
                       </div>
                       <ul className="links-lists">
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#" target='_blank'>
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
+
+                        {this.props.useFullLinks && this.props.useFullLinks.slice(0, 5).map(useFullLink => (
+                          <li key={useFullLink.linkId}>
+                            <span><i className="fas fa-angle-right" /></span>
+                            <a href={useFullLink.linkUrl} target='_blank'>{useFullLink.linkTitle}</a>
+                          </li>
+                        ))}
+
                       </ul>
+
                       <div className="text-center">
                         <button className="btn explore-btn">
                           Explore all <i className="fas fa-angle-right" />
@@ -283,12 +232,7 @@ export class HomePage extends React.Component {
                           Child.
                         </b> */}
                         </p>
-                        <p>{historyDetails}
-                          {/* Environment is the key fact for a child to grow up with
-                        positive and clever attitude. That's where Holy Child
-                        Public School comes in! It is a long established fact
-                        that a reader will be distracted by the readable content
-                        of a page when looking at its layout. */}
+                        <p>{this.props.instituteHistory ? this.props.instituteHistory.aboutusDetails : ''}
                         </p>
                       </div>
                       <div className="content-btn">
@@ -524,12 +468,13 @@ const mapStateToProps = createStructuredSelector({
   // homePage: makeSelectHomePage(),
   urlInfo: makeSelectUrlInfo(),
   menuList: makeSelectMenuList(),
-  welComeInfo: makeSelectWelcomeSpeech(),
   noticeList: makeSelectNoticeList(),
+  welComeInfo: makeSelectWelcomeSpeech(),
+  useFullLinks: makeSelectUseFullLinks(),
   instituteHistory: makeSelectHistoryDetails(),
   instituteTopEvents: makeSelectTopEvents(),
   loaderStatus: makeSelectLoaderStatus(),
-  accessToken: makeSelectAccessToken(),
+  accessToken: makeSelectEmAccessToken(),
 });
 
 function mapDispatchToProps(dispatch) {

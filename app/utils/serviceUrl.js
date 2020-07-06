@@ -9,13 +9,14 @@ export const BASE_URL_EM = 'https://api.netizendev.com:2083';
 export const BASE_URL_NW = 'https://api.netizendev.com:2087';
 
 export const fetch_em_token = '/oauth/token';
+export const login_URL = '/oauth/token';
 // export const fetch_urlMappingInfoBy_urlName = '/client_dws/url-mapping/dws/dws/by';
 export const fetch_urlMappingInfoBy_urlName = '/public/cms-info/find/';
 export const fetch_menu_urlName = '/client_dws/menu/config/by/urlid';
 export const fetch_welcomeSpeechBy_cmsId = '/public/welcome/speechs';
 export const fetch_usefullLinksBy_cmsId = '/public/importantLinks';
 export const fetch_noticeBy_cmsId = '/public/notices';
-export const fetch_instituteHistoryBy_cmsId = '/public/aboutus';
+export const fetch_instituteHistoryBy_cmsId = '/public/aboutus/by/type';
 export const fetch_instituteTopEventBy_cmsId = '/public/events';
 export const submit_footerContactForm = '';
 export const fetch_latestNews = '';
@@ -43,4 +44,3 @@ export const fetch_examListBy_studentID_and_year = '/exam/configuration/list/by/
 export const fetch_individual_result_data = '/nw/sa-point/student/result-details/by/custom-student-id';
 
 export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/section-wise/result/details';
-
