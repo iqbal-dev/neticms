@@ -27,7 +27,7 @@ import donorImage from '../../assets/img/donor-image.png';
 import { AppLayout } from '../AppLayout';
 import { setAcademicYear, submitSearchButton, makeChangeSection, makeChangeExamType } from './actions';
 
-
+let sectionWiseResultChart = [];
 /* eslint-disable react/prefer-stateless-function */
 export class SectionWiseResult extends React.Component {
   constructor(props) {
@@ -41,15 +41,32 @@ export class SectionWiseResult extends React.Component {
   render() {
     let { errors } = this.state
     let { academicYearList, sectionList, examList, classList, sectionWiseResultList } = this.props;
+    let totalPassed;
+    let totalFailed;
 
     if(sectionWiseResultList && sectionWiseResultList.length !== 0) {
-      let totalPassed = sectionWiseResultList.reduce(function(sums, entry) {
-       console.log('sums',sums);
-        console.log('entry',entry);
-        sums[entry.passFailStatus] = ("Passed" || 0) + 1;
-        return sums;
-      }, {})
-      console.log('totalPassed',totalPassed);
+       totalPassed = sectionWiseResultList.filter(b => b.passFailStatus === "Passed")
+       totalFailed = sectionWiseResultList.filter(b => b.passFailStatus === "Failed")
+      if(sectionWiseResultChart && sectionWiseResultChart.length === 0) {
+      sectionWiseResultChart.push(["Active", "Inactive"]);
+      sectionWiseResultChart.push(["totalPassed", totalPassed.length]);
+      sectionWiseResultChart.push(["totalFailed", totalFailed.length]);
+      }
+
+
+      
+      
+      // b.instituteID == id
+      // let totalUser = actionBody.length;
+      
+      
+      // let totalPassed = sectionWiseResultList.reduce(function(sums, entry) {
+        //  console.log('sums',sums);
+        //   console.log('entry',entry);
+        //   sums[entry.passFailStatus] = ("Passed" || 0) + 1;
+      //   return sums;
+      // }, {})
+      // console.log('totalPassed',totalPassed);
 
       // let totalPassed = 0;
       // sectionWiseResultList.map(item => {
@@ -63,6 +80,9 @@ export class SectionWiseResult extends React.Component {
 
      
   }
+  console.log('sectionWiseResultList.length',sectionWiseResultList.length);
+  console.log('totalPassed',totalPassed.length);
+
 
     return (
       <div>
@@ -92,11 +112,7 @@ export class SectionWiseResult extends React.Component {
                         height="200px"
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
-                        data={[
-                          ['Result', 'count'],
-                          ['Passed', 11],
-                          ['Failed', 2],
-                        ]}
+                        data={sectionWiseResultChart ? sectionWiseResultChart : []}
                         options={{
                           // title: 'My Daily Activities',
                           chartArea: {
@@ -120,13 +136,15 @@ export class SectionWiseResult extends React.Component {
                       <div className="legend-with-percent present">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">Passed</span>
-                        <span className="percent">( 73.3% )</span>
+                        <span className="percent">{sectionWiseResultList && sectionWiseResultList.length && totalPassed && totalPassed.length ? `(${+((totalPassed.length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0}
+</span>
+                        
                       </div>
 
                       <div className="legend-with-percent absent">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">Failed</span>
-                        <span className="percent">( 13.3% )</span>
+                        <span className="percent">{sectionWiseResultList && sectionWiseResultList.length && totalFailed && totalFailed.length ? `(${+((totalFailed.length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0}</span>
                       </div>
                     </div>
                     <div className="col-md-12 col-lg-6 form">
