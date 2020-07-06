@@ -12,10 +12,11 @@ export const fetch_em_token = '/oauth/token';
 // export const fetch_urlMappingInfoBy_urlName = '/client_dws/url-mapping/dws/dws/by';
 export const fetch_urlMappingInfoBy_urlName = '/public/cms-info/find/';
 export const fetch_menu_urlName = '/client_dws/menu/config/by/urlid';
-export const fetch_welcomeSpeechBy_urlId = '/client_dws/speech/get/by/welcome-status-urlid';
-export const fetch_noticeBy_urlId = '/public/notices';
-export const fetch_instituteHistoryBy_urlId = '/client_dws/aboutus/by/url-type';
-export const fetch_instituteTopEventBy_urlId = '/client_dws/event/top-five/by/urlid';
+export const fetch_welcomeSpeechBy_cmsId = '/public/welcome/speechs';
+export const fetch_usefullLinksBy_cmsId = '/public/importantLinks';
+export const fetch_noticeBy_cmsId = '/public/notices';
+export const fetch_instituteHistoryBy_cmsId = '/public/aboutus';
+export const fetch_instituteTopEventBy_cmsId = '/public/events';
 export const submit_footerContactForm = '';
 export const fetch_latestNews = '';
 export const fetch_staffsInformaions = '/nw/sa-point/basic/list/by/category/with/photo'
@@ -40,3 +41,6 @@ export const fetch_sectionWise_attendance = '/nw/student-attendance/period-wise/
 
 export const fetch_examListBy_studentID_and_year = '/exam/configuration/list/by/custom-student-id';
 export const fetch_individual_result_data = '/nw/sa-point/student/result-details/by/custom-student-id';
+
+export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/section-wise/result/details';
+

@@ -17,17 +17,73 @@ import injectReducer from 'utils/injectReducer';
 import { Table } from 'reactstrap';
 import { Chart } from 'react-google-charts';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectSectionWiseResult from './selectors';
+import makeSelectSectionWiseResult, { makeSelectSectionWiseResultListData, makeSelectSectionList, makeSelectAcademicYear, makeSelecAcademicYearList,  makeSelectExamConfigId,makeSelectClassConfigId, makeSelectExamList
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
 import { AppLayout } from '../AppLayout';
+import { setAcademicYear, submitSearchButton, makeChangeSection, makeChangeExamType } from './actions';
 
+let sectionWiseResultChart = [];
 /* eslint-disable react/prefer-stateless-function */
 export class SectionWiseResult extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      errors: {}
+
+    }
+  }
   render() {
+    let { errors } = this.state
+    let { academicYearList, sectionList, examList, classList, sectionWiseResultList } = this.props;
+    let totalPassed;
+    let totalFailed;
+
+    if(sectionWiseResultList && sectionWiseResultList.length !== 0) {
+       totalPassed = sectionWiseResultList.filter(b => b.passFailStatus === "Passed")
+       totalFailed = sectionWiseResultList.filter(b => b.passFailStatus === "Failed")
+      if(sectionWiseResultChart && sectionWiseResultChart.length === 0) {
+      sectionWiseResultChart.push(["Active", "Inactive"]);
+      sectionWiseResultChart.push(["totalPassed", totalPassed.length]);
+      sectionWiseResultChart.push(["totalFailed", totalFailed.length]);
+      }
+
+
+      
+      
+      // b.instituteID == id
+      // let totalUser = actionBody.length;
+      
+      
+      // let totalPassed = sectionWiseResultList.reduce(function(sums, entry) {
+        //  console.log('sums',sums);
+        //   console.log('entry',entry);
+        //   sums[entry.passFailStatus] = ("Passed" || 0) + 1;
+      //   return sums;
+      // }, {})
+      // console.log('totalPassed',totalPassed);
+
+      // let totalPassed = 0;
+      // sectionWiseResultList.map(item => {
+      //   if(item.passFailStatus === 'Passed') {
+      //     totalPassed =+ totalPassed;
+      //     console.log('item',item);
+      //   }
+
+      // })
+      // console.log('totalPassed',totalPassed);
+
+     
+  }
+  console.log('sectionWiseResultList.length',sectionWiseResultList.length);
+  console.log('totalPassed',totalPassed.length);
+
+
     return (
       <div>
         <AppLayout>
@@ -56,11 +112,7 @@ export class SectionWiseResult extends React.Component {
                         height="200px"
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
-                        data={[
-                          ['Result', 'count'],
-                          ['Passed', 11],
-                          ['Failed', 2],
-                        ]}
+                        data={sectionWiseResultChart}
                         options={{
                           // title: 'My Daily Activities',
                           chartArea: {
@@ -84,47 +136,61 @@ export class SectionWiseResult extends React.Component {
                       <div className="legend-with-percent present">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">Passed</span>
-                        <span className="percent">( 73.3% )</span>
+                        <span className="percent">{sectionWiseResultList && sectionWiseResultList.length && totalPassed && totalPassed.length ? `(${+((totalPassed.length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0}
+</span>
+                        
                       </div>
 
                       <div className="legend-with-percent absent">
                         {/* <span className="symbol-squire"></span> */}
                         <span className="title">Failed</span>
-                        <span className="percent">( 13.3% )</span>
+                        <span className="percent">{sectionWiseResultList && sectionWiseResultList.length && totalFailed && totalFailed.length ? `(${+((totalFailed.length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0}</span>
                       </div>
                     </div>
                     <div className="col-md-12 col-lg-6 form">
                       <Form inline>
                         <FormGroup className="custom-dropdown">
-                          <Input type="select" name="academic-year">
-                            <option>Select Academic Year</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </Input>
-                        </FormGroup>
-                        <FormGroup className="custom-dropdown">
-                          <Input type="select" name="exam-type">
-                            <option>Select Exam Type</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </Input>
-                        </FormGroup>
-                        <FormGroup className="custom-dropdown">
-                          <Input type="select" name="section">
-                            <option>Select Section</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </Input>
-                        </FormGroup>
+                        <Input
+                              type="select"
+                              name="year"
+                              onChange={this.props.onChangeAcademicYear}
+                            >
+                              <option value=''>Select Academic Year</option>
+                              {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
 
-                        <Button className="btn explore-btn full-width all-border-radious">
-                          <i class="fas fa-chevron-circle-right mr-3"></i> Search
+                            </Input>
+                        </FormGroup>
+                        <div className="error-message"> {errors['year']}</div>
+
+                  
+                        <FormGroup className="custom-dropdown">
+                        <Input type="select" name="section" onChange={this.props.onChangeSection}
+>
+                            <option value=''>Select a Section</option>
+                                {
+                                  sectionList && sectionList.map((item, index) =>
+                                    <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
+                                  )
+                                }
+                            </Input>
+                        </FormGroup>
+                        <div className="error-message"> {errors['section']}</div>
+
+
+                        <FormGroup className="custom-dropdown">
+                        <Input type="select" name="examType" onChange={this.props.onChangeExamType}
+>
+                            <option value=''>Select Exam</option>
+                                {examList && examList.map(item => (
+                                  <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
+                                ))}
+                            </Input>
+                        </FormGroup>
+                        <div className="error-message"> {errors['examType']}</div>
+
+
+                        <Button className="btn explore-btn full-width all-border-radious" onClick={this.props.submitSearch}>
+                          <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                         </Button>
                       </Form>
                     </div>
@@ -168,42 +234,23 @@ export class SectionWiseResult extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
-                          <td>100024</td>
-                          <td>1</td>
-                          <td>Md. Shahrear Kabir</td>
-                          <td>549.60</td>
-                          <td>4.88</td>
-                          <td className="failed">A</td>
-                        </tr>
-                        <tr>
-                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
-                          <td>100024</td>
-                          <td>2</td>
-                          <td>Md. Shahrear Kabir 2</td>
-                          <td>549.60</td>
-                          <td>4.88</td>
-                          <td className="failed">A</td>
-                        </tr>
-                        <tr>
-                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
-                          <td>100024</td>
-                          <td>3</td>
-                          <td>Md. Shahrear Kabir 3</td>
-                          <td>549.60</td>
-                          <td>5.00</td>
-                          <td className="failed">A+</td>
-                        </tr>
-                        <tr>
-                          <td><center className="attendance failed"><img src={donorImage}/></center></td>
-                          <td>100030</td>
-                          <td>4</td>
-                          <td>Md. Shahrear Kabir 4</td>
-                          <td>120.60</td>
-                          <td>00</td>
-                          <td className="failed">F</td>
-                        </tr>
+                      {
+                            sectionWiseResultList ?
+                            sectionWiseResultList.map((item, index) =>
+                                <tr>
+                                  <td><center className="attendance failed"><img src={donorImage} /></center></td>
+                                  <td>{item.studentId}</td>
+                                  <td>{item.studentRoll}</td>
+                                  <td>{item.studentName}</td>
+                                  <td>{item.totalMarks}</td>
+                                  <td>{item.gradingPoint}</td>
+                                  <td>{item.letterGrade}</td>
+                                </tr>
+                              )
+
+                              : <tr><td colSpan='5'>No Data Found</td></tr>
+                          }
+                      
                       </tbody>
                     </Table>
                   </div>
@@ -237,15 +284,31 @@ export class SectionWiseResult extends React.Component {
 
 SectionWiseResult.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  submitSearch: PropTypes.func
+
 };
 
 const mapStateToProps = createStructuredSelector({
   sectionWiseResult: makeSelectSectionWiseResult(),
+  sectionWiseResultList: makeSelectSectionWiseResultListData(),
+  sectionList: makeSelectSectionList(),
+  academicYearList: makeSelecAcademicYearList(),
+  examList: makeSelectExamList(),
+
+  
+  academicYear: makeSelectAcademicYear(),
+  classConfigId: makeSelectClassConfigId(),
+  examConfigId: makeSelectExamConfigId(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeAcademicYear: (evt) => { dispatch(setAcademicYear(evt.target.value)) },
+    onChangeSection: (evt) => { dispatch(makeChangeSection(evt.target.value)) },
+    onChangeExamType: (evt) => { dispatch(makeChangeExamType(evt.target.value)) },
+
+    submitSearch: () => { dispatch(submitSearchButton()) },
   };
 }
 

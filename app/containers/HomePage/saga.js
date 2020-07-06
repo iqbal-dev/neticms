@@ -1,9 +1,15 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
 import {
-  BASE_URL, fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId,
-  fetch_instituteHistoryBy_urlId, fetch_instituteTopEventBy_urlId, fetch_em_token, BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, BASE_URL_NETI_CMS, BASE_URL_NW
+
+  BASE_URL_EM, BASE_URL_NETI_CMS, BASE_URL_NW,
+  fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_em_token,
+  fetch_welcomeSpeechBy_cmsId, fetch_noticeBy_cmsId, fetch_instituteHistoryBy_cmsId,
+  fetch_instituteTopEventBy_cmsId,
+  fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_usefullLinksBy_cmsId
+
 } from '../../utils/serviceUrl';
+
 import {
   setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setAccessToken, setGlobalAcademicYearList, setGlobalSectionList
 } from './actions';
@@ -82,9 +88,10 @@ export function* fetch_instituteUrlInfo_byUrlName() {
       yield put(setUrlInfo(response.item));
       yield fetch_emAuthToken();
       // yield fetch_Menu_byUrlId(response.item.cmsId);
-      
+
       yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
       yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
+      yield fetch_usefullLinks_byUrlId(response.item.cmsId);
       yield fetch_instituteHistory_byUrlId(response.item.cmsId);
       yield fetch_instituteTopEvent_byUrlId(response.item.cmsId);
 
@@ -157,26 +164,26 @@ export function* fetch_LatestNews() {
 export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
   console.log('notice func', cmsId);
 
-  const requestURL = BASE_URL_NETI_CMS.concat(fetch_noticeBy_urlId).concat('?cmsId=').concat(cmsId);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_noticeBy_cmsId).concat('?cmsId=').concat(cmsId);
   console.log('requestURL', requestURL);
 
   const options = {
     method: 'GET',
-    headers: {'Content-Type': 'application/json'}
+    headers: { 'Content-Type': 'application/json' }
   };
   const response = yield call(request, requestURL, options);
-  console.log('instituteTopNotices_Res', response);
+  // console.log('instituteTopNotices_Res', response);
 
   try {
     yield put(setNotice(response.item));
-    sessionStorage.setItem('allNoticeList',  JSON.stringify(response.item));
+    sessionStorage.setItem('allNoticeList', JSON.stringify(response.item));
   } catch (error) { }
 
 }
 
-export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
+export function* fetch_WelcomeSpeech_byUrlId(cmsId) {
 
-  const requestURL = BASE_URL_NW.concat(fetch_welcomeSpeechBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_welcomeSpeechBy_cmsId).concat('?cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
     headers: {
@@ -184,15 +191,33 @@ export function* fetch_WelcomeSpeech_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
+  console.log('welcome-speechRes', response);
+
   try {
-    yield put(setWelcomeSpeech(response[0]));
+    yield put(setWelcomeSpeech(response.item));
   } catch (error) { }
 
 }
 
-export function* fetch_instituteHistory_byUrlId(urlInfoId) {
+export function* fetch_usefullLinks_byUrlId(cmsId) {
 
-  const requestURL = BASE_URL_NW.concat(fetch_instituteHistoryBy_urlId).concat('?type=').concat('History').concat('&urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_usefullLinksBy_cmsId).concat('?cmsId=').concat(cmsId);
+  const options = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('useFullsLinks-Res', response);
+
+  try {
+    // yield put(setWelcomeSpeech(response.item));
+  } catch (error) { }
+
+}
+
+export function* fetch_instituteHistory_byUrlId(cmsId) {
+
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_instituteHistoryBy_cmsId).concat('?cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
     headers: {
@@ -200,15 +225,17 @@ export function* fetch_instituteHistory_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
+  console.log('history-Res', response);
+
   try {
-    yield put(setHistoryDetails(response[0]));
+    yield put(setHistoryDetails(response.item));
   } catch (error) { }
 
 }
 
-export function* fetch_instituteTopEvent_byUrlId(urlInfoId) {
+export function* fetch_instituteTopEvent_byUrlId(cmsId) {
 
-  const requestURL = BASE_URL_NW.concat(fetch_instituteTopEventBy_urlId).concat('?urlid=').concat(urlInfoId);
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_instituteTopEventBy_cmsId).concat('?cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
     headers: {
@@ -216,8 +243,10 @@ export function* fetch_instituteTopEvent_byUrlId(urlInfoId) {
     },
   };
   const response = yield call(request, requestURL, options);
+  console.log('event-response', response);
+
   try {
-    yield put(setTopEvents(response));
+    yield put(setTopEvents(response.item));
   } catch (error) { }
 
 }

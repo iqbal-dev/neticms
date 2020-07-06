@@ -1,6 +1,6 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import request from '../../utils/request';
-import { fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_noticeBy_urlId, fetch_about_historyBy_urlId, fetch_instituteHistoryBy_urlId, BASE_URL_NETI_CMS } from '../../utils/serviceUrl';
+import { fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_welcomeSpeechBy_urlId, fetch_about_historyBy_urlId, fetch_instituteHistoryBy_urlId, BASE_URL_NETI_CMS } from '../../utils/serviceUrl';
 // import { getMethod } from '../../utils/baseMethod';
 
 import { setInstituteUrlInfo, setUrlInfo, setWelcomeSpeech, setNotice, setAboutHistory } from './actions';
@@ -27,5 +27,5 @@ export function* fetch_aboutHistory_byUrlId() {
 }
 
 export default function* aboutUsSaga() {
-  yield fetch_aboutHistory_byUrlId();
+  // yield fetch_aboutHistory_byUrlId();
 }
