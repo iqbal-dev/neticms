@@ -112,7 +112,7 @@ export class SectionWiseResult extends React.Component {
                         height="200px"
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
-                        data={sectionWiseResultChart}
+                        data={sectionWiseResultChart ? sectionWiseResultChart : []}
                         options={{
                           // title: 'My Daily Activities',
                           chartArea: {
