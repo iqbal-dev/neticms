@@ -26,7 +26,7 @@ import donorImage from '../../assets/img/donor-image.png';
 import { submitSearchButton, setAttendanceDate } from './actions';
 import { AppLayout } from '../AppLayout';
 
-
+let teacherAttendanceChart = [];
 /* eslint-disable react/prefer-stateless-function */
 export class TeacherAttendance extends React.Component {
 
@@ -71,14 +71,20 @@ export class TeacherAttendance extends React.Component {
       }, 0);
 
 
-      
-    }
+    
+  }
+  if(totalPresentPercent !== undefined) {
+if(teacherAttendanceChart && teacherAttendanceChart.length === 0) {
+  teacherAttendanceChart.push(["Active", "Inactive"])
+  teacherAttendanceChart.push(['totalPresentPercent',totalPresentPercent])
+  teacherAttendanceChart.push(['totalAbsentPercent',totalAbsentPercent])
+  teacherAttendanceChart.push(['totalLeavePercent',totalLeavePercent])
+}
 
+   
+ }
 
-    // let chartColumnHeader = ["Active", "Inactive"];
-    // emDueBillStatus = Object.entries(body.emDueBillAmountStatus)
-    // emDueBillStatusArr.push(chartColumnHeader, ...emDueBillStatus);
-
+  
 
     return (
       <div>
@@ -113,12 +119,7 @@ export class TeacherAttendance extends React.Component {
                           height="200px"
                           chartType="PieChart"
                           loader={<div>Loading Chart</div>}
-                          data={[
-                            ['Attendance', 'count'],
-                            ['Present', 11],
-                            ['Absent', 2],
-                            ['On Time', 2],
-                          ]}
+                          data={teacherAttendanceChart}
                           options={{
                             // title: 'My Daily Activities',
                             chartArea: {

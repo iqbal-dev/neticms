@@ -1316,8 +1316,7 @@
 .vertical-border {
   background-color: #e5e5e5;
   height: 60px;
-  width: 1px;
-  margin: 0 auto; }
+  width: 1px; }
 
 .custom-input-text, .custom-dropdown {
   margin-bottom: 0 !important; }
