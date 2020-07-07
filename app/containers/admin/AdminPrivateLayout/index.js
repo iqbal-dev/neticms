@@ -36,7 +36,7 @@ export class AdminPrivateLayout extends React.PureComponent {
         <CssBaseline />
         <AdminHeader />
         <AdminSideBar />
-        <main className="manContentWrapper">
+        <main className="mainContentWrapper">
           {this.props.children}
         </main>
       </div>
