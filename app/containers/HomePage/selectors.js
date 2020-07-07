@@ -17,7 +17,7 @@ const makeSelectUrlInfo = () =>
 const makeSelectUrlId = () =>
   createSelector(selectHomePageDomain, substate => substate.get('urlId'));
 
-const makeSelectAccessToken = () =>
+const makeSelectEmAccessToken = () =>
   createSelector(selectHomePageDomain, substate => substate.get('accessToken'));
 
 const makeSelectMenuList = () =>
@@ -26,11 +26,14 @@ const makeSelectMenuList = () =>
 const makeSelectLatestNewsList = () =>
   createSelector(selectHomePageDomain, substate => substate.get('newsList'));
 
+const makeSelectNoticeList = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('noticeList'));
+
 const makeSelectWelcomeSpeech = () =>
   createSelector(selectHomePageDomain, substate => substate.get('welcomeSpeech'));
 
-const makeSelectNoticeList = () =>
-  createSelector(selectHomePageDomain, substate => substate.get('noticeList'));
+const makeSelectUseFullLinks = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('useFullLinks'));
 
 const makeSelectHistoryDetails = () =>
   createSelector(selectHomePageDomain, substate => substate.get('historyDetails'));
@@ -44,7 +47,7 @@ const makeSelectLoaderStatus = () =>
 const makeSelectAcademicYearList = () =>
   createSelector(selectHomePageDomain, substate => substate.get('academicYearList'));
 
-const makeSelectSectionList = () =>
+const makeSelectGlobalSectionList = () =>
   createSelector(selectHomePageDomain, substate => substate.get('sectionList'));
 
 /**
@@ -60,13 +63,14 @@ export {
   makeSelectUrlInfo,
   makeSelectLoaderStatus,
   makeSelectUrlId,
-  makeSelectAccessToken,
+  makeSelectEmAccessToken,
   makeSelectMenuList,
   makeSelectLatestNewsList,
-  makeSelectWelcomeSpeech,
   makeSelectNoticeList,
+  makeSelectWelcomeSpeech,
+  makeSelectUseFullLinks,
   makeSelectHistoryDetails,
   makeSelectTopEvents,
   makeSelectAcademicYearList,
-  makeSelectSectionList,
+  makeSelectGlobalSectionList,
 };
