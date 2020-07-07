@@ -1,6 +1,6 @@
 /**
  *
- * AdminPrivateLayout
+ * AdminHomepage
  *
  */
 
@@ -14,42 +14,33 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminPrivateLayout from './selectors';
+import makeSelectAdminHomepage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { AdminHeader } from '../AdminHeader';
-import { AdminSideBar } from '../AdminSideBar';
-import '../../../assets/scss/admin/adminGlobal.css';
-
-/****/
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-/****/
+import { AdminPrivateLayout } from '../AdminPrivateLayout';
 
 /* eslint-disable react/prefer-stateless-function */
-export class AdminPrivateLayout extends React.PureComponent {
+export class AdminHomepage extends React.Component {
   render() {
-
     return (
-      <div className="">
-        <CssBaseline />
-        <AdminHeader />
-        <AdminSideBar />
-        <main className="manContentWrapper">
-          {this.props.children}
-        </main>
-      </div>
+      <AdminPrivateLayout>
+        <Helmet>
+          <title>AdminHomepage</title>
+          <meta name="description" content="Description of AdminHomepage" />
+        </Helmet>
+        <FormattedMessage {...messages.header} />
+      </AdminPrivateLayout>
     );
   }
 }
 
-AdminPrivateLayout.propTypes = {
+AdminHomepage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  adminPrivateLayout: makeSelectAdminPrivateLayout(),
+  adminHomepage: makeSelectAdminHomepage(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -63,11 +54,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'adminPrivateLayout', reducer });
-const withSaga = injectSaga({ key: 'adminPrivateLayout', saga });
+const withReducer = injectReducer({ key: 'adminHomepage', reducer });
+const withSaga = injectSaga({ key: 'adminHomepage', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(AdminPrivateLayout);
+)(AdminHomepage);
