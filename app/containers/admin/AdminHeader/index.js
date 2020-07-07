@@ -54,7 +54,7 @@ export class AdminHeader extends React.PureComponent {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
+              {/* <Menu
                 id="menu-appbar"
                 anchorEl=""
                 anchorOrigin={{
@@ -66,12 +66,12 @@ export class AdminHeader extends React.PureComponent {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                open=""
+                open={close}
                 onClose=""
               >
                 <MenuItem onClick="">Profile</MenuItem>
                 <MenuItem onClick="">My account</MenuItem>
-              </Menu>
+              </Menu> */}
             </div>
         </Toolbar>
       </AppBar>
