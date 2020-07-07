@@ -1,22 +1,27 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../../utils/request';
-import {makeSelectAdminToken
+import {
+  makeSelectAdminToken
 } from '../../AdminLogin/selectors';
 
-import { getFeesInfoListData
+import {
+  getFeesInfoListData
 } from './actions';
 
-import {fetch_feesInfoList,BASE_URL_NETI_CMS
-  
+import {
+  fetch_feesInfoList, BASE_URL_NETI_CMS
+
 } from '../../../utils/serviceUrl';
 
 // Individual exports for testing
 
-
 export function* get_feesInfoListData() {
-  let adminToken = yield select(makeSelectAdminToken());
-  console.log('adminToken',adminToken);
 
+  // let adminToken = yield select(makeSelectAdminToken());
+  console.log(JSON.parse(localStorage.instituteInfo));
+  let adminToken = JSON.parse(localStorage.adminToken);
+
+  console.log('adminToken', adminToken);
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_feesInfoList);
   const options = {

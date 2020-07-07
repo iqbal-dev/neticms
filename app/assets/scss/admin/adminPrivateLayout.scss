@@ -1,4 +1,8 @@
 .adminSideBar-wrapper {
+    a{
+        color: rgba(0, 0, 0, 1);
+        text-decoration: none;
+    }
     .MuiPaper-root{
         width: 240px !important;
     }
@@ -17,7 +21,7 @@
         width: calc(100% - 240px) !important;
         margin-left: 240px;
         .MuiToolbar-root{
-            justify-content: space-between;
+            justify-content: flex-end;
         }
     }
     .manContentWrapper {
