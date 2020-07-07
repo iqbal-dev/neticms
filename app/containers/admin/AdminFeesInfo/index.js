@@ -18,18 +18,18 @@ import makeSelectAdminFeesInfo from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { 
-  Button, 
-  Grid, 
-  Paper, 
-  Container, 
-  TextField, 
-  FormControl, 
-  InputLabel, 
-  Select, 
-  MenuItem, 
-  Box, 
-  Typography, 
+import {
+  Button,
+  Grid,
+  Paper,
+  Container,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+  Typography,
   TableContainer,
   Table,
   TableBody,
@@ -46,6 +46,7 @@ import {
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
+import { AdminPrivateLayout } from '../AdminPrivateLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AdminFeesInfo extends React.Component {
@@ -60,15 +61,15 @@ export class AdminFeesInfo extends React.Component {
     }
   }
 
-  setOpen = value =>{
+  setOpen = value => {
     this.setState({ addDialogVisibility: value })
   }
 
-  setPage = page =>{
+  setPage = page => {
     this.setState({ page: page })
   }
 
-  setRowsPerPage = rowsPerPage =>{
+  setRowsPerPage = rowsPerPage => {
     this.setState({ rowsPerPage: rowsPerPage })
   }
 
@@ -80,7 +81,7 @@ export class AdminFeesInfo extends React.Component {
     }
 
     const dataTableValue = [
-      createData(1, "One", "n/a", 50 ),
+      createData(1, "One", "n/a", 50),
       createData(2, "Two", "n/a", 50),
       createData(3, "Eight", "n/a", 40),
       createData(4, "Nine", "Science", 60),
@@ -98,204 +99,203 @@ export class AdminFeesInfo extends React.Component {
     const handleChangePage = (event, newPage) => {
       this.setPage(newPage);
     };
-  
+
     const handleChangeRowsPerPage = (event) => {
       // console.log(event.target.value);
-      
+
       this.setRowsPerPage(+event.target.value);
       this.setPage(0);
     };
 
     return (
-      <Container maxWidth="xl" className="my-3">
-        <Helmet>
-          <title>AdminFeesInfo</title>
-          <meta name="description" content="Description of AdminFeesInfo" />
-        </Helmet>
-        {/* <FormattedMessage {...messages.header} /> */}
 
-        <Grid container spacing={3}>
-          
+      <AdminPrivateLayout>
+        <Container maxWidth="xl" className="my-3">
+          <Helmet>
+            <title>AdminFeesInfo</title>
+            <meta name="description" content="Description of AdminFeesInfo" />
+          </Helmet>
+          {/* <FormattedMessage {...messages.header} /> */}
 
-          <Grid item xs={12}>
-            <Box className="">
-              <Grid item xs={12} className="px-3 py-2">
-                
+          <Grid container spacing={3}>
 
-                <TableContainer component={Paper}>
-                  <Box 
-                    className="" 
-                    variant="h6" 
-                    id="tableTitle" 
-                    component="div" 
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    style={{ backgroundColor: '#cfe8fc' }}
-                  >
-                    <Typography
-                      variant="h6" 
-                      id="tableTitle" 
-                      component="div" 
-                      className='px-3'
+            <Grid item xs={12}>
+              <Box className="">
+                <Grid item xs={12} className="px-3 py-2">
+
+                  <TableContainer component={Paper}>
+                    <Box
+                      className=""
+                      variant="h6"
+                      id="tableTitle"
+                      component="div"
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      style={{ backgroundColor: '#cfe8fc' }}
                     >
-                      Fees Info
+                      <Typography
+                        variant="h6"
+                        id="tableTitle"
+                        component="div"
+                        className='px-3'
+                      >
+                        Fees Info
                     </Typography>
 
-                    <Typography
-                      variant="p" 
-                      component="div" 
-                    >
-                      Total Found: 5
+                      <Typography
+                        variant="p"
+                        component="div"
+                      >
+                        Total Found: 5
                       <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        className="rounded-0 shadow-none bg-success ml-3"
-                        startIcon={<AddIcon />}
-                        onClick={handleClickOpen}
-                      >
-                        Add New
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          className="rounded-0 shadow-none bg-success ml-3"
+                          startIcon={<AddIcon />}
+                          onClick={handleClickOpen}
+                        >
+                          Add New
                       </Button>
-                    </Typography>
+                      </Typography>
 
-                    
-                  </Box>
-                  <Table
-                    // className={classes.table}
-                    aria-labelledby="tableTitle"
-                    size='medium'
-                    aria-label="enhanced table"
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Serial No.</TableCell>
-                        <TableCell>Class</TableCell>
-                        <TableCell>Group</TableCell>
-                        <TableCell>Fee Name</TableCell>
-                        <TableCell >Fee Amount</TableCell>
-                        <TableCell>Fee Type</TableCell>
-                        <TableCell align="center">Action</TableCell>
-                      </TableRow>
-                    </TableHead>
+                    </Box>
+                    <Table
+                      // className={classes.table}
+                      aria-labelledby="tableTitle"
+                      size='medium'
+                      aria-label="enhanced table"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Serial No.</TableCell>
+                          <TableCell>Class</TableCell>
+                          <TableCell>Group</TableCell>
+                          <TableCell>Fee Name</TableCell>
+                          <TableCell >Fee Amount</TableCell>
+                          <TableCell>Fee Type</TableCell>
+                          <TableCell align="center">Action</TableCell>
+                        </TableRow>
+                      </TableHead>
 
-                    <TableBody>
-                    {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => 
-                      <TableRow key="">
-                        <TableCell>{ item.serial }</TableCell>
-                        <TableCell>{ item.className }</TableCell>
-                        <TableCell>{ item.group }</TableCell>
-                        <TableCell>{ item.totalSeat }</TableCell>
-                        <TableCell>{ item.group }</TableCell>
-                        <TableCell>{ item.group }</TableCell>
-                        <TableCell align="center">
-                          <IconButton aria-label="edit" color="primary">
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton aria-label="delete" color="secondary">
-                            <DeleteOutlineOutlinedIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                      )
-                    }
-                    </TableBody>
-                  </Table>
-                  <TablePagination
-                    rowsPerPageOptions={[2, 10, 25, 100]}
-                    component="div"
-                    count={dataTableValue.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                  />
-                </TableContainer>
-                
-              </Grid>
-            </Box>
+                      <TableBody>
+                        {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) =>
+                          <TableRow key="">
+                            <TableCell>{item.serial}</TableCell>
+                            <TableCell>{item.className}</TableCell>
+                            <TableCell>{item.group}</TableCell>
+                            <TableCell>{item.totalSeat}</TableCell>
+                            <TableCell>{item.group}</TableCell>
+                            <TableCell>{item.group}</TableCell>
+                            <TableCell align="center">
+                              <IconButton aria-label="edit" color="primary">
+                                <EditIcon />
+                              </IconButton>
+                              <IconButton aria-label="delete" color="secondary">
+                                <DeleteOutlineOutlinedIcon />
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        )
+                        }
+                      </TableBody>
+                    </Table>
+                    <TablePagination
+                      rowsPerPageOptions={[2, 10, 25, 100]}
+                      component="div"
+                      count={dataTableValue.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onChangePage={handleChangePage}
+                      onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                  </TableContainer>
+
+                </Grid>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Box>
-          <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={this.state.addDialogVisibility}>
-            <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-              Add New Seat Info
+          <Box>
+            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={this.state.addDialogVisibility}>
+              <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                Add New Seat Info
             </DialogTitle>
-            <DialogContent dividers>
+              <DialogContent dividers>
 
-              <Grid item xs={12}>
-                <Box className="">
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Serial No."
-                      variant="outlined"
-                      helperText=""
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                <Grid item xs={12}>
+                  <Box className="">
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Serial No."
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        required
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <FormControl variant="outlined" className="" fullWidth required>
-                      <InputLabel>Class</InputLabel>
-                      <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl variant="outlined" className="" fullWidth required>
+                        <InputLabel>Class</InputLabel>
+                        <Select
+                          label="Age"
+                        // value={age}
+                        // onChange={handleChange}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={10}>Ten</MenuItem>
+                          <MenuItem value={20}>Twenty</MenuItem>
+                          <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <FormControl required variant="outlined" className="" fullWidth>
-                      <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
-                      <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl required variant="outlined" className="" fullWidth>
+                        <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
+                        <Select
+                          label="Age"
+                        // value={age}
+                        // onChange={handleChange}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={10}>Ten</MenuItem>
+                          <MenuItem value={20}>Twenty</MenuItem>
+                          <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Total Seat"
-                      variant="outlined"
-                      helperText=""
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Total Seat"
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        required
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Multiline"
-                      variant="outlined"
-                      // rowsMax={4}
-                      // value={value}
-                      // onChange={handleChange}
-                      multiline
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Multiline"
+                        variant="outlined"
+                        // rowsMax={4}
+                        // value={value}
+                        // onChange={handleChange}
+                        multiline
+                        fullWidth
+                        required
+                      />
+                    </Grid>
 
-                  {/* <Box
+                    {/* <Box
                     item
                     xs={12}
                     className="px-3 py-2"
@@ -312,27 +312,28 @@ export class AdminFeesInfo extends React.Component {
                     </Button>
                   </Box> */}
 
-                </Box>
-              </Grid>
-              
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                mx="auto"
-              >
-                Save
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Box>
+                  </Box>
+                </Grid>
 
-        {/* <Button variant="contained" color="primary">
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  mx="auto"
+                >
+                  Save
+              </Button>
+              </DialogActions>
+            </Dialog>
+          </Box>
+
+          {/* <Button variant="contained" color="primary">
           Primary
         </Button> */}
-      </Container>
+        </Container>
+      </AdminPrivateLayout>
     );
   }
 }

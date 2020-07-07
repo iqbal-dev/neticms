@@ -8,6 +8,9 @@ import { initialState } from './reducer';
 const selectAdminFeesInfoDomain = state =>
   state.get('adminFeesInfo', initialState);
 
+  const makeSelectFeesInfoListData = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('feesInfoList'));
+
 /**
  * Other specific selectors
  */
@@ -20,4 +23,6 @@ const makeSelectAdminFeesInfo = () =>
   createSelector(selectAdminFeesInfoDomain, substate => substate.toJS());
 
 export default makeSelectAdminFeesInfo;
-export { selectAdminFeesInfoDomain };
+export { selectAdminFeesInfoDomain,
+  makeSelectFeesInfoListData
+ };

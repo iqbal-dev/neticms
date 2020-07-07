@@ -33,13 +33,13 @@ export class AdminPrivateLayout extends React.PureComponent {
 
     return (
       <div className="">
-      <CssBaseline />
-      <AdminHeader />
-      <AdminSideBar />
-      <main className="manContentWrapper">
-        All Route Here
-      </main>
-    </div>
+        <CssBaseline />
+        <AdminHeader />
+        <AdminSideBar />
+        <main className="manContentWrapper">
+          {this.props.children}
+        </main>
+      </div>
     );
   }
 }
