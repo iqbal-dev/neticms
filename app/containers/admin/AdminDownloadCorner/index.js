@@ -49,6 +49,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { AdminPrivateLayout } from '../AdminPrivateLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AdminDownloadCorner extends React.Component {
@@ -256,126 +257,128 @@ export class AdminDownloadCorner extends React.Component {
       this.setPage(0);
     };
     return (
-      <Container maxWidth="xl" className="my-3">
-        <Helmet>
-          <title>AdminDownloadCorner</title>
-          <meta
-            name="description"
-            content="Description of AdminDownloadCorner"
-          />
-        </Helmet>
-        {/* <FormattedMessage {...messages.header} /> */}
+      <AdminPrivateLayout>
+        <Container maxWidth="xl" className="my-0 p-0">
+          <Helmet>
+            <title>AdminDownloadCorner</title>
+            <meta
+              name="description"
+              content="Description of AdminDownloadCorner"
+            />
+          </Helmet>
+          {/* <FormattedMessage {...messages.header} /> */}
 
-        <Grid container spacing={3}>
-          
+          <Grid container spacing={3}>
+            
 
-          <Grid item xs={12}>
-            <Box className="">
-              <Grid item xs={12} className="px-3 py-2">
-                
+            <Grid item xs={12}>
+              <Box className="">
+                <Grid item xs={12} className="px-3 py-2">
+                  
 
-                <TableContainer component={Paper}>
-                  <Box 
-                    className="" 
-                    variant="h6" 
-                    id="tableTitle" 
-                    component="div" 
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    style={{ backgroundColor: '#cfe8fc' }}
-                  >
-                    <Typography
+                  <TableContainer component={Paper}>
+                    <Box 
+                      className="" 
                       variant="h6" 
                       id="tableTitle" 
                       component="div" 
-                      className='px-3'
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      style={{ backgroundColor: '#cfe8fc' }}
                     >
-                      Download Corner List 
-                    </Typography>
-
-                    <Typography
-                      variant="p" 
-                      component="div" 
-                    >
-                      Total Found: 5
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        className="rounded-0 shadow-none bg-success ml-3"
-                        startIcon={<AddIcon />}
-                        onClick={e => handleClickOpen('insert', null)}
+                      <Typography
+                        variant="h6" 
+                        id="tableTitle" 
+                        component="div" 
+                        className='px-3'
                       >
-                        Add New
-                      </Button>
-                    </Typography>
+                        Download Corner List 
+                      </Typography>
 
-                    
-                  </Box>
-                  <Table
-                    // className={classes.table}
-                    aria-labelledby="tableTitle"
-                    size='medium'
-                    aria-label="enhanced table"
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Serial No.</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Download</TableCell>
-                        <TableCell align="center">Action</TableCell>
-                      </TableRow>
-                    </TableHead>
+                      <Typography
+                        variant="p" 
+                        component="div" 
+                      >
+                        Total Found: 5
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          className="rounded-0 shadow-none bg-success ml-3"
+                          startIcon={<AddIcon />}
+                          onClick={e => handleClickOpen('insert', null)}
+                        >
+                          Add New
+                        </Button>
+                      </Typography>
 
-                    <TableBody>
-                    {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => 
-                      <TableRow key="">
-                        <TableCell>{ item.serial }</TableCell>
-                        <TableCell>{ item.title }</TableCell>
-                        <TableCell>
-                          <IconButton aria-label="download" color="primary">
-                            <CloudDownloadIcon />
-                          </IconButton>
-                        </TableCell>
-                        <TableCell align="center">
-                          <IconButton aria-label="edit" color="primary" onClick={e => handleClickOpen('update', item)}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton aria-label="delete" color="secondary" onClick={e => handleClickOpen('delete', item)}>
-                            <DeleteOutlineOutlinedIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                      )
-                    }
-                    </TableBody>
-                  </Table>
-                  <TablePagination
-                    rowsPerPageOptions={[2, 10, 25, 100]}
-                    component="div"
-                    count={dataTableValue.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                  />
-                </TableContainer>
-                
-              </Grid>
-            </Box>
+                      
+                    </Box>
+                    <Table
+                      // className={classes.table}
+                      aria-labelledby="tableTitle"
+                      size='medium'
+                      aria-label="enhanced table"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Serial No.</TableCell>
+                          <TableCell>Title</TableCell>
+                          <TableCell>Download</TableCell>
+                          <TableCell align="center">Action</TableCell>
+                        </TableRow>
+                      </TableHead>
+
+                      <TableBody>
+                      {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => 
+                        <TableRow key="">
+                          <TableCell>{ item.serial }</TableCell>
+                          <TableCell>{ item.title }</TableCell>
+                          <TableCell>
+                            <IconButton aria-label="download" color="primary">
+                              <CloudDownloadIcon />
+                            </IconButton>
+                          </TableCell>
+                          <TableCell align="center">
+                            <IconButton aria-label="edit" color="primary" onClick={e => handleClickOpen('update', item)}>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton aria-label="delete" color="secondary" onClick={e => handleClickOpen('delete', item)}>
+                              <DeleteOutlineOutlinedIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                        )
+                      }
+                      </TableBody>
+                    </Table>
+                    <TablePagination
+                      rowsPerPageOptions={[2, 10, 25, 100]}
+                      component="div"
+                      count={dataTableValue.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onChangePage={handleChangePage}
+                      onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                  </TableContainer>
+                  
+                </Grid>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Box>
-          { this.formDialog }
-        </Box>
-          
-        <Box>
-          { this.deleteDialog}
-        </Box>
+          <Box>
+            { this.formDialog }
+          </Box>
+            
+          <Box>
+            { this.deleteDialog}
+          </Box>
 
-      </Container>
+        </Container>
+      </AdminPrivateLayout>
     );
   }
 }
