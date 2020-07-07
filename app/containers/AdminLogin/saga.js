@@ -4,6 +4,7 @@ import { BASE_URL_NETI_CMS, login_URL } from '../../utils/serviceUrl';
 
 import { makeSelectUserName, makeSelectPassword } from './selectors';
 import { SUBMIT_LOGIN } from './constants';
+import { setAdminToken } from './actions';
 
 export function* submitLoginHandle() {
 
@@ -32,6 +33,9 @@ export function* submitLoginHandle() {
   try {
     const response = yield call(request, requestURL, options);
     console.log('login-res', response);
+    if (response) {
+      yield put(setAdminToken(response));
+    }
   } catch (error) { }
 
 }

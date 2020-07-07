@@ -32,6 +32,9 @@ import FindPayslip from 'containers/FindPayslip';
 import WelcomeSpeech from 'containers/WelcomeSpeech';
 import IndividualResult from 'containers/IndividualResult';
 import GalleryImage from 'containers/admin/GalleryImage';
+import AdminFeesInfo from 'containers/admin/AdminFeesInfo';
+
+
 import StudentWiseAttendance from 'containers/StudentWiseAttendance';
 import SectionWiseAttendance from 'containers/SectionWiseAttendance';
 import SectionWiseResult from 'containers/SectionWiseResult';
@@ -111,6 +114,8 @@ export default function AppRoute() {
       {/** **** Admin Route ******** */}
       <Route exact path="/admin/galleryImage" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
+      <Route exact path="/admin/fees_info" component={AdminFeesInfo} />
+
 
       <Route path="" component={NotFoundPage} />
 

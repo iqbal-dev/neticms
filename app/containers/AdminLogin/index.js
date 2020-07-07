@@ -24,7 +24,9 @@ import { Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { setUserName, setPassword, submitLogin } from './actions';
 import {
   makeSelectUserName,
-  makeSelectPassword
+  makeSelectPassword,
+  makeSelectAdminToken,
+  makeSelectAdminInfo
 } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -54,6 +56,8 @@ export class AdminLogin extends React.Component {
   };
 
   render() {
+
+    console.log('adminToken, adminInfo', this.props.adminToken, this.props.adminInfo);
 
     return (
       <div>
@@ -117,6 +121,8 @@ const mapStateToProps = createStructuredSelector({
   adminLogin: makeSelectAdminLogin(),
   userName: makeSelectUserName(),
   passWord: makeSelectPassword(),
+  adminToken: makeSelectAdminToken(),
+  adminInfo: makeSelectAdminInfo(),
 });
 
 function mapDispatchToProps(dispatch) {
