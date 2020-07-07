@@ -35,7 +35,9 @@ import GalleryImage from 'containers/admin/GalleryImage';
 import StudentWiseAttendance from '../StudentWiseAttendance';
 import SectionWiseAttendance from '../SectionWiseAttendance';
 import SectionWiseResult from '../SectionWiseResult';
-import AdminSeatInfo from '../../containers/admin/AdminSeatInfo';
+import AdminSeatInfo from '../admin/AdminSeatInfo';
+import AdminFeesInfo from '../admin/AdminFeesInfo';
+
 
 
 
@@ -109,6 +111,8 @@ export default function AppRoute() {
       {/** **** Admin Route ******** */}
       <Route exact path="/admin/galleryImage" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
+      <Route exact path="/admin/fees_info" component={AdminFeesInfo} />
+
 
       <Route path="" component={NotFoundPage} />
 
