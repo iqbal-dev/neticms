@@ -112,7 +112,7 @@ export class AdminFeesInfo extends React.Component {
     return (
 
       <AdminPrivateLayout>
-        <Container maxWidth="xl" className="my-3">
+        <Container maxWidth="xl" className="my-0 p-0">
           <Helmet>
             <title>AdminFeesInfo</title>
             <meta name="description" content="Description of AdminFeesInfo" />
@@ -366,6 +366,7 @@ export class AdminFeesInfo extends React.Component {
               </DialogActions>
             </Dialog>
           </Box>
+          
 
           {/* <Button variant="contained" color="primary">
           Primary

@@ -18,7 +18,6 @@ import {
 export function* get_feesInfoListData() {
 
   // let adminToken = yield select(makeSelectAdminToken());
-  console.log(JSON.parse(localStorage.instituteInfo));
   let adminToken = JSON.parse(localStorage.adminToken);
 
   console.log('adminToken', adminToken);
