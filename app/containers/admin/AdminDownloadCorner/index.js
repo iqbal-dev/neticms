@@ -1,6 +1,6 @@
 /**
  *
- * AdminSeatInfo
+ * AdminDownloadCorner
  *
  */
 
@@ -14,10 +14,11 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminSeatInfo from './selectors';
+import makeSelectAdminDownloadCorner from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+
 import { 
   Button, 
   Grid, 
@@ -46,17 +47,11 @@ import {
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
-import { toUpper } from 'lodash';
-
-// import Button from '@material-ui/core/Button';
-// import { Button } from '@material-ui/core';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 /* eslint-disable react/prefer-stateless-function */
-
-
-
-export class AdminSeatInfo extends React.Component {
+export class AdminDownloadCorner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -106,7 +101,7 @@ export class AdminSeatInfo extends React.Component {
         // maxWidth="xl"
       >
         <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-          { dialogType == 'insert' ? 'Add New Seat Info' : 'Update Seat Info'}
+          { dialogType == 'insert' ? 'Add New Download Corner Info' : 'Update Download Corner Info'}
         </DialogTitle>
         <DialogContent dividers>
 
@@ -123,44 +118,8 @@ export class AdminSeatInfo extends React.Component {
               </Grid>
 
               <Grid item xs={12} className="px-3 py-2">
-                <FormControl variant="outlined" className="" fullWidth required>
-                  <InputLabel>Class</InputLabel>
-                  <Select
-                    label="Age"
-                  // value={age}
-                  // onChange={handleChange}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} className="px-3 py-2">
-                <FormControl required variant="outlined" className="" fullWidth>
-                  <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
-                  <Select
-                    label="Age"
-                  // value={age}
-                  // onChange={handleChange}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} className="px-3 py-2">
                 <TextField
-                  label="Total Seat"
+                  label="Title"
                   variant="outlined"
                   helperText=""
                   fullWidth
@@ -169,34 +128,30 @@ export class AdminSeatInfo extends React.Component {
               </Grid>
 
               <Grid item xs={12} className="px-3 py-2">
-                <TextField
-                  label="Multiline"
-                  variant="outlined"
-                  // rowsMax={4}
-                  // value={value}
-                  // onChange={handleChange}
-                  multiline
-                  fullWidth
-                  required
+                <input
+                  accept="image/*"
+                  // className={classes.input}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  style={{ display: "none"}}
                 />
-              </Grid>
-
-              {/* <Box
-                    item
-                    xs={12}
-                    className="px-3 py-2"
-                    display="flex"
-                    justifyContent="flex-end"
+                <label htmlFor="contained-button-file" style={{ width: "100%"}}>
+                  <Button
+                    variant="outlined"
+                    color="default"
+                    // className={classes.button}
+                    startIcon={<CloudUploadIcon />}
+                    size="large"
+                    component="span"
+                    fullWidth
                   >
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      mx="auto"
-                    >
-                      Primary
-                    </Button>
-                  </Box> */}
+                    Upload
+                  </Button>
+                </label>
+
+                
+              </Grid>
 
             </Box>
           </Grid>
@@ -232,7 +187,7 @@ export class AdminSeatInfo extends React.Component {
     return(
       <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.deleteDialogVisibility}>
         <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-          Delete Seat Info
+          Delete Download Corner Info 
             </DialogTitle>
         <DialogContent dividers>
 
@@ -252,7 +207,7 @@ export class AdminSeatInfo extends React.Component {
             onClick={this.handleClose}
           >
             Cancel
-              </Button>
+          </Button>
 
           <Button
             variant="contained"
@@ -270,16 +225,16 @@ export class AdminSeatInfo extends React.Component {
   render() {
     let { page, rowsPerPage } = this.state
 
-    function createData(serial, className, group, totalSeat, action) {
-      return { serial, className, group, totalSeat, action };
+    function createData(serial, title, download, action) {
+      return { serial, title, download, action };
     }
 
     const dataTableValue = [
-      createData(1, "One", "n/a", 50 ),
-      createData(2, "Two", "n/a", 50),
-      createData(3, "Eight", "n/a", 40),
-      createData(4, "Nine", "Science", 60),
-      createData(5, "Ten", "Science", 70),
+      createData(1, "One"),
+      createData(2, "Two"),
+      createData(3, "Eight"),
+      createData(4, "Nine"),
+      createData(5, "Ten"),
     ];
 
     const handleClickOpen = (dialogType, rowData) => {
@@ -300,12 +255,14 @@ export class AdminSeatInfo extends React.Component {
       this.setRowsPerPage(+event.target.value);
       this.setPage(0);
     };
-
     return (
       <Container maxWidth="xl" className="my-3">
         <Helmet>
-          <title>AdminSeatInfo</title>
-          <meta name="description" content="Description of AdminSeatInfo" />
+          <title>AdminDownloadCorner</title>
+          <meta
+            name="description"
+            content="Description of AdminDownloadCorner"
+          />
         </Helmet>
         {/* <FormattedMessage {...messages.header} /> */}
 
@@ -334,7 +291,7 @@ export class AdminSeatInfo extends React.Component {
                       component="div" 
                       className='px-3'
                     >
-                      Seat Info
+                      Download Corner List 
                     </Typography>
 
                     <Typography
@@ -365,9 +322,8 @@ export class AdminSeatInfo extends React.Component {
                     <TableHead>
                       <TableRow>
                         <TableCell>Serial No.</TableCell>
-                        <TableCell>Class</TableCell>
-                        <TableCell>Group</TableCell>
-                        <TableCell align="right">Total Seat</TableCell>
+                        <TableCell>Title</TableCell>
+                        <TableCell>Download</TableCell>
                         <TableCell align="center">Action</TableCell>
                       </TableRow>
                     </TableHead>
@@ -376,9 +332,12 @@ export class AdminSeatInfo extends React.Component {
                     {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => 
                       <TableRow key="">
                         <TableCell>{ item.serial }</TableCell>
-                        <TableCell>{ item.className }</TableCell>
-                        <TableCell>{ item.group }</TableCell>
-                        <TableCell align="right">{ item.totalSeat }</TableCell>
+                        <TableCell>{ item.title }</TableCell>
+                        <TableCell>
+                          <IconButton aria-label="download" color="primary">
+                            <CloudDownloadIcon />
+                          </IconButton>
+                        </TableCell>
                         <TableCell align="center">
                           <IconButton aria-label="edit" color="primary" onClick={e => handleClickOpen('update', item)}>
                             <EditIcon />
@@ -416,24 +375,17 @@ export class AdminSeatInfo extends React.Component {
           { this.deleteDialog}
         </Box>
 
-        {/* <Box>
-          { this.formDialog('update', null) }
-        </Box> */}
-
-        {/* <Button variant="contained" color="primary">
-          Primary
-        </Button> */}
       </Container>
     );
   }
 }
 
-AdminSeatInfo.propTypes = {
+AdminDownloadCorner.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  adminSeatInfo: makeSelectAdminSeatInfo(),
+  adminDownloadCorner: makeSelectAdminDownloadCorner(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -447,11 +399,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'adminSeatInfo', reducer });
-const withSaga = injectSaga({ key: 'adminSeatInfo', saga });
+const withReducer = injectReducer({ key: 'adminDownloadCorner', reducer });
+const withSaga = injectSaga({ key: 'adminDownloadCorner', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(AdminSeatInfo);
+)(AdminDownloadCorner);
