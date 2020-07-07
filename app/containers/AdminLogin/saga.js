@@ -6,7 +6,7 @@ import { makeSelectUserName, makeSelectPassword } from './selectors';
 import { SUBMIT_LOGIN } from './constants';
 import { setAdminToken } from './actions';
 
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 export function* submitLoginHandle() {
 
@@ -36,9 +36,12 @@ export function* submitLoginHandle() {
     const response = yield call(request, requestURL, options);
     console.log('login-res', response);
     if (response) {
+      localStorage.setItem('adminToken', JSON.stringify(response));
       yield put(setAdminToken(response));
-      let pathNm = "/admin_homepage";
-      <Redirect to={pathNm} />
+      window.location.href = "/admin/homepage";
+      // <Link to="/admin/homepage" />
+      // // let pathNm = "/admin_homepage";
+      // // <Redirect to={pathNm} />
     }
   } catch (error) { }
 

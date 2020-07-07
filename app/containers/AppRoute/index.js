@@ -112,7 +112,7 @@ export default function AppRoute() {
       <Route exact path="/admin/login" component={AdminLogin} />
 
       {/** **** Admin Route ******** */}
-      <Route exact path="/admin_homepage" component={AdminHomepage} />
+      <Route exact path="/admin/homepage" component={AdminHomepage} />
       <Route exact path="/admin/galleryImage" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
       <Route exact path="/admin/fees_info" component={AdminFeesInfo} />

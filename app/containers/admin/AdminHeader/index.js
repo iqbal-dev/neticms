@@ -35,7 +35,7 @@ export class AdminHeader extends React.PureComponent {
             color="inherit"
             aria-label="Logout"
             edge="start"
-            onClick=""
+            onClick={this.props.logout}
             className=""
           >
             <ExitToAppIcon />
@@ -57,6 +57,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    // logout: () => dispatch(set()),
+
   };
 }
 

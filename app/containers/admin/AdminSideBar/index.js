@@ -35,76 +35,76 @@ export class AdminSideBar extends React.PureComponent {
     const drawer = (
       <div>
         <Typography variant="h6" noWrap className="logo-wrapper">
-            Neti CMS
+          Neti CMS
         </Typography>
         <Divider />
         <List>
-            <Link to='/admin/galleryImage'>
-              <ListItem button key="Gallery Image">
-                  <ListItemIcon><ImageOutlinedIcon /></ListItemIcon>
-                  <ListItemText primary="Gallery Image" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Spech Info">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Spech Info" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Events">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Events" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Important Link">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Important Link" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Administration Info">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Administration Info" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="About Us">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="About Us" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Dress Info">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Dress Info" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Fees Info">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Fees Info" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Seat Info">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Seat Info" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Syllabus">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Syllabus" />
-              </ListItem>
-            </Link>
-            <Link to='#'>
-              <ListItem button key="Download Corner">
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary="Download Corner" />
-              </ListItem>
-            </Link>
+          <Link to='admin_gallery_image'>
+            <ListItem button key="Gallery Image">
+              <ListItemIcon><ImageOutlinedIcon /></ListItemIcon>
+              <ListItemText primary="Gallery Image" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="Spech Info">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Spech Info" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="Events">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Events" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="Important Link">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Important Link" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="Administration Info">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Administration Info" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="About Us">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="About Us" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="Dress Info">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Dress Info" />
+            </ListItem>
+          </Link>
+          <Link to='/admin/fees_info'>
+            <ListItem button key="Fees Info">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Fees Info" />
+            </ListItem>
+          </Link>
+          <Link to='/admin/seat_info'>
+            <ListItem button key="Seat Info">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Seat Info" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="Syllabus">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Syllabus" />
+            </ListItem>
+          </Link>
+          <Link to='#'>
+            <ListItem button key="Download Corner">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="Download Corner" />
+            </ListItem>
+          </Link>
         </List>
       </div>
     );
@@ -120,7 +120,7 @@ export class AdminSideBar extends React.PureComponent {
             onClose=""
           >
             {drawer}
-            
+
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
