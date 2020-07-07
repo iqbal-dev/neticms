@@ -41,8 +41,10 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TablePagination
+  TablePagination,
+  TextareaAutosize
 } from '@material-ui/core';
+
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
@@ -220,7 +222,7 @@ export class AdminFeesInfo extends React.Component {
         <Box>
           <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={this.state.addDialogVisibility}>
             <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-              Add New Seat Info
+              Add Fees Info
             </DialogTitle>
             <DialogContent dividers>
 
@@ -274,7 +276,26 @@ export class AdminFeesInfo extends React.Component {
 
                   <Grid item xs={12} className="px-3 py-2">
                     <TextField
-                      label="Total Seat"
+                      label="Fee Name"
+                      variant="outlined"
+                      helperText=""
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} className="px-3 py-2">
+                    <TextareaAutosize
+                      style={{width: '220px'}}
+                      aria-label="Details"
+                      rowsMin={3}
+                      variant="outlined"
+                      placeholder="Enter Fee Details" />
+                  </Grid>
+
+                  <Grid item xs={12} className="px-3 py-2">
+                    <TextField
+                      label="Fee Amount"
                       variant="outlined"
                       helperText=""
                       fullWidth
@@ -293,6 +314,23 @@ export class AdminFeesInfo extends React.Component {
                       fullWidth
                       required
                     />
+                  </Grid>
+                  <Grid item xs={12} className="px-3 py-2">
+                    <FormControl required variant="outlined" className="" fullWidth>
+                      <InputLabel id="demo-simple-select-required-label">Fee Type</InputLabel>
+                      <Select
+                        label="Age"
+                      // value={age}
+                      // onChange={handleChange}
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
 
                   {/* <Box
