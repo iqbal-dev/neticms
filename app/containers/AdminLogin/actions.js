@@ -9,6 +9,8 @@ import {
   SET_USER_NAME,
   SET_PASSWORD,
   SUBMIT_LOGIN,
+  SET_ADMIN_TOKEN,
+  SET_ADMIN_INFO,
 } from './constants';
 
 export function defaultAction() {
@@ -34,5 +36,19 @@ export function setPassword(password) {
 export function submitLogin() {
   return {
     type: SUBMIT_LOGIN,
+  };
+}
+
+export function setAdminToken(adminToken) {
+  return {
+    type: SET_ADMIN_TOKEN,
+    adminToken,
+  };
+}
+
+export function setAdminInfo(adminInfo) {
+  return {
+    type: SET_ADMIN_INFO,
+    adminInfo,
   };
 }
