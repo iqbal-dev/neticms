@@ -1,6 +1,6 @@
 /**
  *
- * AdminSeatInfo
+ * AdminFeesInfo
  *
  */
 
@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminSeatInfo from './selectors';
+import makeSelectAdminFeesInfo from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -46,16 +46,9 @@ import {
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
-
-// import Button from '@material-ui/core/Button';
-// import { Button } from '@material-ui/core';
 
 /* eslint-disable react/prefer-stateless-function */
-
-
-
-export class AdminSeatInfo extends React.Component {
+export class AdminFeesInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -116,8 +109,8 @@ export class AdminSeatInfo extends React.Component {
     return (
       <Container maxWidth="xl" className="my-3">
         <Helmet>
-          <title>AdminSeatInfo</title>
-          <meta name="description" content="Description of AdminSeatInfo" />
+          <title>AdminFeesInfo</title>
+          <meta name="description" content="Description of AdminFeesInfo" />
         </Helmet>
         {/* <FormattedMessage {...messages.header} /> */}
 
@@ -146,7 +139,7 @@ export class AdminSeatInfo extends React.Component {
                       component="div" 
                       className='px-3'
                     >
-                      Seat Info
+                      Fees Info
                     </Typography>
 
                     <Typography
@@ -179,7 +172,9 @@ export class AdminSeatInfo extends React.Component {
                         <TableCell>Serial No.</TableCell>
                         <TableCell>Class</TableCell>
                         <TableCell>Group</TableCell>
-                        <TableCell align="right">Total Seat</TableCell>
+                        <TableCell>Fee Name</TableCell>
+                        <TableCell >Fee Amount</TableCell>
+                        <TableCell>Fee Type</TableCell>
                         <TableCell align="center">Action</TableCell>
                       </TableRow>
                     </TableHead>
@@ -190,7 +185,9 @@ export class AdminSeatInfo extends React.Component {
                         <TableCell>{ item.serial }</TableCell>
                         <TableCell>{ item.className }</TableCell>
                         <TableCell>{ item.group }</TableCell>
-                        <TableCell align="right">{ item.totalSeat }</TableCell>
+                        <TableCell>{ item.totalSeat }</TableCell>
+                        <TableCell>{ item.group }</TableCell>
+                        <TableCell>{ item.group }</TableCell>
                         <TableCell align="center">
                           <IconButton aria-label="edit" color="primary">
                             <EditIcon />
@@ -340,12 +337,12 @@ export class AdminSeatInfo extends React.Component {
   }
 }
 
-AdminSeatInfo.propTypes = {
+AdminFeesInfo.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  adminSeatInfo: makeSelectAdminSeatInfo(),
+  adminFeesInfo: makeSelectAdminFeesInfo(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -359,11 +356,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'adminSeatInfo', reducer });
-const withSaga = injectSaga({ key: 'adminSeatInfo', saga });
+const withReducer = injectReducer({ key: 'adminFeesInfo', reducer });
+const withSaga = injectSaga({ key: 'adminFeesInfo', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(AdminSeatInfo);
+)(AdminFeesInfo);

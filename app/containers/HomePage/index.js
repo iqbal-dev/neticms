@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -31,11 +31,12 @@ import Menu from '../../containers/Menu';
 import {
   makeSelectUrlInfo,
   makeSelectUrlId,
-  makeSelectAccessToken,
+  makeSelectEmAccessToken,
   makeSelectMenuList,
   makeSelectLatestNewsList,
-  makeSelectWelcomeSpeech,
   makeSelectNoticeList,
+  makeSelectWelcomeSpeech,
+  makeSelectUseFullLinks,
   makeSelectHistoryDetails,
   makeSelectTopEvents,
   makeSelectLoaderStatus,
@@ -43,6 +44,14 @@ import {
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 import { AppLayout } from '../AppLayout';
 /* eslint-disable react/prefer-stateless-function */
+
+//
+
+let speechIndex = 0;
+let welComeSpeechObj = {};
+let speakerDesignation = '';
+let speakerName = '';
+let welComeSpeech = '';
 
 export class HomePage extends React.Component {
 
@@ -54,19 +63,10 @@ export class HomePage extends React.Component {
 
     if (evtDetails) {
 
-      // find date difference
-
-      // let formatDate = new Date(evtDetails.eventStartDate);
-
-      // end find date difference
-
       let formatDate = new Date(evtDetails.eventStartDate);
       const formatDate2 = formatDate.toLocaleDateString('en-GB');
-      // console.log('formatDate2', formatDate2);
 
       const splitDateArr = formatDate2.split('/');
-
-      // console.log('formatDate', splitDateArr);
       let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[0] + ', ' + splitDateArr[2];
       console.log('eventStartDate', eventStartDate);
       return eventStartDate;
@@ -75,49 +75,63 @@ export class HomePage extends React.Component {
 
   }
 
+  onChangeSpeechToIncrease = () => {
+
+    speechIndex += 1;
+
+    if (speechIndex == this.props.welComeInfo.length) { speechIndex = 0; }
+
+    document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
+    document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
+    document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
+
+    welComeSpeechObj = this.props.welComeInfo[speechIndex];
+    console.log('increse-speechIndex', speechIndex);
+
+  }
+
+  onChangeSpeechToDecrease = () => {
+
+    if (speechIndex == this.props.welComeInfo.length) { speechIndex = 0 }
+    else if (speechIndex == 0) { speechIndex = this.props.welComeInfo.length; }
+
+    speechIndex -= 1;
+
+    document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
+    document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
+    document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
+
+    console.log('decrese-speechIndex', speechIndex);
+
+  }
+
   render() {
 
     const date = new Date();
 
+    console.log('welComeSpeechObj', welComeSpeechObj);
     console.log('urlInfoAll', this.props.urlInfoAll);
     console.log('token-homepage', this.props.accessToken);
-    // console.log('notice List', this.props.noticeList);
-    // console.log('loader status', this.props.loaderStatus);
 
     let instituteName = '';
-    let speakerDesignation = '';
-    let speakerName = '';
-    let welComeSpeech = '';
-
     if (this.props.urlInfo) {
       instituteName = this.props.urlInfo.instituteName;
     }
 
     if (!this.props.welComeInfo == '') {
-      speakerDesignation = this.props.welComeInfo.speakerDesignation;
-      speakerName = this.props.welComeInfo.speakerName;
-      welComeSpeech = this.props.welComeInfo.speechDetails;
+      speakerDesignation = this.props.welComeInfo[speechIndex].speakerDesignation;
+      speakerName = this.props.welComeInfo[speechIndex].speakerName;
+      welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
     }
 
-    let historyDetails = '';
-    if (!this.props.instituteHistory == '') {
-      historyDetails = this.props.instituteHistory.aboutusDetails;
-    }
+    console.log(speakerDesignation, speakerName, welComeSpeech);
 
     let instituteTopEventList = [];
     // let eventStartDate = '';
 
     if (!this.props.instituteTopEvents == '') {
-
       instituteTopEventList = this.props.instituteTopEvents;
-      // let mainDate = this.props.instituteTopEvents[0].eventStartDate;
-
     }
-    // console.log('instituteHistory', this.props.instituteHistory);
-    // console.log('instituteTopEventList', this.props.instituteTopEventList);
-    // console.log('urlInfo', this.props.urlInfo);
-
-    // console.log("this.props.classList:::::::::::::::::::::::", this.props.classList);
 
     return (
       <div>
@@ -137,7 +151,7 @@ export class HomePage extends React.Component {
                           />
                           <h4 className="designation">{speakerDesignation}</h4>
                           <h1 className="employe-name">{speakerName}</h1>
-                          <p>
+                          <p className='speechDetails'>
                             {welComeSpeech}
                             <a href="#" align="left">
                               See More
@@ -146,10 +160,10 @@ export class HomePage extends React.Component {
                         </div>
                       </div>
                       <div className="slider-indecator">
-                        <button className="slider-indecator-btn">
+                        <button className="slider-indecator-btn" onClick={() => this.onChangeSpeechToDecrease(speechIndex)}>
                           <i className="fas fa-angle-left" />
                         </button>
-                        <button className="slider-indecator-btn">
+                        <button className="slider-indecator-btn" onClick={() => this.onChangeSpeechToIncrease(speechIndex)}>
                           <i className="fas fa-angle-right" />
                         </button>
                       </div>
@@ -164,63 +178,16 @@ export class HomePage extends React.Component {
                         <h2>Usefull Links</h2>
                       </div>
                       <ul className="links-lists">
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
-                        <li>
-                          <span>
-                            <i className="fas fa-angle-right" />
-                          </span>
-                          <a href="#">
-                            Ministry of Education Govt. of Bangladesh
-                        </a>
-                        </li>
+
+                        {this.props.useFullLinks && this.props.useFullLinks.slice(0, 5).map(useFullLink => (
+                          <li key={useFullLink.linkId}>
+                            <span><i className="fas fa-angle-right" /></span>
+                            <a href={useFullLink.linkUrl} target='_blank'>{useFullLink.linkTitle}</a>
+                          </li>
+                        ))}
+
                       </ul>
+
                       <div className="text-center">
                         <button className="btn explore-btn">
                           Explore all <i className="fas fa-angle-right" />
@@ -265,12 +232,7 @@ export class HomePage extends React.Component {
                           Child.
                         </b> */}
                         </p>
-                        <p>{historyDetails}
-                          {/* Environment is the key fact for a child to grow up with
-                        positive and clever attitude. That's where Holy Child
-                        Public School comes in! It is a long established fact
-                        that a reader will be distracted by the readable content
-                        of a page when looking at its layout. */}
+                        <p>{this.props.instituteHistory ? this.props.instituteHistory.aboutusDetails : ''}
                         </p>
                       </div>
                       <div className="content-btn">
@@ -506,12 +468,13 @@ const mapStateToProps = createStructuredSelector({
   // homePage: makeSelectHomePage(),
   urlInfo: makeSelectUrlInfo(),
   menuList: makeSelectMenuList(),
-  welComeInfo: makeSelectWelcomeSpeech(),
   noticeList: makeSelectNoticeList(),
+  welComeInfo: makeSelectWelcomeSpeech(),
+  useFullLinks: makeSelectUseFullLinks(),
   instituteHistory: makeSelectHistoryDetails(),
   instituteTopEvents: makeSelectTopEvents(),
   loaderStatus: makeSelectLoaderStatus(),
-  accessToken: makeSelectAccessToken(),
+  accessToken: makeSelectEmAccessToken(),
 });
 
 function mapDispatchToProps(dispatch) {

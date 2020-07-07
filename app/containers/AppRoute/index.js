@@ -32,12 +32,15 @@ import FindPayslip from 'containers/FindPayslip';
 import WelcomeSpeech from 'containers/WelcomeSpeech';
 import IndividualResult from 'containers/IndividualResult';
 import GalleryImage from 'containers/admin/GalleryImage';
-import StudentWiseAttendance from '../StudentWiseAttendance';
-import SectionWiseAttendance from '../SectionWiseAttendance';
-import SectionWiseResult from '../SectionWiseResult';
-import AdminSeatInfo from '../../containers/admin/AdminSeatInfo';
+import AdminFeesInfo from 'containers/admin/AdminFeesInfo';
 
 
+import StudentWiseAttendance from 'containers/StudentWiseAttendance';
+import SectionWiseAttendance from 'containers/SectionWiseAttendance';
+import SectionWiseResult from 'containers/SectionWiseResult';
+import AdminSeatInfo from 'containers/admin/AdminSeatInfo';
+
+import AdminLogin from 'containers/AdminLogin';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -62,6 +65,9 @@ export default function AppRoute() {
       <Route exact path="/spsngn" component={HomePage} />
       <Route exact path="/ahnmuc" component={HomePage} />
       <Route exact path="/aakhsc" component={HomePage} />
+      <Route exact path="/pkhs" component={HomePage} />
+      <Route exact path="/halimakhatungirls" component={HomePage} />
+      <Route exact path="/104454" component={HomePage} />
 
       <Route exact path="/home" component={HomePage} />
       <Route exact path="/about" component={AboutUs} />
@@ -103,9 +109,13 @@ export default function AppRoute() {
       <Route exact path="/infrastucture" component={BasicInfrastucture} />
       <Route exact path="/find_paySlip" component={FindPayslip} />
 
+      <Route exact path="/admin/login" component={AdminLogin} />
+
       {/** **** Admin Route ******** */}
       <Route exact path="/admin/galleryImage" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
+      <Route exact path="/admin/fees_info" component={AdminFeesInfo} />
+
 
       <Route path="" component={NotFoundPage} />
 
