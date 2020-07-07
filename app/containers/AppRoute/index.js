@@ -34,13 +34,13 @@ import IndividualResult from 'containers/IndividualResult';
 import GalleryImage from 'containers/admin/GalleryImage';
 import AdminFeesInfo from 'containers/admin/AdminFeesInfo';
 
-
 import StudentWiseAttendance from 'containers/StudentWiseAttendance';
 import SectionWiseAttendance from 'containers/SectionWiseAttendance';
 import SectionWiseResult from 'containers/SectionWiseResult';
 import AdminSeatInfo from 'containers/admin/AdminSeatInfo';
 
 import AdminLogin from 'containers/AdminLogin';
+import AdminHomepage from 'containers/admin/AdminHomepage';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -112,10 +112,10 @@ export default function AppRoute() {
       <Route exact path="/admin/login" component={AdminLogin} />
 
       {/** **** Admin Route ******** */}
+      <Route exact path="/admin_homepage" component={AdminHomepage} />
       <Route exact path="/admin/galleryImage" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
       <Route exact path="/admin/fees_info" component={AdminFeesInfo} />
-
 
       <Route path="" component={NotFoundPage} />
 
