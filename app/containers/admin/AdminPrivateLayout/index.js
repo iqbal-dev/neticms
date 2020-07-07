@@ -19,21 +19,27 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { AdminHeader } from '../AdminHeader';
+import { AdminSideBar } from '../AdminSideBar';
+import '../../../assets/scss/admin/adminGlobal.css';
+
+/****/
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+/****/
 
 /* eslint-disable react/prefer-stateless-function */
 export class AdminPrivateLayout extends React.PureComponent {
   render() {
+
     return (
-      <div>
-        <Helmet>
-          <title>AdminPrivateLayout</title>
-          <meta
-            name="description"
-            content="Description of AdminPrivateLayout"
-          />
-        </Helmet>
-        <AdminHeader />
-      </div>
+      <div className="">
+      <CssBaseline />
+      <AdminHeader />
+      <AdminSideBar />
+      <main className="manContentWrapper">
+        All Route Here
+      </main>
+    </div>
     );
   }
 }
