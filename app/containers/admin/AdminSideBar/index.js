@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import { Link } from 'react-router-dom';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectAdminSideBar from './selectors';
@@ -32,7 +32,6 @@ export class AdminSideBar extends React.PureComponent {
 
   render() {
     const container = window !== undefined ? () => window().document.body : undefined;
-    let iconArray = ['<ImageOutlinedIcon />']
     const drawer = (
       <div>
         <Typography variant="h6" noWrap className="logo-wrapper">
@@ -40,12 +39,72 @@ export class AdminSideBar extends React.PureComponent {
         </Typography>
         <Divider />
         <List>
-          {['Gallery Image', 'Spech Info', 'Notice', 'Events', 'Important Link', 'Administration Info', ' About Us', ' Dress Info', ' Fees Info', 'Seat Info', 'Syllabus', 'Download Corner'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+            <Link to='/admin/galleryImage'>
+              <ListItem button key="Gallery Image">
+                  <ListItemIcon><ImageOutlinedIcon /></ListItemIcon>
+                  <ListItemText primary="Gallery Image" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Spech Info">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Spech Info" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Events">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Events" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Important Link">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Important Link" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Administration Info">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Administration Info" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="About Us">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="About Us" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Dress Info">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Dress Info" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Fees Info">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Fees Info" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Seat Info">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Seat Info" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Syllabus">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Syllabus" />
+              </ListItem>
+            </Link>
+            <Link to='#'>
+              <ListItem button key="Download Corner">
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary="Download Corner" />
+              </ListItem>
+            </Link>
         </List>
       </div>
     );

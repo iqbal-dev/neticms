@@ -23,11 +23,7 @@ import messages from './messages';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 /* eslint-disable react/prefer-stateless-function */
 export class AdminHeader extends React.PureComponent {
   render() {
@@ -37,42 +33,13 @@ export class AdminHeader extends React.PureComponent {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label="Logout"
             edge="start"
             onClick=""
             className=""
           >
-            <MenuIcon />
+            <ExitToAppIcon />
           </IconButton>
-          <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick=""
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              {/* <Menu
-                id="menu-appbar"
-                anchorEl=""
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={close}
-                onClose=""
-              >
-                <MenuItem onClick="">Profile</MenuItem>
-                <MenuItem onClick="">My account</MenuItem>
-              </Menu> */}
-            </div>
         </Toolbar>
       </AppBar>
     );
