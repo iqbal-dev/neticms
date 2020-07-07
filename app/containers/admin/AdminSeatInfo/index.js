@@ -47,6 +47,7 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import { toUpper } from 'lodash';
 
 // import Button from '@material-ui/core/Button';
 // import { Button } from '@material-ui/core';
@@ -60,15 +61,24 @@ export class AdminSeatInfo extends React.Component {
     super(props);
     this.state = {
       addDialogVisibility: false,
+      deleteDialogVisibility: false,
       page: 0,
       setPage: 0,
       rowsPerPage: 10,
-      setRowsPerPage: 10
+      setRowsPerPage: 10,
+      dialogType: '', 
+      rowData: []
     }
   }
 
-  setOpen = value =>{
-    this.setState({ addDialogVisibility: value })
+  setOpen = (value, dialogType, rowData) =>{
+    if(dialogType == 'delete'){
+      this.setState({ deleteDialogVisibility: value, dialogType: dialogType, rowData: rowData })
+    }
+    else{
+      this.setState({ addDialogVisibility: value, dialogType: dialogType, rowData: rowData })
+    }
+   
   }
 
   setPage = page =>{
@@ -77,6 +87,174 @@ export class AdminSeatInfo extends React.Component {
 
   setRowsPerPage = rowsPerPage =>{
     this.setState({ rowsPerPage: rowsPerPage })
+  }
+
+  handleClose = () => {
+    this.setState({ addDialogVisibility: false, deleteDialogVisibility: false })
+  };
+
+  formDialog = () => {
+    let {dialogType, rowData} = this.state
+    console.log("----------", dialogType, rowData);
+    
+    return(
+      <Dialog 
+        onClose={this.handleClose} 
+        aria-labelledby="customized-dialog-title" 
+        open={this.state.addDialogVisibility}
+        // style={{ width: '800px'}}
+        // maxWidth="xl"
+      >
+        <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+          { dialogType == 'insert' ? 'Add New Seat Info' : 'Update Seat Info'}
+        </DialogTitle>
+        <DialogContent dividers>
+
+          <Grid item xs={12} style={{minWidth: '400px'}}>
+            <Box className="">
+              <Grid item xs={12} className="px-3 py-2">
+                <TextField
+                  label="Serial No."
+                  variant="outlined"
+                  helperText=""
+                  fullWidth
+                  required
+                />
+              </Grid>
+
+              <Grid item xs={12} className="px-3 py-2">
+                <FormControl variant="outlined" className="" fullWidth required>
+                  <InputLabel>Class</InputLabel>
+                  <Select
+                    label="Age"
+                  // value={age}
+                  // onChange={handleChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} className="px-3 py-2">
+                <FormControl required variant="outlined" className="" fullWidth>
+                  <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
+                  <Select
+                    label="Age"
+                  // value={age}
+                  // onChange={handleChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} className="px-3 py-2">
+                <TextField
+                  label="Total Seat"
+                  variant="outlined"
+                  helperText=""
+                  fullWidth
+                  required
+                />
+              </Grid>
+
+              <Grid item xs={12} className="px-3 py-2">
+                <TextField
+                  label="Multiline"
+                  variant="outlined"
+                  // rowsMax={4}
+                  // value={value}
+                  // onChange={handleChange}
+                  multiline
+                  fullWidth
+                  required
+                />
+              </Grid>
+
+              {/* <Box
+                    item
+                    xs={12}
+                    className="px-3 py-2"
+                    display="flex"
+                    justifyContent="flex-end"
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      mx="auto"
+                    >
+                      Primary
+                    </Button>
+                  </Box> */}
+
+            </Box>
+          </Grid>
+
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            mx="auto"
+          >
+            Save
+              </Button>
+        </DialogActions>
+      </Dialog>
+    )
+  } 
+
+  deleteDialog = () =>{
+    let {dialogType, rowData} = this.state
+    console.log("----------", dialogType, rowData);
+    return(
+      <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.deleteDialogVisibility}>
+        <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+          Delete Seat Info
+            </DialogTitle>
+        <DialogContent dividers>
+
+          <Grid item xs={12}>
+            <Box className="">
+              { rowData && rowData.className + " " + rowData && rowData.group + " " + rowData && rowData.totalSeat  } Are you Sure?
+            </Box>
+          </Grid>
+
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            mx="auto"
+            onClick={this.handleClose}
+          >
+            Cancel
+              </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            mx="auto"
+          >
+            Save
+              </Button>
+        </DialogActions>
+      </Dialog>
+    )
   }
 
   render() {
@@ -94,13 +272,13 @@ export class AdminSeatInfo extends React.Component {
       createData(5, "Ten", "Science", 70),
     ];
 
-    const handleClickOpen = () => {
-      this.setOpen(true);
+    const handleClickOpen = (dialogType, rowData) => {
+      this.setOpen(true, dialogType, rowData);
     };
 
-    const handleClose = () => {
-      this.setOpen(false);
-    };
+    // const handleClose = () => {
+    //   this.setOpen(false);
+    // };
 
     const handleChangePage = (event, newPage) => {
       this.setPage(newPage);
@@ -160,7 +338,7 @@ export class AdminSeatInfo extends React.Component {
                         size="large"
                         className="rounded-0 shadow-none bg-success ml-3"
                         startIcon={<AddIcon />}
-                        onClick={handleClickOpen}
+                        onClick={e => handleClickOpen('insert', null)}
                       >
                         Add New
                       </Button>
@@ -192,10 +370,10 @@ export class AdminSeatInfo extends React.Component {
                         <TableCell>{ item.group }</TableCell>
                         <TableCell align="right">{ item.totalSeat }</TableCell>
                         <TableCell align="center">
-                          <IconButton aria-label="edit" color="primary">
+                          <IconButton aria-label="edit" color="primary" onClick={e => handleClickOpen('update', item)}>
                             <EditIcon />
                           </IconButton>
-                          <IconButton aria-label="delete" color="secondary">
+                          <IconButton aria-label="delete" color="secondary" onClick={e => handleClickOpen('delete', item)}>
                             <DeleteOutlineOutlinedIcon />
                           </IconButton>
                         </TableCell>
@@ -221,116 +399,16 @@ export class AdminSeatInfo extends React.Component {
         </Grid>
 
         <Box>
-          <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={this.state.addDialogVisibility}>
-            <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-              Add New Seat Info
-            </DialogTitle>
-            <DialogContent dividers>
-
-              <Grid item xs={12}>
-                <Box className="">
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Serial No."
-                      variant="outlined"
-                      helperText=""
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} className="px-3 py-2">
-                    <FormControl variant="outlined" className="" fullWidth required>
-                      <InputLabel>Class</InputLabel>
-                      <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12} className="px-3 py-2">
-                    <FormControl required variant="outlined" className="" fullWidth>
-                      <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
-                      <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Total Seat"
-                      variant="outlined"
-                      helperText=""
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Multiline"
-                      variant="outlined"
-                      // rowsMax={4}
-                      // value={value}
-                      // onChange={handleChange}
-                      multiline
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-
-                  {/* <Box
-                    item
-                    xs={12}
-                    className="px-3 py-2"
-                    display="flex"
-                    justifyContent="flex-end"
-                  >
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      mx="auto"
-                    >
-                      Primary
-                    </Button>
-                  </Box> */}
-
-                </Box>
-              </Grid>
-              
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                mx="auto"
-              >
-                Save
-              </Button>
-            </DialogActions>
-          </Dialog>
+          { this.formDialog }
         </Box>
+          
+        <Box>
+          { this.deleteDialog}
+        </Box>
+
+        {/* <Box>
+          { this.formDialog('update', null) }
+        </Box> */}
 
         {/* <Button variant="contained" color="primary">
           Primary
