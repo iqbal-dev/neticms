@@ -4,9 +4,10 @@ import { BASE_URL_NETI_CMS, login_URL } from '../../utils/serviceUrl';
 
 import { makeSelectUserName, makeSelectPassword } from './selectors';
 import { SUBMIT_LOGIN } from './constants';
-import { setAdminToken } from './actions';
+import { setAdminToken, setAuthStatus } from './actions';
 
 import { Redirect, Link } from "react-router-dom";
+import { setAuthenticatedStatus } from '../../utils/localStorageMethod';
 
 export function* submitLoginHandle() {
 
@@ -35,14 +36,14 @@ export function* submitLoginHandle() {
   try {
     const response = yield call(request, requestURL, options);
     console.log('login-res', response);
-    if (response) {
-      localStorage.setItem('adminToken', JSON.stringify(response));
-      yield put(setAdminToken(response));
-      window.location.href = "/admin/homepage";
-      // <Link to="/admin/homepage" />
-      // // let pathNm = "/admin_homepage";
-      // // <Redirect to={pathNm} />
-    }
+
+    setAuthenticatedStatus(true);
+    localStorage.setItem('adminToken', JSON.stringify(response));
+
+    yield put(setAuthStatus(true));
+    yield put(setAdminToken(response));
+
+
   } catch (error) { }
 
 }

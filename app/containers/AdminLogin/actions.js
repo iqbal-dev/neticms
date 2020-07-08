@@ -11,6 +11,7 @@ import {
   SUBMIT_LOGIN,
   SET_ADMIN_TOKEN,
   SET_ADMIN_INFO,
+  SET_AUTH_STATUS,
 } from './constants';
 
 export function defaultAction() {
@@ -36,6 +37,13 @@ export function setPassword(password) {
 export function submitLogin() {
   return {
     type: SUBMIT_LOGIN,
+  };
+}
+
+export function setAuthStatus(authStatus) {
+  return {
+    type: SET_AUTH_STATUS,
+    authStatus,
   };
 }
 
