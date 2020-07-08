@@ -16,7 +16,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectAdminFeesInfo, {makeSelectFeesInfoListData, makeSelectClassInfoListData, makeSelectGroupInfoListData, makeSelectSerialNo, makeSelectClass, makeSelectGroup, makeSelectFeeDetails, makeSelectFeeName, makeSelectFeeAmount,makeSelectFeeType} from './selectors';
 import reducer from './reducer';
-import {setSerialNo,setSelectedClassValue,setSelectedGroupValue,setFeeName,setFeeDetails,setFeeAmount,setFeeType
+import {setSerialNo,setSelectedClassValue,setSelectedGroupValue,setFeeName,setFeeDetails,setFeeAmount,setFeeType,setFeeInfo
 } from './actions';
 
 import saga from './saga';
@@ -80,7 +80,7 @@ export class AdminFeesInfo extends React.Component {
 
   render() {
     let { page, rowsPerPage } = this.state
-    let {feesInfoList, serialNo, selectedClass, selectedGroup, feeDetails, feeName, feeAmount, feeType} = this.props
+    let {feesInfoList } = this.props
     console.log('classList',this.props.classList);
  console.log('groupList',this.props.groupList);
 
@@ -239,6 +239,8 @@ export class AdminFeesInfo extends React.Component {
                       helperText=""
                       fullWidth
                       required
+                      value={this.props.serialNo}
+                      onChange={this.props.onChangeSerialNo}
                     />
                   </Grid>
 
@@ -247,7 +249,7 @@ export class AdminFeesInfo extends React.Component {
                       <InputLabel>Class</InputLabel>
                       <Select
                         label="Class"
-                        value={selectedClass ? selectedClass : ''}
+                        value={this.props.selectedClass ? this.props.selectedClass : ''}
                         onChange={this.props.onChangeClass}
                       >
                           {this.props.classList && this.props.classList.map((option) => (
@@ -264,7 +266,7 @@ export class AdminFeesInfo extends React.Component {
                       <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
                       <Select
                         label="Group"
-                        value={selectedGroup ? selectedGroup : ''}
+                        value={this.props.selectedGroup ? this.props.selectedGroup : ''}
                         onChange={this.props.onChangeGroup}
                       >
                        {this.props.groupList && this.props.groupList.map((option) => (
@@ -283,15 +285,19 @@ export class AdminFeesInfo extends React.Component {
                       helperText=""
                       fullWidth
                       required
+                      value={this.props.feeName}
+                      onChange={this.props.onChangeFeeName}
                     />
                   </Grid>
 
                   <Grid item xs={12} className="px-3 py-2">
                     <TextareaAutosize
-                      style={{width: '220px'}}
+                      style={{width: '364px'}}
                       aria-label="Details"
                       rowsMin={3}
                       variant="outlined"
+                      value={this.props.feeDetails}
+                      onChange={this.props.onChangeFeeDetails}
                       placeholder="Enter Fee Details" />
                   </Grid>
 
@@ -301,6 +307,8 @@ export class AdminFeesInfo extends React.Component {
                       variant="outlined"
                       helperText=""
                       fullWidth
+                      value={this.props.feeAmount}
+                      onChange={this.props.onChangeFeeAmount}
                       required
                     />
                   </Grid>
@@ -310,16 +318,16 @@ export class AdminFeesInfo extends React.Component {
                     <FormControl required variant="outlined" className="" fullWidth>
                       <InputLabel id="demo-simple-select-required-label">Fee Type</InputLabel>
                       <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
+                        label="Fee Type"
+                        value={this.props.feeType}
+                        onChange={this.props.onChangeFeeType}
                       >
                         <MenuItem value="">
                           <em>None</em>
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value='Yearly'>Yearly</MenuItem>
+                        <MenuItem value='Monthly'>Monthly</MenuItem>
+                        <MenuItem value='Exam'>Exam</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -351,6 +359,7 @@ export class AdminFeesInfo extends React.Component {
                   color="primary"
                   size="large"
                   mx="auto"
+                  onClick={this.props.saveFeeInfo}
                 >
                   Save
               </Button>
@@ -399,6 +408,9 @@ function mapDispatchToProps(dispatch) {
     onChangeFeeDetails: (evt) => { dispatch(setFeeDetails(evt.target.value)) },
     onChangeFeeAmount: (evt) => { dispatch(setFeeAmount(evt.target.value)) },
     onChangeFeeType: (evt) => { dispatch(setFeeType(evt.target.value)) },
+
+    saveFeeInfo: () => { dispatch(setFeeInfo()) },
+
 
   };
 }
