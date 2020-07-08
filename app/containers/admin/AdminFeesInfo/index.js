@@ -14,8 +14,11 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminFeesInfo, {makeSelectFeesInfoListData} from './selectors';
+import makeSelectAdminFeesInfo, {makeSelectFeesInfoListData, makeSelectClassInfoListData, makeSelectGroupInfoListData, makeSelectSerialNo, makeSelectClass, makeSelectGroup, makeSelectFeeDetails, makeSelectFeeName, makeSelectFeeAmount,makeSelectFeeType} from './selectors';
 import reducer from './reducer';
+import {setSerialNo,setSelectedClassValue,setSelectedGroupValue,setFeeName,setFeeDetails,setFeeAmount,setFeeType
+} from './actions';
+
 import saga from './saga';
 import messages from './messages';
 import {
@@ -77,7 +80,9 @@ export class AdminFeesInfo extends React.Component {
 
   render() {
     let { page, rowsPerPage } = this.state
-    let {feesInfoList} = this.props
+    let {feesInfoList, serialNo, selectedClass, selectedGroup, feeDetails, feeName, feeAmount, feeType} = this.props
+    console.log('classList',this.props.classList);
+ console.log('groupList',this.props.groupList);
 
     function createData(serial, className, group, totalSeat, action) {
       return { serial, className, group, totalSeat, action };
@@ -213,13 +218,19 @@ export class AdminFeesInfo extends React.Component {
           </Grid>
 
         <Box>
-          <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={this.state.addDialogVisibility}>
-            <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          <Dialog 
+             onClose={handleClose} 
+             aria-labelledby="customized-dialog-title" 
+             open={this.state.addDialogVisibility}
+             >
+            <DialogTitle 
+            id="customized-dialog-title" 
+            onClose={handleClose}>
               Add Fees Info
             </DialogTitle>
             <DialogContent dividers>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} style={{minWidth: '400px'}}>
                 <Box className="">
                   <Grid item xs={12} className="px-3 py-2">
                     <TextField
@@ -235,16 +246,15 @@ export class AdminFeesInfo extends React.Component {
                     <FormControl variant="outlined" className="" fullWidth required>
                       <InputLabel>Class</InputLabel>
                       <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
+                        label="Class"
+                        value={selectedClass ? selectedClass : ''}
+                        onChange={this.props.onChangeClass}
                       >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                          {this.props.classList && this.props.classList.map((option) => (
+                            <MenuItem key={option.classId} value={option.classId}>
+                              {option.className}
+                            </MenuItem>
+                          ))}
                       </Select>
                     </FormControl>
                   </Grid>
@@ -253,16 +263,15 @@ export class AdminFeesInfo extends React.Component {
                     <FormControl required variant="outlined" className="" fullWidth>
                       <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
                       <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
+                        label="Group"
+                        value={selectedGroup ? selectedGroup : ''}
+                        onChange={this.props.onChangeGroup}
                       >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                       {this.props.groupList && this.props.groupList.map((option) => (
+                            <MenuItem key={option.groupId} value={option.groupId}>
+                              {option.groupName}
+                            </MenuItem>
+                          ))}
                       </Select>
                     </FormControl>
                   </Grid>
@@ -366,12 +375,31 @@ AdminFeesInfo.propTypes = {
 const mapStateToProps = createStructuredSelector({
   adminFeesInfo: makeSelectAdminFeesInfo(),
   feesInfoList: makeSelectFeesInfoListData(),
+  classList: makeSelectClassInfoListData(),
+  groupList: makeSelectGroupInfoListData(),
+
+  serialNo: makeSelectSerialNo(),
+  selectedClass: makeSelectClass(),
+  selectedGroup: makeSelectGroup(),
+  feeDetails: makeSelectFeeDetails(),
+  feeName: makeSelectFeeName(),
+  feeAmount: makeSelectFeeAmount(),
+  feeType: makeSelectFeeType(),
+
 
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeSerialNo: (evt) => { dispatch(setSerialNo(evt.target.value)) },
+    onChangeClass: (evt) => { dispatch(setSelectedClassValue(evt.target.value)) },
+    onChangeGroup: (evt) => { dispatch(setSelectedGroupValue(evt.target.value)) },
+    onChangeFeeName: (evt) => { dispatch(setFeeName(evt.target.value)) },
+    onChangeFeeDetails: (evt) => { dispatch(setFeeDetails(evt.target.value)) },
+    onChangeFeeAmount: (evt) => { dispatch(setFeeAmount(evt.target.value)) },
+    onChangeFeeType: (evt) => { dispatch(setFeeType(evt.target.value)) },
+
   };
 }
 

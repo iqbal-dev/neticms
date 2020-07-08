@@ -16,6 +16,9 @@ const makeSelectUserName = () =>
 const makeSelectPassword = () =>
   createSelector(selectAdminLoginDomain, substate => substate.get('password'));
 
+const makeSelectAuthStatus = () =>
+  createSelector(selectAdminLoginDomain, substate => substate.get('authStatus'));
+
 const makeSelectAdminToken = () =>
   createSelector(selectAdminLoginDomain, substate => substate.get('adminToken'));
 
@@ -33,6 +36,7 @@ export {
   selectAdminLoginDomain,
   makeSelectUserName,
   makeSelectPassword,
+  makeSelectAuthStatus,
   makeSelectAdminToken,
   makeSelectAdminInfo
 };

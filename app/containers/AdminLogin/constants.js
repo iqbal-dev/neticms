@@ -10,5 +10,7 @@ export const SET_USER_NAME = 'app/AdminLogin/SET_USER_NAME';
 export const SET_PASSWORD = 'app/AdminLogin/SET_PASSWORD';
 export const SUBMIT_LOGIN = 'app/AdminLogin/SUBMIT_LOGIN';
 
+export const SET_AUTH_STATUS = 'app/AdminLogin/SET_AUTH_STATUS';
+
 export const SET_ADMIN_TOKEN = 'app/AdminLogin/SET_ADMIN_TOKEN';
 export const SET_ADMIN_INFO = 'app/AdminLogin/SET_ADMIN_INFO';

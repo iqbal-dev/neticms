@@ -5,15 +5,42 @@ import {
 } from '../../AdminLogin/selectors';
 
 import {
-  getFeesInfoListData
+  getFeesInfoListData, getClassInfoListData, getGroupInfoListData
 } from './actions';
 
 import {
-  fetch_feesInfoList, BASE_URL_NETI_CMS
+  fetch_feesInfoList, BASE_URL_NETI_CMS, fetch_classList, fetch_groupList
 
 } from '../../../utils/serviceUrl';
 
 // Individual exports for testing
+
+function adminCommonRequestOptions(){
+  let adminToken = JSON.parse(localStorage.adminToken);
+  console.log('adminToken', adminToken);
+
+  const optionsGET = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + adminToken.access_token,
+    },
+  };
+
+  const optionsPOST = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + adminToken.access_token,
+    },
+    body:{}
+  };
+
+  return {
+    GET: optionsGET,
+    POST: optionsPOST
+  }
+}
 
 export function* get_feesInfoListData() {
 
@@ -27,7 +54,7 @@ export function* get_feesInfoListData() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + adminToken.access_token,
+      'Authorization': 'Bearer ' + adminToken.access_token,
     },
   };
   try {
@@ -37,6 +64,34 @@ export function* get_feesInfoListData() {
   } catch (error) { }
 };
 
+export function* get_classListData() {
+  const requestURL = BASE_URL_NETI_CMS + fetch_classList;
+  const requestOptions = adminCommonRequestOptions();
+
+  try {
+    const response = yield call(request, requestURL, requestOptions.GET);
+    console.log('fees info CLASS info list', response);
+    // debugger
+
+    yield put(getClassInfoListData(response.item));
+    // debugger
+
+  } catch (error) { }
+};
+
+export function* get_groupListData() {
+  const requestURL = BASE_URL_NETI_CMS + fetch_groupList;
+  const requestOptions = adminCommonRequestOptions();
+
+  try {
+    const response = yield call(request, requestURL, requestOptions.GET);
+    console.log('fees info  GROUP info list', response);
+    yield put(getGroupInfoListData(response.item));
+  } catch (error) { }
+};
+
 export default function* adminFeesInfoSaga() {
   yield get_feesInfoListData();
+  yield get_classListData();
+  yield get_groupListData();
 }

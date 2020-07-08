@@ -16,6 +16,7 @@ import Footer from 'containers/Footer';
 import Slider from 'components/Slider';
 import AppRoute from '../AppRoute';
 import GlobalStyle from '../../global-styles';
+import { getAuthenticatedStatus } from '../../utils/localStorageMethod';
 
 const AppWrapper = styled.div`
   max-width: 100%;

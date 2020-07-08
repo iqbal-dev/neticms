@@ -6,6 +6,8 @@
 
 export const DEFAULT_ACTION = 'app/AdminFeesInfo/DEFAULT_ACTION';
 export const GET_FEES_INFO_LIST = 'app/AdminFeesInfo/GET_FEES_INFO_LIST';
+export const GET_CLASS_INFO_LIST = 'app/AdminFeesInfo/GET_CLASS_INFO_LIST';
+export const GET_GROUP_INFO_LIST = 'app/AdminFeesInfo/GET_GROUP_INFO_LIST';
 
 export const SET_SAVE_ONCHANGE_SERIAL_NO = 'app/AdminFeesInfo/SET_SAVE_ONCHANGE_SERIAL_NO';
 export const SET_SAVE_ONCHANGE_CLASS_LIST_VALUE = 'app/AdminFeesInfo/SET_SAVE_ONCHANGE_CLASS_LIST_VALUE';
