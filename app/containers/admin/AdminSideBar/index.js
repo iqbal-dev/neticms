@@ -35,11 +35,11 @@ export class AdminSideBar extends React.PureComponent {
     const drawer = (
       <div>
         <Typography variant="h6" noWrap className="logo-wrapper">
-          Neti CMS
+          <Link to='/admin/homepage'>  Neti CMS </Link>
         </Typography>
         <Divider />
         <List>
-          <Link to='admin_gallery_image'>
+          <Link to='/admin/gallery_image'>
             <ListItem button key="Gallery Image">
               <ListItemIcon><ImageOutlinedIcon /></ListItemIcon>
               <ListItemText primary="Gallery Image" />

@@ -24,8 +24,26 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-/* eslint-disable react/prefer-stateless-function */
+import { handleLogout } from './actions';
+import { setAuthenticatedStatus } from '../../../utils/localStorageMethod';
+import { Redirect } from 'react-router-dom';
+
 export class AdminHeader extends React.PureComponent {
+
+  constructor(props) {
+    super();
+    this.handleLogoutSumbit = this.handleLogoutSumbit.bind(this);
+  }
+
+  handleLogoutSumbit() {
+
+    console.log('callLogout');
+    setAuthenticatedStatus(null);
+    localStorage.setItem('adminToken', '');
+    window.location.href = '/admin/login';
+
+  }
+
   render() {
 
     return (
@@ -35,7 +53,7 @@ export class AdminHeader extends React.PureComponent {
             color="inherit"
             aria-label="Logout"
             edge="start"
-            onClick={this.props.logout}
+            onClick={this.handleLogoutSumbit}
             className=""
           >
             <ExitToAppIcon />
@@ -48,6 +66,7 @@ export class AdminHeader extends React.PureComponent {
 
 AdminHeader.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  callLogout: PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -57,8 +76,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    // logout: () => dispatch(set()),
-
+    callLogout: () => { dispatch(handleLogout()) },
   };
 }
 

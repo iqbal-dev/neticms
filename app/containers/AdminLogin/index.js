@@ -11,10 +11,11 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Redirect, Link } from "react-router-dom";
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminLogin from './selectors';
+import makeSelectAdminLogin, { makeSelectAuthStatus } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -57,6 +58,10 @@ export class AdminLogin extends React.Component {
 
   render() {
 
+    if (this.props.authStatus && this.props.adminToken) {
+      const from = { pathname: '/admin/homepage' };
+      return <Redirect to={from} />;
+    }
     console.log('adminToken, adminInfo', this.props.adminToken, this.props.adminInfo);
 
     return (
@@ -121,6 +126,7 @@ const mapStateToProps = createStructuredSelector({
   adminLogin: makeSelectAdminLogin(),
   userName: makeSelectUserName(),
   passWord: makeSelectPassword(),
+  authStatus: makeSelectAuthStatus(),
   adminToken: makeSelectAdminToken(),
   adminInfo: makeSelectAdminInfo(),
 });
