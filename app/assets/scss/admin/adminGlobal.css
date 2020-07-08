@@ -9,7 +9,8 @@
   padding: 15px 16px; }
 
 .mainContentWrapper {
-  margin-top: 65px; }
+  margin-top: 65px;
+  padding: 15px; }
 
 @media screen and (min-width: 767px) {
   .appTopBarWrapper {
