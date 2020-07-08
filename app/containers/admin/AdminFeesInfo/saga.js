@@ -28,7 +28,7 @@ export function* get_feesInfoListData() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'bearer ' + adminToken.access_token,
+      'Authorization': 'Bearer ' + adminToken.access_token,
     },
   };
   try {

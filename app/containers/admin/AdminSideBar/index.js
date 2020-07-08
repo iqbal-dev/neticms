@@ -99,7 +99,7 @@ export class AdminSideBar extends React.PureComponent {
               <ListItemText primary="Syllabus" />
             </ListItem>
           </Link>
-          <Link to='#'>
+          <Link to='/admin/download_corner'>
             <ListItem button key="Download Corner">
               <ListItemIcon><InboxIcon /></ListItemIcon>
               <ListItemText primary="Download Corner" />

@@ -14,7 +14,11 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminSeatInfo from './selectors';
+import makeSelectAdminSeatInfo, { 
+  makeSelectClassList,
+  makeSelectGroupList,
+  makeSelectSeatInfoList 
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -270,18 +274,20 @@ export class AdminSeatInfo extends React.Component {
 
   render() {
     let { page, rowsPerPage } = this.state
+    let { classList, groupList, seatInfoList } = this.props
 
-    function createData(serial, className, group, totalSeat, action) {
-      return { serial, className, group, totalSeat, action };
+    function createData(seatSerial, className, groupName, totalSeat, action) {
+      return { seatSerial, className, groupName, totalSeat, action };
     }
 
-    const dataTableValue = [
-      createData(1, "One", "n/a", 50 ),
-      createData(2, "Two", "n/a", 50),
-      createData(3, "Eight", "n/a", 40),
-      createData(4, "Nine", "Science", 60),
-      createData(5, "Ten", "Science", 70),
-    ];
+    const dataTableValue = seatInfoList
+    // const dataTableValue = [
+    //   createData(1, "One", "n/a", 50 ),
+    //   createData(2, "Two", "n/a", 50),
+    //   createData(3, "Eight", "n/a", 40),
+    //   createData(4, "Nine", "Science", 60),
+    //   createData(5, "Ten", "Science", 70),
+    // ];
 
     const handleClickOpen = (dialogType, rowData) => {
       this.setOpen(true, dialogType, rowData);
@@ -301,6 +307,9 @@ export class AdminSeatInfo extends React.Component {
       this.setRowsPerPage(+event.target.value);
       this.setPage(0);
     };
+
+    console.log("seatInfoList:::::::",  classList, groupList, seatInfoList);
+    
 
     return (
       <AdminPrivateLayout>
@@ -377,9 +386,9 @@ export class AdminSeatInfo extends React.Component {
                       <TableBody>
                         {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) =>
                           <TableRow key="">
-                            <TableCell>{item.serial}</TableCell>
+                            <TableCell>{item.seatSerial}</TableCell>
                             <TableCell>{item.className}</TableCell>
-                            <TableCell>{item.group}</TableCell>
+                            <TableCell>{item.groupName}</TableCell>
                             <TableCell align="right">{item.totalSeat}</TableCell>
                             <TableCell align="center">
                               <IconButton aria-label="edit" color="primary" onClick={e => handleClickOpen('update', item)}>
@@ -437,6 +446,11 @@ AdminSeatInfo.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   adminSeatInfo: makeSelectAdminSeatInfo(),
+
+  // List data
+  classList: makeSelectClassList(),  
+  groupList: makeSelectGroupList(),  
+  seatInfoList: makeSelectSeatInfoList(),  
 });
 
 function mapDispatchToProps(dispatch) {
