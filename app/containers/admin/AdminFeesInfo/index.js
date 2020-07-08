@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminFeesInfo from './selectors';
+import makeSelectAdminFeesInfo, {makeSelectFeesInfoListData} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -77,18 +77,11 @@ export class AdminFeesInfo extends React.Component {
 
   render() {
     let { page, rowsPerPage } = this.state
+    let {feesInfoList} = this.props
 
     function createData(serial, className, group, totalSeat, action) {
       return { serial, className, group, totalSeat, action };
     }
-
-    const dataTableValue = [
-      createData(1, "One", "n/a", 50),
-      createData(2, "Two", "n/a", 50),
-      createData(3, "Eight", "n/a", 40),
-      createData(4, "Nine", "Science", 60),
-      createData(5, "Ten", "Science", 70),
-    ];
 
     const handleClickOpen = () => {
       this.setOpen(true);
@@ -149,7 +142,7 @@ export class AdminFeesInfo extends React.Component {
                         variant="p"
                         component="div"
                       >
-                        Total Found: 5
+                        Total Found: {feesInfoList && feesInfoList.length || 0}
                       <Button
                           variant="contained"
                           color="primary"
@@ -182,14 +175,14 @@ export class AdminFeesInfo extends React.Component {
                       </TableHead>
 
                       <TableBody>
-                        {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) =>
+                        {feesInfoList && feesInfoList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) =>
                           <TableRow key="">
-                            <TableCell>{item.serial}</TableCell>
+                            <TableCell>{item.feeSerial}</TableCell>
                             <TableCell>{item.className}</TableCell>
-                            <TableCell>{item.group}</TableCell>
-                            <TableCell>{item.totalSeat}</TableCell>
-                            <TableCell>{item.group}</TableCell>
-                            <TableCell>{item.group}</TableCell>
+                            <TableCell>{item.groupName}</TableCell>
+                            <TableCell>{item.feeName}</TableCell>
+                            <TableCell>{item.feeAmount}</TableCell>
+                            <TableCell>{item.feeType}</TableCell>
                             <TableCell align="center">
                               <IconButton aria-label="edit" color="primary">
                                 <EditIcon />
@@ -206,7 +199,7 @@ export class AdminFeesInfo extends React.Component {
                     <TablePagination
                       rowsPerPageOptions={[2, 10, 25, 100]}
                       component="div"
-                      count={dataTableValue.length}
+                      count={feesInfoList.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onChangePage={handleChangePage}
@@ -303,18 +296,7 @@ export class AdminFeesInfo extends React.Component {
                     />
                   </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Multiline"
-                      variant="outlined"
-                      // rowsMax={4}
-                      // value={value}
-                      // onChange={handleChange}
-                      multiline
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+            
                   <Grid item xs={12} className="px-3 py-2">
                     <FormControl required variant="outlined" className="" fullWidth>
                       <InputLabel id="demo-simple-select-required-label">Fee Type</InputLabel>
@@ -383,6 +365,8 @@ AdminFeesInfo.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   adminFeesInfo: makeSelectAdminFeesInfo(),
+  feesInfoList: makeSelectFeesInfoListData(),
+
 });
 
 function mapDispatchToProps(dispatch) {

@@ -33,7 +33,7 @@ export function* get_feesInfoListData() {
   try {
     const response = yield call(request, requestURL, options);
     console.log('fees info list', response);
-    // yield put(getFeesInfoListData(response.item));
+    yield put(getFeesInfoListData(response.item));
   } catch (error) { }
 };
 
