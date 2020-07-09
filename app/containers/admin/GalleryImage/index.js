@@ -41,18 +41,18 @@ let modalHeader = '';
 /* eslint-disable react/prefer-stateless-function */
 export class GalleryImage extends React.PureComponent {
 
-  constructor(){
+  constructor() {
     super();
-    this.onChangemodal = this.onChangemodal.bind(this);
+    this.onChangeModal = this.onChangeModal.bind(this);
   }
 
-  onChangemodal (value) {
+  onChangeModal(value) {
     modalHeader = value;
-    this.props.onChangemodalVisiable;
+    this.props.onChangeModalVisiableStatus();
   }
 
   render() {
-    
+
     return (
       <AdminPrivateLayout>
         <Container maxWidth="xl" className="my-0 p-0">
@@ -75,7 +75,7 @@ export class GalleryImage extends React.PureComponent {
                   />
                   <CardContent>
                     <Tooltip title="Add" aria-label="add">
-                      <Fab color="primary" className=""  onClick={this.onChangemodal('Home Slider')}>
+                      <Fab color="primary" className="" onClick={() => this.onChangeModal('Home Slider')}>
                         <AddIcon />
                       </Fab>
                     </Tooltip>
@@ -107,7 +107,7 @@ export class GalleryImage extends React.PureComponent {
           </Grid>
         </Container>
         <Dialog open={this.props.modalStatus} onClose="" aria-labelledby="form-dialog-title">
-                  <DialogTitle id="form-dialog-title">{modalHeader}</DialogTitle>
+          <DialogTitle id="form-dialog-title">{modalHeader}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               To subscribe to this website, please enter your email address here. We will send updates
@@ -123,12 +123,8 @@ export class GalleryImage extends React.PureComponent {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.onChangemodalVisiable} color="primary">
-              Cancel
-          </Button>
-            <Button onClick="" color="primary">
-              Subscribe
-          </Button>
+            <Button color="primary" onClick={this.props.onChangeModalVisiableStatus}>Cancel</Button>
+            <Button onClick="" color="primary">Subscribe</Button>
           </DialogActions>
         </Dialog>
       </AdminPrivateLayout>
@@ -149,7 +145,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onChangemodalVisiable: () =>  dispatch(setModalStatus()),
+    onChangeModalVisiableStatus: () => dispatch(setModalStatus()),
   };
 }
 
