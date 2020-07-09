@@ -39,7 +39,7 @@ export class AdminSideBar extends React.PureComponent {
         </Typography>
         <Divider />
         <List>
-          <Link to='admin_gallery_image'>
+          <Link to='gallery_image'>
             <ListItem button key="Gallery Image">
               <ListItemIcon><ImageOutlinedIcon /></ListItemIcon>
               <ListItemText primary="Gallery Image" />
