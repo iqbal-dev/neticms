@@ -116,8 +116,7 @@ export default function AppRoute() {
       <Route exact path="/admin/login" component={AdminLogin} />
 
       {/** **** Admin Route ******** */}
-
-      {/* <PrivateRoute allowed={[operator, admin, netizenSuppoort]} isAuthenticated={this.props.isAuthenticated} exact path="/admin/homepage" component={AdminHomepage} /> */}
+      <Route exact path="/admin/homepage" component={AdminHomepage} />
       <Route exact path="/admin/gallery_image" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
       <PrivateRoute exact path="/admin/fees_info" component={AdminFeesInfo} />

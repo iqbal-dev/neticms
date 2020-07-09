@@ -8,9 +8,9 @@
   font-weight: 600;
   padding: 15px 16px; }
 
-.manContentWrapper {
-  padding: 15px;
-  margin-top: 65px; }
+.mainContentWrapper {
+  margin-top: 65px;
+  padding: 15px; }
 
 @media screen and (min-width: 767px) {
   .appTopBarWrapper {
@@ -19,8 +19,7 @@
     .appTopBarWrapper .MuiToolbar-root {
       justify-content: flex-end; }
 
-  .manContentWrapper {
-    margin-left: 240px;
-    padding: 15px; } }
+  .mainContentWrapper {
+    margin-left: 240px; } }
 
 /*# sourceMappingURL=adminGlobal.css.map */
