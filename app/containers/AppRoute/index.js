@@ -42,6 +42,8 @@ import AdminSeatInfo from 'containers/admin/AdminSeatInfo';
 import AdminLogin from 'containers/AdminLogin';
 import AdminDownloadCorner from 'containers/admin/AdminDownloadCorner';
 import AdminHomepage from 'containers/admin/AdminHomepage';
+import PrivateRoute from '../../components/PrivateRoute';
+import { getAuthenticatedStatus } from '../../utils/localStorageMethod';
 
 export default function AppRoute() {
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -51,6 +53,7 @@ export default function AppRoute() {
   const renderRouting = routerProps => {
     // console.log('routerProps', routerProps);
   };
+  console.log('appRoute-getAuthenticatedStatus()', getAuthenticatedStatus());
 
   return (
     <Switch>
@@ -116,15 +119,17 @@ export default function AppRoute() {
       <Route exact path="/admin/homepage" component={AdminHomepage} />
       <Route exact path="/admin/gallery_image" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
-      <Route exact path="/admin/fees_info" component={AdminFeesInfo} />
+      <PrivateRoute exact path="/admin/fees_info" component={AdminFeesInfo} />
       <Route exact path="/admin/download_corner" component={AdminDownloadCorner} />
 
+      <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
       <Route path="" component={NotFoundPage} />
 
       {/* <Route exact path='/about-us/:id' component={
         (props) =>
           <AboutUs postId={props.match.params.id}/>
       />     */}
+
     </Switch>
   );
 }

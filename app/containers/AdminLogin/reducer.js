@@ -11,11 +11,13 @@ import {
   SET_PASSWORD,
   SET_ADMIN_TOKEN,
   SET_ADMIN_INFO,
+  SET_AUTH_STATUS
 } from './constants';
 
 export const initialState = fromJS({
   userName: '',
   password: '',
+  authStatus: '',
   adminToken: '',
   adminInfo: '',
 });
@@ -30,6 +32,9 @@ function adminLoginReducer(state = initialState, action) {
 
     case SET_PASSWORD:
       return state.set('password', action.password);
+
+    case SET_AUTH_STATUS:
+      return state.set('authStatus', action.authStatus);
 
     case SET_ADMIN_TOKEN:
       return state.set('adminToken', action.adminToken);
