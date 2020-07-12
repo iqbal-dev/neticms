@@ -35,8 +35,19 @@ const selectAdminFeesInfoDomain = state =>
   const makeSelectFeeAmount = () =>
   createSelector(selectAdminFeesInfoDomain, substate => substate.get('feeAmount'));
 
+  const makeSelectPaymentMode = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('paymentMode'));
+
+  const makeSelectDatatableRowdata = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('rowData'));
+
   const makeSelectFeeType = () =>
   createSelector(selectAdminFeesInfoDomain, substate => substate.get('feeType'));
+
+  const makeSelectModalVisibleStatus = () =>
+  createSelector(selectAdminFeesInfoDomain, substate =>
+    substate.get('modalVisible'),
+  );
 
 
 /**
@@ -61,5 +72,8 @@ export { selectAdminFeesInfoDomain,
   makeSelectFeeAmount,
   makeSelectFeeType,
   makeSelectClassInfoListData,
-  makeSelectGroupInfoListData
+  makeSelectGroupInfoListData,
+  makeSelectPaymentMode,
+  makeSelectDatatableRowdata,
+  makeSelectModalVisibleStatus
  };
