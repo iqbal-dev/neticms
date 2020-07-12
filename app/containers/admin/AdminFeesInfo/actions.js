@@ -4,7 +4,9 @@
  *
  */
 
-import { DEFAULT_ACTION, GET_FEES_INFO_LIST,SET_SAVE_ONCHANGE_FEE_NAME, GET_CLASS_INFO_LIST,GET_GROUP_INFO_LIST,SET_SAVE_ONCHANGE_SERIAL_NO,SET_SAVE_ONCHANGE_CLASS_LIST_VALUE,SET_SAVE_ONCHANGE_GROUP_LIST_VALUE, SET_SAVE_ONCHANGE_FEE_DETAILS,SET_SAVE_ONCHANGE_FEE_AMOUNT, SET_SAVE_ONCHANGE_FEE_TYPE, SAVE_FEE_INFO, UPDATE_FEE_INFO } from './constants';
+import { DEFAULT_ACTION, GET_FEES_INFO_LIST,SET_SAVE_ONCHANGE_FEE_NAME,SET_ROWDATA_TO_UPDATE_FORM,SET_MODAL_STATUS,
+  RESET_FORM_DATA, GET_CLASS_INFO_LIST,GET_GROUP_INFO_LIST,SET_SAVE_ONCHANGE_SERIAL_NO,SET_SAVE_ONCHANGE_CLASS_LIST_VALUE,SET_SAVE_ONCHANGE_GROUP_LIST_VALUE, SET_SAVE_ONCHANGE_FEE_DETAILS,SET_SAVE_ONCHANGE_FEE_AMOUNT,GET_DATATABLE_ROWDATA,SET_SAVE_ONCHANGE_FEE_PAYMENT_MODE, 
+  SET_SAVE_ONCHANGE_FEE_TYPE, SAVE_FEE_INFO, UPDATE_FEE_INFO } from './constants';
 
 export function defaultAction() {
   return {
@@ -20,7 +22,6 @@ export function getFeesInfoListData(feesInfoList) {
 }
 
 export function getClassInfoListData(classInfoList) {
-  // debugger
   return {
     type: GET_CLASS_INFO_LIST,
     classInfoList
@@ -84,6 +85,35 @@ export function setFeeType(feeType) {
   };
 }
 
+export function setFeePaymentMode(paymentMode) {
+  return {
+    type: SET_SAVE_ONCHANGE_FEE_PAYMENT_MODE,
+    paymentMode
+  };
+}
+
+export function setDatatableRowdata(rowData) {
+  return {
+    type: GET_DATATABLE_ROWDATA,
+    rowData
+  };
+}
+
+export function setRowdataToUpdateForm() {
+  return {
+    type: SET_ROWDATA_TO_UPDATE_FORM,
+  };
+}
+
+export function resetFormData() {
+  return {
+    type: RESET_FORM_DATA,
+  };
+}
+
+
+
+
 export function setFeeInfo() {
   return {
     type: SAVE_FEE_INFO,
@@ -93,5 +123,11 @@ export function setFeeInfo() {
 export function setUpdateFeeInfo() {
   return {
     type: UPDATE_FEE_INFO,
+  };
+}
+
+export function setModalVisibleStatus() {
+  return {
+    type: SET_MODAL_STATUS,
   };
 }

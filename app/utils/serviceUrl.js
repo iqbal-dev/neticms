@@ -49,7 +49,14 @@ export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/sectio
 // Admin Panel
 export const fetch_feesInfoList = '/fee-info/list';
 export const save_newFeeInfo = '/fee-info/save';
+export const update_newFeeInfo = '/fee-info/update';
+
 export const fetch_classList = '/class-info/list';
 export const fetch_groupList = '/group-info/list';
 export const fetch_seatInfoList = '/seat-info/list';
+export const fetch_seatInfoSave = '/seat-info/save';
+export const fetch_seatInfoUpdate = '/seat-info/update';
+export const fetch_seatInfoDelete = '/seat-info/delete';
+
+// fetch_seatInfoDelete
 

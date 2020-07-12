@@ -3,25 +3,28 @@ import request from '../../../utils/request';
 import {
   makeSelectAdminToken
 } from '../../AdminLogin/selectors';
-import makeSelectAdminFeesInfo, {makeSelectFeesInfoListData, makeSelectClassInfoListData, makeSelectGroupInfoListData, makeSelectSerialNo, makeSelectClass, makeSelectGroup, makeSelectFeeDetails, makeSelectFeeName, makeSelectFeeAmount,makeSelectFeeType} from './selectors';
+import makeSelectAdminFeesInfo, {makeSelectFeesInfoListData, makeSelectClassInfoListData,
+   makeSelectGroupInfoListData, makeSelectSerialNo, makeSelectPaymentMode,
+    makeSelectClass, makeSelectGroup, makeSelectFeeDetails, makeSelectFeeName,makeSelectDatatableRowdata,
+     makeSelectFeeAmount,makeSelectFeeType} from './selectors';
 
 
 import {
-  getFeesInfoListData, getClassInfoListData, getGroupInfoListData
+  getFeesInfoListData, getClassInfoListData, getGroupInfoListData,
+  setSerialNo,setSelectedClassValue, setFeeAmount,setFeeName, setFeePaymentMode, setFeeType, setSelectedGroupValue, setFeeDetails,setModalVisibleStatus,
 } from './actions';
 
 import {
-  fetch_feesInfoList, BASE_URL_NETI_CMS, fetch_classList, fetch_groupList,save_newFeeInfo
+  fetch_feesInfoList, BASE_URL_NETI_CMS, fetch_classList, fetch_groupList,save_newFeeInfo,update_newFeeInfo
 
 } from '../../../utils/serviceUrl';
-import { DEFAULT_ACTION, GET_FEES_INFO_LIST,SET_SAVE_ONCHANGE_FEE_NAME,GET_CLASS_INFO_LIST,GET_GROUP_INFO_LIST,SET_SAVE_ONCHANGE_SERIAL_NO,SET_SAVE_ONCHANGE_CLASS_LIST_VALUE,SET_SAVE_ONCHANGE_GROUP_LIST_VALUE, SET_SAVE_ONCHANGE_FEE_DETAILS,SET_SAVE_ONCHANGE_FEE_AMOUNT, SET_SAVE_ONCHANGE_FEE_TYPE, SAVE_FEE_INFO, UPDATE_FEE_INFO } from './constants';
+import { DEFAULT_ACTION, GET_FEES_INFO_LIST,SET_SAVE_ONCHANGE_FEE_NAME,GET_CLASS_INFO_LIST,GET_GROUP_INFO_LIST,SET_SAVE_ONCHANGE_SERIAL_NO,SET_SAVE_ONCHANGE_CLASS_LIST_VALUE,SET_SAVE_ONCHANGE_GROUP_LIST_VALUE, SET_SAVE_ONCHANGE_FEE_DETAILS,SET_SAVE_ONCHANGE_FEE_AMOUNT, SET_SAVE_ONCHANGE_FEE_TYPE,SET_ROWDATA_TO_UPDATE_FORM,GET_DATATABLE_ROWDATA,RESET_FORM_DATA, SAVE_FEE_INFO, UPDATE_FEE_INFO } from './constants';
 
 
 // Individual exports for testing
 
 function adminCommonRequestOptions(){
   let adminToken = JSON.parse(localStorage.adminToken);
-  console.log('adminToken', adminToken);
 
   const optionsGET = {
     method: 'GET',
@@ -63,7 +66,6 @@ export function* get_feesInfoListData() {
   };
   try {
     const response = yield call(request, requestURL, options);
-    console.log('fees info list', response);
     yield put(getFeesInfoListData(response.item));
   } catch (error) { }
 };
@@ -74,7 +76,6 @@ export function* get_classListData() {
 
   try {
     const response = yield call(request, requestURL, requestOptions.GET);
-    console.log('fees info CLASS info list', response);
     yield put(getClassInfoListData(response.item));
 
   } catch (error) { }
@@ -86,7 +87,6 @@ export function* get_groupListData() {
 
   try {
     const response = yield call(request, requestURL, requestOptions.GET);
-    console.log('fees info  GROUP info list', response);
     yield put(getGroupInfoListData(response.item));
   } catch (error) { }
 };
@@ -98,7 +98,7 @@ export function* submit_feeInfo() {
     "classId": yield select(makeSelectClass()),
     "feeAmount": yield select(makeSelectFeeAmount()),
     "feeName": yield select(makeSelectFeeName()),
-    "feePaymentMode": 'test',
+    "feePaymentMode": yield select(makeSelectPaymentMode()),
     "feeSerial": yield select(makeSelectSerialNo()),
     "feeType": yield select(makeSelectFeeType()),
     "groupId": yield select(makeSelectGroup())
@@ -117,17 +117,84 @@ export function* submit_feeInfo() {
   };
 
   const response = yield call(request, requestURL, options);
-  console.log('save fee info Res', response);
   try {
-    // yield put(setMeritListData(response.item));
+    if(response.messageType == 1) {
+      yield put(setModalVisibleStatus());
+    }
   } catch (error) { }
-
 }
+
+export function* update_feeInfo() {
+  let adminToken = JSON.parse(localStorage.adminToken);
+  let rowData =  yield select(makeSelectDatatableRowdata());
+
+
+  let requestObj = {
+    "classId": yield select(makeSelectClass()),
+    "feeAmount": yield select(makeSelectFeeAmount()),
+    "feeName": yield select(makeSelectFeeName()),
+    "feePaymentMode": yield select(makeSelectPaymentMode()),
+    "feeSerial": yield select(makeSelectSerialNo()),
+    "feeType": yield select(makeSelectFeeType()),
+    "groupId": yield select(makeSelectGroup()),
+    "feeId": rowData.feeId
+  }
+
+  
+  const requestURL = BASE_URL_NETI_CMS.concat(update_newFeeInfo);
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + adminToken.access_token,
+    },
+    body: JSON.stringify(requestObj)
+  };
+
+  const response = yield call(request, requestURL, options);
+  try {
+    if(response.messageType == 1) {
+      yield put(setModalVisibleStatus());
+    }
+  } catch (error) { }
+}
+
+export function* get_rowdata_to_update_form() {
+  let rowData =  yield select(makeSelectDatatableRowdata());
+  yield put(setSelectedClassValue(rowData.classId));
+  yield put(setFeeAmount(rowData.feeAmount));
+  yield put(setFeeName(rowData.feeName));
+  yield put(setFeePaymentMode(rowData.feePaymentMode));
+  yield put(setSerialNo(rowData.feeSerial));
+  yield put(setFeeType(rowData.feeType));
+  yield put(setSelectedGroupValue(rowData.groupId));
+  yield put(setFeeDetails(rowData.feeDetails));
+}
+
+export function* reset_formFieldData() {
+  yield put(setSelectedClassValue());
+  yield put(setFeeAmount());
+  yield put(setFeeName());
+  yield put(setFeePaymentMode());
+  yield put(setSerialNo());
+  yield put(setFeeType());
+  yield put(setSelectedGroupValue());
+  yield put(setFeeDetails());
+}
+
+
+
 
 export default function* adminFeesInfoSaga() {
   yield get_feesInfoListData();
   yield get_classListData();
   yield get_groupListData();
-  yield takeLatest(SAVE_FEE_INFO, submit_feeInfo)
+  yield takeLatest(SAVE_FEE_INFO, submit_feeInfo);
+  yield takeLatest(GET_DATATABLE_ROWDATA, get_rowdata_to_update_form);
+  yield takeLatest(RESET_FORM_DATA, reset_formFieldData);
+  yield takeLatest(UPDATE_FEE_INFO, update_feeInfo);
+
+
+
 
 }
