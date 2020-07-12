@@ -55,3 +55,8 @@ export const fetch_classList = '/class-info/list';
 export const fetch_groupList = '/group-info/list';
 export const fetch_seatInfoList = '/seat-info/list';
 
+export const fetch_dressInfoList = '/dress-info/list';
+export const save_newDressInfo = '/dress-info/save';
+export const update_newDressInfo = '/dress-info/update';
+
+

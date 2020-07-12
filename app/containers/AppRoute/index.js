@@ -33,6 +33,8 @@ import WelcomeSpeech from 'containers/WelcomeSpeech';
 import IndividualResult from 'containers/IndividualResult';
 import GalleryImage from 'containers/admin/GalleryImage';
 import AdminFeesInfo from 'containers/admin/AdminFeesInfo';
+// import AdminDressInfo from 'containers/admin/AdminDressInfo';
+
 
 import StudentWiseAttendance from 'containers/StudentWiseAttendance';
 import SectionWiseAttendance from 'containers/SectionWiseAttendance';
@@ -120,6 +122,8 @@ export default function AppRoute() {
       <Route exact path="/admin/gallery_image" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
       <PrivateRoute exact path="/admin/fees_info" component={AdminFeesInfo} />
+      {/* <PrivateRoute exact path="/admin/dress_info" component={AdminDressInfo} /> */}
+
       <Route exact path="/admin/download_corner" component={AdminDownloadCorner} />
 
       <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
