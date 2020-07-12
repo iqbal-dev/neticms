@@ -11,6 +11,15 @@ const selectGalleryImageDomain = state =>
 /**
  * Other specific selectors
  */
+const makeSelectModalStatus = () =>
+  createSelector(selectGalleryImageDomain, substate => 
+    substate.get('modalStatus'),  
+  );
+
+  const makeSelectListModalStatus = () =>
+  createSelector(selectGalleryImageDomain, substate => 
+    substate.get('listModalStatus'),  
+  );
 
 /**
  * Default selector used by GalleryImage
@@ -20,4 +29,4 @@ const makeSelectGalleryImage = () =>
   createSelector(selectGalleryImageDomain, substate => substate.toJS());
 
 export default makeSelectGalleryImage;
-export { selectGalleryImageDomain };
+export { selectGalleryImageDomain, makeSelectModalStatus, makeSelectListModalStatus };

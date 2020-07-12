@@ -11,6 +11,45 @@ const selectAdminFeesInfoDomain = state =>
   const makeSelectFeesInfoListData = () =>
   createSelector(selectAdminFeesInfoDomain, substate => substate.get('feesInfoList'));
 
+  const makeSelectClassInfoListData = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('classInfoList'));
+
+  const makeSelectGroupInfoListData = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('groupInfoList'));
+
+  const makeSelectSerialNo = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('serialNo'));
+
+  const makeSelectClass = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('selectedClass'));
+
+  const makeSelectGroup = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('selectedGroup'));
+
+  const makeSelectFeeName = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('feeName'));
+
+  const makeSelectFeeDetails = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('feeDetails'));
+
+  const makeSelectFeeAmount = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('feeAmount'));
+
+  const makeSelectPaymentMode = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('paymentMode'));
+
+  const makeSelectDatatableRowdata = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('rowData'));
+
+  const makeSelectFeeType = () =>
+  createSelector(selectAdminFeesInfoDomain, substate => substate.get('feeType'));
+
+  const makeSelectModalVisibleStatus = () =>
+  createSelector(selectAdminFeesInfoDomain, substate =>
+    substate.get('modalVisible'),
+  );
+
+
 /**
  * Other specific selectors
  */
@@ -24,5 +63,17 @@ const makeSelectAdminFeesInfo = () =>
 
 export default makeSelectAdminFeesInfo;
 export { selectAdminFeesInfoDomain,
-  makeSelectFeesInfoListData
+  makeSelectFeesInfoListData,
+  makeSelectSerialNo,
+  makeSelectClass,
+  makeSelectGroup,
+  makeSelectFeeName,
+  makeSelectFeeDetails,
+  makeSelectFeeAmount,
+  makeSelectFeeType,
+  makeSelectClassInfoListData,
+  makeSelectGroupInfoListData,
+  makeSelectPaymentMode,
+  makeSelectDatatableRowdata,
+  makeSelectModalVisibleStatus
  };

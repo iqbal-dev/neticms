@@ -12,9 +12,9 @@
         padding: 15px 16px;
     }
 }
-.manContentWrapper {
-    padding: 15px;
+.mainContentWrapper {
     margin-top: 65px;
+    padding: 15px;
 }
 @media screen and (min-width:767px){
     .appTopBarWrapper{
@@ -24,8 +24,7 @@
             justify-content: flex-end;
         }
     }
-    .manContentWrapper {
+    .mainContentWrapper {
         margin-left: 240px;
-        padding: 15px;
     }
 }

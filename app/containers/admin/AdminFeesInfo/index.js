@@ -14,8 +14,17 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminFeesInfo from './selectors';
+import makeSelectAdminFeesInfo, {
+  makeSelectFeesInfoListData, makeSelectClassInfoListData, makeSelectGroupInfoListData, makeSelectModalVisibleStatus,
+  makeSelectSerialNo, makeSelectClass, makeSelectGroup, makeSelectFeeDetails, makeSelectFeeName,
+  makeSelectFeeAmount, makeSelectPaymentMode, makeSelectFeeType
+} from './selectors';
 import reducer from './reducer';
+import {
+  setSerialNo, setSelectedClassValue, setSelectedGroupValue, setFeeName, setFeeDetails, setFeeAmount, setFeeType, resetFormData, setUpdateFeeInfo,
+  setFeeInfo, setDatatableRowdata, setFeePaymentMode, setModalVisibleStatus
+} from './actions';
+
 import saga from './saga';
 import messages from './messages';
 import {
@@ -55,7 +64,10 @@ export class AdminFeesInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dialogFormType: true,
       addDialogVisibility: false,
+      updateDialogVisibility: false,
+
       page: 0,
       setPage: 0,
       rowsPerPage: 10,
@@ -67,6 +79,11 @@ export class AdminFeesInfo extends React.Component {
     this.setState({ addDialogVisibility: value })
   }
 
+  setUpdateDialogOpen = value => {
+    this.setState({ updateDialogVisibility: value })
+  }
+
+
   setPage = page => {
     this.setState({ page: page })
   }
@@ -75,27 +92,45 @@ export class AdminFeesInfo extends React.Component {
     this.setState({ rowsPerPage: rowsPerPage })
   }
 
+  updateDialogClickOpen = (e, rowData, dialogType) => {
+    console.log("rowData", rowData);
+    console.log("dialogType", dialogType);
+    if (dialogType === 'update') {
+      this.props.onChangeModalVisibleStatus();
+      this.props.onSelectDatatableRowdata(rowData);
+      this.setState({ dialogFormType: false });
+    } else if (dialogType === 'insert') {
+      this.props.resetFormData();
+      this.props.onChangeModalVisibleStatus();
+      this.setState({ dialogFormType: true });
+
+    }
+
+
+  };
+
   render() {
     let { page, rowsPerPage } = this.state
+    let { feesInfoList } = this.props
+    console.log('this.state.dialogFormType', this.state.dialogFormType);
 
     function createData(serial, className, group, totalSeat, action) {
       return { serial, className, group, totalSeat, action };
     }
 
-    const dataTableValue = [
-      createData(1, "One", "n/a", 50),
-      createData(2, "Two", "n/a", 50),
-      createData(3, "Eight", "n/a", 40),
-      createData(4, "Nine", "Science", 60),
-      createData(5, "Ten", "Science", 70),
-    ];
-
     const handleClickOpen = () => {
+      this.props.resetFormData();
       this.setOpen(true);
     };
 
     const handleClose = () => {
       this.setOpen(false);
+    };
+
+
+
+    const updateDialogClose = () => {
+      this.setUpdateDialogOpen(false);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -112,7 +147,7 @@ export class AdminFeesInfo extends React.Component {
     return (
 
       <AdminPrivateLayout>
-        <Container maxWidth="xl" className="my-3">
+        <Container maxWidth="xl" className="my-0 p-0">
           <Helmet>
             <title>AdminFeesInfo</title>
             <meta name="description" content="Description of AdminFeesInfo" />
@@ -149,14 +184,15 @@ export class AdminFeesInfo extends React.Component {
                         variant="p"
                         component="div"
                       >
-                        Total Found: 5
-                      <Button
+                        Total Found: {feesInfoList && feesInfoList.length || 0}
+                        <Button
                           variant="contained"
                           color="primary"
                           size="large"
                           className="rounded-0 shadow-none bg-success ml-3"
                           startIcon={<AddIcon />}
-                          onClick={handleClickOpen}
+                          // onClick={handleClickOpen}
+                          onClick={e => this.updateDialogClickOpen(e, null, 'insert')}
                         >
                           Add New
                       </Button>
@@ -182,16 +218,16 @@ export class AdminFeesInfo extends React.Component {
                       </TableHead>
 
                       <TableBody>
-                        {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) =>
-                          <TableRow key="">
-                            <TableCell>{item.serial}</TableCell>
+                        {feesInfoList && feesInfoList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, key) =>
+                          <TableRow key={key}>
+                            <TableCell>{item.feeSerial}</TableCell>
                             <TableCell>{item.className}</TableCell>
-                            <TableCell>{item.group}</TableCell>
-                            <TableCell>{item.totalSeat}</TableCell>
-                            <TableCell>{item.group}</TableCell>
-                            <TableCell>{item.group}</TableCell>
+                            <TableCell>{item.groupName}</TableCell>
+                            <TableCell>{item.feeName}</TableCell>
+                            <TableCell>{item.feeAmount}</TableCell>
+                            <TableCell>{item.feeType}</TableCell>
                             <TableCell align="center">
-                              <IconButton aria-label="edit" color="primary">
+                              <IconButton aria-label="edit" color="primary" onClick={e => this.updateDialogClickOpen(e, item, 'update')}>
                                 <EditIcon />
                               </IconButton>
                               <IconButton aria-label="delete" color="secondary">
@@ -206,7 +242,7 @@ export class AdminFeesInfo extends React.Component {
                     <TablePagination
                       rowsPerPageOptions={[2, 10, 25, 100]}
                       component="div"
-                      count={dataTableValue.length}
+                      count={feesInfoList.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onChangePage={handleChangePage}
@@ -219,121 +255,134 @@ export class AdminFeesInfo extends React.Component {
             </Grid>
           </Grid>
 
-        <Box>
-          <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={this.state.addDialogVisibility}>
-            <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-              Add Fees Info
+          <Box>
+            <Dialog
+              onClose={handleClose}
+              aria-labelledby="customized-dialog-title"
+              open={this.state.addDialogVisibility}
+            >
+              <DialogTitle
+                id="customized-dialog-title"
+                onClose={handleClose}>
+                Add Fees Info
             </DialogTitle>
-            <DialogContent dividers>
+              <DialogContent dividers>
 
-              <Grid item xs={12}>
-                <Box className="">
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Serial No."
-                      variant="outlined"
-                      helperText=""
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                <Grid item xs={12} style={{ minWidth: '400px' }}>
+                  <Box className="">
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Serial No."
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        required
+                        value={this.props.serialNo}
+                        onChange={this.props.onChangeSerialNo}
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <FormControl variant="outlined" className="" fullWidth required>
-                      <InputLabel>Class</InputLabel>
-                      <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl variant="outlined" className="" fullWidth required>
+                        <InputLabel>Class</InputLabel>
+                        <Select
+                          label="Class"
+                          value={this.props.selectedClass ? this.props.selectedClass : ''}
+                          onChange={this.props.onChangeClass}
+                        >
+                          {this.props.classList && this.props.classList.map((option) => (
+                            <MenuItem key={option.classId} value={option.classId}>
+                              {option.className}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <FormControl required variant="outlined" className="" fullWidth>
-                      <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
-                      <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl required variant="outlined" className="" fullWidth>
+                        <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
+                        <Select
+                          label="Group"
+                          value={this.props.selectedGroup ? this.props.selectedGroup : ''}
+                          onChange={this.props.onChangeGroup}
+                        >
+                          {this.props.groupList && this.props.groupList.map((option) => (
+                            <MenuItem key={option.groupId} value={option.groupId}>
+                              {option.groupName}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Fee Name"
-                      variant="outlined"
-                      helperText=""
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Fee Name"
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        required
+                        value={this.props.feeName}
+                        onChange={this.props.onChangeFeeName}
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextareaAutosize
-                      style={{width: '220px'}}
-                      aria-label="Details"
-                      rowsMin={3}
-                      variant="outlined"
-                      placeholder="Enter Fee Details" />
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextareaAutosize
+                        style={{ width: '364px' }}
+                        aria-label="Details"
+                        rowsMin={3}
+                        variant="outlined"
+                        value={this.props.feeDetails}
+                        onChange={this.props.onChangeFeeDetails}
+                        placeholder="Enter Fee Details" />
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Fee Amount"
-                      variant="outlined"
-                      helperText=""
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Fee Amount"
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        value={this.props.feeAmount}
+                        onChange={this.props.onChangeFeeAmount}
+                        required
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} className="px-3 py-2">
-                    <TextField
-                      label="Multiline"
-                      variant="outlined"
-                      // rowsMax={4}
-                      // value={value}
-                      // onChange={handleChange}
-                      multiline
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={12} className="px-3 py-2">
-                    <FormControl required variant="outlined" className="" fullWidth>
-                      <InputLabel id="demo-simple-select-required-label">Fee Type</InputLabel>
-                      <Select
-                        label="Age"
-                      // value={age}
-                      // onChange={handleChange}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
 
-                  {/* <Box
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl required variant="outlined" className="" fullWidth>
+                        <InputLabel id="demo-simple-select-required-label">Fee Type</InputLabel>
+                        <Select
+                          label="Fee Type"
+                          value={this.props.feeType}
+                          onChange={this.props.onChangeFeeType}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value='Yearly'>Yearly</MenuItem>
+                          <MenuItem value='Monthly'>Monthly</MenuItem>
+                          <MenuItem value='Exam'>Exam</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Fee Payment Mode"
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        value={this.props.paymentMode}
+                        onChange={this.props.onChangeFeePaymentMode}
+                        required
+                      />
+                    </Grid>
+
+                    {/* <Box
                     item
                     xs={12}
                     className="px-3 py-2"
@@ -360,12 +409,191 @@ export class AdminFeesInfo extends React.Component {
                   color="primary"
                   size="large"
                   mx="auto"
+                  onClick={this.props.saveFeeInfo}
                 >
                   Save
               </Button>
               </DialogActions>
             </Dialog>
           </Box>
+
+          <Box>
+            <Dialog
+              onClose={this.props.onChangeModalVisibleStatus}
+              aria-labelledby="customized-dialog-title"
+              open={this.props.modalVisible}
+            >
+              <DialogTitle
+                id="customized-dialog-title"
+                onClose={this.props.onChangeModalVisibleStatus}>
+                {this.state.dialogFormType === true ? 'Add' : 'Update'} Fees Info
+            </DialogTitle>
+              <DialogContent dividers>
+
+                <Grid item xs={12} style={{ minWidth: '400px' }}>
+                  <Box className="">
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Serial No."
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        required
+                        value={this.props.serialNo}
+                        onChange={this.props.onChangeSerialNo}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl variant="outlined" className="" fullWidth required>
+                        <InputLabel>Class</InputLabel>
+                        <Select
+                          label="Class"
+                          value={this.props.selectedClass ? this.props.selectedClass : ''}
+                          onChange={this.props.onChangeClass}
+                        >
+                          {this.props.classList && this.props.classList.map((option) => (
+                            <MenuItem key={option.classId} value={option.classId}>
+                              {option.className}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl required variant="outlined" className="" fullWidth>
+                        <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
+                        <Select
+                          label="Group"
+                          value={this.props.selectedGroup ? this.props.selectedGroup : ''}
+                          onChange={this.props.onChangeGroup}
+                        >
+                          {this.props.groupList && this.props.groupList.map((option) => (
+                            <MenuItem key={option.groupId} value={option.groupId}>
+                              {option.groupName}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Fee Name"
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        required
+                        value={this.props.feeName}
+                        onChange={this.props.onChangeFeeName}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextareaAutosize
+                        style={{ width: '364px' }}
+                        aria-label="Details"
+                        rowsMin={3}
+                        variant="outlined"
+                        value={this.props.feeDetails}
+                        onChange={this.props.onChangeFeeDetails}
+                        placeholder="Enter Fee Details" />
+                    </Grid>
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Fee Amount"
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        value={this.props.feeAmount}
+                        onChange={this.props.onChangeFeeAmount}
+                        required
+                      />
+                    </Grid>
+
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <FormControl required variant="outlined" className="" fullWidth>
+                        <InputLabel id="demo-simple-select-required-label">Fee Type</InputLabel>
+                        <Select
+                          label="Fee Type"
+                          value={this.props.feeType}
+                          onChange={this.props.onChangeFeeType}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value='Yearly'>Yearly</MenuItem>
+                          <MenuItem value='Monthly'>Monthly</MenuItem>
+                          <MenuItem value='Exam'>Exam</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} className="px-3 py-2">
+                      <TextField
+                        label="Fee Payment Mode"
+                        variant="outlined"
+                        helperText=""
+                        fullWidth
+                        value={this.props.paymentMode}
+                        onChange={this.props.onChangeFeePaymentMode}
+                        required
+                      />
+                    </Grid>
+
+                    {/* <Box
+                    item
+                    xs={12}
+                    className="px-3 py-2"
+                    display="flex"
+                    justifyContent="flex-end"
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      mx="auto"
+                    >
+                      Primary
+                    </Button>
+                  </Box> */}
+
+                  </Box>
+                </Grid>
+
+              </DialogContent>
+              <DialogActions>
+                {this.state.dialogFormType === true ?
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    mx="auto"
+                    onClick={this.props.saveFeeInfo}
+                  >
+                    Save
+            </Button>
+                  : ''}
+
+
+                {this.state.dialogFormType === false ?
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    mx="auto"
+                    onClick={this.props.updateFeeInfo}
+                  >
+                    Update
+              </Button>
+                  : ''}
+              </DialogActions>
+            </Dialog>
+          </Box>
+
 
           {/* <Button variant="contained" color="primary">
           Primary
@@ -378,15 +606,60 @@ export class AdminFeesInfo extends React.Component {
 
 AdminFeesInfo.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  modalVisible: PropTypes.any,
+
 };
 
 const mapStateToProps = createStructuredSelector({
   adminFeesInfo: makeSelectAdminFeesInfo(),
+  feesInfoList: makeSelectFeesInfoListData(),
+  classList: makeSelectClassInfoListData(),
+  groupList: makeSelectGroupInfoListData(),
+
+  serialNo: makeSelectSerialNo(),
+  selectedClass: makeSelectClass(),
+  selectedGroup: makeSelectGroup(),
+  feeDetails: makeSelectFeeDetails(),
+  feeName: makeSelectFeeName(),
+  feeAmount: makeSelectFeeAmount(),
+  feeType: makeSelectFeeType(),
+  paymentMode: makeSelectPaymentMode(),
+
+  modalVisible: makeSelectModalVisibleStatus(),
+
+
+
+
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeSerialNo: (evt) => { dispatch(setSerialNo(evt.target.value)) },
+    onChangeClass: (evt) => { dispatch(setSelectedClassValue(evt.target.value)) },
+    onChangeGroup: (evt) => { dispatch(setSelectedGroupValue(evt.target.value)) },
+    onChangeFeeName: (evt) => { dispatch(setFeeName(evt.target.value)) },
+    onChangeFeeDetails: (evt) => { dispatch(setFeeDetails(evt.target.value)) },
+    onChangeFeeAmount: (evt) => { dispatch(setFeeAmount(evt.target.value)) },
+    onChangeFeeType: (evt) => { dispatch(setFeeType(evt.target.value)) },
+    onChangeFeePaymentMode: (evt) => { dispatch(setFeePaymentMode(evt.target.value)) },
+    onSelectDatatableRowdata: (evt) => {
+      dispatch(setDatatableRowdata(evt))
+    },
+
+
+    onChangeModalVisibleStatus: () => { dispatch(setModalVisibleStatus('modalVisible')) },
+
+
+
+
+    saveFeeInfo: () => { dispatch(setFeeInfo()) },
+    resetFormData: () => { dispatch(resetFormData()) },
+    updateFeeInfo: () => { dispatch(setUpdateFeeInfo()) },
+
+
+
+
   };
 }
 
