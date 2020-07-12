@@ -42,6 +42,7 @@ import AdminSeatInfo from 'containers/admin/AdminSeatInfo';
 import AdminLogin from 'containers/AdminLogin';
 import AdminDownloadCorner from 'containers/admin/AdminDownloadCorner';
 import AdminHomepage from 'containers/admin/AdminHomepage';
+import AdminSyllabus from 'containers/admin/AdminSyllabus';
 import PrivateRoute from '../../components/PrivateRoute';
 import { getAuthenticatedStatus } from '../../utils/localStorageMethod';
 
@@ -123,6 +124,7 @@ export default function AppRoute() {
       <Route exact path="/admin/download_corner" component={AdminDownloadCorner} />
 
       <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
+      <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} />
       <Route path="" component={NotFoundPage} />
 
       {/* <Route exact path='/about-us/:id' component={

@@ -45,6 +45,7 @@ export const fetch_individual_result_data = '/nw/sa-point/student/result-details
 
 export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/section-wise/result/details';
 
+export const fetch_syllabusInfoList = '/syllabus-info/list';
 
 // Admin Panel
 export const fetch_feesInfoList = '/fee-info/list';
@@ -59,4 +60,3 @@ export const fetch_seatInfoUpdate = '/seat-info/update';
 export const fetch_seatInfoDelete = '/seat-info/delete';
 
 // fetch_seatInfoDelete
-

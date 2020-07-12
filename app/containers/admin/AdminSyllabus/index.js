@@ -18,18 +18,34 @@ import makeSelectAdminSyllabus from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { AdminPrivateLayout } from '../AdminPrivateLayout';
+
+import {
+  makeSelectAdminSyllabusList,
+  makeSelectClassList,
+  makeSelectClassId,
+  makeSelectGroupList,
+  makeSelectGroupId,
+  makeSelectUploadFile,
+  makeSelectRowData,
+  makeSelectDialogVisibleStatus
+} from './selectors';
+import {
+  setClassId, setGroupId, setUploadFile,
+  setRowData, setDialogVisibleStatus,
+} from './actions'
 
 /* eslint-disable react/prefer-stateless-function */
 export class AdminSyllabus extends React.Component {
   render() {
     return (
-      <div>
+      <AdminPrivateLayout>
         <Helmet>
           <title>AdminSyllabus</title>
           <meta name="description" content="Description of AdminSyllabus" />
         </Helmet>
         <FormattedMessage {...messages.header} />
-      </div>
+      </AdminPrivateLayout>
     );
   }
 }
@@ -40,6 +56,13 @@ AdminSyllabus.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   adminSyllabus: makeSelectAdminSyllabus(),
+  syllabusList: makeSelectAdminSyllabusList(),
+  classList: makeSelectClassList(),
+  classId: makeSelectClassId(),
+  groupList: makeSelectGroupList(),
+  groupId: makeSelectGroupId(),
+  selectedRowData: makeSelectRowData(),
+  dialogVisibleStatus: makeSelectDialogVisibleStatus()
 });
 
 function mapDispatchToProps(dispatch) {
