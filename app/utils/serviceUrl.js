@@ -60,3 +60,7 @@ export const fetch_seatInfoUpdate = '/seat-info/update';
 export const fetch_seatInfoDelete = '/seat-info/delete';
 
 // fetch_seatInfoDelete
+
+export const fetch_dressInfoList = '/dress-info/list';
+export const save_newDressInfo = '/dress-info/save';
+export const update_newDressInfo = '/dress-info/update';

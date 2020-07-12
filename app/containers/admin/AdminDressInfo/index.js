@@ -1,6 +1,6 @@
 /**
  *
- * AdminFeesInfo
+ * AdminDressInfo
  *
  */
 
@@ -14,17 +14,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAdminFeesInfo, {
-  makeSelectFeesInfoListData, makeSelectClassInfoListData, makeSelectGroupInfoListData, makeSelectModalVisibleStatus,
-  makeSelectSerialNo, makeSelectClass, makeSelectGroup, makeSelectFeeDetails, makeSelectFeeName,
-  makeSelectFeeAmount, makeSelectPaymentMode, makeSelectFeeType
-} from './selectors';
+import makeSelectAdminDressInfo, { makeSelectDressInfoListData, makeSelectModalVisibleStatus, makeSelectClassRange, makeSelectDressCodeDetails, makeSelectDressCodeImage, makeSelectSerialNo, makeSelectGender } from './selectors';
 import reducer from './reducer';
-import {
-  setSerialNo, setSelectedClassValue, setSelectedGroupValue, setFeeName, setFeeDetails, setFeeAmount, setFeeType, resetFormData, setUpdateFeeInfo,
-  setFeeInfo, setDatatableRowdata, setFeePaymentMode, setModalVisibleStatus
-} from './actions';
-
 import saga from './saga';
 import messages from './messages';
 import {
@@ -58,9 +49,10 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import { AdminPrivateLayout } from '../AdminPrivateLayout';
+import { setModalVisibleStatus, setDressCodeInfo, resetFormData, setUpdateDressCodeInfo, setSerialNo, setSelectedGenderValue, setClassRange, setDressCodeDetails, setDressCodeImage } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
-export class AdminFeesInfo extends React.Component {
+export class AdminDressInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -93,11 +85,9 @@ export class AdminFeesInfo extends React.Component {
   }
 
   updateDialogClickOpen = (e, rowData, dialogType) => {
-    console.log("rowData", rowData);
-    console.log("dialogType", dialogType);
     if (dialogType === 'update') {
       this.props.onChangeModalVisibleStatus();
-      this.props.onSelectDatatableRowdata(rowData);
+      // this.props.onSelectDatatableRowdata(rowData);
       this.setState({ dialogFormType: false });
     } else if (dialogType === 'insert') {
       this.props.resetFormData();
@@ -108,10 +98,9 @@ export class AdminFeesInfo extends React.Component {
 
 
   };
-
   render() {
     let { page, rowsPerPage } = this.state
-    let { feesInfoList } = this.props
+    let { dressInfoList } = this.props
     console.log('this.state.dialogFormType', this.state.dialogFormType);
 
     function createData(serial, className, group, totalSeat, action) {
@@ -142,7 +131,6 @@ export class AdminFeesInfo extends React.Component {
       this.setRowsPerPage(+event.target.value);
       this.setPage(0);
     };
-
     return (
 
       <AdminPrivateLayout>
@@ -175,14 +163,14 @@ export class AdminFeesInfo extends React.Component {
                         component="div"
                         className='px-3'
                       >
-                        Fees Info
+                        Dress Code Info
                     </Typography>
 
                       <Typography
                         variant="p"
                         component="div"
                       >
-                        Total Found: {feesInfoList && feesInfoList.length || 0}
+                        Total Found: {dressInfoList && dressInfoList.length || 0}
                         <Button
                           variant="contained"
                           color="primary"
@@ -204,24 +192,16 @@ export class AdminFeesInfo extends React.Component {
                       <TableHead>
                         <TableRow>
                           <TableCell>Serial No.</TableCell>
-                          <TableCell>Class</TableCell>
-                          <TableCell>Group</TableCell>
-                          <TableCell>Fee Name</TableCell>
-                          <TableCell >Fee Amount</TableCell>
-                          <TableCell>Fee Type</TableCell>
+                          <TableCell>Dress Info</TableCell>
                           <TableCell align="center">Action</TableCell>
                         </TableRow>
                       </TableHead>
 
                       <TableBody>
-                        {feesInfoList && feesInfoList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, key) =>
+                        {dressInfoList && dressInfoList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, key) =>
                           <TableRow key={key}>
-                            <TableCell>{item.feeSerial}</TableCell>
-                            <TableCell>{item.className}</TableCell>
-                            <TableCell>{item.groupName}</TableCell>
-                            <TableCell>{item.feeName}</TableCell>
-                            <TableCell>{item.feeAmount}</TableCell>
-                            <TableCell>{item.feeType}</TableCell>
+                            <TableCell>{item.dressSerial}</TableCell>
+                            <TableCell>{item.dressImageName}</TableCell>
                             <TableCell align="center">
                               <IconButton aria-label="edit" color="primary" onClick={e => this.updateDialogClickOpen(e, item, 'update')}>
                                 <EditIcon />
@@ -238,7 +218,7 @@ export class AdminFeesInfo extends React.Component {
                     <TablePagination
                       rowsPerPageOptions={[2, 10, 25, 100]}
                       component="div"
-                      count={feesInfoList.length}
+                      count={dressInfoList.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onChangePage={handleChangePage}
@@ -251,6 +231,7 @@ export class AdminFeesInfo extends React.Component {
             </Grid>
           </Grid>
 
+         
 
           <Box>
             <Dialog
@@ -261,7 +242,7 @@ export class AdminFeesInfo extends React.Component {
               <DialogTitle
                 id="customized-dialog-title"
                 onClose={this.props.onChangeModalVisibleStatus}>
-                {this.state.dialogFormType === true ? 'Add' : 'Update'} Fees Info
+                {this.state.dialogFormType === true ? 'Add' : 'Update'} Dress Info
             </DialogTitle>
               <DialogContent dividers>
 
@@ -274,68 +255,50 @@ export class AdminFeesInfo extends React.Component {
                         helperText=""
                         fullWidth
                         required
-                        value={this.props.serialNo}
+                        value={this.props.dressSerial}
                         onChange={this.props.onChangeSerialNo}
                       />
                     </Grid>
 
                     <Grid item xs={12} className="px-3 py-2">
                       <FormControl variant="outlined" className="" fullWidth required>
-                        <InputLabel>Class</InputLabel>
+                        <InputLabel>Gender</InputLabel>
                         <Select
-                          label="Class"
-                          value={this.props.selectedClass ? this.props.selectedClass : ''}
-                          onChange={this.props.onChangeClass}
+                          label="Gender"
+                          value={this.props.gender}
+                          onChange={this.props.onChangeGender}
                         >
-                          {this.props.classList && this.props.classList.map((option) => (
-                            <MenuItem key={option.classId} value={option.classId}>
-                              {option.className}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </Grid>
-
-                    <Grid item xs={12} className="px-3 py-2">
-                      <FormControl required variant="outlined" className="" fullWidth>
-                        <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
-                        <Select
-                          label="Group"
-                          value={this.props.selectedGroup ? this.props.selectedGroup : ''}
-                          onChange={this.props.onChangeGroup}
-                        >
-                          {this.props.groupList && this.props.groupList.map((option) => (
-                            <MenuItem key={option.groupId} value={option.groupId}>
-                              {option.groupName}
-                            </MenuItem>
-                          ))}
+                          <MenuItem value='Male'>Male</MenuItem>
+                          <MenuItem value='Female'>Female</MenuItem>
                         </Select>
                       </FormControl>
                     </Grid>
 
                     <Grid item xs={12} className="px-3 py-2">
                       <TextField
-                        label="Fee Name"
+                        label="Class"
                         variant="outlined"
                         helperText=""
+                        placeholder="enter class range"
                         fullWidth
                         required
-                        value={this.props.feeName}
-                        onChange={this.props.onChangeFeeName}
+                        value={this.props.classRange}
+                        onChange={this.props.onChangeClassRange}
                       />
                     </Grid>
-                    {this.state.dialogFormType === true ?
+
+            
                     <Grid item xs={12} className="px-3 py-2">
                       <TextareaAutosize
                         style={{ width: '364px' }}
                         aria-label="Details"
                         rowsMin={3}
                         variant="outlined"
-                        value={this.props.feeDetails}
-                        onChange={this.props.onChangeFeeDetails}
-                        placeholder="Enter Fee Details" />
+                        value={this.props.dressDetails}
+                        onChange={this.props.onChangeDressCodeDetails}
+                        placeholder="enter dress code details" />
                     </Grid>
-                    :'' }
+                 
 
                     <Grid item xs={12} className="px-3 py-2">
                       <TextField
@@ -343,42 +306,16 @@ export class AdminFeesInfo extends React.Component {
                         variant="outlined"
                         helperText=""
                         fullWidth
-                        value={this.props.feeAmount}
-                        onChange={this.props.onChangeFeeAmount}
+                        value={this.props.dressImageName}
+                        onChange={this.props.onChangeDressCodeImage}
                         required
                       />
                     </Grid>
 
 
-                    <Grid item xs={12} className="px-3 py-2">
-                      <FormControl required variant="outlined" className="" fullWidth>
-                        <InputLabel id="demo-simple-select-required-label">Fee Type</InputLabel>
-                        <Select
-                          label="Fee Type"
-                          value={this.props.feeType}
-                          onChange={this.props.onChangeFeeType}
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          <MenuItem value='Yearly'>Yearly</MenuItem>
-                          <MenuItem value='Monthly'>Monthly</MenuItem>
-                          <MenuItem value='Exam'>Exam</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Grid>
+              
 
-                    <Grid item xs={12} className="px-3 py-2">
-                      <TextField
-                        label="Fee Payment Mode"
-                        variant="outlined"
-                        helperText=""
-                        fullWidth
-                        value={this.props.paymentMode}
-                        onChange={this.props.onChangeFeePaymentMode}
-                        required
-                      />
-                    </Grid>
+              
 
       
 
@@ -393,7 +330,7 @@ export class AdminFeesInfo extends React.Component {
                     color="primary"
                     size="large"
                     mx="auto"
-                    onClick={this.props.saveFeeInfo}
+                    onClick={this.props.saveDressCodeInfo}
                   >
                     Save
             </Button>
@@ -406,7 +343,7 @@ export class AdminFeesInfo extends React.Component {
                     color="primary"
                     size="large"
                     mx="auto"
-                    onClick={this.props.updateFeeInfo}
+                    onClick={this.props.updateDressCodeInfo}
                   >
                     Update
               </Button>
@@ -420,28 +357,20 @@ export class AdminFeesInfo extends React.Component {
   }
 }
 
-AdminFeesInfo.propTypes = {
+AdminDressInfo.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  modalVisible: PropTypes.any,
-
 };
 
 const mapStateToProps = createStructuredSelector({
-  adminFeesInfo: makeSelectAdminFeesInfo(),
-  feesInfoList: makeSelectFeesInfoListData(),
-  classList: makeSelectClassInfoListData(),
-  groupList: makeSelectGroupInfoListData(),
-
-  serialNo: makeSelectSerialNo(),
-  selectedClass: makeSelectClass(),
-  selectedGroup: makeSelectGroup(),
-  feeDetails: makeSelectFeeDetails(),
-  feeName: makeSelectFeeName(),
-  feeAmount: makeSelectFeeAmount(),
-  feeType: makeSelectFeeType(),
-  paymentMode: makeSelectPaymentMode(),
-
+  adminDressInfo: makeSelectAdminDressInfo(),
+  dressInfoList: makeSelectDressInfoListData(),
   modalVisible: makeSelectModalVisibleStatus(),
+
+  classRange: makeSelectClassRange(),
+  dressDetails: makeSelectDressCodeDetails(),
+  dressImageName: makeSelectDressCodeImage(),
+  dressSerial: makeSelectSerialNo(),
+  gender: makeSelectGender(),
 
 
 
@@ -451,31 +380,20 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onChangeSerialNo: (evt) => { dispatch(setSerialNo(evt.target.value)) },
-    onChangeClass: (evt) => { dispatch(setSelectedClassValue(evt.target.value)) },
-    onChangeGroup: (evt) => { dispatch(setSelectedGroupValue(evt.target.value)) },
-    onChangeFeeName: (evt) => { dispatch(setFeeName(evt.target.value)) },
-    onChangeFeeDetails: (evt) => { dispatch(setFeeDetails(evt.target.value)) },
-    onChangeFeeAmount: (evt) => { dispatch(setFeeAmount(evt.target.value)) },
-    onChangeFeeType: (evt) => { dispatch(setFeeType(evt.target.value)) },
-    onChangeFeePaymentMode: (evt) => { dispatch(setFeePaymentMode(evt.target.value)) },
-    onSelectDatatableRowdata: (evt) => {
-      dispatch(setDatatableRowdata(evt))
-    },
-
-
     onChangeModalVisibleStatus: () => { dispatch(setModalVisibleStatus('modalVisible')) },
 
+    onChangeSerialNo: (evt) => { dispatch(setSerialNo(evt.target.value)) },
+    onChangeGender: (evt) => { dispatch(setSelectedGenderValue(evt.target.value)) },
+    onChangeClassRange: (evt) => { dispatch(setClassRange(evt.target.value)) },
+    onChangeDressCodeDetails: (evt) => { dispatch(setDressCodeDetails(evt.target.value)) },
+    onChangeDressCodeImage: (evt) => { dispatch(setDressCodeImage(evt.target.value)) },
 
 
 
-    saveFeeInfo: () => { dispatch(setFeeInfo()) },
+
+    saveDressCodeInfo: () => { dispatch(setDressCodeInfo()) },
     resetFormData: () => { dispatch(resetFormData()) },
-    updateFeeInfo: () => { dispatch(setUpdateFeeInfo()) },
-
-
-
-
+    updateDressCodeInfo: () => { dispatch(setUpdateDressCodeInfo()) },
   };
 }
 
@@ -484,11 +402,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'adminFeesInfo', reducer });
-const withSaga = injectSaga({ key: 'adminFeesInfo', saga });
+const withReducer = injectReducer({ key: 'adminDressInfo', reducer });
+const withSaga = injectSaga({ key: 'adminDressInfo', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(AdminFeesInfo);
+)(AdminDressInfo);

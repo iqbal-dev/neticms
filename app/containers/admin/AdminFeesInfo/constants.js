@@ -25,7 +25,7 @@ export const SET_ROWDATA_TO_UPDATE_FORM = 'app/AdminFeesInfo/SET_ROWDATA_TO_UPDA
 
 export const RESET_FORM_DATA = 'app/AdminFeesInfo/RESET_FORM_DATA';
 
-export const SET_MODAL_STATUS = 'app/EventGallery/SET_MODAL_STATUS';
+export const SET_MODAL_STATUS = 'app/AdminFeesInfo/SET_MODAL_STATUS';
 
 
 
