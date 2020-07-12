@@ -17,7 +17,15 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectAdminSeatInfo, { 
   makeSelectClassList,
   makeSelectGroupList,
-  makeSelectSeatInfoList 
+  makeSelectSeatInfoList,
+
+  makeSelectSerialValue,
+  makeSelectClassValue,
+  makeSelectGroupValue,
+  makeSelectSeatValue,
+  makeSelectShowDialog,
+  makeSelectHideDialog,
+  
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -53,6 +61,18 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { toUpper } from 'lodash';
 import { AdminPrivateLayout } from '../AdminPrivateLayout';
+import { 
+  makeChangeSerialValue,
+  makeChangeClassValue, 
+  makeChangeGroupValue,
+  makeChangeSeatValue,
+
+  makeSubmitFormData,
+
+  setDialogVisible,
+  setDialogHide,
+  setUpdateRowData
+} from './actions';
 
 // import Button from '@material-ui/core/Button';
 // import { Button } from '@material-ui/core';
@@ -100,18 +120,33 @@ export class AdminSeatInfo extends React.Component {
 
   formDialog = () => {
     let {dialogType, rowData} = this.state
-    console.log("----------", dialogType, rowData);
+    let { showDialog, classList, groupList, seatInfoList, onChangeSerialValue, onChangeClassValue, onChangeGroupValue, onChangeSeatValue, submitFormData } = this.props
+    // console.log("----------", dialogType, rowData);
+
+    let addDialogVisibility = false;
+    let updateDialogVisibility = false;
+    let deleteDialogVisibility = false;
+
+    if(showDialog && showDialog.dialogTypeAndVisible == 'insert'){
+      addDialogVisibility = showDialog.visibility
+    }
+    else if(showDialog && showDialog.dialogTypeAndVisible == 'update'){
+      updateDialogVisibility = showDialog.visibility
+    }
+    else if(showDialog && showDialog.dialogTypeAndVisible == 'delete'){
+      deleteDialogVisibility = showDialog.visibility
+    }
     
     return(
       <Dialog 
-        onClose={this.handleClose} 
+        onClose={ this.props.hideAddAndUpdateDialog } 
         aria-labelledby="customized-dialog-title" 
-        open={this.state.addDialogVisibility}
+        open={ addDialogVisibility || updateDialogVisibility}
         // style={{ width: '800px'}}
         // maxWidth="xl"
       >
-        <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-          { dialogType == 'insert' ? 'Add New Seat Info' : 'Update Seat Info'}
+        <DialogTitle id="customized-dialog-title" onClose={this.props.hideAddAndUpdateDialog }>
+          { showDialog && showDialog.dialogTypeAndVisible == 'insert' ? 'Add New Seat Info' : 'Update Seat Info'}
         </DialogTitle>
         <DialogContent dividers>
 
@@ -119,11 +154,18 @@ export class AdminSeatInfo extends React.Component {
             <Box className="">
               <Grid item xs={12} className="px-3 py-2">
                 <TextField
+                  id="serialNoId"
                   label="Serial No."
                   variant="outlined"
                   helperText=""
                   fullWidth
                   required
+                  // InputProps={{
+                  //   readOnly: true,
+                  // }}
+                  // defaultValue={showRowData.seatSerial || ''}
+                  value={ this.props.serialValue }
+                  onChange={onChangeSerialValue}
                 />
               </Grid>
 
@@ -131,16 +173,14 @@ export class AdminSeatInfo extends React.Component {
                 <FormControl variant="outlined" className="" fullWidth required>
                   <InputLabel>Class</InputLabel>
                   <Select
-                    label="Age"
-                  // value={age}
-                  // onChange={handleChange}
+                    label="Class"
+                    value={ this.props.classValue }
+                    onChange={onChangeClassValue}
                   >
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {classList && classList.map(item => (<MenuItem key={item.classId} value={item.classId}>{item.className}</MenuItem>))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -149,16 +189,14 @@ export class AdminSeatInfo extends React.Component {
                 <FormControl required variant="outlined" className="" fullWidth>
                   <InputLabel id="demo-simple-select-required-label">Group</InputLabel>
                   <Select
-                    label="Age"
-                  // value={age}
-                  // onChange={handleChange}
+                    label="Group"
+                    value={ this.props.groupValue }
+                    onChange={onChangeGroupValue}
                   >
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {groupList && groupList.map(item => (<MenuItem key={item.groupId} value={item.groupId}>{item.groupName}</MenuItem>))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -170,10 +208,12 @@ export class AdminSeatInfo extends React.Component {
                   helperText=""
                   fullWidth
                   required
+                  value={ this.props.seatValue }
+                  onChange={onChangeSeatValue}
                 />
               </Grid>
 
-              <Grid item xs={12} className="px-3 py-2">
+              {/* <Grid item xs={12} className="px-3 py-2">
                 <TextField
                   label="Multiline"
                   variant="outlined"
@@ -184,25 +224,7 @@ export class AdminSeatInfo extends React.Component {
                   fullWidth
                   required
                 />
-              </Grid>
-
-              {/* <Box
-                    item
-                    xs={12}
-                    className="px-3 py-2"
-                    display="flex"
-                    justifyContent="flex-end"
-                  >
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      mx="auto"
-                    >
-                      Primary
-                    </Button>
-                  </Box> */}
-
+              </Grid> */}
             </Box>
           </Grid>
 
@@ -213,7 +235,7 @@ export class AdminSeatInfo extends React.Component {
             color="secondary"
             size="large"
             mx="auto"
-            onClick={this.handleClose}
+            onClick={this.props.hideAddAndUpdateDialog}
           >
             Cancel
           </Button>
@@ -223,6 +245,7 @@ export class AdminSeatInfo extends React.Component {
             color="primary"
             size="large"
             mx="auto"
+            onClick={e => submitFormData(showDialog && showDialog.dialogTypeAndVisible) }
           >
             Save
           </Button>
@@ -233,10 +256,22 @@ export class AdminSeatInfo extends React.Component {
 
   deleteDialog = () =>{
     let {dialogType, rowData} = this.state
-    console.log("----------", dialogType, rowData);
+    let { showDialog, classList, groupList, seatInfoList, onChangeSerialValue, onChangeClassValue, onChangeGroupValue, onChangeSeatValue, submitFormData } = this.props
+    // console.log("----------", dialogType, rowData);
+
+    let deleteDialogVisibility = false;
+
+    if(showDialog && showDialog.dialogTypeAndVisible == 'delete'){
+      deleteDialogVisibility = showDialog.visibility
+    }
+
     return(
-      <Dialog onClose={this.handleClose} aria-labelledby="customized-dialog-title" open={this.state.deleteDialogVisibility}>
-        <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+      <Dialog 
+        onClose={this.props.hideAddAndUpdateDialog} 
+        aria-labelledby="customized-dialog-title" 
+        open={deleteDialogVisibility}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={this.props.hideAddAndUpdateDialog}>
           Delete Seat Info
             </DialogTitle>
         <DialogContent dividers>
@@ -254,19 +289,20 @@ export class AdminSeatInfo extends React.Component {
             color="secondary"
             size="large"
             mx="auto"
-            onClick={this.handleClose}
+            onClick={this.props.hideAddAndUpdateDialog}
           >
-            Cancel
-              </Button>
+            No
+          </Button>
 
           <Button
             variant="contained"
             color="primary"
             size="large"
             mx="auto"
+            onClick={e => submitFormData(showDialog && showDialog.dialogTypeAndVisible) }
           >
-            Save
-              </Button>
+            Yes
+          </Button>
         </DialogActions>
       </Dialog>
     )
@@ -308,7 +344,8 @@ export class AdminSeatInfo extends React.Component {
       this.setPage(0);
     };
 
-    console.log("seatInfoList:::::::",  classList, groupList, seatInfoList);
+    // console.log("seatInfoList:::::::",  classList, groupList, seatInfoList);
+    // console.log("showDialog:::::::",  this.props.showDialog);
     
 
     return (
@@ -359,7 +396,7 @@ export class AdminSeatInfo extends React.Component {
                           size="large"
                           className="rounded-0 shadow-none bg-success ml-3"
                           startIcon={<AddIcon />}
-                          onClick={e => handleClickOpen('insert', null)}
+                          onClick={e => this.props.visibleDialog('insert', null)}
                         >
                           Add New
                       </Button>
@@ -385,16 +422,24 @@ export class AdminSeatInfo extends React.Component {
 
                       <TableBody>
                         {dataTableValue.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) =>
-                          <TableRow key="">
+                          <TableRow key={item.seatId}>
                             <TableCell>{item.seatSerial}</TableCell>
                             <TableCell>{item.className}</TableCell>
                             <TableCell>{item.groupName}</TableCell>
                             <TableCell align="right">{item.totalSeat}</TableCell>
                             <TableCell align="center">
-                              <IconButton aria-label="edit" color="primary" onClick={e => handleClickOpen('update', item)}>
-                                <EditIcon />
+                              <IconButton 
+                                aria-label="edit" 
+                                color="primary" 
+                                onClick={e => this.props.visibleDialog('update', item)}
+                              >
+                              <EditIcon />
                               </IconButton>
-                              <IconButton aria-label="delete" color="secondary" onClick={e => handleClickOpen('delete', item)}>
+                              <IconButton 
+                                aria-label="delete" 
+                                color="secondary" 
+                                onClick={e => this.props.visibleDialog('delete', item)}
+                              >
                                 <DeleteOutlineOutlinedIcon />
                               </IconButton>
                             </TableCell>
@@ -451,11 +496,37 @@ const mapStateToProps = createStructuredSelector({
   classList: makeSelectClassList(),  
   groupList: makeSelectGroupList(),  
   seatInfoList: makeSelectSeatInfoList(),  
+
+  serialValue: makeSelectSerialValue(),
+  classValue: makeSelectClassValue(),
+  groupValue: makeSelectGroupValue(),
+  seatValue: makeSelectSeatValue(),
+
+
+  showDialog: makeSelectShowDialog(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeSerialValue: (evt) => { dispatch(makeChangeSerialValue(evt.target.value)) },
+    onChangeClassValue: (evt) => { dispatch(makeChangeClassValue(evt.target.value)) },
+    onChangeGroupValue: (evt) => { dispatch(makeChangeGroupValue(evt.target.value)) },
+    onChangeSeatValue: (evt) => { dispatch(makeChangeSeatValue(evt.target.value)) },
+
+    submitFormData: (param) => { dispatch(makeSubmitFormData(param)) /*console.log(param)*/ },
+
+    visibleDialog: ( dialogType, row ) => {
+      // dispatch(resetDialogValue());
+      dispatch(setUpdateRowData(row));
+      // dispatch(setRowDataToUpdateDialog());
+      dispatch(setDialogVisible(dialogType));
+    },
+    hideAddAndUpdateDialog: () => {
+      dispatch(setDialogHide());
+    },
+
+    // 
   };
 }
 

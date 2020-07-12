@@ -54,6 +54,11 @@ export const update_newFeeInfo = '/fee-info/update';
 export const fetch_classList = '/class-info/list';
 export const fetch_groupList = '/group-info/list';
 export const fetch_seatInfoList = '/seat-info/list';
+export const fetch_seatInfoSave = '/seat-info/save';
+export const fetch_seatInfoUpdate = '/seat-info/update';
+export const fetch_seatInfoDelete = '/seat-info/delete';
+
+// fetch_seatInfoDelete
 
 export const fetch_dressInfoList = '/dress-info/list';
 export const save_newDressInfo = '/dress-info/save';
