@@ -58,5 +58,7 @@ export const fetch_seatInfoSave = '/seat-info/save';
 export const fetch_seatInfoUpdate = '/seat-info/update';
 export const fetch_seatInfoDelete = '/seat-info/delete';
 
-// fetch_seatInfoDelete
+export const fetch_downloadCornerList = '/seat-info/list';
+
+// fetch_downloadCornerList
 
