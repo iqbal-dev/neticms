@@ -24,7 +24,6 @@ import { AppLayout } from '../AppLayout';
 /* eslint-disable react/prefer-stateless-function */
 export class AllEventsList extends React.PureComponent {
   render() {
-  console.log('localStorage.getItem("lastname")', localStorage.getItem('instituteInfo'));
 
     return (
       <AppLayout>

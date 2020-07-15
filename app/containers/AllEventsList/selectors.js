@@ -13,7 +13,7 @@ const selectAllEventsListDomain = state =>
  */
 
 const makeSelectAllEventListFetch = () =>
-createSelector(selectAllEventsListDomain, substate => substate.get('allEventsList'));
+  createSelector(selectAllEventsListDomain, substate => substate.get('allEventsList'));
 
 /**
  * Default selector used by AllEventsList

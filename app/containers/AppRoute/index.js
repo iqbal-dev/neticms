@@ -116,19 +116,19 @@ export default function AppRoute() {
       <Route exact path="/infrastucture" component={BasicInfrastucture} />
       <Route exact path="/find_paySlip" component={FindPayslip} />
 
-      <Route exact path="/admin/login" component={AdminLogin} />
+      {/* <Route exact path="/admin/login" component={AdminLogin} /> */}
 
       {/** **** Admin Route ******** */}
-      <Route exact path="/admin/homepage" component={AdminHomepage} />
+      {/* <Route exact path="/admin/homepage" component={AdminHomepage} />
       <Route exact path="/admin/gallery_image" component={GalleryImage} />
       <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
       <PrivateRoute exact path="/admin/fees_info" component={AdminFeesInfo} />
-      {/* <PrivateRoute exact path="/admin/dress_info" component={AdminDressInfo} /> */}
+      <PrivateRoute exact path="/admin/dress_info" component={AdminDressInfo} />
 
       <Route exact path="/admin/download_corner" component={AdminDownloadCorner} />
 
       <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
-      <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} />
+      <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} /> */}
       <Route path="" component={NotFoundPage} />
 
       {/* <Route exact path='/about-us/:id' component={
