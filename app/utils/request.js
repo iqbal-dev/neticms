@@ -23,9 +23,9 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 401) {
     return response;
   }
-  if (response.status == 401) {
-    return window.location.href = '/admin/login';
-  }
+  // if (response.status == 401) {
+  //   return window.location.href = '/admin/login';
+  // }
   if (response.status > 401) {
     return response;
   }

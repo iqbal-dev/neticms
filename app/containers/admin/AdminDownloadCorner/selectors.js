@@ -19,5 +19,34 @@ const selectAdminDownloadCornerDomain = state =>
 const makeSelectAdminDownloadCorner = () =>
   createSelector(selectAdminDownloadCornerDomain, substate => substate.toJS());
 
+const makeSelectDownloadCornerList = () =>
+  createSelector(selectAdminDownloadCornerDomain, substate => substate.get('downloadCornerList'));
+
+const makeSelectSerialValue = () =>
+  createSelector(selectAdminDownloadCornerDomain, substate => substate.get('serialValue'));
+
+const makeSelectTitleValue = () =>
+  createSelector(selectAdminDownloadCornerDomain, substate => substate.get('titleValue'));
+
+const makeSelectDialogVisibility = () =>
+  createSelector(selectAdminDownloadCornerDomain, substate => substate.get('dialogType'));
+
+const makeSelectShowDialog = () =>
+  createSelector(selectAdminDownloadCornerDomain, substate => substate.get('dialogVisible'));
+
+const makeSelectUpdateRowData = () =>
+  createSelector(selectAdminDownloadCornerDomain, substate => substate.get('rowData'));
+
 export default makeSelectAdminDownloadCorner;
-export { selectAdminDownloadCornerDomain };
+export { 
+  selectAdminDownloadCornerDomain,
+  makeSelectDownloadCornerList,
+  makeSelectSerialValue,
+  makeSelectTitleValue,
+
+  makeSelectDialogVisibility,
+  makeSelectShowDialog,
+  makeSelectUpdateRowData
+ };
+
+// makeSelectSerialValue

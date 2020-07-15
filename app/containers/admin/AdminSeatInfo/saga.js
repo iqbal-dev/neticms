@@ -1,17 +1,17 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { 
-  BASE_URL_NETI_CMS, 
-  fetch_classList, 
-  fetch_groupList, 
-  fetch_seatInfoList, 
+import {
+  BASE_URL_NETI_CMS,
+  fetch_classList,
+  fetch_groupList,
+  fetch_seatInfoList,
   fetch_seatInfoSave,
   fetch_seatInfoUpdate,
   fetch_seatInfoDelete
 } from '../../../utils/serviceUrl';
 import request from '../../../utils/request';
-import { 
-  getSeatInfoListData, 
-  getClassListData, 
+import {
+  getSeatInfoListData,
+  getClassListData,
   getGroupListData,
   showDialog,
 
@@ -20,7 +20,7 @@ import {
   makeChangeGroupValue,
   makeChangeSeatValue
 } from './actions';
-import { 
+import {
   GET_CLASS_LIST,
   GET_GROUP_LIST,
   GET_SEAT_INFO_LIST,
@@ -28,10 +28,10 @@ import {
   SUBMIT_FORM_DATA,
   SET_DIALOG_TYPE,
   SET_HIDE_DIALOG
- } from './constants';
-import { 
+} from './constants';
+import {
   makeSelectSerialValue,
-  makeSelectClassValue, 
+  makeSelectClassValue,
   makeSelectGroupValue,
   makeSelectSeatValue,
   makeSelectSubmitFormData,
@@ -40,7 +40,7 @@ import {
   makeSelectUpdateRowData
 } from './selectors';
 
-function adminCommonRequestOptions(){
+function adminCommonRequestOptions() {
   let adminToken = JSON.parse(localStorage.adminToken);
   // console.log('adminToken', adminToken);
 
@@ -58,7 +58,7 @@ function adminCommonRequestOptions(){
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + adminToken.access_token,
     },
-    body:{}
+    body: {}
   };
 
   const optionsPUT = {
@@ -67,7 +67,7 @@ function adminCommonRequestOptions(){
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + adminToken.access_token,
     },
-    body:{}
+    body: {}
   };
 
   const optionsDELETE = {
@@ -76,7 +76,7 @@ function adminCommonRequestOptions(){
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + adminToken.access_token,
     },
-    body:{}
+    body: {}
   };
 
   return {
@@ -133,7 +133,7 @@ export function* saveSeatInfoData() {
   // console.log("SeatValue", seatValue);
   // console.log("formDataType", formDataType);
 
-  if(formDataType == 'insert'){
+  if (formDataType == 'insert') {
     const requestURL = BASE_URL_NETI_CMS + fetch_seatInfoSave;
     const requestOptions = adminCommonRequestOptions();
     const postBody = JSON.stringify({
@@ -148,7 +148,7 @@ export function* saveSeatInfoData() {
     try {
       const response = yield call(request, requestURL, requestOptions.POST);
       console.log('seat info Save res', response);
-      if(response.messageType == 1){
+      if (response.messageType == 1) {
         yield get_seatInfoListData();
         yield setDialogHide()
       }
@@ -157,7 +157,7 @@ export function* saveSeatInfoData() {
       console.log("error", error);
     }
   }
-  else if(formDataType == 'update'){
+  else if (formDataType == 'update') {
     const updateRowData = yield select(makeSelectUpdateRowData())
 
     const requestURL = BASE_URL_NETI_CMS + fetch_seatInfoUpdate;
@@ -175,7 +175,7 @@ export function* saveSeatInfoData() {
     try {
       const response = yield call(request, requestURL, requestOptions.PUT);
       console.log('seat info UPDATE res', response);
-      if(response.messageType == 1){
+      if (response.messageType == 1) {
         yield get_seatInfoListData();
         yield setDialogHide()
       }
@@ -184,7 +184,7 @@ export function* saveSeatInfoData() {
       console.log("error", error);
     }
   }
-  else if(formDataType == 'delete'){
+  else if (formDataType == 'delete') {
     const updateRowData = yield select(makeSelectUpdateRowData())
 
     const requestURL = BASE_URL_NETI_CMS + fetch_seatInfoDelete + "?seatId=" + updateRowData.seatId;
@@ -193,7 +193,7 @@ export function* saveSeatInfoData() {
     try {
       const response = yield call(request, requestURL, requestOptions.DELETE);
       console.log('seat info DELETE res', response);
-      if(response.messageType == 1){
+      if (response.messageType == 1) {
         yield get_seatInfoListData();
         yield setDialogHide()
       }
@@ -201,16 +201,15 @@ export function* saveSeatInfoData() {
     catch (error) {
       console.log("error", error);
     }
-    
+
   }
-  
-  
+
 };
 
 export function* getDialogViaibility() {
   const dialogTypeAndVisible = yield select(makeSelectDialogVisibility())
 
-  if(dialogTypeAndVisible=='update'){
+  if (dialogTypeAndVisible == 'update') {
     const updateRowData = yield select(makeSelectUpdateRowData())
 
     yield put(makeChangeSerialValue(updateRowData.seatSerial));
@@ -220,7 +219,7 @@ export function* getDialogViaibility() {
 
     // console.log("updateRowData", updateRowData);
   }
-  else{
+  else {
     yield put(makeChangeSerialValue(''));
     yield put(makeChangeClassValue(''));
     yield put(makeChangeGroupValue(''));
@@ -234,7 +233,7 @@ export function* getDialogViaibility() {
   }
 
   yield put(showDialog(dialogObj));
-  
+
 };
 
 export function* setDialogHide() {
@@ -245,7 +244,7 @@ export function* setDialogHide() {
     dialogTypeAndVisible: dialogTypeAndVisible,
     visibility: false
   }
-    yield put(showDialog(dialogObj));
+  yield put(showDialog(dialogObj));
 };
 
 // Individual exports for testing
