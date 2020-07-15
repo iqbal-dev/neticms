@@ -21,6 +21,26 @@ const makeSelectModalStatus = () =>
     substate.get('listModalStatus'),  
   );
 
+  const makeSelectAddSerialNumber = () =>
+  createSelector(selectGalleryImageDomain, substate => 
+    substate.get('serialNumber'),  
+  );
+
+  const makeSelectAddGalleryTitle = () =>
+  createSelector(selectGalleryImageDomain, substate => 
+    substate.get('galleryTitle'),  
+  );
+
+  const makeGalleryImageDetails = () =>
+  createSelector(selectGalleryImageDomain, substate => 
+    substate.get('imageGalleryDetails'),  
+  );
+
+  const makeGalleryImageFileUpload = () =>
+  createSelector(selectGalleryImageDomain, substate => 
+    substate.get('imageGalleryFile'),  
+  );
+
 /**
  * Default selector used by GalleryImage
  */
@@ -29,4 +49,4 @@ const makeSelectGalleryImage = () =>
   createSelector(selectGalleryImageDomain, substate => substate.toJS());
 
 export default makeSelectGalleryImage;
-export { selectGalleryImageDomain, makeSelectModalStatus, makeSelectListModalStatus };
+export { selectGalleryImageDomain, makeSelectModalStatus, makeSelectListModalStatus, makeSelectAddSerialNumber, makeSelectAddGalleryTitle, makeGalleryImageDetails, makeGalleryImageFileUpload};

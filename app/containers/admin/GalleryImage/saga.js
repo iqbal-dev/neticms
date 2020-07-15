@@ -1,13 +1,19 @@
-import { take, call, put, select } from 'redux-saga/effects';
-import { makeSelectModalStatus } from './selectors';
+import { take, call, put, select, takeLatest } from 'redux-saga/effects';
+import { makeSelectModalStatus, makeSelectAddSerialNumber, makeGalleryImageDetails, makeGalleryImageFileUpload } from './selectors';
+import { ADD_SERIAL_NUMBER } from './constants';
 
-export function* getModalValue() {
-  let modalName = yield select(makeSelectModalStatus());
-  console.log('modalName', modalName);
+export function* submitimageGalleryData() {
+  let requestObj = {
+    'serialNumber' : yield select(makeSelectAddSerialNumber()),
+    'imageTitle' : yield select(makeSelectAddGalleryTitle()),
+    'imageDetails' : yield select(makeGalleryImageDetails()),
+    'fileName' : yield select(makeGalleryImageFileUpload()),
+  }
+  
+  console.log('modalName', requestObj);
   
 }
 // Individual exports for testing
 export default function* galleryImageSaga() {
-  yield getModalValue();
-  // See example in containers/HomePage/saga.js
+  yield takeLatest(ADD_SERIAL_NUMBER, submitimageGalleryData);
 }

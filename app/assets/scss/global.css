@@ -1328,7 +1328,7 @@
   position: relative;
   display: flex;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 8px !important;
   /* For IE10 */ }
   .form .form-inline .form-group .form-control {
     background-color: #f2f2f2;

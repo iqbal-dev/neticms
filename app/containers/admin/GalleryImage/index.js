@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Button from '@material-ui/core/Button';
-import makeSelectGalleryImage, { makeSelectModalStatus, makeSelectListModalStatus } from './selectors';
+import makeSelectGalleryImage, { makeSelectModalStatus, makeSelectListModalStatus, makeSelectAddSerialNumber, makeSelectAddGalleryTitle, makeGalleryImageDetails, makeGalleryImageFileUpload } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -38,7 +38,7 @@ import ListItem from '@material-ui/core/ListItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { setModalStatus, setListModalStatus } from './actions';
+import { setModalStatus, setListModalStatus, setSerialNumber, setGalleyImageTitle, setGalleyImageDetails, setGalleyImageFile } from './actions';
 import MUIRichTextEditor from "mui-rte";
 import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
@@ -140,8 +140,8 @@ export class GalleryImage extends React.PureComponent {
                 <Select
                   labelId="select-serial-number-label"
                   id="select-serial-number"
-                  value=""
-                  onChange=""
+                  value={this.props.serialNumber}
+                  onChange={this.props.onChangeSerialNumber}
                 >
                   <MenuItem value={1}>1</MenuItem>
                   <MenuItem value={2}>2</MenuItem>
@@ -159,8 +159,10 @@ export class GalleryImage extends React.PureComponent {
                       autoFocus
                       margin="dense"
                       id="name"
-                      label="Email Address"
-                      type="email"
+                      label="Title"
+                      type="text"
+                      value={this.props.galleryImageTitle}
+                      onChange={this.props.onChangeGalleryImageTitle}
                       fullWidth
                     />
                   </FormControl>
@@ -172,9 +174,10 @@ export class GalleryImage extends React.PureComponent {
                 <Grid item xs={12} className="px-3">
                   <FormControl className="my-3" fullWidth required >
                     <MUIRichTextEditor
-                      label="Type something here..."
-                      onSave=""
+                      label="Write Details here..."
                       inlineToolbar={true}
+                      onChange={this.props.onChangeGalleryImageDetails}
+                      value={this.props.galleryImageDetails}
                     />
                   </FormControl>
                 </Grid>
@@ -191,6 +194,8 @@ export class GalleryImage extends React.PureComponent {
                     multiple
                     type="file"
                     style={{ display: 'none' }}
+                    onChange={this.props.onChangeGalleryImageFile}
+                    value={this.props.galleryImageFile}
                   />
                   <label htmlFor="contained-button-file">
                     <Button variant="contained" color="primary" component="span">
@@ -285,13 +290,19 @@ export class GalleryImage extends React.PureComponent {
 GalleryImage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   modalStatus: PropTypes.any,
-  listModalStatus: PropTypes.any
+  listModalStatus: PropTypes.any, 
+  galleryImageDetails: PropTypes.any,
+  onChangeGalleryImageFile: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   galleryImage: makeSelectGalleryImage(),
   modalStatus: makeSelectModalStatus(),
-  listModalStatus: makeSelectListModalStatus()
+  listModalStatus: makeSelectListModalStatus(),
+  serialNumber: makeSelectAddSerialNumber(),
+  galleryImageTitle: makeSelectAddGalleryTitle(),
+  galleryImageDetails: makeGalleryImageDetails(),
+  galleryImageFile: makeGalleryImageFileUpload(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -299,6 +310,10 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     onChangeModalVisiableStatus: () => dispatch(setModalStatus()),
     onChangeListModalVisiableStatus: () => dispatch(setListModalStatus()),
+    onChangeSerialNumber: (evt) => dispatch(setSerialNumber(evt.target.value)),
+    onChangeGalleryImageTitle: (evt) => dispatch(setGalleyImageTitle(evt.target.value)),
+    onChangeGalleryImageDetails: () => dispatch(setGalleyImageDetails()),
+    onChangeGalleryImageFile: (evt) => dispatch(setGalleyImageFile(evt.target.value))
 
   };
 }

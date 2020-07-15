@@ -80,8 +80,8 @@ export class SectionWiseResult extends React.Component {
 
      
   }
-  console.log('sectionWiseResultList.length',sectionWiseResultList.length);
-  console.log('totalPassed',totalPassed.length);
+  // console.log('sectionWiseResultList.length',sectionWiseResultList.length);
+  // console.log('totalPassed',totalPassed.length);
 
 
     return (
@@ -248,7 +248,7 @@ export class SectionWiseResult extends React.Component {
                                 </tr>
                               )
 
-                              : <tr><td colSpan='5'>No Data Found</td></tr>
+                              : <tr><td colSpan='7'>No Data Found</td></tr>
                           }
                       
                       </tbody>
