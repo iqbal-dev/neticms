@@ -45,6 +45,9 @@ export const fetch_individual_result_data = '/nw/sa-point/student/result-details
 
 export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/section-wise/result/details';
 
+export const fetch_typeWise_memberList = '/public/typeWise/members';
+
+
 
 // Admin Panel
 export const fetch_feesInfoList = '/fee-info/list';
