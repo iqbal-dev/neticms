@@ -45,6 +45,7 @@ export const fetch_individual_result_data = '/nw/sa-point/student/result-details
 
 export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/section-wise/result/details';
 
+export const fetch_syllabusInfoList = '/syllabus-info/list';
 
 // Admin Panel
 export const fetch_feesInfoList = '/fee-info/list';
@@ -54,4 +55,14 @@ export const update_newFeeInfo = '/fee-info/update';
 export const fetch_classList = '/class-info/list';
 export const fetch_groupList = '/group-info/list';
 export const fetch_seatInfoList = '/seat-info/list';
+export const fetch_seatInfoSave = '/seat-info/save';
+export const fetch_seatInfoUpdate = '/seat-info/update';
+export const fetch_seatInfoDelete = '/seat-info/delete';
 
+export const fetch_downloadCornerList = '/seat-info/list';
+
+// fetch_downloadCornerList
+
+export const fetch_dressInfoList = '/dress-info/list';
+export const save_newDressInfo = '/dress-info/save';
+export const update_newDressInfo = '/dress-info/update';
