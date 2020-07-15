@@ -83,7 +83,6 @@ export class SectionWiseResult extends React.Component {
   // console.log('sectionWiseResultList.length',sectionWiseResultList.length);
   // console.log('totalPassed',totalPassed.length);
 
-
     return (
       <div>
         <AppLayout>

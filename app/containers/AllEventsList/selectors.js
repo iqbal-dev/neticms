@@ -12,6 +12,9 @@ const selectAllEventsListDomain = state =>
  * Other specific selectors
  */
 
+const makeSelectAllEventListFetch = () =>
+createSelector(selectAllEventsListDomain, substate => substate.get('allEventsList'));
+
 /**
  * Default selector used by AllEventsList
  */
@@ -20,4 +23,4 @@ const makeSelectAllEventsList = () =>
   createSelector(selectAllEventsListDomain, substate => substate.toJS());
 
 export default makeSelectAllEventsList;
-export { selectAllEventsListDomain };
+export { selectAllEventsListDomain, makeSelectAllEventListFetch};
