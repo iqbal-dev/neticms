@@ -19,13 +19,14 @@ export function* fetch_donorMembers_List() {
   const options = {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
+
     },
   };
   const response = yield call(request, requestURL, options);
   try {
     console.log('donor response',response);
-    // yield put(setDonorMembers(response));
+    yield put(setDonorMembers(response.item));
   } catch (error) { }
 
 }

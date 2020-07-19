@@ -46,6 +46,13 @@ export const fetch_individual_result_data = '/nw/sa-point/student/result-details
 export const fetch_student_sectionWise_resultList = '/nw/sa-point/student/section-wise/result/details';
 
 export const fetch_typeWise_memberList = '/public/typeWise/members';
+export const fetch_genderWise_dressList = '/public/genderWise/dress';
+export const fetch_seats_details = '/public/seats';
+export const fetch_welcomeSpeechList = '/public/speechs';
+
+
+
+
 
 
 export const fetch_syllabusInfoList = '/syllabus-info/list';

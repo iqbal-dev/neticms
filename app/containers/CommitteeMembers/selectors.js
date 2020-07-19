@@ -7,6 +7,8 @@ import { initialState } from './reducer';
 
 const selectCommitteeMembersDomain = state =>
   state.get('committeeMembers', initialState);
+  const makeSelectCommitteeMemberList = () =>
+  createSelector(selectCommitteeMembersDomain, substate => substate.get('committeeMemberList'));
 
 /**
  * Other specific selectors
@@ -20,4 +22,4 @@ const makeSelectCommitteeMembers = () =>
   createSelector(selectCommitteeMembersDomain, substate => substate.toJS());
 
 export default makeSelectCommitteeMembers;
-export { selectCommitteeMembersDomain };
+export { selectCommitteeMembersDomain,makeSelectCommitteeMemberList };

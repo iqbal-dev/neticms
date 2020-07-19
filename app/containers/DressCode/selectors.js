@@ -14,6 +14,15 @@ const selectDressCodeDomain = state => state.get('dressCode', initialState);
 const makeSelectDressCodeList = () =>
 createSelector(selectDressCodeDomain, substate => substate.get('initDressCodeList'));
 
+const makeSelectMaleDressCodeList = () =>
+createSelector(selectDressCodeDomain, substate => substate.get('maleDressCodeList'));
+
+const makeSelectFemaleDressCodeList = () =>
+createSelector(selectDressCodeDomain, substate => substate.get('femaleDressCodeList'));
+
+const makeSelectCombinedDressCodeList = () =>
+createSelector(selectDressCodeDomain, substate => substate.get('combinedDressCodeList'));
+
 const makeSelectTabPanelStatus = () =>
 createSelector(selectDressCodeDomain, substate => substate.get('activeTab'));
 
@@ -28,4 +37,7 @@ export default makeSelectDressCode;
 export { selectDressCodeDomain,
   makeSelectDressCodeList,
   makeSelectTabPanelStatus,
+  makeSelectMaleDressCodeList,
+  makeSelectFemaleDressCodeList,
+  makeSelectCombinedDressCodeList
 };
