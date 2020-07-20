@@ -7,6 +7,15 @@ import { initialState } from './reducer';
 
 const selectFeesInfoDomain = state => state.get('feesInfo', initialState);
 
+const makeSelectClassList = () =>
+createSelector(selectFeesInfoDomain, substate => substate.get('classList'));
+
+const makeSelectFeesInfoList = () =>
+createSelector(selectFeesInfoDomain, substate => substate.get('feesInfoList'));
+
+const makeSelectOnchangeClassValue = () =>
+  createSelector(selectFeesInfoDomain, substate => substate.get('classValue'));
+
 /**
  * Other specific selectors
  */
@@ -19,4 +28,4 @@ const makeSelectFeesInfo = () =>
   createSelector(selectFeesInfoDomain, substate => substate.toJS());
 
 export default makeSelectFeesInfo;
-export { selectFeesInfoDomain };
+export { selectFeesInfoDomain,makeSelectClassList,makeSelectOnchangeClassValue,makeSelectFeesInfoList };

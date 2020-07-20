@@ -31,13 +31,14 @@ import {
   CardHeader,
   FormGroup,
 } from 'reactstrap';
-import makeSelectFeesInfo from './selectors';
+import makeSelectFeesInfo, { makeSelectClassList, makeSelectOnchangeClassValue, makeSelectFeesInfoList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import { AppLayout } from '../AppLayout';
+import { submitSearchButton, setOnchangeClassValue } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FeesInfo extends React.Component {
@@ -80,24 +81,27 @@ export class FeesInfo extends React.Component {
                     <Col sm="12" lg="6" className="search-dropdown">
                       <Input
                         type="select"
-                        name="select"
+                        name="class"
+                        onChange={this.props.onChangeClass}
+                        value={this.props.classValue}
+
                         id="class-search-dropdown"
                       >
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option value=''>Select Class</option>
+                              {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
                       </Input>
-                      <Button className="btn explore-btn">Search</Button>
+                      <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button>
                     </Col>
                   </div>
                 </Row>
                 <Row>
+                {this.props.feesInfoList && this.props.feesInfoList.map((item,index) => (
+
+                
                   <Col md="4">
                     <Card border="primary">
                       <CardHeader>
-                        Fee Name
+                        {item.feeName}
                         <span>
                           <i className="fas fa-info pr-2" />
                         </span>
@@ -108,185 +112,32 @@ export class FeesInfo extends React.Component {
                           <table>
                             <tr>
                               <td>Group </td>
-                              <td>: Science </td>
+                              <td>: {item.groupName} </td>
                             </tr>
                             <tr>
                               <td>Amount</td>
                               <td>
-                                : <span>5000/-BDT</span>{' '}
+                                : <span>{item.feeAmount} /-BDT</span>{' '}
                               </td>
                             </tr>
                             <tr>
                               <td>Payment Mode</td>
-                              <td>: Monthly </td>
+                              <td>: {item.feePaymentMode} </td>
                             </tr>
                           </table>
                         </CardText>
                       </CardBody>
                     </Card>
+                         {/* <Popover placement="right" isOpen={this.state.feeDetailsDialog} target="Popover1" toggle={this.toggle}>
+                  <PopoverHeader>Popover Title</PopoverHeader>
+                  <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+                </Popover> */}
                   </Col>
 
-                  <Col md="4">
-                    <Card border="primary">
-                      <CardHeader>
-                        Fee Name
-                        <span>
-                          <i className="fas fa-info pr-2" />
-                        </span>
-                      </CardHeader>
-
-                      <CardBody>
-                        <CardText>
-                          <table>
-                            <tr>
-                              <td>Group </td>
-                              <td>: Science </td>
-                            </tr>
-                            <tr>
-                              <td>Amount</td>
-                              <td>
-                                : <span>5000/-BDT</span>{' '}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Payment Mode</td>
-                              <td>: Monthly </td>
-                            </tr>
-                          </table>
-                        </CardText>
-                      </CardBody>
-                    </Card>
-                  </Col>
-
-                  <Col md="4">
-                    <Card border="primary">
-                      <CardHeader>
-                        Fee Name
-                        <span>
-                          <i className="fas fa-info pr-2" />
-                        </span>
-                      </CardHeader>
-
-                      <CardBody>
-                        <CardText>
-                          <table>
-                            <tr>
-                              <td>Group </td>
-                              <td>: Science </td>
-                            </tr>
-                            <tr>
-                              <td>Amount</td>
-                              <td>
-                                : <span>5000/-BDT</span>{' '}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Payment Mode</td>
-                              <td>: Monthly </td>
-                            </tr>
-                          </table>
-                        </CardText>
-                      </CardBody>
-                    </Card>
-                  </Col>
-
-                  <Col md="4">
-                    <Card border="primary">
-                      <CardHeader>
-                        Fee Name
-                        <span>
-                          <i className="fas fa-info pr-2" />
-                        </span>
-                      </CardHeader>
-
-                      <CardBody>
-                        <CardText>
-                          <table>
-                            <tr>
-                              <td>Group </td>
-                              <td>: Science </td>
-                            </tr>
-                            <tr>
-                              <td>Amount</td>
-                              <td>
-                                : <span>5000/-BDT</span>{' '}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Payment Mode</td>
-                              <td>: Monthly </td>
-                            </tr>
-                          </table>
-                        </CardText>
-                      </CardBody>
-                    </Card>
-                  </Col>
-
-                  <Col md="4">
-                    <Card border="primary">
-                      <CardHeader>
-                        Fee Name
-                        <span>
-                          <i className="fas fa-info pr-2" />
-                        </span>
-                      </CardHeader>
-
-                      <CardBody>
-                        <CardText>
-                          <table>
-                            <tr>
-                              <td>Group </td>
-                              <td>: Science </td>
-                            </tr>
-                            <tr>
-                              <td>Amount</td>
-                              <td>
-                                : <span>5000/-BDT</span>{' '}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Payment Mode</td>
-                              <td>: Monthly </td>
-                            </tr>
-                          </table>
-                        </CardText>
-                      </CardBody>
-                    </Card>
-                  </Col>
-
-                  <Col md="4">
-                    <Card border="primary">
-                      <CardHeader>
-                        Fee Name
-                        <span>
-                          <i className="fas fa-info pr-2" />
-                        </span>
-                      </CardHeader>
-
-                      <CardBody>
-                        <CardText>
-                          <table>
-                            <tr>
-                              <td>Group </td>
-                              <td>: Science </td>
-                            </tr>
-                            <tr>
-                              <td>Amount</td>
-                              <td>
-                                : <span>5000/-BDT</span>{' '}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Payment Mode</td>
-                              <td>: Monthly </td>
-                            </tr>
-                          </table>
-                        </CardText>
-                      </CardBody>
-                    </Card>
-                  </Col>
+))}
+        
                 </Row>
-                <Row>
+                {/* <Row>
                   <Col sm={4}>
                     <div className="fees-details-dialog">
                       <h3>Fee Details</h3>
@@ -297,11 +148,8 @@ export class FeesInfo extends React.Component {
                       </p>
                     </div>
                   </Col>
-                </Row>
-                {/* <Popover placement="right" isOpen={feeDetailsDialog} target="Popover1" toggle={this.toggle}>
-                  <PopoverHeader>Popover Title</PopoverHeader>
-                  <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
-                </Popover> */}
+                </Row> */}
+           
               </div>
             </div>
           </div>
@@ -318,11 +166,21 @@ FeesInfo.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   feesInfo: makeSelectFeesInfo(),
+  classList: makeSelectClassList(),
+  feesInfoList: makeSelectFeesInfoList(),
+
+
+  classValue: makeSelectOnchangeClassValue(),
+
+
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeClass: (evt) => { dispatch(setOnchangeClassValue(evt.target.value)) },
+    submitSearch: () => { dispatch(submitSearchButton()) },
+
   };
 }
 

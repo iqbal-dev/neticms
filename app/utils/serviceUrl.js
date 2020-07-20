@@ -49,6 +49,10 @@ export const fetch_typeWise_memberList = '/public/typeWise/members';
 export const fetch_genderWise_dressList = '/public/genderWise/dress';
 export const fetch_seats_details = '/public/seats';
 export const fetch_welcomeSpeechList = '/public/speechs';
+export const fetch_public_classList = '/public/classes';
+export const fetch_feesInfoBy_class = '/public/classWise/fees';
+
+
 
 
 
