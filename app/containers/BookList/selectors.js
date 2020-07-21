@@ -10,9 +10,14 @@ const selectBookListDomain = state => state.get('bookList', initialState);
 /**
  * Other specific selectors
  */
+const makeSelectAllClassList = () =>
+  createSelector(selectBookListDomain, substate => substate.get('allClassList'));
+
+const makeSelectBookListByClassId = () =>
+  createSelector(selectBookListDomain, substate => substate.get('classId'));
 
 const makeSelectAllBookList = () =>
-  createSelector(selectBookListDomain, substate => substate.get('bookList'));
+  createSelector(selectBookListDomain, substate => substate.get('allBookList'));
 
 const makeSelectModalVisibleStatus = () =>
   createSelector(selectBookListDomain, substate =>
@@ -28,6 +33,8 @@ const makeSelectBookList = () =>
 export default makeSelectBookList;
 export {
   selectBookListDomain,
-  makeSelectAllBookList,
   makeSelectModalVisibleStatus,
+  makeSelectAllClassList,
+  makeSelectBookListByClassId,
+  makeSelectAllBookList
 };

@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_MODAL_STATUS } from './constants';
+import { DEFAULT_ACTION, SET_MODAL_STATUS, EVENT_GALLERY_IMAGE_LIST } from './constants';
 
 export function defaultAction() {
   return {
@@ -16,4 +16,11 @@ export function setModalVisiableStatus() {
   return {
     type: SET_MODAL_STATUS,
   };
+}
+
+export function fetchGalleryImageList(galleryImageList){
+  return{
+    type: EVENT_GALLERY_IMAGE_LIST,
+    galleryImageList
+  }
 }

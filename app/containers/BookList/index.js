@@ -18,6 +18,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import makeSelectBookList, {
   makeSelectModalVisibleStatus,
   makeSelectAllBookList,
+  makeSelectAllClassList,
+  makeSelectBookListByClassId,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,12 +27,15 @@ import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import bookImage from '../../assets/img/book-image.png';
 import bookImageBig from '../../assets/img/book-image-big.png';
-import { setModalVisibleStatus, setSubmitClassBtn } from './actions';
+import { setModalVisibleStatus, setSubmitClassBtn, fetchBookListByClassId } from './actions';
 import { AppLayout } from '../AppLayout';
 
 const modal = false;
 const toggle = false;
 const className = '';
+let classId = '';
+let booklist = [];
+let singleBook = [];
 
 /* eslint-disable react/prefer-stateless-function */
 export class BookList extends React.Component {
@@ -38,304 +43,216 @@ export class BookList extends React.Component {
     super();
   }
 
+  getBookListHandler = (value) => {
+    classId = value;
+    this.props.onClickFetchBookList(classId);
+  }
+
+  singleBookHandler = (value) => {
+    singleBook = [];
+    this.props.onChangeModalStatus();
+    singleBook.push(booklist[value]);
+  }
+
+
   render() {
-    console.log('allBookList', this.props.allBookList);
+    let classList = this.props.allClassList;
+    booklist = this.props.allBookList;
 
     return (
       <div>
         <AppLayout>
-        <Helmet>
-          <title>BookList</title>
-          <meta name="description" content="Description of BookList" />
-        </Helmet>
-        <BreadcrumComponent
-          pageTitle="Booklist of All Classes"
-          menuStepFirst="Academic Info"
-          menuStepSenond="Details Info"
-          menuStepThird="Book List"
-        />
-        <section>
-          <div className="container-fluid">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="sidebar-menu-wrapper">
-                    <div className="sidebar-title">
-                      <h3>Select Class</h3>
-                    </div>
-                    <div className="custom-title-border-left">
-                      <ul className="nav-item-list">
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                        <li>
-                          <i className="fas fa-angle-right" /> Class One
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-8">
-                  <div className="content-wrapper content-padding-sm">
-                    <div className="book-list-wrapper">
-                      <div className="table-responsive">
-                        <table className="book-list w-100">
-                          <tr>
-                            <td>
-                              <div className="book-image-wrapper">
-                                <div className="book-list-image">
-                                  <img src={bookImage} className="img-fluid" />
-                                  <button
-                                    className="book-image-zoom"
-                                    onClick={this.props.onChangeModalStatus}
-                                  >
-                                    <i className="fas fa-search" />
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <table className="book-details w-100">
-                                <tr>
-                                  <td colSpan="2">
-                                    <span className="title">
-                                      Amar Bangla Boi{' '}
-                                      <span>(আমার বাংলা বই)</span>
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Book Type</td>
-                                  <td>: Board</td>
-                                </tr>
-                                <tr>
-                                  <td>Publisher</td>
-                                  <td>: Khelaghore</td>
-                                </tr>
-                                <tr>
-                                  <td>Published Year</td>
-                                  <td>: 2017</td>
-                                </tr>
-                                <tr>
-                                  <td>Price (Approx)</td>
-                                  <td>: 50/-BDT</td>
-                                </tr>
-                                <tr>
-                                  <td>Author</td>
-                                  <td>
-                                    : A.K.S Khan Lodi....
-                                    <a href="#">more</a>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="book-image-wrapper">
-                                <div className="book-list-image">
-                                  <img src={bookImage} className="img-fluid" />
-                                  <button
-                                    className="book-image-zoom"
-                                    onClick={this.props.onChangeModalStatus}
-                                  >
-                                    <i className="fas fa-search" />
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <table className="book-details w-100">
-                                <tr>
-                                  <td colSpan="2">
-                                    <span className="title">
-                                      Amar Bangla Boi{' '}
-                                      <span>(আমার বাংলা বই)</span>
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Book Type</td>
-                                  <td>: Board</td>
-                                </tr>
-                                <tr>
-                                  <td>Publisher</td>
-                                  <td>: Khelaghore</td>
-                                </tr>
-                                <tr>
-                                  <td>Published Year</td>
-                                  <td>: 2017</td>
-                                </tr>
-                                <tr>
-                                  <td>Price (Approx)</td>
-                                  <td>: 50/-BDT</td>
-                                </tr>
-                                <tr>
-                                  <td>Author</td>
-                                  <td>
-                                    : A.K.S Khan Lodi....
-                                    <a href="#">more</a>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="book-image-wrapper">
-                                <div className="book-list-image">
-                                  <img src={bookImage} className="img-fluid" />
-                                  <button
-                                    className="book-image-zoom"
-                                    onClick={this.props.onChangeModalStatus}
-                                  >
-                                    <i className="fas fa-search" />
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <table className="book-details w-100">
-                                <tr>
-                                  <td colSpan="2">
-                                    <span className="title">
-                                      Amar Bangla Boi{' '}
-                                      <span>(আমার বাংলা বই)</span>
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Book Type</td>
-                                  <td>: Board</td>
-                                </tr>
-                                <tr>
-                                  <td>Publisher</td>
-                                  <td>: Khelaghore</td>
-                                </tr>
-                                <tr>
-                                  <td>Published Year</td>
-                                  <td>: 2017</td>
-                                </tr>
-                                <tr>
-                                  <td>Price (Approx)</td>
-                                  <td>: 50/-BDT</td>
-                                </tr>
-                                <tr>
-                                  <td>Author</td>
-                                  <td>
-                                    : A.K.S Khan Lodi....
-                                    <a href="#">more</a>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
+          <Helmet>
+            <title>BookList</title>
+            <meta name="description" content="Description of BookList" />
+          </Helmet>
+          <BreadcrumComponent
+            pageTitle="Booklist of All Classes"
+            menuStepFirst="Academic Info"
+            menuStepSenond="Details Info"
+            menuStepThird="Book List"
+          />
+          <section>
+            <div className="container-fluid">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-4">
+                    <div className="sidebar-menu-wrapper">
+                      <div className="sidebar-title">
+                        <h3>Select Class</h3>
+                      </div>
+                      <div className="custom-title-border-left">
+                        <ul className="nav-item-list">
+                          {
+                            classList && classList.map(item => {
+                              return (
+                                <li onClick={() => this.getBookListHandler(item.classId)}>
+                                  <i className="fas fa-angle-right" /> {item.className}
+                                </li>
+                              )
+                            })
+                          }
+                        </ul>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <Modal
-          className="booklist-popup-wrapper modal-dialog-centered"
-          isOpen={this.props.modalVisibleStatus}
-          toggle={this.props.onChangeModalStatus}
-        >
-          <button
-            className="close-btn"
-            onClick={this.props.onChangeModalStatus}
-          >
-            <i className="fas fa-times" />
-          </button>
-          <ModalBody>
-            <div className="content-wrapper content-padding-sm pt-0 pb-0">
-              <div className="book-list-wrapper">
-                <div className="table-responsive">
-                  <table className="book-list w-100">
-                    <tr>
-                      <td>
-                        <div className="book-image-wrapper">
-                          <div className="book-list-image">
-                            <img src={bookImageBig} className="img-fluid" />
-                            <button
-                              className="book-image-zoom"
-                              onClick={this.props.onChangeModalStatus}
-                            >
-                              <i className="fas fa-search" />
-                            </button>
-                          </div>
+                  <div className="col-md-8">
+                    {booklist.length > 0 ? <div className="content-wrapper content-padding-sm">
+                      <div className="book-list-wrapper">
+                        <div className="table-responsive">
+                          <table className="book-list w-100">
+                            {booklist && booklist.map((item, index) => {
+                              return (
+                                <tr>
+                                  <td>
+                                    <div className="book-image-wrapper">
+                                      <div className="book-list-image">
+                                        <img src={bookImage} className="img-fluid" />
+                                        <button
+                                          className="book-image-zoom"
+                                          onClick={() => this.singleBookHandler(index)}
+                                        >
+                                          <i className="fas fa-search" />
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <table className="book-details w-100">
+                                      <tr>
+                                        <td colSpan="2">
+                                          <span className="title">
+                                            {item.bookName}
+                                            {/* Amar Bangla Boi{' '}
+                                      <span>(আমার বাংলা বই)</span> */}
+                                          </span>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>Book Type</td>
+                                        <td>: {item.bookType}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Publisher</td>
+                                        <td>: {item.publicationName}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Published Year</td>
+                                        <td>: {item.publicationYear}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Price (Approx)</td>
+                                        <td>: {item.bookPrice ? item.bookPrice : '00:00'} /-BDT</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Author</td>
+                                        <td>
+                                          : {item.authorName}
+                                          {/* <a href="#">more</a> */}
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </table>
                         </div>
-                      </td>
-                      <td>
-                        <table className="book-details">
-                          <tr>
-                            <td colSpan="2">
-                              <span className="title">
-                                Amar Bangla Boi <span>(আমার বাংলা বই)</span>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Book Type</td>
-                            <td>: Board</td>
-                          </tr>
-                          <tr>
-                            <td>Publisher</td>
-                            <td>: Khelaghore</td>
-                          </tr>
-                          <tr>
-                            <td>Published Year</td>
-                            <td>: 2017</td>
-                          </tr>
-                          <tr>
-                            <td>Price (Approx)</td>
-                            <td>: 50/-BDT</td>
-                          </tr>
-                          <tr>
-                            <td valign="top">Author</td>
-                            <td>
-                              : A.K.S Khan Lodi, Shoriful Khan, Rajib Poddar,
-                              Sultana Rajia
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
+                      </div>
+                    </div>
+                      : <div className="content-wrapper content-padding-sm info-header-title">
+                        <div className="row">
+                          <h5 className="col-lg-12">
+                            <span className="text-orange">
+                              Select Class First
+                            </span>
+                          </h5>
+                        </div>
+                      </div>}
+
+                  </div>
                 </div>
               </div>
             </div>
-          </ModalBody>
-        </Modal>
-        <div className="container">
-          <div className="row">
-            <div className="offset-md-1 col-md-10">
-              <div className="custom-title-border-center" />
+          </section>
+
+          <Modal
+            className="booklist-popup-wrapper modal-dialog-centered"
+            isOpen={this.props.modalVisibleStatus}
+            toggle={this.props.onChangeModalStatus}
+          >
+            <button
+              className="close-btn"
+              onClick={this.props.onChangeModalStatus}
+            >
+              <i className="fas fa-times" />
+            </button>
+            <ModalBody>
+              <div className="content-wrapper content-padding-sm pt-0 pb-0">
+                <div className="book-list-wrapper">
+                  <div className="table-responsive">
+                    <table className="book-list w-100">
+                      {singleBook && singleBook.map(item => {
+
+                        return (
+                          <tr>
+                            <td>
+                              <div className="book-image-wrapper">
+                                <div className="book-list-image">
+                                  <img src={bookImageBig} className="img-fluid" />
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <table className="book-details">
+                                <tr>
+                                  <td colSpan="2">
+                                    <span className="title">
+                                    {item.bookName}
+                                    </span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Book Type</td>
+                                  <td>: {item.bookType}</td>
+                                </tr>
+                                <tr>
+                                  <td>Publisher</td>
+                                  <td>: {item.publicationName}</td>
+                                </tr>
+                                <tr>
+                                  <td>Published Year</td>
+                                  <td>: {item.publicationYear}</td>
+                                </tr>
+                                <tr>
+                                  <td>Price (Approx)</td>
+                                  <td>: {item.bookPrice ? item.bookPrice : '00:00'}</td>
+                                </tr>
+                                <tr>
+                                  <td valign="top">Author</td>
+                                  <td>
+                                    : {item.authorName}
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        )
+
+                      })}
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </ModalBody>
+          </Modal>
+          <div className="container">
+            <div className="row">
+              <div className="offset-md-1 col-md-10">
+                <div className="custom-title-border-center" />
+              </div>
             </div>
           </div>
-        </div>
         </AppLayout>
       </div>
     );
@@ -344,19 +261,25 @@ export class BookList extends React.Component {
 
 BookList.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  allClassList: PropTypes.any,
+  allBookList: PropTypes.any,
+  onClickFetchBookList: PropTypes.func,
+  onChangeModalStatus:PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({
   bookList: makeSelectBookList(),
-  allBookList: makeSelectAllBookList(),
+  allClassList: makeSelectAllClassList(),
   modalVisibleStatus: makeSelectModalVisibleStatus(),
+  onClickFetchBookList: makeSelectBookListByClassId(),
+  allBookList: makeSelectAllBookList(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onChangeModalStatus: () => dispatch(setModalVisibleStatus()),
-    onChangeSelectCalss: ()=> dispatch(setSubmitClassBtn()),
+    onClickFetchBookList: () => dispatch(fetchBookListByClassId(classId))
   };
 }
 

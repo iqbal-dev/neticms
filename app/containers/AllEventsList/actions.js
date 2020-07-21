@@ -12,8 +12,9 @@ export function defaultAction() {
   };
 }
 
-export function allEventsList() {
+export function getAllEventsList(allEventsList) {
   return {
     type: FETCH_ALL_EVENTS,
+    allEventsList
   };
 }

@@ -16,7 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import { Button, Modal, ModalBody } from 'reactstrap';
 import { Carousel } from 'react-responsive-carousel';
 import makeSelectEventGallery, {
-  makeSelectModalVisiableStatus,
+  makeSelectModalVisiableStatus, makeSelectGalleryImageList,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -29,6 +29,7 @@ import { AppLayout } from '../AppLayout';
 /* eslint-disable react/prefer-stateless-function */
 export class EventGallery extends React.PureComponent {
   render() {
+    let galleryImageLists = this.props.galleryImageList;
     return (
       <div>
         <AppLayout>
@@ -44,23 +45,31 @@ export class EventGallery extends React.PureComponent {
         />
         <div className="container p-t-60 content-wrapper ">
           <div className="row">
-            <div className="col-md-4">
-              <div className="book-list-wrapper m-b-30">
-                <div className="book-list-image">
-                  <img
-                    src={eventGallery}
-                    className="img-fluid w-100"
-                    alt="Event Gallery"
-                  />
-                  <Button
-                    className="book-image-zoom"
-                    onClick={this.props.onChangemodalVisiable}
-                  >
-                    <i className="fas fa-search" />
-                  </Button>
+            { galleryImageLists && galleryImageLists.map((item) => {
+                
+              return(
+                <div className="col-md-4">
+                  <div className="book-list-wrapper m-b-30">
+                    <div className="book-list-image">
+                      <img
+                        src={eventGallery}
+                        className="img-fluid w-100"
+                        alt="Event Gallery"
+                      />
+                      <Button
+                        className="book-image-zoom"
+                        onClick={this.props.onChangemodalVisiable}
+                      >
+                        <i className="fas fa-search" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              )
+
+            }
+              
+            )}
           </div>
           <div className="row m-t-40">
             <div className="col-md-12">
@@ -124,11 +133,13 @@ export class EventGallery extends React.PureComponent {
 EventGallery.propTypes = {
   dispatch: PropTypes.func.isRequired,
   modalVisiable: PropTypes.any,
+  galleryImageList: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   eventGallery: makeSelectEventGallery(),
   modalVisiable: makeSelectModalVisiableStatus(),
+  galleryImageList: makeSelectGalleryImageList()
 });
 
 function mapDispatchToProps(dispatch) {

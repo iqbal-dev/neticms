@@ -4,18 +4,11 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_MODAL_STATUS, SET_BOOK_LIST, SUBMIT_CLASS_BUTTON } from './constants';
+import { DEFAULT_ACTION, SET_MODAL_STATUS, FETCH_CLASS_LIST, FETCH_BOOK_LIST_BY_CLASS_ID, FETCH_BOOK_LIST } from './constants';
 
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
-  };
-}
-
-export function setBookList(bookList) {
-  return {
-    type: SET_BOOK_LIST,
-    bookList,
   };
 }
 
@@ -26,9 +19,26 @@ export function setModalVisibleStatus() {
 }
 
 
-export function setSubmitClassBtn() {
+export function fetchClassList(allClassList) {
   return {
-    type: SUBMIT_CLASS_BUTTON,
+    type: FETCH_CLASS_LIST,
+    allClassList
   };
 }
+
+export function fetchBookListByClassId(classId) {
+  return {
+    type: FETCH_BOOK_LIST_BY_CLASS_ID,
+    classId
+  };
+}
+
+export function fetchBookList(allBookList) {
+  return {
+    type: FETCH_BOOK_LIST,
+    allBookList
+  };
+}
+
+
 

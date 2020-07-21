@@ -617,7 +617,7 @@
     margin-bottom: 20px; }
     .event-list-wrapper.event-list-wrapper-full .event-list .event .event-details .event-title h2 {
       color: #454545; }
-  .event-list-wrapper.event-list-wrapper-full .event-list .event:hover .event-details {
+  .event-list-wrapper.event-list-wrapper-full .event-list .event:hover {
     background: #f2f2f2; }
     .event-list-wrapper.event-list-wrapper-full .event-list .event:hover .event-details .event-title h2 {
       color: #454545; }

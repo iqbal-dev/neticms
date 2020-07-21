@@ -14,17 +14,19 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectDownloadCorner from './selectors';
+import makeSelectDownloadCorner, { makeSelectDownloadList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Table } from 'reactstrap';
 import { AppLayout } from '../AppLayout';
+import { concat } from 'lodash';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DownloadCorner extends React.PureComponent {
   render() {
+    let downloadLists = this.props.downloadList;
     return (
       <div>
         <AppLayout>
@@ -58,21 +60,18 @@ export class DownloadCorner extends React.PureComponent {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>01</td>
-                        <td>SSC Exam Routine of 2020 Dhaka Board Science Group</td>
-                        <td className="text-center"><button class="btn explore-btn"><i class="fas fa-download pr-2"></i>DOWNLOAD</button></td>
-                      </tr>
-                      <tr>
-                        <td>02</td>
-                        <td>SSC Exam Routine of 2020 Dhaka Board Science Group</td>
-                        <td className="text-center"><button class="btn explore-btn"><i class="fas fa-download pr-2"></i>DOWNLOAD</button></td>
-                      </tr>
-                      <tr>
-                        <td>03</td>
-                        <td>SSC Exam Routine of 2020 Dhaka Board Science Group</td>
-                        <td className="text-center"><button class="btn explore-btn"><i class="fas fa-download pr-2"></i>DOWNLOAD</button></td>
-                      </tr>
+                      {
+                        downloadLists && downloadLists.map((item, index) =>{
+                          return(
+                            <tr>
+                              <td>{index > 9 ? index + 1 : '0'+(index + 1) }</td>
+                              <td>{item.fileTitle}</td>
+                              <td className="text-center"><button class="btn explore-btn"><i class="fas fa-download pr-2"></i>DOWNLOAD</button></td>
+                            </tr>
+                          )
+                        }
+                        )
+                      }
                     </tbody>
                   </Table>
                   </div>
@@ -104,10 +103,12 @@ export class DownloadCorner extends React.PureComponent {
 
 DownloadCorner.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  downloadList: PropTypes.any
 };
 
 const mapStateToProps = createStructuredSelector({
   downloadCorner: makeSelectDownloadCorner(),
+  downloadList: makeSelectDownloadList()
 });
 
 function mapDispatchToProps(dispatch) {

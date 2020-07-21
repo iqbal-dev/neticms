@@ -12,6 +12,10 @@ const selectSyllabusInfoDomain = state =>
  * Other specific selectors
  */
 
+const makeSelectSyllabusList = () =>
+createSelector(selectSyllabusInfoDomain, substate => substate.get("syllabusList"));
+
+
 /**
  * Default selector used by SyllabusInfo
  */
@@ -20,4 +24,4 @@ const makeSelectSyllabusInfo = () =>
   createSelector(selectSyllabusInfoDomain, substate => substate.toJS());
 
 export default makeSelectSyllabusInfo;
-export { selectSyllabusInfoDomain };
+export { selectSyllabusInfoDomain, makeSelectSyllabusList };

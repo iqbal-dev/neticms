@@ -12,6 +12,9 @@ const selectDownloadCornerDomain = state =>
  * Other specific selectors
  */
 
+const makeSelectDownloadList = () =>
+  createSelector(selectDownloadCornerDomain, substate => substate.get('downloadLinks'));
+
 /**
  * Default selector used by DownloadCorner
  */
@@ -20,4 +23,4 @@ const makeSelectDownloadCorner = () =>
   createSelector(selectDownloadCornerDomain, substate => substate.toJS());
 
 export default makeSelectDownloadCorner;
-export { selectDownloadCornerDomain };
+export { selectDownloadCornerDomain, makeSelectDownloadList };

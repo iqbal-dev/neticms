@@ -451,8 +451,9 @@
                     }
                 }
                 &:hover{
+                    background: $grayColorLight;
                     .event-details{
-                        background: $grayColorLight;
+                        
                         .event-title{
                             h2{
                                 color: $darkTextColor;

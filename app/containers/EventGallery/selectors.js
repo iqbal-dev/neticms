@@ -15,7 +15,12 @@ const selectEventGalleryDomain = state =>
 const makeSelectModalVisiableStatus = () =>
   createSelector(selectEventGalleryDomain, substate =>
     substate.get('modalVisiable'),
-  );
+);
+
+const makeSelectGalleryImageList = () =>
+  createSelector(selectEventGalleryDomain, substate =>
+    substate.get('galleryImageList'),
+);
 
 /**
  * Default selector used by EventGallery
@@ -25,4 +30,4 @@ const makeSelectEventGallery = () =>
   createSelector(selectEventGalleryDomain, substate => substate.toJS());
 
 export default makeSelectEventGallery;
-export { selectEventGalleryDomain, makeSelectModalVisiableStatus };
+export { selectEventGalleryDomain, makeSelectModalVisiableStatus, makeSelectGalleryImageList };

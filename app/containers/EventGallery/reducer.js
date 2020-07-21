@@ -5,10 +5,11 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_MODAL_STATUS } from './constants';
+import { DEFAULT_ACTION, SET_MODAL_STATUS, EVENT_GALLERY_IMAGE_LIST } from './constants';
 
 export const initialState = fromJS({
   modalVisiable: false,
+  galleryImageList: []
 });
 
 function eventGalleryReducer(state = initialState, action) {
@@ -18,6 +19,8 @@ function eventGalleryReducer(state = initialState, action) {
     case SET_MODAL_STATUS:
       const status = state.get('modalVisiable');
       return state.set('modalVisiable', !status);
+    case EVENT_GALLERY_IMAGE_LIST:
+      return state.set('galleryImageList', action.galleryImageList)
     default:
       return state;
   }
