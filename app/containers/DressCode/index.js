@@ -15,7 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import classnames from 'classnames';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
-import makeSelectDressCode from './selectors';
+import makeSelectDressCode, { makeSelectMaleDressCodeList, makeSelectFemaleDressCodeList, makeSelectCombinedDressCodeList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectDressCodeList, makeSelectTabPanelStatus } from './selectors';
@@ -33,6 +33,8 @@ export class DressCode extends React.Component {
   toggleTab = tabId => this.props.onChangeTabPanel(tabId);
 
   render() {
+    console.log('this.props.maleDressCodeList',this.props.maleDressCodeList)
+
     return (
       <div>
         <AppLayout>
@@ -118,45 +120,42 @@ export class DressCode extends React.Component {
                       <TabPane tabId="1">
                         <div className="tab-panel-wrapper">
                           <div className="row">
+                          {this.props.maleDressCodeList && this.props.maleDressCodeList.map((item,index) => (
+
+                          
+
+
+
+                             <>
                             <div className="col-md-8">
                               <div className="page-inner-title">
                                 <h2 className="text-orange">
-                                  Class One to Five
+                                  {item.classRange}
                                 </h2>
                                 <div className="custom-title-border-left" />
                               </div>
                               <div className="content">
                                 <p>
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipisicing elit, sed do eiusmod tempor
-                                  incididunt ut labore et dolore magna aliqua.
-                                  Ut enim ad minim veniam, quis nostrud
-                                  exercitation ullamco laboris nisi ut aliquip
-                                  ex ea commodo consequat. Duis aute irure dolor
-                                  in reprehenderit in voluptate velit esse
-                                  cillumcusantium doloremque laudantium, totam
-                                  rem aperiam, eaque ipsa quae ab illo inventore
-                                  veritatis. Duis aute irure dolor in
-                                  reprehenderit in voluptate ve, eaque ipsa quae
-                                  ab illo inventore veritatis.Duis aute irure
-                                  dolor in reprehenderit in voluptate velit
-                                  esse.
+                             {item.dressDetails}
                                 </p>
                               </div>
                             </div>
+                            
 
-                            <div className="col-md-4">
+                             <div className="col-md-4">
                               <div className="panel-image text-center">
                                 <img
-                                  src={dresscode}
+                                  src={`data:image/*;base64,${item.dressImg}`}
                                   className="img-fluid m-auto"
                                   alt="Dress code one"
                                 />
                               </div>
-                            </div>
+                            </div> 
+                            </>
+                               ))}
                           </div>
                         </div>
-                        <div className="tab-panel-wrapper">
+                        {/* <div className="tab-panel-wrapper">
                           <div className="row">
                             <div className="col-md-8 ">
                               <div className="page-inner-title">
@@ -195,171 +194,83 @@ export class DressCode extends React.Component {
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </TabPane>
                       <TabPane tabId="2">
                         <div className="tab-panel-wrapper">
                           <div className="row">
+                          {this.props.femaleDressCodeList && this.props.femaleDressCodeList.map((item,index) => (
+                             <>
                             <div className="col-md-8">
                               <div className="page-inner-title">
                                 <h2 className="text-orange">
-                                  Class One to Five
+                                  {item.classRange}
                                 </h2>
                                 <div className="custom-title-border-left" />
                               </div>
                               <div className="content">
                                 <p>
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipisicing elit, sed do eiusmod tempor
-                                  incididunt ut labore et dolore magna aliqua.
-                                  Ut enim ad minim veniam, quis nostrud
-                                  exercitation ullamco laboris nisi ut aliquip
-                                  ex ea commodo consequat. Duis aute irure dolor
-                                  in reprehenderit in voluptate velit esse
-                                  cillumcusantium doloremque laudantium, totam
-                                  rem aperiam, eaque ipsa quae ab illo inventore
-                                  veritatis. Duis aute irure dolor in
-                                  reprehenderit in voluptate ve, eaque ipsa quae
-                                  ab illo inventore veritatis.Duis aute irure
-                                  dolor in reprehenderit in voluptate velit
-                                  esse.
+                             {item.dressDetails}
                                 </p>
                               </div>
                             </div>
+                            
 
-                            <div className="col-md-4">
+                             <div className="col-md-4">
                               <div className="panel-image text-center">
                                 <img
-                                  src={dresscode}
+                                  src={`data:image/*;base64,${item.dressImg}`}
                                   className="img-fluid m-auto"
-                                  alt="Dress code three"
+                                  alt="Dress code one"
                                 />
                               </div>
-                            </div>
+                            </div> 
+                            </>
+                               ))}
                           </div>
-                        </div>
-                        <div className="tab-panel-wrapper">
-                          <div className="row">
-                            <div className="col-md-8 ">
-                              <div className="page-inner-title">
-                                <h2 className="text-orange">
-                                  Class One to Five
-                                </h2>
-                                <div className="custom-title-border-left" />
-                              </div>
-                              <div className="content">
-                                <p>
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipisicing elit, sed do eiusmod tempor
-                                  incididunt ut labore et dolore magna aliqua.
-                                  Ut enim ad minim veniam, quis nostrud
-                                  exercitation ullamco laboris nisi ut aliquip
-                                  ex ea commodo consequat. Duis aute irure dolor
-                                  in reprehenderit in voluptate velit esse
-                                  cillumcusantium doloremque laudantium, totam
-                                  rem aperiam, eaque ipsa quae ab illo inventore
-                                  veritatis. Duis aute irure dolor in
-                                  reprehenderit in voluptate ve, eaque ipsa quae
-                                  ab illo inventore veritatis.Duis aute irure
-                                  dolor in reprehenderit in voluptate velit
-                                  esse.
-                                </p>
-                              </div>
-                            </div>
+                           
 
-                            <div className="col-md-4 md-order-first">
-                              <div className="panel-image text-center">
-                                <img
-                                  src={dresscode}
-                                  className="img-fluid m-auto"
-                                  alt="Dress code four"
-                                />
-                              </div>
-                            </div>
-                          </div>
+                         
+                       
                         </div>
+                      
                       </TabPane>
                       <TabPane tabId="3">
                         <div className="tab-panel-wrapper">
-                          <div className="row">
+                        <div className="row">
+                          {this.props.combineDressCodeList && this.props.combineDressCodeList.map((item,index) => (
+                             <>
                             <div className="col-md-8">
                               <div className="page-inner-title">
                                 <h2 className="text-orange">
-                                  Class One to Five
+                                  {item.classRange}
                                 </h2>
                                 <div className="custom-title-border-left" />
                               </div>
                               <div className="content">
                                 <p>
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipisicing elit, sed do eiusmod tempor
-                                  incididunt ut labore et dolore magna aliqua.
-                                  Ut enim ad minim veniam, quis nostrud
-                                  exercitation ullamco laboris nisi ut aliquip
-                                  ex ea commodo consequat. Duis aute irure dolor
-                                  in reprehenderit in voluptate velit esse
-                                  cillumcusantium doloremque laudantium, totam
-                                  rem aperiam, eaque ipsa quae ab illo inventore
-                                  veritatis. Duis aute irure dolor in
-                                  reprehenderit in voluptate ve, eaque ipsa quae
-                                  ab illo inventore veritatis.Duis aute irure
-                                  dolor in reprehenderit in voluptate velit
-                                  esse.
+                             {item.dressDetails}
                                 </p>
                               </div>
                             </div>
+                            
 
-                            <div className="col-md-4">
+                             <div className="col-md-4">
                               <div className="panel-image text-center">
                                 <img
-                                  src={dresscode}
+                                  src={`data:image/*;base64,${item.dressImg}`}
                                   className="img-fluid m-auto"
-                                  alt="Dress code five"
+                                  alt="Dress code one"
                                 />
                               </div>
-                            </div>
+                            </div> 
+                            </>
+                               ))}
                           </div>
+                        
+                         
                         </div>
-                        <div className="tab-panel-wrapper">
-                          <div className="row">
-                            <div className="col-md-8 ">
-                              <div className="page-inner-title">
-                                <h2 className="text-orange">
-                                  Class One to Five
-                                </h2>
-                                <div className="custom-title-border-left" />
-                              </div>
-                              <div className="content">
-                                <p>
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipisicing elit, sed do eiusmod tempor
-                                  incididunt ut labore et dolore magna aliqua.
-                                  Ut enim ad minim veniam, quis nostrud
-                                  exercitation ullamco laboris nisi ut aliquip
-                                  ex ea commodo consequat. Duis aute irure dolor
-                                  in reprehenderit in voluptate velit esse
-                                  cillumcusantium doloremque laudantium, totam
-                                  rem aperiam, eaque ipsa quae ab illo inventore
-                                  veritatis. Duis aute irure dolor in
-                                  reprehenderit in voluptate ve, eaque ipsa quae
-                                  ab illo inventore veritatis.Duis aute irure
-                                  dolor in reprehenderit in voluptate velit
-                                  esse.
-                                </p>
-                              </div>
-                            </div>
-
-                            <div className="col-md-4 md-order-first">
-                              <div className="panel-image text-center">
-                                <img
-                                  src={dresscode}
-                                  className="img-fluid m-auto"
-                                  alt="Dress code six"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                       
                       </TabPane>
                     </TabContent>
                   </div>
@@ -384,14 +295,20 @@ export class DressCode extends React.Component {
 
 DressCode.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  dressCodeList: PropTypes.any,
+  maleDressCodeList: PropTypes.any,
   tabVisibleStatus: PropTypes.any,
   onChangeTabPanel: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   dressCode: makeSelectDressCode(),
-  dressCodeList: makeSelectDressCodeList(),
+  maleDressCodeList: makeSelectMaleDressCodeList(),
+  femaleDressCodeList: makeSelectFemaleDressCodeList(),
+  combineDressCodeList: makeSelectCombinedDressCodeList(),
+
+
+  
+
   tabVisibleStatus: makeSelectTabPanelStatus(), // /last day work
 });
 
