@@ -85,3 +85,7 @@ export const fetch_downloadCornerList = '/seat-info/list';
 export const fetch_dressInfoList = '/dress-info/list';
 export const save_newDressInfo = '/dress-info/save';
 export const update_newDressInfo = '/dress-info/update';
+
+
+export const fetch_downloadFileContent = '/public/downloadcorner/file/find';
+// fetch_downloadFileContent

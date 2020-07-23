@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectDownloadCorner, { makeSelectDownloadList } from './selectors';
+import makeSelectDownloadCorner, { makeSelectDownloadList, makeSelectGetDownloadFile } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -22,11 +22,61 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Table } from 'reactstrap';
 import { AppLayout } from '../AppLayout';
 import { concat } from 'lodash';
+import {
+  makeClickDownloadButton
+} from "./actions"
 
 /* eslint-disable react/prefer-stateless-function */
+
+let downloadRowData={}
 export class DownloadCorner extends React.PureComponent {
+
+  getFileContentType = (fileName) => {
+    if (fileName === undefined) {
+      return;
+    }
+    let contentType = '';
+    if (fileName.endsWith('.jpeg')) {
+      contentType = 'image/jpeg';
+    } else if (fileName.endsWith('.jpg')) {
+      contentType = 'image/jpg';
+    } else if (fileName.endsWith('.png')) {
+      contentType = 'image/png';
+    } else if (fileName.endsWith('.pdf')) {
+      contentType = 'application/pdf';
+    } else if (fileName.endsWith('.doc')) {
+      contentType = 'application/doc';
+    } else if (fileName.endsWith('.docx')) {
+      contentType = 'application/docx';
+    } else if (fileName.endsWith('.xls')) {
+      contentType = 'application/xls';
+    } else if (fileName.endsWith('.xlsx')) {
+      contentType = 'application/xlsx';
+    } else if (fileName.endsWith('.ppt')) {
+      contentType = 'application/ppt';
+    } else if (fileName.endsWith('.pptx')) {
+      contentType = 'application/pptx';
+    }
+    return contentType;
+  }
+
   render() {
     let downloadLists = this.props.downloadList;
+
+    console.log("getDownloadFile::::", this.props.getDownloadFile);
+
+    // let downloadFileContent =  this.props.getDownloadFile
+    // if(downloadFileContent){
+    //   let contentType = this.getFileContentType(downloadRowData.fileName);
+
+    //   let a = document.createElement("a");
+    //   a.href = contentType + downloadFileContent;
+    //   a.download = downloadRowData.fileName;
+    //   // document.body.appendChild(a);
+    //   a.click();
+    //   // document.body.removeChild(a);
+    // }
+
     return (
       <div>
         <AppLayout>
@@ -51,29 +101,33 @@ export class DownloadCorner extends React.PureComponent {
               <div className="row">
                 <di className="col-md-12">
                   <div className="table-responsive custom-table">
-                  <Table striped className="download-corner-table">
-                    <thead>
-                      <tr>
-                        <th>Sl No.</th>
-                        <th>File Name</th>
-                        <th className="text-center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        downloadLists && downloadLists.map((item, index) =>{
-                          return(
-                            <tr>
-                              <td>{index > 9 ? index + 1 : '0'+(index + 1) }</td>
-                              <td>{item.fileTitle}</td>
-                              <td className="text-center"><button class="btn explore-btn"><i class="fas fa-download pr-2"></i>DOWNLOAD</button></td>
-                            </tr>
+                    <Table striped className="download-corner-table">
+                      <thead>
+                        <tr>
+                          <th>Sl No.</th>
+                          <th>File Name</th>
+                          <th className="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          downloadLists && downloadLists.map((item, index) =>{
+                            return(
+                              <tr>
+                                <td>{index > 9 ? index + 1 : '0' + (index + 1)}</td>
+                                <td>{item.fileTitle}</td>
+                                <td className="text-center">
+                                  <button class="btn explore-btn" onClick={ e => this.props.downloadFile(e, item)}>
+                                    <i class="fas fa-download pr-2"></i>DOWNLOAD
+                                  </button>
+                                </td>
+                              </tr>
+                            )
+                          }
                           )
                         }
-                        )
-                      }
-                    </tbody>
-                  </Table>
+                      </tbody>
+                    </Table>
                   </div>
                 </di>
               </div>
@@ -108,12 +162,17 @@ DownloadCorner.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   downloadCorner: makeSelectDownloadCorner(),
-  downloadList: makeSelectDownloadList()
+  downloadList: makeSelectDownloadList(),
+  getDownloadFile: makeSelectGetDownloadFile(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    downloadFile: (e, item) => { 
+      dispatch(makeClickDownloadButton(e, item))
+      downloadRowData = item
+     }
   };
 }
 
