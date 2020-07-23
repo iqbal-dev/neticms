@@ -49,6 +49,7 @@ import { AppLayout } from '../AppLayout';
 
 let speechIndex = 0;
 let welComeSpeechObj = {};
+let fileContent = '';
 let speakerDesignation = '';
 let speakerName = '';
 let welComeSpeech = '';
@@ -97,6 +98,7 @@ export class HomePage extends React.Component {
 
     speechIndex -= 1;
 
+    // document.getElementsByClassName('fileContent')[0].src = "data:image/*;base64," +this.props.welComeInfo[speechIndex].fileContent;
     document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
@@ -119,6 +121,7 @@ export class HomePage extends React.Component {
     }
 
     if (!this.props.welComeInfo == '') {
+      fileContent = "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent
       speakerDesignation = this.props.welComeInfo[speechIndex].speakerDesignation;
       speakerName = this.props.welComeInfo[speechIndex].speakerName;
       welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
@@ -145,10 +148,15 @@ export class HomePage extends React.Component {
                     <div className="speech-slider-wrapper">
                       <div className="slider-item">
                         <div className="slider-content">
-                          <img
+                        {/* {
+                          item.fileContent ? */}
+                            <img src={fileContent} align="left" className="fileContent"/>
+                            {/* <img src={staticImg} width="100%"/>
+                        } */}
+                          {/* <img
                             src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
                             align="left"
-                          />
+                          /> */}
                           <h4 className="designation">{speakerDesignation}</h4>
                           <h1 className="employe-name">{speakerName}</h1>
                           <p className='speechDetails'>
