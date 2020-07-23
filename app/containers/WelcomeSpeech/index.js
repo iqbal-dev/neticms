@@ -20,6 +20,7 @@ import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
+import staticImg from '../../assets/img/avatar.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class WelcomeSpeech extends React.Component {
@@ -49,7 +50,11 @@ export class WelcomeSpeech extends React.Component {
                     <div className="slider-item">
                       <div className="slider-content grid-list-wrapper">
                         <div className="grid-image">
-                          <img src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg" align="left" className="mx-auto d-block"/>
+                        {
+                          item.fileContent ?
+                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="mx-auto d-block"/>:
+                            <img src={staticImg} width="100%"/>
+                        }
                           <div className="grid-social">
                             <ul className="d-flex justify-content-center w-100 nav">
                               <li><a href={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
