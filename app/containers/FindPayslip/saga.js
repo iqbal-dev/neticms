@@ -1,16 +1,16 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { 
-  fetch_coreSettingsListBy_typeId, 
-  BASE_URL_EM, 
-  fetch_sectionWiseFailList, 
-  fetch_student_paySlipList 
+import {
+  fetch_coreSettingsListBy_typeId,
+  BASE_URL_EM,
+  fetch_sectionWiseFailList,
+  fetch_student_paySlipList
 } from '../../utils/serviceUrl';
-import { 
-  setAcademicYearList, 
-  setPaySlipListData 
+import {
+  setAcademicYearList,
+  setPaySlipListData
 } from './actions';
 import request from '../../utils/request';
-import { 
+import {
   makeSelectAcademicYear,
   makeSelectStudentID,
 } from './selectors';
@@ -40,20 +40,25 @@ export function* fetch_AcademicYearList() {
 
 };
 
-
 export function* fetch_PaySlipList() {
 
   console.log("CLICK");
-  
+
   let emToken = JSON.parse(localStorage.getItem('emToken'));
   let acYear = yield select(makeSelectAcademicYear());
   let stdID = yield select(makeSelectStudentID());
 
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  console.log('meritlist-instituteUrlInfo', instituteUrlInfo);
+
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
   console.log("CLICK", acYear, stdID);
 
   // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
-  
-  const requestURL = BASE_URL_EM.concat(fetch_student_paySlipList).concat('?customStudentId=').concat(stdID).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat('13000');
+
+  const requestURL = BASE_URL_EM.concat(fetch_student_paySlipList).concat('?customStudentId=').concat(stdID).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -73,7 +78,7 @@ export function* fetch_PaySlipList() {
 // Individual exports for testing
 export default function* findPayslipSaga() {
   // See example in containers/HomePage/saga.js
-  
+
   yield fetch_AcademicYearList();
 
   yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_PaySlipList)

@@ -2,22 +2,22 @@ import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { makeSelectStudentID, makeSelectStudentMobile, makeSelectAcademicYear, makeSelectExamConfigId } from "./selectors";
 import { SUBMIT_SEARCH_BUTTON, SET_ON_CHANGE_ACADEMIC_YEAR } from "./constants";
-import { 
-  BASE_URL_EM, 
-  fetch_coreSettingsListBy_typeId, 
-  fetch_examListBy_studentID_and_year, 
-  fetch_individual_result_data 
+import {
+  BASE_URL_EM,
+  fetch_coreSettingsListBy_typeId,
+  fetch_examListBy_studentID_and_year,
+  fetch_individual_result_data
 } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 import { setAcademicYearList, setExamList, setIndividualResultData } from './actions';
 
-function emCommonRequestOptions(){
+function emCommonRequestOptions() {
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let emToken = JSON.parse(localStorage.getItem('emToken'));
 
   let instituteId = '';
-  instituteUrlInfo && instituteUrlInfo.length ? 
-    instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId 
+  instituteUrlInfo && instituteUrlInfo.length ?
+    instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId
 
   const options = {
     method: 'GET',
@@ -37,7 +37,7 @@ export function* fetch_AcademicYearList() {
 
   let instituteID = '10020';
   const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteID);
-  
+
   try {
     const response = yield call(request, requestURL, requestOptions.options);
     console.log('ac_year', response);
@@ -53,27 +53,35 @@ export function* fetch_examListBy_Type() {
   let stdID = yield select(makeSelectStudentID());
   let academicYear = yield select(makeSelectAcademicYear());
 
-  let instituteID = '10199';
-  const requestURL = BASE_URL_EM.concat(fetch_examListBy_studentID_and_year) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&instituteId='+ instituteID;
-  
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  console.log('meritlist-instituteUrlInfo', instituteUrlInfo);
+
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+  const requestURL = BASE_URL_EM.concat(fetch_examListBy_studentID_and_year) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&instituteId=' + instituteId;
+
   const response = yield call(request, requestURL, requestOptions.options);
-  // console.log('exam_list', response);
+  console.log('exam_list', response);
   yield put(setExamList(response.item));
 
 }
 
 export function* fetch_individual_result() {
+
   const requestOptions = emCommonRequestOptions();
-  console.log("CLICK");
+
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let stdID = yield select(makeSelectStudentID());
   let stdMobile = yield select(makeSelectStudentMobile());
   let academicYear = yield select(makeSelectAcademicYear());
   let examConfigId = yield select(makeSelectExamConfigId());
 
   console.log("CLICK stdID", stdID, stdMobile, academicYear, examConfigId);
-  
-  const requestURL = BASE_URL_EM.concat(fetch_individual_result_data) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&examId=' + examConfigId + '&instituteId=10199'
-  
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+
+  const requestURL = BASE_URL_EM.concat(fetch_individual_result_data) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&examId=' + examConfigId + '&instituteId=' + instituteId
+
   const response = yield call(request, requestURL, requestOptions.options);
   console.log('Result Response>>>>>>>>>>>>>>>>', response);
   try {
