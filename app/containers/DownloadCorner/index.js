@@ -25,57 +25,59 @@ import { concat } from 'lodash';
 import {
   makeClickDownloadButton
 } from "./actions"
+import { getFileContentType } from '../../utils/FileHandler'
 
 /* eslint-disable react/prefer-stateless-function */
 
 let downloadRowData={}
 export class DownloadCorner extends React.PureComponent {
 
-  getFileContentType = (fileName) => {
-    if (fileName === undefined) {
-      return;
-    }
-    let contentType = '';
-    if (fileName.endsWith('.jpeg')) {
-      contentType = 'image/jpeg';
-    } else if (fileName.endsWith('.jpg')) {
-      contentType = 'image/jpg';
-    } else if (fileName.endsWith('.png')) {
-      contentType = 'image/png';
-    } else if (fileName.endsWith('.pdf')) {
-      contentType = 'application/pdf';
-    } else if (fileName.endsWith('.doc')) {
-      contentType = 'application/doc';
-    } else if (fileName.endsWith('.docx')) {
-      contentType = 'application/docx';
-    } else if (fileName.endsWith('.xls')) {
-      contentType = 'application/xls';
-    } else if (fileName.endsWith('.xlsx')) {
-      contentType = 'application/xlsx';
-    } else if (fileName.endsWith('.ppt')) {
-      contentType = 'application/ppt';
-    } else if (fileName.endsWith('.pptx')) {
-      contentType = 'application/pptx';
-    }
-    return contentType;
-  }
+  // getFileContentType = (fileName) => {
+  //   if (fileName === undefined) {
+  //     return;
+  //   }
+  //   let contentType = '';
+  //   if (fileName.endsWith('.jpeg')) {
+  //     contentType = 'image/jpeg';
+  //   } else if (fileName.endsWith('.jpg')) {
+  //     contentType = 'image/jpg';
+  //   } else if (fileName.endsWith('.png')) {
+  //     contentType = 'image/png';
+  //   } else if (fileName.endsWith('.pdf')) {
+  //     contentType = 'application/pdf';
+  //   } else if (fileName.endsWith('.doc')) {
+  //     contentType = 'application/doc';
+  //   } else if (fileName.endsWith('.docx')) {
+  //     contentType = 'application/docx';
+  //   } else if (fileName.endsWith('.xls')) {
+  //     contentType = 'application/xls';
+  //   } else if (fileName.endsWith('.xlsx')) {
+  //     contentType = 'application/xlsx';
+  //   } else if (fileName.endsWith('.ppt')) {
+  //     contentType = 'application/ppt';
+  //   } else if (fileName.endsWith('.pptx')) {
+  //     contentType = 'application/pptx';
+  //   }
+  //   return 'data:' + contentType + ';base64,';;
+  // }
 
   render() {
     let downloadLists = this.props.downloadList;
 
-    console.log("getDownloadFile::::", this.props.getDownloadFile);
+    // console.log("getDownloadFile::::", this.props.getDownloadFile);
 
-    // let downloadFileContent =  this.props.getDownloadFile
-    // if(downloadFileContent){
-    //   let contentType = this.getFileContentType(downloadRowData.fileName);
+    let downloadFileContent =  this.props.getDownloadFile
+    if(downloadFileContent){
+      let contentType = getFileContentType(downloadRowData.fileName);
 
-    //   let a = document.createElement("a");
-    //   a.href = contentType + downloadFileContent;
-    //   a.download = downloadRowData.fileName;
-    //   // document.body.appendChild(a);
-    //   a.click();
-    //   // document.body.removeChild(a);
-    // }
+      let a = document.createElement("a");
+      a.href = contentType + downloadFileContent;
+      a.download = downloadRowData.fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // document.body.removeChild(a);
+    }
 
     return (
       <div>

@@ -43,13 +43,14 @@ import {
 } from './selectors';
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 import { AppLayout } from '../AppLayout';
+import staticImg from '../../assets/img/avatar.png';
 /* eslint-disable react/prefer-stateless-function */
 
 //
 
 let speechIndex = 0;
 let welComeSpeechObj = {};
-let fileContent = '';
+let fileContent = "";
 let speakerDesignation = '';
 let speakerName = '';
 let welComeSpeech = '';
@@ -82,6 +83,7 @@ export class HomePage extends React.Component {
 
     if (speechIndex == this.props.welComeInfo.length) { speechIndex = 0; }
 
+    document.getElementById('speechImg').src = this.props.welComeInfo[speechIndex].fileContent ? "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent : staticImg
     document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
@@ -98,7 +100,9 @@ export class HomePage extends React.Component {
 
     speechIndex -= 1;
 
-    // document.getElementsByClassName('fileContent')[0].src = "data:image/*;base64," +this.props.welComeInfo[speechIndex].fileContent;
+    // console.log("this.props.welComeInfo[speechIndex].fileContent", this.props.welComeInfo[speechIndex].fileContent);
+
+    document.getElementById('speechImg').src = this.props.welComeInfo[speechIndex].fileContent ? "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent : staticImg
     document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
@@ -121,7 +125,8 @@ export class HomePage extends React.Component {
     }
 
     if (!this.props.welComeInfo == '') {
-      fileContent = "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent
+      // console.log('this.props.welComeInfo-------------------', this.props.welComeInfo[speechIndex]);
+      // fileContent = "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent
       speakerDesignation = this.props.welComeInfo[speechIndex].speakerDesignation;
       speakerName = this.props.welComeInfo[speechIndex].speakerName;
       welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
@@ -150,7 +155,7 @@ export class HomePage extends React.Component {
                         <div className="slider-content">
                         {/* {
                           item.fileContent ? */}
-                            <img src={fileContent} align="left" className="fileContent"/>
+                            <img id="speechImg" align="left" className="fileContent"/>
                             {/* <img src={staticImg} width="100%"/>
                         } */}
                           {/* <img
