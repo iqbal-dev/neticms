@@ -27,6 +27,7 @@ import combineIcon from '../../assets/img/combine-icon.png';
 
 import dresscode from '../../assets/img/dresscode.png';
 import { AppLayout } from '../AppLayout';
+import staticImg from '../../assets/img/avatar.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DressCode extends React.Component {
@@ -144,11 +145,11 @@ export class DressCode extends React.Component {
 
                              <div className="col-md-4">
                               <div className="panel-image text-center">
-                                <img
-                                  src={`data:image/*;base64,${item.dressImg}`}
-                                  className="img-fluid m-auto"
-                                  alt="Dress code one"
-                                />
+                              {
+                          item.fileContent ?
+                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="img-fluid m-auto"/>:
+                            <img src={staticImg} width="100%"/>
+                        }
                               </div>
                             </div> 
                             </>
@@ -218,11 +219,11 @@ export class DressCode extends React.Component {
 
                              <div className="col-md-4">
                               <div className="panel-image text-center">
-                                <img
-                                  src={`data:image/*;base64,${item.dressImg}`}
-                                  className="img-fluid m-auto"
-                                  alt="Dress code one"
-                                />
+                              {
+                          item.fileContent ?
+                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="img-fluid m-auto"/>:
+                            <img src={staticImg} width="100%"/>
+                        }
                               </div>
                             </div> 
                             </>
@@ -257,11 +258,12 @@ export class DressCode extends React.Component {
 
                              <div className="col-md-4">
                               <div className="panel-image text-center">
-                                <img
-                                  src={`data:image/*;base64,${item.dressImg}`}
-                                  className="img-fluid m-auto"
-                                  alt="Dress code one"
-                                />
+                                   {
+                          item.fileContent ?
+                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="img-fluid m-auto"/>:
+                            <img src={staticImg} width="100%"/>
+                        }
+                               
                               </div>
                             </div> 
                             </>

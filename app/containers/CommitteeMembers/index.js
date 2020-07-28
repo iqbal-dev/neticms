@@ -21,6 +21,7 @@ import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
 import { AppLayout } from '../AppLayout';
+import staticImg from '../../assets/img/avatar.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class CommitteeMembers extends React.PureComponent {
@@ -49,7 +50,11 @@ export class CommitteeMembers extends React.PureComponent {
                 <div className="col-md-4">
                   <div className="grid-list-wrapper">
                     <div className="grid-image">
-                      <img src={donorImage} className="mx-auto d-block"/>
+                    {
+                          item.memberImg ?
+                            <img src={ "data:image/*;base64," + item.memberImg }className="mx-auto d-block"/>:
+                            <img src={staticImg} />
+                        }
                     </div>
                     <div className="grid-content text-center">
                         <div className="grid-title">
