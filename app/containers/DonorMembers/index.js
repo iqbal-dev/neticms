@@ -23,6 +23,7 @@ import donorImage from '../../assets/img/donor-image.png';
 
 import {makeSelectDonorMembersList} from './selectors';
 import { AppLayout } from '../AppLayout';
+import staticImg from '../../assets/img/avatar.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DonorMembers extends React.PureComponent {
@@ -37,14 +38,14 @@ export class DonorMembers extends React.PureComponent {
           <title>DonorMembers</title>
           <meta name="description" content="Description of DonorMembers" />
         </Helmet>
-        <BreadcrumComponent pageTitle="Donore Members" menuStepFirst="Home" menuStepSenond="Administration" menuStepThird="Donore Members" />
+        <BreadcrumComponent pageTitle="Donor Members" menuStepFirst="Home" menuStepSenond="Administration" menuStepThird="Donor Members" />
         <section>
           <div className="container-fluid">
             <div className="container p-t-60">
               <div className="row">
                 <div className="col-md-12">
                   <div className="page-inner-title">
-                    <h2 className="text-orange">Donore Members</h2>
+                    <h2 className="text-orange">Donor Members</h2>
                     <div className="custom-title-border-left"></div>
                   </div>
                 </div>
@@ -54,7 +55,11 @@ export class DonorMembers extends React.PureComponent {
                  <div className="col-md-4">
                  <div className="grid-list-wrapper">
                    <div className="grid-image">
-                     <img src={donorImage} className="rounded mx-auto d-block"/>
+                   {
+                          item.memberImg ?
+                            <img src={ "data:image/*;base64," + item.memberImg } className="rounded mx-auto d-block"/>:
+                            <img src={staticImg}/>
+                        }
                    </div>
                    <div className="grid-content text-center">
                        <div className="grid-title">
