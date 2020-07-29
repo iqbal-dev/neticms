@@ -1,0 +1,51 @@
+.rbc-calendar{
+    .rbc-toolbar{
+        // background-color: red;
+
+        .rbc-btn-group{
+            button{
+                font-size: 12px;
+            }
+        }
+
+        .rbc-toolbar-label{
+            font-weight: 700;
+        }
+    }
+
+    .rbc-month-view, .rbc-agenda-view{
+        .rbc-month-header{
+            background-color: #697CAB !important;
+            padding: 10px 0px;
+            border-radius: 0px;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+        
+            .rbc-header{
+                border-bottom: unset;
+            }
+        }
+
+        .rbc-month-row{
+            overflow: unset;
+        }
+
+        .rbc-agenda-table > thead > tr > th{
+            background-color: #697CAB !important;
+            padding: 10px 12px;
+            border-radius: 0px;
+            // border: none;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+        
+            .rbc-header{
+                border-bottom: unset;
+            }
+        }
+    }
+}

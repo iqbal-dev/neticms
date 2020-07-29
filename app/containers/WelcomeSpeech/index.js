@@ -57,9 +57,10 @@ export class WelcomeSpeech extends React.Component {
                         }
                           <div className="grid-social">
                             <ul className="d-flex justify-content-center w-100 nav">
-                              <li><a href={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
-                              <li><a href={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
-                              <li><a href={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
+                              <li><a className={!item.speakerMobile?'':"phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
+                              <li><a className={!item.speakerEmail?'':"email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
+                              <li><a className={!item.speakerFacebookLinke?'':"facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
+                              <li><a className={!item.speakerLinkedinLinke?'':"linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
                             </ul>
                           </div>
                         </div>

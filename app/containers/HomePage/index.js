@@ -45,6 +45,7 @@ import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
 /* eslint-disable react/prefer-stateless-function */
+import { MyCalendar } from './AdminEventInfoCalendar'
 
 //
 
@@ -401,12 +402,12 @@ export class HomePage extends React.Component {
                           <li key={event.eventID}>
                             <a className="event" href="#">
                               <div className="date">
-                                <span>{getTotalDaysDifference_TillToday(event.eventStartDate)}</span>
+                                <span>{event.totalDay}</span>
                                 <p>Days</p>
                               </div>
                               <div className="event-details">
                                 <div className="d-flex align-items-center">
-                                  <div className="event-name">Event</div>
+                                  <div className="event-name">{event.eventType}</div>
                                   <div className="event-date">
                                     on
                                 <i className="fas fa-calendar-alt" />
@@ -421,27 +422,7 @@ export class HomePage extends React.Component {
                           </li>
                         ))}
 
-                        <li>
-                          <a className="event" href="#">
-                            <div className="date">
-                              <span>04</span>
-                              <p>Days</p>
-                            </div>
-                            <div className="event-details">
-                              <div className="d-flex align-items-center">
-                                <div className="event-name">Event</div>
-                                <div className="event-date">
-                                  on
-                                <i className="fas fa-calendar-alt" />
-                                  April 05, 2020
-                              </div>
-                              </div>
-                              <div className="event-title">
-                                <h2>Annual Sports Day will start soon</h2>
-                              </div>
-                            </div>
-                          </a>
-                        </li>
+                        
 
                       </ul>
                     </div>
@@ -452,7 +433,10 @@ export class HomePage extends React.Component {
                         <h3>Event calender</h3>
                       </div>
                       <div className="calender">
-                        <Calendar onChange={this.onChange} value={date} />
+                        {/* <Calendar onChange={this.onChange} value={date} /> */}
+                        <MyCalendar
+                            events={instituteTopEventList}
+                        />
                       </div>
                     </div>
                   </div>

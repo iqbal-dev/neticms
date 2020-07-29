@@ -119,9 +119,13 @@ export class DownloadCorner extends React.PureComponent {
                                 <td>{index > 9 ? index + 1 : '0' + (index + 1)}</td>
                                 <td>{item.fileTitle}</td>
                                 <td className="text-center">
-                                  <button class="btn explore-btn" onClick={ e => this.props.downloadFile(e, item)}>
-                                    <i class="fas fa-download pr-2"></i>DOWNLOAD
-                                  </button>
+                                  {
+                                    !item.fileName ? "No Attachment Found" :
+                                      <button class="btn explore-btn" onClick={ e => this.props.downloadFile(e, item)}>
+                                        <i class="fas fa-download pr-2"></i>DOWNLOAD
+                                      </button>
+                                  }
+                                  
                                 </td>
                               </tr>
                             )

@@ -863,6 +863,33 @@
                     }
 
                     .grid-social{
+                        ul{
+                            li{
+                                .phone{
+                                    &:after{
+                                        content: attr(phone);
+                                    }
+                                }
+
+                                .email{
+                                    &:after{
+                                        content: attr(email);
+                                    }
+                                }
+
+                                .facebook{
+                                    &:after{
+                                        content: attr(facebook);
+                                    }
+                                }
+
+                                .linkedin{
+                                    &:after{
+                                        content: attr(linkedin);
+                                    }
+                                }
+                            }
+                        }
 
                     }
 
