@@ -43,3 +43,28 @@ export function getTotalDaysDifference_TillToday(fromDate) {
     // console.log('diff_days', diff_days);
     return diff_days;
 }
+
+export function get_YYMMDD_Format_WithHyphen(date) {
+    var moment = require('moment/moment');
+    var dateFromString = moment(date).format('YYYY-MM-DD');
+    return dateFromString;
+}
+export function getHHMMSS(date) {
+    var moment = require('moment/moment');
+    var hh = moment(date).format('h');
+    var mm = moment(date).format('mm');
+    var ss = moment(date).format('ss');
+    // var hhmmss = hh + mm + ss;
+    var hhmmss = hh + mm + ss;
+    return hhmmss;
+}
+
+export function getHHcloneMMcloneSS(date) {
+    var moment = require('moment/moment');
+    var hh = moment(date).format('h');
+    var mm = moment(date).format('mm');
+    var ss = moment(date).format('ss');
+    // var hhmmss = hh + mm + ss;
+    var hhmmss = hh + ':' + mm + ':' + ss;
+    return hhmmss;
+}

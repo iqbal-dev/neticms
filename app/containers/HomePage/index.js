@@ -62,7 +62,7 @@ export class HomePage extends React.Component {
 
   formatEventStartDate = (evtDetails) => {
 
-    console.log('evtDetails', evtDetails);
+    // console.log('evtDetails', evtDetails);
 
     if (evtDetails) {
 
@@ -71,7 +71,7 @@ export class HomePage extends React.Component {
 
       const splitDateArr = formatDate2.split('/');
       let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[0] + ', ' + splitDateArr[2];
-      console.log('eventStartDate', eventStartDate);
+      // console.log('eventStartDate', eventStartDate);
       return eventStartDate;
 
     }
@@ -90,7 +90,7 @@ export class HomePage extends React.Component {
     document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
     welComeSpeechObj = this.props.welComeInfo[speechIndex];
-    console.log('increse-speechIndex', speechIndex);
+    // console.log('increse-speechIndex', speechIndex);
 
   }
 
@@ -108,7 +108,7 @@ export class HomePage extends React.Component {
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
-    console.log('decrese-speechIndex', speechIndex);
+    // console.log('decrese-speechIndex', speechIndex);
 
   }
 
@@ -116,9 +116,9 @@ export class HomePage extends React.Component {
 
     const date = new Date();
 
-    console.log('welComeSpeechObj', welComeSpeechObj);
-    console.log('urlInfoAll', this.props.urlInfoAll);
-    console.log('token-homepage', this.props.accessToken);
+    // console.log('welComeSpeechObj', welComeSpeechObj);
+    // console.log('urlInfoAll', this.props.urlInfoAll);
+    // console.log('token-homepage', this.props.accessToken);
 
     let instituteName = '';
     if (this.props.urlInfo) {
@@ -133,7 +133,7 @@ export class HomePage extends React.Component {
       welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
     }
 
-    console.log(speakerDesignation, speakerName, welComeSpeech);
+    // console.log(speakerDesignation, speakerName, welComeSpeech);
 
     let instituteTopEventList = [];
     // let eventStartDate = '';
@@ -154,10 +154,10 @@ export class HomePage extends React.Component {
                     <div className="speech-slider-wrapper">
                       <div className="slider-item">
                         <div className="slider-content">
-                        {/* {
+                          {/* {
                           item.fileContent ? */}
-                            <img id="speechImg" align="left" className="fileContent"/>
-                            {/* <img src={staticImg} width="100%"/>
+                          <img id="speechImg" align="left" className="fileContent" />
+                          {/* <img src={staticImg} width="100%"/>
                         } */}
                           {/* <img
                             src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
@@ -422,8 +422,6 @@ export class HomePage extends React.Component {
                           </li>
                         ))}
 
-                        
-
                       </ul>
                     </div>
                   </div>
@@ -435,7 +433,7 @@ export class HomePage extends React.Component {
                       <div className="calender">
                         {/* <Calendar onChange={this.onChange} value={date} /> */}
                         <MyCalendar
-                            events={instituteTopEventList}
+                          events={instituteTopEventList}
                         />
                       </div>
                     </div>

@@ -20,9 +20,29 @@ import saga from './saga';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { makeSelectNoticeList } from '../HomePage/selectors';
 import { AppLayout } from '../AppLayout';
+import { get_YYMMDD_Format_WithHyphen, getFullMonthName } from '../../utils/dateFormat';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AllNotice extends React.Component {
+
+  formatDate = (evtDetails) => {
+
+    // console.log('notice Date', evtDetails);
+
+    if (evtDetails) {
+
+      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
+      // const formatDate2 = formatDate.toLocaleDateString('en-GB');
+      // console.log('formate-ntc-date', formatDate);
+
+      const splitDateArr = formatDate.split('-');
+      let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
+      // console.log('eventStartDate', eventStartDate);
+      return eventStartDate;
+
+    }
+
+  }
 
   render() {
 
@@ -31,68 +51,68 @@ export class AllNotice extends React.Component {
 
     return (
       <AppLayout>
-      <div>
+        <div>
 
-        <BreadcrumComponent
-          pageTitle="All Notice"
-          menuStepFirst="Home"
-          menuStepSenond="Basic Infrastructure"
-          menuStepThird="All Notice"
-        />
+          <BreadcrumComponent
+            pageTitle="All Notice"
+            menuStepFirst="Home"
+            menuStepSenond="Basic Infrastructure"
+            menuStepThird="All Notice"
+          />
 
-        <section>
-          <div className="container-fluid">
+          <section>
+            <div className="container-fluid">
 
-            <div className="container p-t-10">
+              <div className="container p-t-10">
 
-              <div className="row" >
-                <div className="col-md-12 all-notice-bg">
+                <div className="row" >
+                  <div className="col-md-12 all-notice-bg">
 
-                  {allNoticeDetails.map(notice => (
+                    {allNoticeDetails.map(notice => (
 
-                    <div className='all-notice-wrapper m-b-20'>
-                      <div className='notice-wrapper'>
+                      <div className='all-notice-wrapper m-b-20'>
+                        <div className='notice-wrapper'>
 
-                        <div className="row" >
+                          <div className="row" >
 
-                          <div className="col-md-12">
-                            <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {notice.noticeIssueDate} </div>
-                            <h2 className='p-t-20'>{notice.noticeTitle}</h2>
-                            <p> {notice.noticeDetails}</p>
+                            <div className="col-md-12">
+                              <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
+                              <h2 className='p-t-20'>{notice.noticeTitle}</h2>
+                              <p> {notice.noticeDetails}</p>
+                            </div>
                           </div>
+
                         </div>
 
                       </div>
+                    ))}
 
+                  </div>
+
+                </div>
+
+                <div className="row m-t-40">
+                  <div className="col-md-12">
+                    <div className="text-center m-t-40">
+                      <button class="btn explore-btn-lg">Explore all <i class="fas fa-angle-right"></i></button>
                     </div>
-                  ))}
-
+                  </div>
                 </div>
 
               </div>
 
-              <div className="row m-t-40">
-                <div className="col-md-12">
-                  <div className="text-center m-t-40">
-                    <button class="btn explore-btn-lg">Explore all <i class="fas fa-angle-right"></i></button>
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-1 col-md-10">
+                    <div className="custom-title-border-center"></div>
                   </div>
                 </div>
               </div>
 
             </div>
 
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-1 col-md-10">
-                  <div className="custom-title-border-center"></div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </section>
-      </div >
+          </section>
+        </div >
       </AppLayout>
     );
   }

@@ -17,8 +17,28 @@ import Slide_1 from './slider-1.jpg';
 import Slide_3 from './slider-3.jpg';
 /* eslint-disable react/prefer-stateless-function */
 import { Link } from 'react-router-dom';
+import { getFullMonthName, get_YYMMDD_Format_WithHyphen, getHHMMSS } from '../../utils/dateFormat';
 
 class Slider extends React.Component {
+
+  formatDate = (evtDetails) => {
+
+    // console.log('notice Date', evtDetails);
+
+    if (evtDetails) {
+
+      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
+      // const formatDate2 = formatDate.toLocaleDateString('en-GB');
+      // console.log('formate-ntc-date', formatDate);
+
+      const splitDateArr = formatDate.split('-');
+      let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
+      // console.log('eventStartDate', eventStartDate);
+      return eventStartDate;
+
+    }
+
+  }
 
   render() {
 
@@ -46,7 +66,7 @@ class Slider extends React.Component {
       },
     ];
 
-    console.log('ntc-list-slider', this.props.notice);
+    // console.log('ntc-list-slider', this.props.notice);
     let noticeArrayList = [];
     if (!this.props.notice == '') { noticeArrayList = this.props.notice; }
 
@@ -66,8 +86,8 @@ class Slider extends React.Component {
                   <ul>
                     {noticeArrayList.slice(0, 5).map(singleNotice => (
                       <li key={singleNotice.noticeID}>
-                        <Link to={{ pathname: '/all_notice', personWiseTokenInfo: noticeArrayList}} target='_blank' >
-                          <span>Publish on <i className="fas fa-calendar-alt" />{singleNotice.noticeIssueDate}</span>
+                        <Link to={{ pathname: '/all_notice', personWiseTokenInfo: noticeArrayList }} target='_blank' >
+                          <span>Publish on <i className="fas fa-calendar-alt" /> {this.formatDate(singleNotice.noticeIssueDate)}</span>
                           <h4>{singleNotice.noticeTitle}</h4>
                         </Link>
                       </li>

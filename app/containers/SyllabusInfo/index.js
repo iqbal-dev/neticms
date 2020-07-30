@@ -25,6 +25,7 @@ import { AppLayout } from '../AppLayout';
 /* eslint-disable react/prefer-stateless-function */
 export class SyllabusInfo extends React.Component {
   render() {
+
     let syllabusList = this.props.allSyllabusList;
     return (
       <div>
@@ -79,7 +80,7 @@ export class SyllabusInfo extends React.Component {
                                   <td className="text-center">
                                     <button className="btn explore-btn">
                                       <i className="fas fa-download pr-2" />
-                                  DOWNLOAD
+                                      DOWNLOAD
                                 </button>
                                   </td>
                                 </tr>
