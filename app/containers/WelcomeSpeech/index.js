@@ -24,6 +24,14 @@ import staticImg from '../../assets/img/avatar.png';
 
 /* eslint-disable react/prefer-stateless-function */
 export class WelcomeSpeech extends React.Component {
+
+  getPlainTextToHtml = (index, html) =>{
+    setTimeout(() => {
+      let speechDetails = document.getElementsByClassName('speechDetails');
+      speechDetails && speechDetails[index] ? speechDetails[index].innerHTML = html : ''
+    }, 100);
+  }
+
   render() {
     return (
       <div>
@@ -69,11 +77,12 @@ export class WelcomeSpeech extends React.Component {
                           align="left"
                         /> */}
                         
-                      <h4 className="designation">{item.speakerDesignation}</h4>
+                        <h4 className="designation">{item.speakerDesignation}</h4>
                         <h1 className="employe-name">{item.speakerName}</h1>
-                        <p>
-                          {item.speechDetails}
-                        </p>
+                        {/* <p>{ this.getPlainTextToHtml(item.speechDetails) }</p> */}
+                        <div className='speechDetails'>
+                          {this.getPlainTextToHtml(index, item.speechDetails) }
+                        </div>
                       </div>
                     </div>
                     
