@@ -112,7 +112,17 @@ export class HomePage extends React.Component {
 
   }
 
+  getPlainTextToHtml = (html) =>{
+    var temp = document.createElement("div");
+    temp.innerHTML = html;
+    return temp.textContent;
+  }
+
   render() {
+
+    var html = "<h1>tets <h6> Hello </h6></h1>";
+
+    console.log('getPlainTextToHtml', this.getPlainTextToHtml(html));
 
     const date = new Date();
 
@@ -166,7 +176,7 @@ export class HomePage extends React.Component {
                           <h4 className="designation">{speakerDesignation}</h4>
                           <h1 className="employe-name">{speakerName}</h1>
                           <p className='speechDetails'>
-                            {welComeSpeech}
+                            {this.getPlainTextToHtml(welComeSpeech) }
                             <a href="#" align="left">
                               See More
                           </a>
