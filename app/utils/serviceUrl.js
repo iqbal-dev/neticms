@@ -16,11 +16,12 @@ export const fetch_menu_urlName = '/client_dws/menu/config/by/urlid';
 export const fetch_welcomeSpeechBy_cmsId = '/public/welcome/speechs';
 export const fetch_usefullLinksBy_cmsId = '/public/importantLinks';
 export const fetch_downloadLinksBy_cmsId = '/public/downloadCorners';
-export const fetch_noticeBy_cmsId = '/public/notices';                                     
+export const fetch_noticeBy_cmsId = '/public/notices';
 export const fetch_instituteHistoryBy_cmsId = '/public/aboutus/by/type';
 export const fetch_instituteTopEventBy_cmsId = '/public/events';
 export const fetch_galleryImageBy_cmsId = '/public/photoGallerys';
 export const fetch_syllabusBy_cmsId = '/public/syllabus';
+export const fetch_syllabusFileBy_cmsId = '/syllabus-info/file/find';
 export const fetch_classListBy_cmsId = '/public/classes';
 export const fetch_bookListBy_classId = '/public/classWise/book';
 export const submit_footerContactForm = '';
@@ -57,13 +58,6 @@ export const fetch_welcomeSpeechList = '/public/speechs';
 export const fetch_public_classList = '/public/classes';
 export const fetch_feesInfoBy_class = '/public/classWise/fees';
 
-
-
-
-
-
-
-
 export const fetch_syllabusInfoList = '/syllabus-info/list';
 
 // Admin Panel
@@ -85,7 +79,6 @@ export const fetch_downloadCornerList = '/seat-info/list';
 export const fetch_dressInfoList = '/dress-info/list';
 export const save_newDressInfo = '/dress-info/save';
 export const update_newDressInfo = '/dress-info/update';
-
 
 export const fetch_downloadFileContent = '/public/downloadcorner/file/find';
 // fetch_downloadFileContent

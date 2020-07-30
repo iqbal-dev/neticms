@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, FETCH_SYLLABUS_LIST } from './constants';
+import { DEFAULT_ACTION, FETCH_SYLLABUS_LIST, SET_ROW_DATA, SUBMIT_FETCH_FILE, SET_FETCH_FILE } from './constants';
 
 export function defaultAction() {
   return {
@@ -19,3 +19,22 @@ export function fetchSyllabusList(syllabusList) {
   };
 }
 
+export function setRowData(rowdata) {
+  return {
+    type: SET_ROW_DATA,
+    rowdata
+  };
+}
+
+export function submitForFetchFile() {
+  return {
+    type: SUBMIT_FETCH_FILE,
+  };
+}
+
+export function setSyllabusFile(file) {
+  return {
+    type: SET_FETCH_FILE,
+    file
+  };
+}

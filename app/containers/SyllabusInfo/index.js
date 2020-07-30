@@ -15,18 +15,34 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Table } from 'reactstrap';
-import makeSelectSyllabusInfo, { makeSelectSyllabusList } from './selectors';
+import makeSelectSyllabusInfo, { makeSelectSyllabusList, makeSelectSyllabusFile, makeSelectSyllabusRowdata } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
+import { setRowData, submitForFetchFile } from './actions';
+import { getFileContentType } from '../../utils/FileHandler'
 
 /* eslint-disable react/prefer-stateless-function */
 export class SyllabusInfo extends React.Component {
   render() {
 
+    let downloadFileContent = this.props.syllabusFile
+    if (downloadFileContent) {
+      let contentType = getFileContentType(syllabusRowdata.fileName);
+
+      let a = document.createElement("a");
+      a.href = contentType + downloadFileContent;
+      a.download = syllabusRowdata.fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // document.body.removeChild(a);
+    }
+
     let syllabusList = this.props.allSyllabusList;
+
     return (
       <div>
         <AppLayout>
@@ -78,7 +94,7 @@ export class SyllabusInfo extends React.Component {
                                   <td>{itme.groupName}</td>
                                   <td>20th Sep, 2020</td>
                                   <td className="text-center">
-                                    <button className="btn explore-btn">
+                                    <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, itme)}>
                                       <i className="fas fa-download pr-2" />
                                       DOWNLOAD
                                 </button>
@@ -124,12 +140,19 @@ SyllabusInfo.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  allSyllabusList: makeSelectSyllabusList()
+  allSyllabusList: makeSelectSyllabusList(),
+  syllabusRowdata: makeSelectSyllabusRowdata(),
+  syllabusFile: makeSelectSyllabusFile(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    downloadFile: (e, rowdata) => {
+      dispatch(setRowData(rowdata)),
+        dispatch(submitForFetchFile(e, rowdata))
+      // downloadRowData = rowdata;
+    }
   };
 }
 
