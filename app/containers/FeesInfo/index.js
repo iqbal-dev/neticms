@@ -51,93 +51,92 @@ export class FeesInfo extends React.Component {
   }
 
   toggle = () => {
-    this.setState({ feeDetailsDialog: true});
+    this.setState({ feeDetailsDialog: true });
 
   }
   render() {
     return (
       <div>
         <AppLayout>
-        <Helmet>
-          <title>FeesInfo</title>
-          <meta name="description" content="Description of FeesInfo" />
-        </Helmet>
-        <BreadcrumComponent
-          pageTitle="Fees Info"
-          menuStepFirst="Home"
-          menuStepSenond="Administration"
-          menuStepThird="Fees Info"
-        />
-        <section>
-          <div className="fees-info-main">
-            <div className="container-fluid">
-              <div className="container p-t-60">
-                <Row>
-                  <div className="fees-info-subheader">
-                    <Col sm="12" lg="6">
-                      {' '}
-                      Showing result for <span>Class Seven</span>
-                    </Col>
-                    <Col sm="12" lg="6" className="search-dropdown">
-                      <Input
-                        type="select"
-                        name="class"
-                        onChange={this.props.onChangeClass}
-                        value={this.props.classValue}
+          <Helmet>
+            <title>FeesInfo</title>
+            <meta name="description" content="Description of FeesInfo" />
+          </Helmet>
+          <BreadcrumComponent
+            pageTitle="Fees Info"
+            menuStepFirst="Home"
+            menuStepSenond="Administration"
+            menuStepThird="Fees Info"
+          />
+          <section>
+            <div className="fees-info-main">
+              <div className="container-fluid">
+                <div className="container p-t-60">
+                  <Row>
+                    <div className="fees-info-subheader m-b-30">
+                      <Col sm="12" lg="6">
+                        {' '}
+                        Showing result for <span>Class Seven</span>
+                      </Col>
+                      <Col sm="12" lg="6" className="search-dropdown">
+                        <Input
+                          type="select"
+                          name="class"
+                          onChange={this.props.onChangeClass}
+                          value={this.props.classValue}
 
-                        id="class-search-dropdown"
-                      >
-                        <option value=''>Select Class</option>
-                              {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
-                      </Input>
-                      <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button>
-                    </Col>
-                  </div>
-                </Row>
-                <Row>
-                {this.props.feesInfoList && this.props.feesInfoList.map((item,index) => (
+                          id="class-search-dropdown"
+                        >
+                          <option value=''>Select Class</option>
+                          {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
+                        </Input>
+                        <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button>
+                      </Col>
+                    </div>
+                  </Row>
+                  <Row>
+                    {this.props.feesInfoList && this.props.feesInfoList.map((item, index) => (
 
-                
-                  <Col md="4">
-                    <Card border="primary">
-                      <CardHeader>
-                        {item.feeName}
-                        <span>
-                          <i className="fas fa-info pr-2" />
-                        </span>
-                      </CardHeader>
+                      <Col md="4">
+                        <Card border="primary">
+                          <CardHeader>
+                            {item.feeName}
+                            <span>
+                              <i className="fas fa-info pr-2" />
+                            </span>
+                          </CardHeader>
 
-                      <CardBody>
-                        <CardText>
-                          <table>
-                            <tr>
-                              <td>Group </td>
-                              <td>: {item.groupName} </td>
-                            </tr>
-                            <tr>
-                              <td>Amount</td>
-                              <td>
-                                : <span>{item.feeAmount} /-BDT</span>{' '}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Payment Mode</td>
-                              <td>: {item.feePaymentMode} </td>
-                            </tr>
-                          </table>
-                        </CardText>
-                      </CardBody>
-                    </Card>
-                         {/* <Popover placement="right" isOpen={this.state.feeDetailsDialog} target="Popover1" toggle={this.toggle}>
+                          <CardBody>
+                            <CardText>
+                              <table>
+                                <tr>
+                                  <td>Group </td>
+                                  <td>: {item.groupName} </td>
+                                </tr>
+                                <tr>
+                                  <td>Amount</td>
+                                  <td>
+                                    : <span>{item.feeAmount} /-BDT</span>{' '}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Payment Mode</td>
+                                  <td>: {item.feePaymentMode} </td>
+                                </tr>
+                              </table>
+                            </CardText>
+                          </CardBody>
+                        </Card>
+                        {/* <Popover placement="right" isOpen={this.state.feeDetailsDialog} target="Popover1" toggle={this.toggle}>
                   <PopoverHeader>Popover Title</PopoverHeader>
                   <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
                 </Popover> */}
-                  </Col>
+                      </Col>
 
-))}
-        
-                </Row>
-                {/* <Row>
+                    ))}
+
+                  </Row>
+                  {/* <Row>
                   <Col sm={4}>
                     <div className="fees-details-dialog">
                       <h3>Fee Details</h3>
@@ -149,11 +148,11 @@ export class FeesInfo extends React.Component {
                     </div>
                   </Col>
                 </Row> */}
-           
+
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
         </AppLayout>
       </div>
     );
@@ -169,9 +168,7 @@ const mapStateToProps = createStructuredSelector({
   classList: makeSelectClassList(),
   feesInfoList: makeSelectFeesInfoList(),
 
-
   classValue: makeSelectOnchangeClassValue(),
-
 
 });
 
