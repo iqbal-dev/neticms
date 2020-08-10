@@ -97,6 +97,10 @@ export default function AppRoute() {
       <Route exact path="/srijaneebpstu" component={HomePage} />
       <Route exact path="/csbmc" component={HomePage} />
 
+      <Route exact path="/ethnica" component={HomePage} />
+      <Route exact path="/blscngn" component={HomePage} />
+      <Route exact path="/aucm" component={HomePage} />
+
       <Route exact path="/home" component={HomePage} />
       <Route exact path="/about" component={AboutUs} />
       <Route path="/history" exact component={History} />
