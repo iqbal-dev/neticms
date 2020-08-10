@@ -21,11 +21,12 @@ import makeSelectEventGallery, {
 import reducer from './reducer';
 import saga from './saga';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
-import eventGallery from '../../assets/img/event-gallery-1.png';
+import staticImg from '../../assets/img/avatar.png';
 import image from './slider-image.png';
 import { setModalVisiableStatus } from './actions';
 import { AppLayout } from '../AppLayout';
 
+let dialogImageContent = ''
 /* eslint-disable react/prefer-stateless-function */
 export class EventGallery extends React.PureComponent {
   render() {
@@ -46,19 +47,18 @@ export class EventGallery extends React.PureComponent {
         <div className="container p-t-60 content-wrapper ">
           <div className="row">
             { galleryImageLists && galleryImageLists.map((item) => {
+
+              let image = ''
+              item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
                 
               return(
                 <div className="col-md-4">
                   <div className="book-list-wrapper m-b-30">
                     <div className="book-list-image">
-                      <img
-                        src={eventGallery}
-                        className="img-fluid w-100"
-                        alt="Event Gallery"
-                      />
+                          <img className="img-fluid w-100" src={ image } width="100%"/>
                       <Button
                         className="book-image-zoom"
-                        onClick={this.props.onChangemodalVisiable}
+                        onClick={ this.props.onChangemodalVisiable }
                       >
                         <i className="fas fa-search" />
                       </Button>
@@ -97,11 +97,14 @@ export class EventGallery extends React.PureComponent {
               <div className="row">
                 <div className="col-md-12">
                   <div className="no-thumble no-radius">
-                    <Carousel>
-                      <div>
-                        <img src={image} alt="Event Gallery one" />
-                      </div>
-                      <div>
+                    <Carousel >
+                    { galleryImageLists && galleryImageLists.map((item) => 
+                        <div>
+                          <img src={ item.fileContent ? "data:image/*;base64," + item.fileContent: staticImg} alt="Event Gallery one" width="200px"/>
+                        </div>
+                      
+                    )}
+                      {/* <div>
                         <img src={image} alt="Event Gallery two" />
                       </div>
                       <div>
@@ -109,7 +112,7 @@ export class EventGallery extends React.PureComponent {
                       </div>
                       <div>
                         <img src={image} alt="Event Gallery four" />
-                      </div>
+                      </div> */}
                     </Carousel>
                   </div>
                 </div>

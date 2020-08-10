@@ -170,18 +170,18 @@ export class Menu extends React.Component {
                           <DropdownToggle nav caret>More</DropdownToggle>
 
                           <DropdownMenu right>
-                            {/* <UncontrolledDropdown nav inNavbar>
+                            <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Gallery</DropdownToggle>
                               <DropdownMenu right>
 
-                                <NavItem><Link to='#' className='nav-link'>Photo Gallery</Link> </NavItem>
+                                <NavItem><Link to='/photo_gallery' className='nav-link'>Photo Gallery</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Video Gallery</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Award Gallery</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Top Student</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Success Alumns</Link> </NavItem>
 
                               </DropdownMenu>
-                            </UncontrolledDropdown> */}
+                            </UncontrolledDropdown>
 
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>More</DropdownToggle>
