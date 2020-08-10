@@ -35,7 +35,6 @@ import GalleryImage from 'containers/admin/GalleryImage';
 import AdminFeesInfo from 'containers/admin/AdminFeesInfo';
 // import AdminDressInfo from 'containers/admin/AdminDressInfo';
 
-
 import StudentWiseAttendance from 'containers/StudentWiseAttendance';
 import SectionWiseAttendance from 'containers/SectionWiseAttendance';
 import SectionWiseResult from 'containers/SectionWiseResult';
@@ -75,6 +74,28 @@ export default function AppRoute() {
       <Route exact path="/pkhs" component={HomePage} />
       <Route exact path="/halimakhatungirls" component={HomePage} />
       <Route exact path="/104454" component={HomePage} />
+
+      <Route exact path="/bakaliapremier" component={HomePage} />
+      <Route exact path="/rmsc" component={HomePage} />
+      <Route exact path="/pmimhs" component={HomePage} />
+      <Route exact path="/jzs" component={HomePage} />
+      <Route exact path="/azizaschool" component={HomePage} />
+      <Route exact path="/gogorabduljabbarhs" component={HomePage} />
+      <Route exact path="/naklapilothighschool" component={HomePage} />
+      <Route exact path="/fmmissioncollege" component={HomePage} />
+      <Route exact path="/olympiatmhs" component={HomePage} />
+      <Route exact path="/zsghskis" component={HomePage} />
+      <Route exact path="/ajrkghs" component={HomePage} />
+      <Route exact path="/nuhs" component={HomePage} />
+      <Route exact path="/dghs" component={HomePage} />
+      <Route exact path="/sks" component={HomePage} />
+      <Route exact path="/demo4" component={HomePage} />
+      <Route exact path="/spsngn" component={HomePage} />
+      <Route exact path="/bohschool" component={HomePage} />
+      <Route exact path="/lnhhs" component={HomePage} />
+      <Route exact path="/scakatiadi" component={HomePage} />
+      <Route exact path="/srijaneebpstu" component={HomePage} />
+      <Route exact path="/csbmc" component={HomePage} />
 
       <Route exact path="/home" component={HomePage} />
       <Route exact path="/about" component={AboutUs} />
