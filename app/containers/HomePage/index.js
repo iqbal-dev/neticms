@@ -55,9 +55,20 @@ let fileContent = "";
 let speakerDesignation = '';
 let speakerName = '';
 let welComeSpeech = '';
+// let usefullExploreBtnShow = true;
 
 export class HomePage extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      usefullExploreBtnShow: true,
+    }
+
+    this.showUseFullLinksFirstFive = this.showUseFullLinksFirstFive.bind(this);
+    this.showUseFullLinksAll = this.showUseFullLinksAll.bind(this);
+  }
   onChange = date => this.setState({ date });
 
   formatEventStartDate = (evtDetails) => {
@@ -112,10 +123,35 @@ export class HomePage extends React.Component {
 
   }
 
-  getPlainTextToHtml = (html) =>{
+  getPlainTextToHtml = (html) => {
     var temp = document.createElement("div");
     temp.innerHTML = html;
     return temp.textContent;
+  }
+
+  showUseFullLinksFirstFive() {
+
+    return this.props.useFullLinks && this.props.useFullLinks.slice(0, 5).map(useFullLink => (
+      <li key={useFullLink.linkId}>
+        <span><i className="fas fa-angle-right" /></span>
+        <a href={useFullLink.linkUrl} target='_blank'>{useFullLink.linkTitle}</a>
+      </li>
+    ))
+
+  }
+
+  showUseFullLinksAll() {
+
+    return this.props.useFullLinks && this.props.useFullLinks.map(useFullLink => (
+      <li key={useFullLink.linkId}>
+        <span><i className="fas fa-angle-right" /></span>
+        <a href={useFullLink.linkUrl} target='_blank'>{useFullLink.linkTitle}</a>
+      </li>
+    ))
+  }
+
+  setBtnVisibleStatus = (visibleStatus) => {
+    this.setState({ usefullExploreBtnShow: visibleStatus })
   }
 
   render() {
@@ -176,7 +212,7 @@ export class HomePage extends React.Component {
                           <h4 className="designation">{speakerDesignation}</h4>
                           <h1 className="employe-name">{speakerName}</h1>
                           <p className='speechDetails'>
-                            {this.getPlainTextToHtml(welComeSpeech) }
+                            {this.getPlainTextToHtml(welComeSpeech)}
                             <a href="#" align="left">
                               See More
                           </a>
@@ -203,19 +239,26 @@ export class HomePage extends React.Component {
                       </div>
                       <ul className="links-lists">
 
-                        {this.props.useFullLinks && this.props.useFullLinks.slice(0, 5).map(useFullLink => (
-                          <li key={useFullLink.linkId}>
-                            <span><i className="fas fa-angle-right" /></span>
-                            <a href={useFullLink.linkUrl} target='_blank'>{useFullLink.linkTitle}</a>
-                          </li>
-                        ))}
+                        {this.state.usefullExploreBtnShow ?
+
+                          this.showUseFullLinksFirstFive()
+                          :
+                          this.showUseFullLinksAll()
+                        }
 
                       </ul>
 
                       <div className="text-center">
-                        <button className="btn explore-btn">
-                          Explore all <i className="fas fa-angle-right" />
-                        </button>
+
+                        {this.state.usefullExploreBtnShow ?
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                            Explore all <i className="fas fa-angle-right" />
+                          </button>
+                          :
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
+                            Explore less <i className="fas fa-angle-right" />
+                          </button>
+                        }
                       </div>
                     </div>
                   </div>
