@@ -6,13 +6,13 @@ import {
   fetch_urlMappingInfoBy_urlName, fetch_menu_urlName, fetch_em_token,
   fetch_welcomeSpeechBy_cmsId, fetch_noticeBy_cmsId, fetch_instituteHistoryBy_cmsId,
   fetch_instituteTopEventBy_cmsId,
-  fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_usefullLinksBy_cmsId
+  fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_usefullLinksBy_cmsId,
+  fetch_sliderImage_cmsId
 
 } from '../../utils/serviceUrl';
-import { Redirect, Link } from "react-router-dom";
 
 import {
-  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks
+  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider
 } from './actions';
 import { makeSelectEmAccessToken } from './selectors';
 import { setAcademicYearList } from '../FailList/actions';
@@ -20,10 +20,10 @@ import { setAcademicYearList } from '../FailList/actions';
 export function* fetch_instituteUrlInfo_byUrlName() {
 
   let instituteHostNm = window.location.pathname.slice(1);
-  console.log('instituteHostNm', instituteHostNm);
-  if (instituteHostNm == 'institute/home') {
+  // console.log('instituteHostNm', instituteHostNm);
+  if (instituteHostNm == 'home') {
     var instituteInfo = JSON.parse(localStorage.instituteInfo);
-    instituteHostNm = instituteInfo[0].urlName;
+    instituteHostNm = instituteInfo[0].urlName
   }
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
@@ -34,15 +34,10 @@ export function* fetch_instituteUrlInfo_byUrlName() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('response', response);
+  // console.log('response', response);
   try {
 
-    if (response.messageType == 0) {
-      console.log('messageType 0 true');
-      window.location.href = '/'
-    }
-
-    if (response.messageType == 1) {
+    if (response) {
 
       let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
       // console.log('after-response', instituteUrlInfo);
@@ -71,7 +66,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
         for (var i = 0; i < instituteInfo.length; i++) {
           //look for match with name
           if (response.item.urlName !== instituteInfo[i].urlName) {
-            console.log('not match');
+            // console.log('not match');
 
             instituteInfo[i].urlName = response.item.urlName;
             instituteInfo[i].cmsId = response.item.cmsId;
@@ -100,6 +95,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
       yield fetch_usefullLinks_byUrlId(response.item.cmsId);
       yield fetch_instituteHistory_byUrlId(response.item.cmsId);
       yield fetch_instituteTopEvent_byUrlId(response.item.cmsId);
+      yield fetch_SliderImage_byUrlId(response.item.cmsId);
 
     }
 
@@ -128,7 +124,7 @@ export function* fetch_emAuthToken() {
     const response = yield call(request, requestURL, options);
     yield put(setEmAccessToken(response));
     localStorage.setItem('emToken', JSON.stringify(response));
-    console.log('token-response', response);
+    // console.log('token-response', response);
   } catch (error) { console.log('token-response-err', error); }
 
 }
@@ -166,10 +162,10 @@ export function* fetch_LatestNews() {
 }
 
 export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
-  console.log('notice func', cmsId);
+  // console.log('notice func', cmsId);
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_noticeBy_cmsId).concat('?cmsId=').concat(cmsId);
-  console.log('requestURL', requestURL);
+  // console.log('requestURL', requestURL);
 
   const options = {
     method: 'GET',
@@ -185,6 +181,26 @@ export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
 
 }
 
+export function* fetch_SliderImage_byUrlId(cmsId) {
+  // console.log('SliderImage', cmsId);
+
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_sliderImage_cmsId).concat('?photoType=Home%20Slider').concat('&cmsId=').concat(cmsId);
+  console.log('requestURL SliderImage', requestURL);
+
+  const options = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('SliderImage_Res...........', response);
+
+  try {
+    yield put(setHomeSlider(response.item));
+    // sessionStorage.setItem('allNoticeList', JSON.stringify(response.item));
+  } catch (error) { }
+
+}
+
 export function* fetch_WelcomeSpeech_byUrlId(cmsId) {
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_welcomeSpeechBy_cmsId).concat('?cmsId=').concat(cmsId);
@@ -195,7 +211,7 @@ export function* fetch_WelcomeSpeech_byUrlId(cmsId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('welcome-speechRes', response);
+  // console.log('welcome-speechRes', response);
 
   try {
     yield put(setWelcomeSpeech(response.item));
@@ -211,7 +227,7 @@ export function* fetch_usefullLinks_byUrlId(cmsId) {
     headers: { 'Content-Type': 'application/json' },
   };
   const response = yield call(request, requestURL, options);
-  console.log('useFullsLinks-Res', response);
+  // console.log('useFullsLinks-Res', response);
 
   try {
     yield put(setUseFullLinks(response.item));
@@ -229,7 +245,7 @@ export function* fetch_instituteHistory_byUrlId(cmsId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('history-Res', response);
+  // console.log('history-Res', response);
 
   try {
     yield put(setHistoryDetails(response.item));
@@ -247,7 +263,7 @@ export function* fetch_instituteTopEvent_byUrlId(cmsId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('event-response', response);
+  // console.log('event-response', response);
 
   try {
     yield put(setTopEvents(response.item));
@@ -267,7 +283,7 @@ export function* fetch_academicYearListBy_typeId() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('home-saga', response);
+  // console.log('home-saga', response);
   yield put(setGlobalAcademicYearList(response.item));
 
 }
@@ -284,7 +300,7 @@ export function* fetch_classShiftSectionBy_typeId() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('home-saga-sec', response);
+  // console.log('home-saga-sec', response);
 
   yield put(setGlobalSectionList(response.item));
 

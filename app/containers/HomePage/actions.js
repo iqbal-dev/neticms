@@ -7,7 +7,7 @@
 import {
   DEFAULT_ACTION, SET_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE,
   SET_LOADER, SET_LATEST_NEWS, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_ACCESS_TOKEN,
-  SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS,
+  SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS, SET_HOME_SLIDER,
 } from './constants';
 
 export function defaultAction() {
@@ -108,3 +108,11 @@ export function setGlobalSectionList(sectionList) {
     sectionList,
   };
 }
+
+export function setHomeSlider(homeSliderList) {
+  return {
+    type: SET_HOME_SLIDER,
+    homeSliderList,
+  };
+}
+// setHomeSlider

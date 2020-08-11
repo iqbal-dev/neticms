@@ -906,3 +906,14 @@
 @include bodyHeader("attendance-body-header"); 
 @include bodyHeader("result-body-header"); 
 // @include membersMainView("section-wise-attendance"); 
+
+
+/*         gallery Image              */
+
+.slide {
+    &.selected{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

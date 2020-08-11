@@ -27,3 +27,4 @@ export const SET_LOADER = 'app/HomePage/SET_LOADER';
 
 export const SET_ACADEMIC_YEAR_LIST = 'app/HomePage/SET_ACADEMIC_YEAR_LIST';
 export const SET_SECTION_LIST = 'app/HomePage/SET_SECTION_LIST';
+export const SET_HOME_SLIDER = 'app/HomePage/SET_HOME_SLIDER';

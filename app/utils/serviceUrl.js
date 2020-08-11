@@ -81,4 +81,5 @@ export const save_newDressInfo = '/dress-info/save';
 export const update_newDressInfo = '/dress-info/update';
 
 export const fetch_downloadFileContent = '/public/downloadcorner/file/find';
-// fetch_downloadFileContent
+export const fetch_sliderImage_cmsId = '/public/typeWise/photoGallerys';
+// 

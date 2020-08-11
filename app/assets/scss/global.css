@@ -1970,6 +1970,12 @@
 .custom-title-border-center {
   margin: 60px 0; }
 
+/*         gallery Image              */
+.slide.selected {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 .fees-info-main div.col-md-4 {
   padding-bottom: 30px; }
 .fees-info-main div.card-header {

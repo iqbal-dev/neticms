@@ -41,30 +41,20 @@ class Slider extends React.Component {
   }
 
   render() {
-
-    const items = [
-      {
-        src: Slide_4,
-        altText: '',
+    let { slider } = this.props
+    // console.log("Slider>>>>>>>>>>>>>>>>>>>>>>>>", slider);
+    // console.log("Slide_4>>>>>>>>>>>>>>>>>>>>>>>>", Slide_4);
+    const items = [];
+    slider && slider.map((item, index) => {
+      let sliderItem = {
+        src: "data:image/*;base64," + item.fileContent,
+        altText: item.fileName,
         caption: '',
-        header: '',
-        key: '3',
-      },
-      {
-        src: Slide_1,
-        altText: '',
-        caption: '',
-        header: '',
-        key: '4',
-      },
-      {
-        src: Slide_3,
-        altText: '',
-        caption: '',
-        header: '',
-        key: '5',
-      },
-    ];
+        header: item.photoTitle,
+        key: index,
+      }
+      items.push(sliderItem)
+    })
 
     // console.log('ntc-list-slider', this.props.notice);
     let noticeArrayList = [];

@@ -50,6 +50,9 @@ const makeSelectAcademicYearList = () =>
 const makeSelectGlobalSectionList = () =>
   createSelector(selectHomePageDomain, substate => substate.get('sectionList'));
 
+const makeSelectHomeSliderList = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('homeSliderList'));
+
 /**
  * Default selector used by HomePage
  */
@@ -73,4 +76,5 @@ export {
   makeSelectTopEvents,
   makeSelectAcademicYearList,
   makeSelectGlobalSectionList,
+  makeSelectHomeSliderList
 };
