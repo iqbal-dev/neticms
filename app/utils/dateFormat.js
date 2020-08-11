@@ -68,3 +68,15 @@ export function getHHcloneMMcloneSS(date) {
     var hhmmss = hh + ':' + mm + ':' + ss;
     return hhmmss;
 }
+
+export function getHHcloneMMwithAMorPM(date) {
+    var moment = require('moment/moment');
+    var hh = moment(date).format('h');
+    var mm = moment(date).format('mm');
+    var ss = moment(date).format('ss');
+    var aa = moment(date).format('a');
+    // var hhmmss = hh + mm + ss;
+    var hhmm = hh + ':' + mm + ' ' + aa;
+    return hhmm;
+
+}

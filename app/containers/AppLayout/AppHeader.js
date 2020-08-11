@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/img/logo.png';
 
-import { getFullDayName, getFullMonthName } from '../../utils/dateFormat';
+import { getFullDayName, getFullMonthName, getHHcloneMMwithAMorPM } from '../../utils/dateFormat';
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
 export class AppHeader extends React.Component {
 
@@ -12,14 +12,14 @@ export class AppHeader extends React.Component {
 
     componentDidUpdate() {
         let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-        console.log('appHead--instituteUrlInfo', instituteUrlInfo);
+        // console.log('appHead--instituteUrlInfo', instituteUrlInfo);
     }
 
     render() {
 
         let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
         const date = new Date();
-        let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ', ' + date.getDate() + ', ' + date.getFullYear();
+        let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ' ' + date.getDate() + ', ' + date.getFullYear();
 
         return (
             <header className="header-wrapper pt-4 pb-4">
@@ -72,7 +72,8 @@ export class AppHeader extends React.Component {
                                         <span>26th Boishakh, 1427 (Bangla)</span>
                                         <span className="d-inline-flex justify-content-center align-items-center">
                                             <i className="fas fa-map-marker-alt pr-2" /> Bangladesh,
-                                            Time : 11:47 PM
+                                            Time :  {getHHcloneMMwithAMorPM()}
+                                            {/* Time : 11:47 PM */}
                                         </span>
                                     </div>
                                 </div>

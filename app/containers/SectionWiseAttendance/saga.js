@@ -5,8 +5,7 @@ import { setSectionWiseAttendanceListData } from './actions';
 import { BASE_URL_EM, fetch_sectionWise_attendance } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 
-
-export function* fetch_Date() {
+export function* fetchDataByDate() {
 
   console.log("CLICK");
 
@@ -18,7 +17,7 @@ export function* fetch_Date() {
   let emToken = JSON.parse(localStorage.getItem('emToken'));
   let date = yield select(makeSelectDate());
 
-  const requestURL = BASE_URL_EM + fetch_sectionWise_attendance+'?stringDate=' + date + '&instituteId=10301' //+ instituteId;
+  const requestURL = BASE_URL_EM + fetch_sectionWise_attendance + '?stringDate=' + date + '&instituteId=10301' //+ instituteId;
   const options = {
     method: 'GET',
     headers: {
@@ -33,10 +32,9 @@ export function* fetch_Date() {
     yield put(setSectionWiseAttendanceListData(response));
   } catch (error) { }
 
-  
 }
 // Individual exports for testing
 export default function* sectionWiseAttendanceSaga() {
   // See example in containers/HomePage/saga.js
-  yield takeLatest(SET_ON_CHANGE_DATE, fetch_Date);
+  yield takeLatest(SET_ON_CHANGE_DATE, fetchDataByDate);
 }
