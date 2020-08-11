@@ -31,8 +31,8 @@ class BreadcrumComponent extends React.PureComponent {
         <div className="breadcrumb-wrapper">
           <div className="container-fluid">
             <div className="container">
-              <div className="row">
-                <div className="offset-lg-4 col-lg-8">
+              <div className="row" style={{ display: "flex", justifyContent:"center"}}>
+                <div className="">
                   <Breadcrumb>
                     {this.props.menuStepFirst ? (
                       <BreadcrumbItem>
