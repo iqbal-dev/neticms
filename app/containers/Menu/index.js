@@ -50,7 +50,7 @@ export class Menu extends React.Component {
                     <NavbarToggler onClick={this.toggle()} />
                     <Collapse navbar>
                       <Nav className="mr-auto" navbar>
-                        <NavItem><Link to='/home' className='nav-link'>Home</Link></NavItem>
+                        <NavItem><Link to='/institute/home' className='nav-link'>Home</Link></NavItem>
 
                         <UncontrolledDropdown nav inNavbar>
 
@@ -59,9 +59,9 @@ export class Menu extends React.Component {
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Academic Info</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='/welcome_speech' className='nav-link'>Welcome Speech</Link></NavItem>
-                                <NavItem><Link to='/committee' className='nav-link'>Comittee</Link></NavItem>
-                                <NavItem><Link to='/donors' className='nav-link'>Donor Member</Link></NavItem>
+                                <NavItem><Link to='/institute/welcome_speech' className='nav-link'>Welcome Speech</Link></NavItem>
+                                <NavItem><Link to='/institute/committee' className='nav-link'>Comittee</Link></NavItem>
+                                <NavItem><Link to='/institute/donors' className='nav-link'>Donor Member</Link></NavItem>
                               </DropdownMenu>
 
                             </UncontrolledDropdown>
@@ -70,9 +70,9 @@ export class Menu extends React.Component {
 
                               <DropdownToggle nav caret>List of</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='/all_teachers' className='nav-link'>Teacher</Link></NavItem>
-                                <NavItem><Link to='/Student_info' className='nav-link'>Student</Link></NavItem>
-                                <NavItem><Link to='/stuff_information' className='nav-link'>Staff</Link></NavItem>
+                                <NavItem><Link to='/institute/all_teachers' className='nav-link'>Teacher</Link></NavItem>
+                                <NavItem><Link to='/institute/Student_info' className='nav-link'>Student</Link></NavItem>
+                                <NavItem><Link to='/institute/stuff_information' className='nav-link'>Staff</Link></NavItem>
                               </DropdownMenu>
 
                             </UncontrolledDropdown>
@@ -95,11 +95,11 @@ export class Menu extends React.Component {
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Details Info</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='/booklist' className='nav-link'>  Book List</Link></NavItem>
-                                <NavItem><Link to='/dressCode' className='nav-link'>  Uniform</Link></NavItem>
-                                <NavItem><Link to='/fees_info' className='nav-link'> Fees Info</Link></NavItem>
-                                <NavItem><Link to='/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
-                                <NavItem><Link to='/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>
+                                <NavItem><Link to='/institute/booklist' className='nav-link'>  Book List</Link></NavItem>
+                                <NavItem><Link to='/institute/dressCode' className='nav-link'>  Uniform</Link></NavItem>
+                                <NavItem><Link to='/institute/fees_info' className='nav-link'> Fees Info</Link></NavItem>
+                                <NavItem><Link to='/institute/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
+                                <NavItem><Link to='/institute/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
@@ -109,8 +109,8 @@ export class Menu extends React.Component {
                               <DropdownToggle nav caret>Student Attendance</DropdownToggle>
                               <DropdownMenu right>
                                 {/* <NavItem><Link to='#' className='nav-link'> Instiute Wise</Link></NavItem> */}
-                                <NavItem><Link to='/sectionWise_attendance' className='nav-link'> Section Wise</Link></NavItem>
-                                <NavItem><Link to='studentWise_attendance' className='nav-link'> Student Wise</Link></NavItem>
+                                <NavItem><Link to='/institute/sectionWise_attendance' className='nav-link'> Section Wise</Link></NavItem>
+                                <NavItem><Link to='/institute/studentWise_attendance' className='nav-link'> Student Wise</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
@@ -118,7 +118,7 @@ export class Menu extends React.Component {
                               <DropdownToggle nav caret>Fees Info</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <Link to='find_paySlip' className='nav-link'>Find Due Info</Link>
+                                  <Link to='/institute/find_paySlip' className='nav-link'>Find Due Info</Link>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
@@ -147,11 +147,11 @@ export class Menu extends React.Component {
 
                               <DropdownToggle nav caret>Semester Exam</DropdownToggle>
                               <DropdownMenu right>
-                                <NavItem><Link to='/meritList' className='nav-link'>Merit List</Link></NavItem>
-                                <NavItem><Link to='/failList' className='nav-link'>Fail List</Link>
+                                <NavItem><Link to='/institute/meritList' className='nav-link'>Merit List</Link></NavItem>
+                                <NavItem><Link to='/institute/failList' className='nav-link'>Fail List</Link>
                                 </NavItem>
-                                <NavItem><Link to='/sectionWise_result' className='nav-link'>Section wise </Link> </NavItem>
-                                <Link to='individual_result' className='nav-link'>Individual</Link>
+                                <NavItem><Link to='/institute/sectionWise_result' className='nav-link'>Section wise </Link> </NavItem>
+                                <Link to='/institute/individual_result' className='nav-link'>Individual</Link>
                               </DropdownMenu>
 
                             </UncontrolledDropdown>
@@ -174,11 +174,11 @@ export class Menu extends React.Component {
                               <DropdownToggle nav caret>Gallery</DropdownToggle>
                               <DropdownMenu right>
 
-                                <NavItem><Link to='/photo_gallery' className='nav-link'>Photo Gallery</Link> </NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Video Gallery</Link> </NavItem>
+                                <NavItem><Link to='/institute/photo_gallery' className='nav-link'>Photo Gallery</Link> </NavItem>
+                                {/* <NavItem><Link to='#' className='nav-link'>Video Gallery</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Award Gallery</Link> </NavItem>
                                 <NavItem><Link to='#' className='nav-link'>Top Student</Link> </NavItem>
-                                <NavItem><Link to='#' className='nav-link'>Success Alumns</Link> </NavItem>
+                                <NavItem><Link to='#' className='nav-link'>Success Alumns</Link> </NavItem> */}
 
                               </DropdownMenu>
                             </UncontrolledDropdown>
@@ -189,9 +189,9 @@ export class Menu extends React.Component {
                               <DropdownMenu right>
 
                                 {/* <NavItem><Link to='#' className='nav-link'>Academic Calendar</Link> </NavItem> */}
-                                <NavItem><Link to='/all_notice' className='nav-link'>Instiute Notice</Link> </NavItem>
+                                <NavItem><Link to='/institute/all_notice' className='nav-link'>Instiute Notice</Link> </NavItem>
                                 {/* <NavItem><Link to='#' className='nav-link'>Important Link</Link> </NavItem> */}
-                                <NavItem><Link to='/download_corner' className='nav-link'>Download Corner</Link> </NavItem>
+                                <NavItem><Link to='/institute/download_corner' className='nav-link'>Download Corner</Link> </NavItem>
                                 {/* <NavItem><Link to='#' className='nav-link'>Job Circular</Link> </NavItem> */}
                                 {/* <NavItem><Link to='#' className='nav-link'>Contact</Link> </NavItem> */}
 

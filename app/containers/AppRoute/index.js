@@ -48,8 +48,9 @@ import PrivateRoute from '../../components/PrivateRoute';
 import { getAuthenticatedStatus } from '../../utils/localStorageMethod';
 
 export default function AppRoute() {
-  // const instituteHostNm = window.location.pathname.slice(1).toString();
-  // const aboutRouteNm = `/${instituteHostNm}${'/about'.toString()}`;
+
+  const instituteHostNm = window.location.pathname.slice(1).toString();
+  const aboutRouteNm = `/${instituteHostNm}${'/about'.toString()}`;
   // console.log('aboutRoute', aboutRouteNm);
 
   const renderRouting = routerProps => {
@@ -57,183 +58,41 @@ export default function AppRoute() {
   };
   console.log('appRoute-getAuthenticatedStatus()', getAuthenticatedStatus());
 
-  // let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  let instituteHostNm = window.location.pathname.slice(1);
-  // console.log('urlName........................................', instituteUrlInfo);
-  console.log('instituteHostNm1........................................', instituteHostNm);
-
-  let routedPage = [
-    'about', 'history', 'booklist', 'all_events', 'classRooms', 'donors', 
-    'committee', 'download_corner', 'dressCode', 'syllabus_info', 'sectionWise_attendance',
-    'studentWise_attendance', 'sectionWise_result', 'failList', 'example', 'all_teachers',
-    'fees_info', 'Student_info', 'welcome_speech', 'individual_result', 'teacher_attendance',
-    'meritList', 'seatInfo', 'all_notice', 'stuff_information', 'photo_gallery', 'infrastucture',
-    'find_paySlip'
-  ]
-  var homepageRoute = routedPage.includes(instituteHostNm);
-  console.log("homepageRoute", homepageRoute);
-
   return (
     <Switch>
-      {
-        homepageRoute == false ? 
 
-          !instituteHostNm ?
-            <Route path="" component={NotFoundPage} />:
-            <Route exact path={"/" + instituteHostNm} component={HomePage} />:
-            <React.Fragment>
-              {/* <Route exact path="/demo1" component={HomePage} />
-              <Route exact path="/demo2" component={HomePage} />
-              <Route exact path="/ngghs" component={HomePage} />
-              <Route exact path="/nhmsc" component={HomePage} />
-              <Route exact path="/bgmss" component={HomePage} />
-              <Route exact path="/sahighschool73" component={HomePage} />
-              <Route exact path="/msmamun" component={HomePage} />
-              <Route exact path="/rajuhs" component={HomePage} />
-              <Route exact path="/spsngn" component={HomePage} />
-              <Route exact path="/ahnmuc" component={HomePage} />
-              <Route exact path="/aakhsc" component={HomePage} />
-              <Route exact path="/pkhs" component={HomePage} />
-              <Route exact path="/halimakhatungirls" component={HomePage} />
-              <Route exact path="/104454" component={HomePage} />
+      <Route exact path="/:id" component={HomePage} />
+      <Route exact path="/institute/home" component={HomePage} />
+      <Route exact path="/institute/about" component={AboutUs} />
+      <Route path="/institute/history" exact component={History} />
+      <Route exact path="/institute/booklist" component={BookList} />
+      <Route exact path="/institute/all_events" component={AllEventsList} />
+      <Route exact path="/institute/classRooms" component={ClassRooms} />
+      <Route exact path="/institute/donors" component={DonorMembers} />
+      <Route exact path="/institute/committee" component={CommitteeMembers} />
+      <Route exact path="/institute/download_corner" component={DownloadCorner} />
+      <Route exact path="/institute/dressCode" component={DressCode} />
+      <Route exact path="/institute/syllabus_info" component={SyllabusInfo} />
 
-              <Route exact path="/home" component={HomePage} /> */}
-              <Route exact path="/about" component={AboutUs} />
-              <Route exact path="/history" component={History} />
-              <Route exact path="/booklist" component={BookList} />
-              <Route exact path="/all_events" component={AllEventsList} />
-              <Route exact path="/classRooms" component={ClassRooms} />
-              <Route exact path="/donors" component={DonorMembers} />
-              <Route exact path="/committee" component={CommitteeMembers} />
-              <Route exact path="/download_corner" component={DownloadCorner} />
-              <Route exact path="/dressCode" component={DressCode} />
-              <Route exact path="/syllabus_info" component={SyllabusInfo} />
+      <Route exact path="/institute/sectionWise_attendance" component={SectionWiseAttendance} />
+      <Route exact path="/institute/studentWise_attendance" component={StudentWiseAttendance} />
+      <Route exact path="/institute/sectionWise_result" component={SectionWiseResult} />
+      <Route exact path="/institute/failList" component={FailList} />
+      <Route exact path="/institute/example" component={ExampleDesign} />
+      <Route exact path="/institute/all_teachers" component={TeacherInformation} />
+      <Route exact path="/institute/fees_info" component={FeesInfo} />
+      <Route exact path="/institute/Student_info" component={StudentInfo} />
+      <Route exact path="/institute/welcome_speech" component={WelcomeSpeech} />
+      <Route exact path="/institute/individual_result" component={IndividualResult} />
+      <Route exact path="/institute/teacher_attendance" component={TeacherAttendance} />
+      <Route exact path="/institute/meritList" component={MeritList} />
+      <Route exact path="/institute/seatInfo" component={SeatInfo} />
 
-              <Route exact path="/sectionWise_attendance" component={SectionWiseAttendance} />
-              <Route exact path="/studentWise_attendance" component={StudentWiseAttendance} />
-              <Route exact path="/sectionWise_result" component={SectionWiseResult} />
-              <Route exact path="/failList" component={FailList} />
-              <Route exact path="/example" component={ExampleDesign} />
-              <Route exact path="/all_teachers" component={TeacherInformation} />
-              <Route exact path="/fees_info" component={FeesInfo} />
-              <Route exact path="/Student_info" component={StudentInfo} />
-              <Route exact path="/welcome_speech" component={WelcomeSpeech} />
-              <Route exact path="/individual_result" component={IndividualResult} />
-              <Route exact path="/teacher_attendance" component={TeacherAttendance} />
-              <Route exact path="/meritList" component={MeritList} />
-              <Route exact path="/seatInfo" component={SeatInfo} />
-
-              <Route exact path="/all_notice" component={AllNotice} />
-              <Route exact path="/stuff_information" component={StuffInformation} />
-              <Route exact path="/photo_gallery" component={EventGallery} />
-              <Route exact path="/infrastucture" component={BasicInfrastucture} />
-              <Route exact path="/find_paySlip" component={FindPayslip} />
-
-                    {/* <Route exact path="/admin/login" component={AdminLogin} /> */}
-
-                    {/** **** Admin Route ******** */}
-                    {/* <Route exact path="/admin/homepage" component={AdminHomepage} />
-              <Route exact path="/admin/gallery_image" component={GalleryImage} />
-              <Route exact path="/admin/seat_info" component={AdminSeatInfo} />
-              <PrivateRoute exact path="/admin/fees_info" component={AdminFeesInfo} />
-              <PrivateRoute exact path="/admin/dress_info" component={AdminDressInfo} />
-
-              <Route exact path="/admin/download_corner" component={AdminDownloadCorner} />
-
-              <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
-              <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} /> */}
-                  
-
-                    {/* <Route exact path='/about-us/:id' component={
-                (props) =>
-                  <AboutUs postId={props.match.params.id}/>
-              />     */}
-
-            </React.Fragment>
-      }
-      
-      
-      {/* <Route exact path="/demo" component={HomePage} />
-      <Route exact path="/demo1" component={HomePage} />
-      <Route exact path="/demo2" component={HomePage} />
-      <Route exact path="/ngghs" component={HomePage} />
-      <Route exact path="/nhmsc" component={HomePage} />
-      <Route exact path="/bgmss" component={HomePage} />
-      <Route exact path="/sahighschool73" component={HomePage} />
-      <Route exact path="/msmamun" component={HomePage} />
-      <Route exact path="/rajuhs" component={HomePage} />
-      <Route exact path="/spsngn" component={HomePage} />
-      <Route exact path="/ahnmuc" component={HomePage} />
-      <Route exact path="/aakhsc" component={HomePage} />
-      <Route exact path="/pkhs" component={HomePage} />
-      <Route exact path="/halimakhatungirls" component={HomePage} />
-      <Route exact path="/104454" component={HomePage} />
-
-      <Route exact path="/bakaliapremier" component={HomePage} />
-      <Route exact path="/rmsc" component={HomePage} />
-      <Route exact path="/pmimhs" component={HomePage} />
-      <Route exact path="/jzs" component={HomePage} />
-      <Route exact path="/azizaschool" component={HomePage} />
-      <Route exact path="/gogorabduljabbarhs" component={HomePage} />
-      <Route exact path="/naklapilothighschool" component={HomePage} />
-      <Route exact path="/fmmissioncollege" component={HomePage} />
-      <Route exact path="/olympiatmhs" component={HomePage} />
-      <Route exact path="/zsghskis" component={HomePage} />
-      <Route exact path="/ajrkghs" component={HomePage} />
-      <Route exact path="/nuhs" component={HomePage} />
-      <Route exact path="/dghs" component={HomePage} />
-      <Route exact path="/sks" component={HomePage} />
-      <Route exact path="/demo4" component={HomePage} />
-      <Route exact path="/spsngn" component={HomePage} />
-      <Route exact path="/bohschool" component={HomePage} />
-      <Route exact path="/lnhhs" component={HomePage} />
-      <Route exact path="/scakatiadi" component={HomePage} />
-      <Route exact path="/srijaneebpstu" component={HomePage} />
-      <Route exact path="/csbmc" component={HomePage} />
-
-      <Route exact path="/ethnica" component={HomePage} />
-      <Route exact path="/blscngn" component={HomePage} />
-      <Route exact path="/aucm" component={HomePage} />
-
-      <Route exact path="/home" component={HomePage} />
-      <Route exact path="/about" component={AboutUs} />
-      <Route path="/history" exact component={History} />
-      <Route exact path="/booklist" component={BookList} />
-      <Route exact path="/all_events" component={AllEventsList} />
-      <Route exact path="/classRooms" component={ClassRooms} />
-      <Route exact path="/donors" component={DonorMembers} />
-      <Route exact path="/committee" component={CommitteeMembers} />
-      <Route exact path="/download_corner" component={DownloadCorner} />
-      <Route exact path="/dressCode" component={DressCode} />
-      <Route exact path="/syllabus_info" component={SyllabusInfo} />
-
-      <Route
-        exact
-        path="/sectionWise_attendance"
-        component={SectionWiseAttendance}
-      />
-      <Route
-        exact
-        path="/studentWise_attendance"
-        component={StudentWiseAttendance}
-      />
-      <Route exact path="/sectionWise_result" component={SectionWiseResult} />
-      <Route exact path="/failList" component={FailList} />
-      <Route exact path="/example" component={ExampleDesign} />
-      <Route exact path="/all_teachers" component={TeacherInformation} />
-      <Route exact path="/fees_info" component={FeesInfo} />
-      <Route exact path="/Student_info" component={StudentInfo} />
-      <Route exact path="/welcome_speech" component={WelcomeSpeech} />
-      <Route exact path="/individual_result" component={IndividualResult} />
-      <Route exact path="/teacher_attendance" component={TeacherAttendance} />
-      <Route exact path="/meritList" component={MeritList} />
-      <Route exact path="/seatInfo" component={SeatInfo} />
-
-      <Route exact path="/all_notice" component={AllNotice} />
-      <Route exact path="/stuff_information" component={StuffInformation} />
-      <Route exact path="/event_gallery" component={EventGallery} />
-      <Route exact path="/infrastucture" component={BasicInfrastucture} />
-      <Route exact path="/find_paySlip" component={FindPayslip} /> */}
+      <Route exact path="/institute/all_notice" component={AllNotice} />
+      <Route exact path="/institute/stuff_information" component={StuffInformation} />
+      <Route exact path="/institute/event_gallery" component={EventGallery} />
+      <Route exact path="/institute/infrastucture" component={BasicInfrastucture} />
+      <Route exact path="/institute/find_paySlip" component={FindPayslip} />
 
       {/* <Route exact path="/admin/login" component={AdminLogin} /> */}
 
@@ -248,12 +107,7 @@ export default function AppRoute() {
 
       <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
       <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} /> */}
-      {/* <Route path="" component={NotFoundPage} /> */}
-
-      {/* <Route exact path='/about-us/:id' component={
-        (props) =>
-          <AboutUs postId={props.match.params.id}/>
-      />     */}
+      <Route path="" component={NotFoundPage} />
 
     </Switch>
   );

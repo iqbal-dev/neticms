@@ -9,6 +9,7 @@ import {
   fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_usefullLinksBy_cmsId
 
 } from '../../utils/serviceUrl';
+import { Redirect, Link } from "react-router-dom";
 
 import {
   setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks
@@ -19,10 +20,10 @@ import { setAcademicYearList } from '../FailList/actions';
 export function* fetch_instituteUrlInfo_byUrlName() {
 
   let instituteHostNm = window.location.pathname.slice(1);
-  // console.log('instituteHostNm', instituteHostNm);
-  if (instituteHostNm == 'home') {
+  console.log('instituteHostNm', instituteHostNm);
+  if (instituteHostNm == 'institute/home') {
     var instituteInfo = JSON.parse(localStorage.instituteInfo);
-    instituteHostNm = instituteInfo[0].urlName
+    instituteHostNm = instituteInfo[0].urlName;
   }
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
@@ -36,7 +37,12 @@ export function* fetch_instituteUrlInfo_byUrlName() {
   console.log('response', response);
   try {
 
-    if (response) {
+    if (response.messageType == 0) {
+      console.log('messageType 0 true');
+      window.location.href = '/'
+    }
+
+    if (response.messageType == 1) {
 
       let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
       // console.log('after-response', instituteUrlInfo);
