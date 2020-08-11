@@ -21,7 +21,7 @@ import makeSelectEventGallery, {
 import reducer from './reducer';
 import saga from './saga';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
-import staticImg from '../../assets/img/avatar.png';
+import staticImg from '../../assets/img/blank-image.png';
 import image from './slider-image.png';
 import { setModalVisiableStatus } from './actions';
 import { AppLayout } from '../AppLayout';
