@@ -194,7 +194,7 @@ export class HomePage extends React.Component {
     return (
       <div>
         <AppLayout>
-          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList}/>
+          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList} />
           <section className="speech-wrapper section-space-60">
             <div className="container-fluid">
               <div className="container">
@@ -238,7 +238,7 @@ export class HomePage extends React.Component {
                         <span>
                           <i className="fas fa-link" />
                         </span>
-                        <h2>Usefull Links</h2>
+                        <h2>Useful Links</h2>
                       </div>
                       <ul className="links-lists">
 
@@ -275,13 +275,13 @@ export class HomePage extends React.Component {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="section-title text-center">
-                      <h1>Welcome</h1>
+                      <h1>Welcome To</h1>
                     </div>
                   </div>
                   <div className="offset-md-1 col-md-10 p-b-100">
                     <div className="section-sub-title text-center">
-                      <p>
-                        to {instituteName} website.
+                      <p style={{ textAlign: 'justify' }}>
+                        {instituteName} website.
                         You will find here all information and updates about our
                         institute
                     </p>
@@ -292,7 +292,7 @@ export class HomePage extends React.Component {
                   <div className="col-md-6">
                     <div className="content-wrapper m-b-30">
                       <div className="content-title">
-                        <h4>History of our school</h4>
+                        <h4>History of our Institute</h4>
                       </div>
                       <div className="content">
                         <p>
