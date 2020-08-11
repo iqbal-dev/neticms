@@ -34,7 +34,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('response', response);
+  console.log('url-mapping-response', response);
   try {
 
     if (response) {
