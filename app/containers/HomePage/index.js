@@ -40,6 +40,7 @@ import {
   makeSelectHistoryDetails,
   makeSelectTopEvents,
   makeSelectLoaderStatus,
+  makeSelectHomeSliderList
 } from './selectors';
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 import { AppLayout } from '../AppLayout';
@@ -188,10 +189,12 @@ export class HomePage extends React.Component {
       instituteTopEventList = this.props.instituteTopEvents;
     }
 
+    // console.log("homeSliderList......................", this.props.homeSliderList);
+
     return (
       <div>
         <AppLayout>
-          <Slider notice={this.props.noticeList} />
+          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList}/>
           <section className="speech-wrapper section-space-60">
             <div className="container-fluid">
               <div className="container">
@@ -523,6 +526,7 @@ const mapStateToProps = createStructuredSelector({
   instituteTopEvents: makeSelectTopEvents(),
   loaderStatus: makeSelectLoaderStatus(),
   accessToken: makeSelectEmAccessToken(),
+  homeSliderList: makeSelectHomeSliderList(),
 });
 
 function mapDispatchToProps(dispatch) {

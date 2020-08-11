@@ -29,6 +29,23 @@ import { AppLayout } from '../AppLayout';
 let dialogImageContent = ''
 /* eslint-disable react/prefer-stateless-function */
 export class EventGallery extends React.PureComponent {
+
+  state = {
+    imageCounter: 0
+  }
+
+
+  getAttr = (e, index) =>{
+    console.log('e:::', e, index )
+
+    this.state.imageCounter = index
+
+    // let link = document.querySelector('#image_' + index);
+    //     if (link) {
+    //         let target = link.getAttribute('src');
+    //         console.log(target);
+    //     }
+  }
   render() {
     let galleryImageLists = this.props.galleryImageList;
     return (
@@ -46,7 +63,7 @@ export class EventGallery extends React.PureComponent {
         />
         <div className="container p-t-60 content-wrapper ">
           <div className="row">
-            { galleryImageLists && galleryImageLists.map((item) => {
+            { galleryImageLists && galleryImageLists.map((item, index) => {
 
               let image = ''
               item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
@@ -54,8 +71,8 @@ export class EventGallery extends React.PureComponent {
               return(
                 <div className="col-md-4">
                   <div className="book-list-wrapper m-b-30">
-                    <div className="book-list-image">
-                          <img className="img-fluid w-100" src={ image } width="100%"/>
+                    <div className="book-list-image" onClick={ e => this.getAttr(e, index)}>
+                      <img id={"image_" + index} className="img-fluid w-100" src={ image } width="100%"/>
                       <Button
                         className="book-image-zoom"
                         onClick={ this.props.onChangemodalVisiable }
@@ -85,6 +102,7 @@ export class EventGallery extends React.PureComponent {
           className="event-gallery-modal modal-dialog-centered"
           isOpen={this.props.modalVisiable}
           toggle={this.props.onChangemodalVisiable}
+          // style={{ height : '100%'}}
         >
           <Button
             className="close-btn"
@@ -97,10 +115,10 @@ export class EventGallery extends React.PureComponent {
               <div className="row">
                 <div className="col-md-12">
                   <div className="no-thumble no-radius">
-                    <Carousel >
+                    <Carousel selectedItem={this.state.imageCounter}>
                     { galleryImageLists && galleryImageLists.map((item) => 
                         <div>
-                          <img src={ item.fileContent ? "data:image/*;base64," + item.fileContent: staticImg} alt="Event Gallery one" width="200px"/>
+                          <img src={ item.fileContent ? "data:image/*;base64," + item.fileContent : staticImg} alt="Event Gallery one" width="200px"/>
                         </div>
                       
                     )}
