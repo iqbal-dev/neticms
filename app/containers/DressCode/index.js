@@ -34,25 +34,25 @@ export class DressCode extends React.Component {
   toggleTab = tabId => this.props.onChangeTabPanel(tabId);
 
   render() {
-    console.log('this.props.maleDressCodeList',this.props.maleDressCodeList)
+    // console.log('this.props.maleDressCodeList',this.props.maleDressCodeList)
 
     return (
       <div>
         <AppLayout>
-        {console.log('tabID', this.props.tabVisibleStatus)}
-        <Helmet>
-          <title>DressCode</title>
-          <meta name="description" content="Description of DressCode" />
-        </Helmet>
-        <BreadcrumComponent
-          pageTitle="Dress Code"
-          menuStepFirst="Home"
-          menuStepSenond="Administration"
-          menuStepThird="Dress Code"
-        />
-        <section>
-          <div className="container-fluid">
-            {/* <div className="container">
+          {/* {console.log('tabID', this.props.tabVisibleStatus)} */}
+          <Helmet>
+            <title>Uniform</title>
+            <meta name="description" content="Description of DressCode" />
+          </Helmet>
+          <BreadcrumComponent
+            pageTitle="Uniform Dress Code"
+            menuStepFirst="Academic Info"
+            menuStepSenond="Details Info"
+            menuStepThird="Uniform"
+          />
+          <section>
+            <div className="container-fluid">
+              {/* <div className="container">
               <div className="row">
                 <div className="col-md-12">
                   <div className="page-inner-title">
@@ -62,101 +62,96 @@ export class DressCode extends React.Component {
                 </div>
               </div>
             </div> */}
-            <div className="container p-t-60">
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="dress-code-tab-wrapper">
-                    <Nav
-                      tabs
-                      className="w-100 d-inline-flex justify-content-center align-items-center"
-                    >
-                      <NavItem>
-                        <NavLink
-                          className={classnames({
-                            active: this.props.tabVisibleStatus === '1',
-                          })}
-                          onClick={e => {
-                            this.toggleTab('1');
-                          }}
-                        >
-                          <span>
-                            <img src={maleIcon} />
-                          </span>
-                          <p>Male</p>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames({
-                            active: this.props.tabVisibleStatus === '2',
-                          })}
-                          onClick={() => {
-                            this.toggleTab('2');
-                          }}
-                        >
-                          <span>
-                            <img src={feMaleIcon} />
-                          </span>
-                          <p>Female</p>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames({
-                            active: this.props.tabVisibleStatus === '3',
-                          })}
-                          onClick={() => {
-                            this.toggleTab('3');
-                          }}
-                        >
-                          <span>
-                            <img src={combineIcon} />
-                          </span>
-                          <p>Combined</p>
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
+              <div className="container p-t-60">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="dress-code-tab-wrapper">
+                      <Nav
+                        tabs
+                        className="w-100 d-inline-flex justify-content-center align-items-center"
+                      >
+                        <NavItem>
+                          <NavLink
+                            className={classnames({
+                              active: this.props.tabVisibleStatus === '1',
+                            })}
+                            onClick={e => {
+                              this.toggleTab('1');
+                            }}
+                          >
+                            <span>
+                              <img src={maleIcon} />
+                            </span>
+                            <p>Male</p>
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink
+                            className={classnames({
+                              active: this.props.tabVisibleStatus === '2',
+                            })}
+                            onClick={() => {
+                              this.toggleTab('2');
+                            }}
+                          >
+                            <span>
+                              <img src={feMaleIcon} />
+                            </span>
+                            <p>Female</p>
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink
+                            className={classnames({
+                              active: this.props.tabVisibleStatus === '3',
+                            })}
+                            onClick={() => {
+                              this.toggleTab('3');
+                            }}
+                          >
+                            <span>
+                              <img src={combineIcon} />
+                            </span>
+                            <p>Combined</p>
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
 
-                    <TabContent activeTab={this.props.tabVisibleStatus}>
-                      <TabPane tabId="1">
-                        <div className="tab-panel-wrapper">
-                          <div className="row">
-                          {this.props.maleDressCodeList && this.props.maleDressCodeList.map((item,index) => (
+                      <TabContent activeTab={this.props.tabVisibleStatus}>
+                        <TabPane tabId="1">
+                          <div className="tab-panel-wrapper">
+                            <div className="row">
+                              {this.props.maleDressCodeList && this.props.maleDressCodeList.map((item, index) => (
 
-                          
+                                <>
+                                  <div className="col-md-8">
+                                    <div className="page-inner-title">
+                                      <h2 className="text-orange">
+                                        {item.classRange}
+                                      </h2>
+                                      <div className="custom-title-border-left" />
+                                    </div>
+                                    <div className="content">
+                                      <p>
+                                        {item.dressDetails}
+                                      </p>
+                                    </div>
+                                  </div>
 
-
-
-                             <>
-                            <div className="col-md-8">
-                              <div className="page-inner-title">
-                                <h2 className="text-orange">
-                                  {item.classRange}
-                                </h2>
-                                <div className="custom-title-border-left" />
-                              </div>
-                              <div className="content">
-                                <p>
-                             {item.dressDetails}
-                                </p>
-                              </div>
+                                  <div className="col-md-4">
+                                    <div className="panel-image text-center">
+                                      {
+                                        item.fileContent ?
+                                          <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
+                                          <img src={staticImg} width="100%" />
+                                      }
+                                    </div>
+                                  </div>
+                                </>
+                              ))}
                             </div>
-                            
-
-                             <div className="col-md-4">
-                              <div className="panel-image text-center">
-                              {
-                          item.fileContent ?
-                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="img-fluid m-auto"/>:
-                            <img src={staticImg} width="100%"/>
-                        }
-                              </div>
-                            </div> 
-                            </>
-                               ))}
                           </div>
-                        </div>
-                        {/* <div className="tab-panel-wrapper">
+                          {/* <div className="tab-panel-wrapper">
                           <div className="row">
                             <div className="col-md-8 ">
                               <div className="page-inner-title">
@@ -196,99 +191,93 @@ export class DressCode extends React.Component {
                             </div>
                           </div>
                         </div> */}
-                      </TabPane>
-                      <TabPane tabId="2">
-                        <div className="tab-panel-wrapper">
-                          <div className="row">
-                          {this.props.femaleDressCodeList && this.props.femaleDressCodeList.map((item,index) => (
-                             <>
-                            <div className="col-md-8">
-                              <div className="page-inner-title">
-                                <h2 className="text-orange">
-                                  {item.classRange}
-                                </h2>
-                                <div className="custom-title-border-left" />
-                              </div>
-                              <div className="content">
-                                <p>
-                             {item.dressDetails}
-                                </p>
-                              </div>
+                        </TabPane>
+                        <TabPane tabId="2">
+                          <div className="tab-panel-wrapper">
+                            <div className="row">
+                              {this.props.femaleDressCodeList && this.props.femaleDressCodeList.map((item, index) => (
+                                <>
+                                  <div className="col-md-8">
+                                    <div className="page-inner-title">
+                                      <h2 className="text-orange">
+                                        {item.classRange}
+                                      </h2>
+                                      <div className="custom-title-border-left" />
+                                    </div>
+                                    <div className="content">
+                                      <p>
+                                        {item.dressDetails}
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <div className="col-md-4">
+                                    <div className="panel-image text-center">
+                                      {
+                                        item.fileContent ?
+                                          <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
+                                          <img src={staticImg} width="100%" />
+                                      }
+                                    </div>
+                                  </div>
+                                </>
+                              ))}
                             </div>
-                            
 
-                             <div className="col-md-4">
-                              <div className="panel-image text-center">
-                              {
-                          item.fileContent ?
-                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="img-fluid m-auto"/>:
-                            <img src={staticImg} width="100%"/>
-                        }
-                              </div>
-                            </div> 
-                            </>
-                               ))}
                           </div>
-                           
 
-                         
-                       
-                        </div>
-                      
-                      </TabPane>
-                      <TabPane tabId="3">
-                        <div className="tab-panel-wrapper">
-                        <div className="row">
-                          {this.props.combineDressCodeList && this.props.combineDressCodeList.map((item,index) => (
-                             <>
-                            <div className="col-md-8">
-                              <div className="page-inner-title">
-                                <h2 className="text-orange">
-                                  {item.classRange}
-                                </h2>
-                                <div className="custom-title-border-left" />
-                              </div>
-                              <div className="content">
-                                <p>
-                             {item.dressDetails}
-                                </p>
-                              </div>
+                        </TabPane>
+                        <TabPane tabId="3">
+                          <div className="tab-panel-wrapper">
+                            <div className="row">
+                              {this.props.combineDressCodeList && this.props.combineDressCodeList.map((item, index) => (
+                                <>
+                                  <div className="col-md-8">
+                                    <div className="page-inner-title">
+                                      <h2 className="text-orange">
+                                        {item.classRange}
+                                      </h2>
+                                      <div className="custom-title-border-left" />
+                                    </div>
+                                    <div className="content">
+                                      <p>
+                                        {item.dressDetails}
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <div className="col-md-4">
+                                    <div className="panel-image text-center">
+                                      {
+                                        item.fileContent ?
+                                          <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
+                                          <img src={staticImg} width="100%" />
+                                      }
+
+                                    </div>
+                                  </div>
+                                </>
+                              ))}
                             </div>
-                            
 
-                             <div className="col-md-4">
-                              <div className="panel-image text-center">
-                                   {
-                          item.fileContent ?
-                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="img-fluid m-auto"/>:
-                            <img src={staticImg} width="100%"/>
-                        }
-                               
-                              </div>
-                            </div> 
-                            </>
-                               ))}
                           </div>
-                        
-                         
-                        </div>
-                       
-                      </TabPane>
-                    </TabContent>
+
+                        </TabPane>
+                      </TabContent>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-1 col-md-10">
+                    <div className="custom-title-border-center" />
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-1 col-md-10">
-                  <div className="custom-title-border-center" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
         </AppLayout>
       </div>
     );
@@ -307,9 +296,6 @@ const mapStateToProps = createStructuredSelector({
   maleDressCodeList: makeSelectMaleDressCodeList(),
   femaleDressCodeList: makeSelectFemaleDressCodeList(),
   combineDressCodeList: makeSelectCombinedDressCodeList(),
-
-
-  
 
   tabVisibleStatus: makeSelectTabPanelStatus(), // /last day work
 });

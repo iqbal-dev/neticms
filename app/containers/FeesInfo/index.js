@@ -52,9 +52,21 @@ export class FeesInfo extends React.Component {
 
   toggle = () => {
     this.setState({ feeDetailsDialog: true });
-
   }
+
   render() {
+
+    let selectedClassName = '';
+    if (this.props.classList && this.props.classList.length) {
+
+      this.props.classList.filter(item => {
+        if (item.classId == this.props.classValue) {
+          selectedClassName = item.className;
+        }
+      })
+
+    }
+
     return (
       <div>
         <AppLayout>
@@ -64,8 +76,8 @@ export class FeesInfo extends React.Component {
           </Helmet>
           <BreadcrumComponent
             pageTitle="Fees Info"
-            menuStepFirst="Home"
-            menuStepSenond="Administration"
+            menuStepFirst="Academic Info"
+            menuStepSenond="Details Info"
             menuStepThird="Fees Info"
           />
           <section>
@@ -76,7 +88,7 @@ export class FeesInfo extends React.Component {
                     <div className="fees-info-subheader m-b-30">
                       <Col sm="12" lg="6">
                         {' '}
-                        Showing result for <span>Class Seven</span>
+                        Showing result for class <span> {selectedClassName}</span>
                       </Col>
                       <Col sm="12" lg="6" className="search-dropdown">
                         <Input

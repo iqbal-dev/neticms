@@ -54,7 +54,6 @@ export class BookList extends React.Component {
     singleBook.push(booklist[value]);
   }
 
-
   render() {
     let classList = this.props.allClassList;
     booklist = this.props.allBookList;
@@ -67,7 +66,7 @@ export class BookList extends React.Component {
             <meta name="description" content="Description of BookList" />
           </Helmet>
           <BreadcrumComponent
-            pageTitle="Booklist of All Classes"
+            pageTitle="Book List of All Classes"
             menuStepFirst="Academic Info"
             menuStepSenond="Details Info"
             menuStepThird="Book List"
@@ -208,7 +207,7 @@ export class BookList extends React.Component {
                                 <tr>
                                   <td colSpan="2">
                                     <span className="title">
-                                    {item.bookName}
+                                      {item.bookName}
                                     </span>
                                   </td>
                                 </tr>
@@ -264,7 +263,7 @@ BookList.propTypes = {
   allClassList: PropTypes.any,
   allBookList: PropTypes.any,
   onClickFetchBookList: PropTypes.func,
-  onChangeModalStatus:PropTypes.func
+  onChangeModalStatus: PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({

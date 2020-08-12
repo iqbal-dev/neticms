@@ -32,7 +32,12 @@ export class SeatInfo extends React.Component {
             <title>SeatInfo</title>
             <meta name="description" content="Description of SeatInfo" />
           </Helmet>
-          <BreadcrumComponent pageTitle="Seat Info" menuStepFirst="Home" menuStepSenond="Administration" menuStepThird="Seat Info" />
+          <BreadcrumComponent
+            pageTitle="Seat Info"
+            menuStepFirst="Academic Info"
+            menuStepSenond="Details Info"
+            menuStepThird="Seat Info" />
+
           <section>
             <div className="container-fluid">
               <div className="container p-t-60 p-b-60">

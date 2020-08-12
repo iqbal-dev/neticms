@@ -211,6 +211,14 @@ export class HomePage extends React.Component {
       }
     }
 
+    // history read more btn
+
+    let historyMoreBtn = <div className="content-btn">
+      <button className="btn btn-orange m-t-30">
+        Read More <i className="fas fa-angle-right" />
+      </button>
+    </div>
+
     return (
       <div>
         <AppLayout>
@@ -333,14 +341,23 @@ export class HomePage extends React.Component {
                           Child.
                         </b> */}
                         </p>
-                        <p>{this.props.instituteHistory ? this.props.instituteHistory.aboutusDetails : ''}
+                        <p>
+
+                          {this.props.instituteHistory ?
+
+                            <ReadMoreReact text={this.props.instituteHistory.aboutusDetails}
+                              min={300}
+                              ideal={301}
+                              max={1000}
+                              readMoreText={historyMoreBtn} />
+                            : ''
+                          }
+
+                          {/* {this.props.instituteHistory ? this.props.instituteHistory.aboutusDetails : ''} */}
+
                         </p>
                       </div>
-                      <div className="content-btn">
-                        <button className="btn btn-orange m-t-30">
-                          Read More <i className="fas fa-angle-right" />
-                        </button>
-                      </div>
+
                     </div>
                   </div>
                   <div className="col-md-6">
