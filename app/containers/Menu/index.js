@@ -54,13 +54,13 @@ export class Menu extends React.Component {
 
                         <UncontrolledDropdown nav inNavbar>
 
-                          <DropdownToggle nav caret>Instiute Info</DropdownToggle>
+                          <DropdownToggle nav caret>Institute Info</DropdownToggle>
                           <DropdownMenu right>
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Academic Info</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem><Link to='/institute/welcome_speech' className='nav-link'>Welcome Speech</Link></NavItem>
-                                <NavItem><Link to='/institute/committee' className='nav-link'>Comittee</Link></NavItem>
+                                <NavItem><Link to='/institute/committee' className='nav-link'>Committee</Link></NavItem>
                                 <NavItem><Link to='/institute/donors' className='nav-link'>Donor Member</Link></NavItem>
                               </DropdownMenu>
 

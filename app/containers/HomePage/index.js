@@ -47,6 +47,7 @@ import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
 /* eslint-disable react/prefer-stateless-function */
 import { MyCalendar } from './AdminEventInfoCalendar'
+import ReadMoreReact from 'read-more-react';
 
 //
 
@@ -56,7 +57,6 @@ let fileContent = "";
 let speakerDesignation = '';
 let speakerName = '';
 let welComeSpeech = '';
-// let usefullExploreBtnShow = true;
 
 export class HomePage extends React.Component {
 
@@ -69,12 +69,12 @@ export class HomePage extends React.Component {
 
     this.showUseFullLinksFirstFive = this.showUseFullLinksFirstFive.bind(this);
     this.showUseFullLinksAll = this.showUseFullLinksAll.bind(this);
+    this.topScrollFunction = this.topScrollFunction.bind(this);
   }
+
   onChange = date => this.setState({ date });
 
   formatEventStartDate = (evtDetails) => {
-
-    // console.log('evtDetails', evtDetails);
 
     if (evtDetails) {
 
@@ -83,7 +83,6 @@ export class HomePage extends React.Component {
 
       const splitDateArr = formatDate2.split('/');
       let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[0] + ', ' + splitDateArr[2];
-      // console.log('eventStartDate', eventStartDate);
       return eventStartDate;
 
     }
@@ -125,6 +124,9 @@ export class HomePage extends React.Component {
   }
 
   getPlainTextToHtml = (html) => {
+
+    // console.log('speecg-html', html);
+
     var temp = document.createElement("div");
     temp.innerHTML = html;
     return temp.textContent;
@@ -155,32 +157,37 @@ export class HomePage extends React.Component {
     this.setState({ usefullExploreBtnShow: visibleStatus })
   }
 
+  topScrollFunction() {
+    document.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
   render() {
-
-    var html = "<h1>tets <h6> Hello </h6></h1>";
-
-    console.log('getPlainTextToHtml', this.getPlainTextToHtml(html));
 
     const date = new Date();
 
     // console.log('welComeSpeechObj', welComeSpeechObj);
-    // console.log('urlInfoAll', this.props.urlInfoAll);
-    // console.log('token-homepage', this.props.accessToken);
 
     let instituteName = '';
     if (this.props.urlInfo) {
       instituteName = this.props.urlInfo.instituteName;
     }
-
+    let plainText = '';
     if (!this.props.welComeInfo == '') {
       // console.log('this.props.welComeInfo-------------------', this.props.welComeInfo[speechIndex]);
       // fileContent = "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent
       speakerDesignation = this.props.welComeInfo[speechIndex].speakerDesignation;
       speakerName = this.props.welComeInfo[speechIndex].speakerName;
       welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
+      // console.log('welComeSpeech-', welComeSpeech);
+
+      // let plainText = this.getPlainTextToHtml(welComeSpeech);
+      // this.props.welComeInfo[speechIndex].speechDetails;
+      // plainText =  this.getPlainTextToHtml(welComeSpeech);
+
     }
 
-    // console.log(speakerDesignation, speakerName, welComeSpeech);
+    // console.log('welComeSpeech-Text', welComeSpeech);
 
     let instituteTopEventList = [];
     // let eventStartDate = '';
@@ -191,10 +198,23 @@ export class HomePage extends React.Component {
 
     // console.log("homeSliderList......................", this.props.homeSliderList);
 
+    // top scroll btn task below
+
+    var mybutton = document.getElementById("scrollTopBtn");
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
     return (
       <div>
         <AppLayout>
-          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList}/>
+          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList} />
           <section className="speech-wrapper section-space-60">
             <div className="container-fluid">
               <div className="container">
@@ -215,10 +235,21 @@ export class HomePage extends React.Component {
                           <h4 className="designation">{speakerDesignation}</h4>
                           <h1 className="employe-name">{speakerName}</h1>
                           <p className='speechDetails'>
-                            {this.getPlainTextToHtml(welComeSpeech)}
-                            <a href="#" align="left">
+
+                            {this.props.welComeInfo ?
+
+                              <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
+                                min={200}
+                                ideal={201}
+                                max={1000}
+                                readMoreText={'See More'} />
+                              : ''
+                            }
+
+                            {/* {this.getPlainTextToHtml(welComeSpeech)} */}
+                            {/* <a href="#" align="left">
                               See More
-                          </a>
+                          </a> */}
                           </p>
                         </div>
                       </div>
@@ -238,7 +269,7 @@ export class HomePage extends React.Component {
                         <span>
                           <i className="fas fa-link" />
                         </span>
-                        <h2>Usefull Links</h2>
+                        <h2>Useful Links</h2>
                       </div>
                       <ul className="links-lists">
 
@@ -275,13 +306,13 @@ export class HomePage extends React.Component {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="section-title text-center">
-                      <h1>Welcome</h1>
+                      <h1>Welcome To</h1>
                     </div>
                   </div>
                   <div className="offset-md-1 col-md-10 p-b-100">
                     <div className="section-sub-title text-center">
-                      <p>
-                        to {instituteName} website.
+                      <p style={{ textAlign: 'justify' }}>
+                        {instituteName} website.
                         You will find here all information and updates about our
                         institute
                     </p>
@@ -292,7 +323,7 @@ export class HomePage extends React.Component {
                   <div className="col-md-6">
                     <div className="content-wrapper m-b-30">
                       <div className="content-title">
-                        <h4>History of our school</h4>
+                        <h4>History of our Institute</h4>
                       </div>
                       <div className="content">
                         <p>
@@ -494,7 +525,13 @@ export class HomePage extends React.Component {
                       </div>
                     </div>
                   </div>
+
                 </div>
+
+                <button onClick={() => this.topScrollFunction()} id="scrollTopBtn" title="Go to top">
+                  <i class="fal fa-arrow-to-top"></i>                  {/* <i class="fal fa-arrow-alt-circle-up"></i> */}
+                </button>
+
               </div>
             </div>
           </section>

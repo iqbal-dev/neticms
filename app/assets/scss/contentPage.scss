@@ -466,6 +466,14 @@
     }
 }
 .login-form-wrapper{
+    
+    cursor: pointer;
+
+    &:hover +.login-btn>button {
+                background: $colorWhite;
+                color: $orangeColor;
+            }
+
     .login-btn {
         padding: 32px 15px;
         background: $orangeColor;
