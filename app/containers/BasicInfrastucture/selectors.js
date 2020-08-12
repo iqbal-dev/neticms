@@ -19,5 +19,13 @@ const selectBasicInfrastuctureDomain = state =>
 const makeSelectBasicInfrastucture = () =>
   createSelector(selectBasicInfrastuctureDomain, substate => substate.toJS());
 
+const makeSelectInfrastructureList = () =>
+  createSelector(selectBasicInfrastuctureDomain, substate =>
+    substate.get('infrastructureList'),
+);
+
 export default makeSelectBasicInfrastucture;
-export { selectBasicInfrastuctureDomain };
+export { 
+  selectBasicInfrastuctureDomain,
+  makeSelectInfrastructureList
+};

@@ -100,6 +100,7 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/institute/fees_info' className='nav-link'> Fees Info</Link></NavItem>
                                 <NavItem><Link to='/institute/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
                                 <NavItem><Link to='/institute/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>
+                                <NavItem><Link to='/institute/infrastucture' className='nav-link'> Infrastucture</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
