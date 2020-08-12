@@ -48,18 +48,18 @@ class LoginAccess extends React.PureComponent {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-4">
-                    <a className="login-form-wrapper p-b-60">
+                  <div className="col-md-4 p-b-60">
+                    <div className="login-form-wrapper">
                       <div className="login-image">
                         <img src={guardian} className="img-fluid w-100" />
                       </div>
                       <div className="login-btn text-center">
                         <button className="btn">Guardian login</button>
                       </div>
-                    </a>
+                    </div>
                   </div>
-                  <div className="col-md-4">
-                    <div className="login-form-wrapper p-b-60">
+                  <div className="col-md-4 p-b-60">
+                    <div className="login-form-wrapper">
                       <div className="login-image">
                         <img src={teacher} className="img-fluid w-100" />
                       </div>

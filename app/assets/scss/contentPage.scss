@@ -262,6 +262,15 @@
             line-height: 2;
             margin-bottom: 25px;
             font-family: 'Montserrat', sans-serif;
+
+            display: block;
+            display: -webkit-box;
+            /* max-width: 200px; */
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        
         }
     }
 }
@@ -466,13 +475,17 @@
     }
 }
 .login-form-wrapper{
-    
     cursor: pointer;
+    transition: all .5s;
 
-    &:hover +.login-btn>button {
-                background: $colorWhite;
-                color: $orangeColor;
-            }
+    &:hover {
+        background-color: #00000015;
+    }
+
+    &:hover .login-btn > button {
+        background: $colorWhite;
+        color: $orangeColor;
+    }
 
     .login-btn {
         padding: 32px 15px;
