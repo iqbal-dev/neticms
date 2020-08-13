@@ -8,20 +8,24 @@ import { initialState } from './reducer';
 const selectSectionWiseAttendanceDomain = state =>
   state.get('sectionWiseAttendance', initialState);
 
-const makeSelectSectionWiseAttendance = () =>
-  createSelector(selectSectionWiseAttendanceDomain, substate =>
-    substate.toJS(),
-  );
+// const makeSelectSectionWiseAttendance = () =>
+//   createSelector(selectSectionWiseAttendanceDomain, substate =>
+//     substate.toJS(),
+//   );
 
 const makeSelectDate = () =>
   createSelector(selectSectionWiseAttendanceDomain, substate => substate.get('date'));
 
-const makeSelectSectionWiseAttendanceData = () =>
-  createSelector(selectSectionWiseAttendanceDomain, substate => substate.get('attendanceListData'));
+const makeSelectStdAttendanceList = () =>
+  createSelector(selectSectionWiseAttendanceDomain, substate => substate.get('stdAttendanceList'));
 
-export default makeSelectSectionWiseAttendance;
-export { 
+const makeSelectChartDataArray = () =>
+  createSelector(selectSectionWiseAttendanceDomain, substate => substate.get('chartDataArray'));
+
+// export default makeSelectSectionWiseAttendance;
+export {
   selectSectionWiseAttendanceDomain,
   makeSelectDate,
-  makeSelectSectionWiseAttendanceData
- };
+  makeSelectStdAttendanceList,
+  makeSelectChartDataArray
+};
