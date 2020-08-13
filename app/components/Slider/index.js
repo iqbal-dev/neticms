@@ -15,6 +15,7 @@ import messages from './messages';
 import Slide_4 from './slider-4.png';
 import Slide_1 from './slider-1.jpg';
 import Slide_3 from './slider-3.jpg';
+import staticImg from '../../assets/img/blank-image.png';
 /* eslint-disable react/prefer-stateless-function */
 import { Link } from 'react-router-dom';
 import { getFullMonthName, get_YYMMDD_Format_WithHyphen, getHHMMSS } from '../../utils/dateFormat';
@@ -45,16 +46,29 @@ class Slider extends React.Component {
     // console.log("Slider>>>>>>>>>>>>>>>>>>>>>>>>", slider);
     // console.log("Slide_4>>>>>>>>>>>>>>>>>>>>>>>>", Slide_4);
     const items = [];
-    slider && slider.map((item, index) => {
+    if(!slider){
       let sliderItem = {
-        src: "data:image/*;base64," + item.fileContent,
-        altText: item.fileName,
+        src: staticImg,
+        altText: '',
         caption: '',
-        header: item.photoTitle,
-        key: index,
+        header: '',
+        key: 0,
       }
       items.push(sliderItem)
-    })
+    }
+    else{
+      slider && slider.map((item, index) => {
+        let sliderItem = {
+          src: "data:image/*;base64," + item.fileContent,
+          altText: item.fileName,
+          caption: '',
+          header: item.photoTitle,
+          key: index,
+        }
+        items.push(sliderItem)
+      })
+    }
+    
 
     // console.log('ntc-list-slider', this.props.notice);
     let noticeArrayList = [];
