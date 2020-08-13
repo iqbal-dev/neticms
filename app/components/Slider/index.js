@@ -15,7 +15,7 @@ import messages from './messages';
 import Slide_4 from './slider-4.png';
 import Slide_1 from './slider-1.jpg';
 import Slide_3 from './slider-3.jpg';
-import staticImg from '../../assets/img/blank-image.png';
+import staticImg from '../../assets/img/slider_bg.jpg';
 /* eslint-disable react/prefer-stateless-function */
 import { Link } from 'react-router-dom';
 import { getFullMonthName, get_YYMMDD_Format_WithHyphen, getHHMMSS } from '../../utils/dateFormat';
