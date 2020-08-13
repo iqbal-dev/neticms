@@ -17,7 +17,7 @@ export function* fetchDataByDate() {
   let date = yield select(makeSelectDate());
   let formatedDate = get_DDMMYY_Format_WithHyphen(date);
 
-  const requestURL = BASE_URL_EM + FETCH_SECTION_WISE_ATTENDANCE + '?stringDate=' + date + '&instituteId=' + instituteId;
+  const requestURL = BASE_URL_EM + FETCH_SECTION_WISE_ATTENDANCE + '?stringDate=' + formatedDate + '&instituteId=' + instituteId;
   //  BASE_URL_EM + FETCH_SECTION_WISE_ATTENDANCE+'?stringDate=25-01-2020&instituteId=13348';
 
   const options = {

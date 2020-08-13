@@ -110,6 +110,7 @@ export class SectionWiseAttendance extends React.Component {
                           : ''
                         }
                       </div>
+
                       <div className="col-lg-3 m-t-30 m-b-30 ">
                         <div className="legend-with-percent present">
                           {/* <span className="symbol-squire"></span> */}
@@ -129,6 +130,7 @@ export class SectionWiseAttendance extends React.Component {
                           <span className="percent">({chartDataArray ? chartDataArray.leavePercent : 0}%)</span>
                         </div>
                       </div>
+
                       <div className="col-lg-6 form">
                         <Form inline method='POST' onSubmit={(e) => this.onSubmitSearch(e)}>
                           <FormGroup>
@@ -144,6 +146,7 @@ export class SectionWiseAttendance extends React.Component {
                           </FormGroup>
                         </Form>
                       </div>
+
                     </div>
                   </div>
                 </div>
