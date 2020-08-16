@@ -42,9 +42,11 @@ export class Header extends React.Component {
     let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ', ' + date.getDate() + ', ' + date.getFullYear();
     // console.log('fullDateInEng', fullDateInEng);
 
+    let logoContent = '';
     let instituteName = '';
     let instituteAddress = '';
     if (this.props.instituteUrlInfo) {
+      logoContent = "data:image/*;base64," + this.props.instituteUrlInfo.urlInfoDTO.logoContent;
       instituteName = this.props.instituteUrlInfo.urlInfoDTO.instituteName;
       instituteAddress = this.props.instituteUrlInfo.urlInfoDTO.instituteAddress;
     }
@@ -57,7 +59,7 @@ export class Header extends React.Component {
               <div className="col-md-8">
                 <div className="d-md-inline-flex d-sm-block justify-content-md-center align-items-sm-center">
                   <div className="logo-wrapper">
-                    <img src={logo} />
+                    <img src={logoContent} />
                   </div>
                   <div className="inst-title-wrapper">
                     <h1 className="ins-title">{instituteName}</h1>

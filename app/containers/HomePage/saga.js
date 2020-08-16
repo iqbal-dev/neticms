@@ -53,7 +53,8 @@ export function* fetch_instituteUrlInfo_byUrlName() {
           instituteAddress: response.item.instituteAddress,
           instituteContact: response.item.instituteContact,
           instituteEmail: response.item.instituteEmail,
-          logoName: response.item.logoName
+          logoName: response.item.logoName,
+          logoContent: response.item.logoContent
         }]
 
         localStorage.setItem('instituteInfo', JSON.stringify(instituteInfoArr));
@@ -75,6 +76,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
             instituteInfo[i].instituteContact = response.item.instituteContact;
             instituteInfo[i].instituteEmail = response.item.instituteEmail;
             instituteInfo[i].logoName = response.logoName;
+            instituteInfo[i].logoContent = response.logoContent;
             instituteInfo[i].emInstituteList = response.item.edumanInstituteList
 
             break;
