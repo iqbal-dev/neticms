@@ -53,10 +53,13 @@ export function* fetch_instituteUrlInfo_byUrlName() {
           instituteAddress: response.item.instituteAddress,
           instituteContact: response.item.instituteContact,
           instituteEmail: response.item.instituteEmail,
-          logoName: response.item.logoName
+          logoName: response.item.logoName,
+          logoContent: response.item.logoContent
         }]
 
         localStorage.setItem('instituteInfo', JSON.stringify(instituteInfoArr));
+
+        console.log('instituteInfo OBJ....................>', instituteInfoArr);
 
       } else {
 
@@ -65,7 +68,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
         for (var i = 0; i < instituteInfo.length; i++) {
           //look for match with name
-          if (response.item.urlName !== instituteInfo[i].urlName) {
+          // if (response.item.urlName !== instituteInfo[i].urlName) {
             // console.log('not match');
 
             instituteInfo[i].urlName = response.item.urlName;
@@ -74,13 +77,16 @@ export function* fetch_instituteUrlInfo_byUrlName() {
             instituteInfo[i].instituteAddress = response.item.instituteAddress;
             instituteInfo[i].instituteContact = response.item.instituteContact;
             instituteInfo[i].instituteEmail = response.item.instituteEmail;
-            instituteInfo[i].logoName = response.logoName;
+            instituteInfo[i].logoName = response.item.logoName;
+            instituteInfo[i].logoContent = response.item.logoContent;
             instituteInfo[i].emInstituteList = response.item.edumanInstituteList
 
             break;
-          }
+          // }
         }
         localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
+
+        console.log('instituteInfo ARRAY....................>', instituteInfo[0]);
 
       }
 

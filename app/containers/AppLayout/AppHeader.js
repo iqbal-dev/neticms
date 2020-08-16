@@ -29,7 +29,7 @@ export class AppHeader extends React.Component {
                             <div className="col-md-8">
                                 <div className="d-md-inline-flex d-sm-block justify-content-md-center align-items-sm-center">
                                     <div className="logo-wrapper">
-                                        <img src={logo} />
+                                        <img src={instituteUrlInfo && instituteUrlInfo.length ? "data:image/*;base64," + instituteUrlInfo[0].logoContent : ''} />
                                     </div>
                                     <div className="inst-title-wrapper">
                                         <h1 className="ins-title">{instituteUrlInfo && instituteUrlInfo.length ? instituteUrlInfo[0].instituteName : ''}</h1>

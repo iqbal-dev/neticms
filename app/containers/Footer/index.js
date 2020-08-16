@@ -62,12 +62,16 @@ export class Footer extends React.Component {
     let instituteAddress = '';
     let instituteContact = '';
     let instituteEmail = '';
+    let logoName = '';
+    let logoContent = '';
 
     if (instituteUrlInfo && instituteUrlInfo.length) {
       instituteName = instituteUrlInfo[0].instituteName;
       instituteAddress = instituteUrlInfo[0].instituteAddress;
       instituteContact = instituteUrlInfo[0].instituteContact;
       instituteEmail =instituteUrlInfo[0].instituteEmail;
+      logoName = instituteUrlInfo[0].logoName,
+      logoContent = instituteUrlInfo[0].logoContent
     }
 
     return (
@@ -129,7 +133,7 @@ export class Footer extends React.Component {
                 <div className="row">
                   <div className="col-md-4">
                     <div className="footer-logo-wrapper text-center">
-                      <img src={logo} />
+                      <img src={logoContent ? "data:image/*;base64," + logoContent : logo} />
                       <div className="counter-wrapper">
                         <div className="d-flex justify-content-between align-items-center">
                           <span>Total visits</span>
@@ -317,7 +321,7 @@ export class Footer extends React.Component {
 }
 
 Footer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
   instituteUrlInfo: PropTypes.any,
 };
 
