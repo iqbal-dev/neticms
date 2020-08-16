@@ -68,7 +68,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
         for (var i = 0; i < instituteInfo.length; i++) {
           //look for match with name
-          if (response.item.urlName !== instituteInfo[i].urlName) {
+          // if (response.item.urlName !== instituteInfo[i].urlName) {
             // console.log('not match');
 
             instituteInfo[i].urlName = response.item.urlName;
@@ -82,7 +82,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
             instituteInfo[i].emInstituteList = response.item.edumanInstituteList
 
             break;
-          }
+          // }
         }
         localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
 
