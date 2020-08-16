@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Table } from 'reactstrap';
-import makeSelectSyllabusInfo, { makeSelectSyllabusList, makeSelectSyllabusFile, makeSelectSyllabusRowdata } from './selectors';
+import makeSelectSyllabusInfo, { makeSelectSyllabusList, makeSelectSyllabusFile, makeSelectSyllabusRowdata, makeSelectLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -23,6 +23,7 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 import { setRowData, submitForFetchFile } from './actions';
 import { getFileContentType } from '../../utils/FileHandler'
+import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SyllabusInfo extends React.Component {
@@ -76,35 +77,37 @@ export class SyllabusInfo extends React.Component {
                 <div className="row">
                   <di className="col-md-12">
                     <div className="table-responsive custom-table">
-                      <Table striped className="download-corner-table">
-                        <thead>
-                          <tr>
-                            <th>Class Name</th>
-                            <th>Group Name</th>
-                            <th>Published Date</th>
-                            <th className="text-center">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {
-                            syllabusList && syllabusList.map(itme => {
-                              return (
-                                <tr>
-                                  <td>{itme.className}</td>
-                                  <td>{itme.groupName}</td>
-                                  <td>20th Sep, 2020</td>
-                                  <td className="text-center">
-                                    <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, itme)}>
-                                      <i className="fas fa-download pr-2" />
-                                      DOWNLOAD
+                      {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
+                        <Table striped className="download-corner-table">
+                          <thead>
+                            <tr>
+                              <th>Class Name</th>
+                              <th>Group Name</th>
+                              <th>Published Date</th>
+                              <th className="text-center">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {
+                              syllabusList && syllabusList.map(itme => {
+                                return (
+                                  <tr>
+                                    <td>{itme.className}</td>
+                                    <td>{itme.groupName}</td>
+                                    <td>20th Sep, 2020</td>
+                                    <td className="text-center">
+                                      <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, itme)}>
+                                        <i className="fas fa-download pr-2" />
+                                        DOWNLOAD
                                 </button>
-                                  </td>
-                                </tr>
-                              )
-                            })
-                          }
-                        </tbody>
-                      </Table>
+                                    </td>
+                                  </tr>
+                                )
+                              })
+                            }
+                          </tbody>
+                        </Table>
+                      }
                     </div>
                   </di>
                 </div>
@@ -143,6 +146,8 @@ const mapStateToProps = createStructuredSelector({
   allSyllabusList: makeSelectSyllabusList(),
   syllabusRowdata: makeSelectSyllabusRowdata(),
   syllabusFile: makeSelectSyllabusFile(),
+  loaderStatus: makeSelectLoaderType()
+
 });
 
 function mapDispatchToProps(dispatch) {

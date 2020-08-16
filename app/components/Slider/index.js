@@ -29,24 +29,21 @@ class Slider extends React.Component {
     if (evtDetails) {
 
       let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
-      // const formatDate2 = formatDate.toLocaleDateString('en-GB');
-      // console.log('formate-ntc-date', formatDate);
-
       const splitDateArr = formatDate.split('-');
       let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
-      // console.log('eventStartDate', eventStartDate);
       return eventStartDate;
 
     }
 
   }
 
+
   render() {
     let { slider } = this.props
     // console.log("Slider>>>>>>>>>>>>>>>>>>>>>>>>", slider);
     // console.log("Slide_4>>>>>>>>>>>>>>>>>>>>>>>>", Slide_4);
     const items = [];
-    if(!slider){
+    if (!slider) {
       let sliderItem = {
         src: staticImg,
         altText: '',
@@ -56,19 +53,18 @@ class Slider extends React.Component {
       }
       items.push(sliderItem)
     }
-    else{
+    else {
       slider && slider.map((item, index) => {
         let sliderItem = {
           src: "data:image/*;base64," + item.fileContent,
           altText: item.fileName,
           caption: '',
           header: item.photoTitle,
-          key: index+1,
+          key: index + 1,
         }
         items.push(sliderItem)
       })
     }
-    
 
     // console.log('ntc-list-slider', this.props.notice);
     let noticeArrayList = [];
@@ -90,7 +86,7 @@ class Slider extends React.Component {
                   <ul>
                     {noticeArrayList.slice(0, 5).map(singleNotice => (
                       <li key={singleNotice.noticeID}>
-                        <Link to={{ pathname: '/institute/all_notice', personWiseTokenInfo: noticeArrayList }} target='_blank' >
+                        <Link to={{ pathname: '/institute/all_notice', personWiseTokenInfo: noticeArrayList }} >
                           <span>Publish on <i className="fas fa-calendar-alt" /> {this.formatDate(singleNotice.noticeIssueDate)}</span>
                           <h4>{singleNotice.noticeTitle}</h4>
                         </Link>

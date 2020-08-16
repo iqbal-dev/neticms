@@ -12,4 +12,4 @@ export const SUBMIT_SEARCH_BUTTON = 'app/StudentInfo/SUBMIT_SEARCH_BUTTON';
 export const CLASS_GROUP_NAME_SELECTED = 'app/StudentInfo/CLASS_GROUP_NAME_SELECTED';
 export const STUDENT_SEARCH_RESULT = 'app/StudentInfo/STUDENT_SEARCH_RESULT';
 
-export const SET_LOADER = 'app/StudentInfo/SET_LOADER'
+export const SET_LOADER = 'app/StudentInfo/SET_LOADER';

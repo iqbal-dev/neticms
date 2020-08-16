@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, FETCH_SYLLABUS_LIST, SET_ROW_DATA, SET_FETCH_FILE } from './constants';
+import { DEFAULT_ACTION, FETCH_SYLLABUS_LIST, SET_ROW_DATA, SET_FETCH_FILE, SET_LOADER } from './constants';
 
 export const initialState = fromJS({
   syllabusList: "",
@@ -26,6 +26,9 @@ function syllabusInfoReducer(state = initialState, action) {
 
     case SET_FETCH_FILE:
       return state.set("file", action.file);
+
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
 
     default:
       return state;

@@ -31,7 +31,7 @@ import {
   CardHeader,
   FormGroup,
 } from 'reactstrap';
-import makeSelectFeesInfo, { makeSelectClassList, makeSelectOnchangeClassValue, makeSelectFeesInfoList } from './selectors';
+import makeSelectFeesInfo, { makeSelectClassList, makeSelectOnchangeClassValue, makeSelectFeesInfoList, makeSelectLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -39,6 +39,7 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import { AppLayout } from '../AppLayout';
 import { submitSearchButton, setOnchangeClassValue } from './actions';
+import { inputFieldLoader, centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FeesInfo extends React.Component {
@@ -91,61 +92,68 @@ export class FeesInfo extends React.Component {
                         Showing result for class <span> {selectedClassName}</span>
                       </Col>
                       <Col sm="12" lg="6" className="search-dropdown">
-                        <Input
-                          type="select"
-                          name="class"
-                          onChange={this.props.onChangeClass}
-                          value={this.props.classValue}
+                        {this.props.loaderStatus === "autoLoadOn" ? inputFieldLoader() : <div>
 
-                          id="class-search-dropdown"
-                        >
-                          <option value=''>Select Class</option>
-                          {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
-                        </Input>
+                          <Input
+                            type="select"
+                            name="class"
+                            onChange={this.props.onChangeClass}
+                            value={this.props.classValue}
+
+                            id="class-search-dropdown"
+                          >
+                            <option value=''>Select Class</option>
+                            {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
+                          </Input>
+                        </div>
+                        }
                         <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button>
+
                       </Col>
                     </div>
                   </Row>
                   <Row>
-                    {this.props.feesInfoList && this.props.feesInfoList.map((item, index) => (
+                    {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
 
-                      <Col md="4">
-                        <Card border="primary">
-                          <CardHeader>
-                            {item.feeName}
-                            <span>
-                              <i className="fas fa-info pr-2" />
-                            </span>
-                          </CardHeader>
+                      this.props.feesInfoList && this.props.feesInfoList.map((item, index) => (
 
-                          <CardBody>
-                            <CardText>
-                              <table>
-                                <tr>
-                                  <td>Group </td>
-                                  <td>: {item.groupName} </td>
-                                </tr>
-                                <tr>
-                                  <td>Amount</td>
-                                  <td>
-                                    : <span>{item.feeAmount} /-BDT</span>{' '}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Payment Mode</td>
-                                  <td>: {item.feePaymentMode} </td>
-                                </tr>
-                              </table>
-                            </CardText>
-                          </CardBody>
-                        </Card>
-                        {/* <Popover placement="right" isOpen={this.state.feeDetailsDialog} target="Popover1" toggle={this.toggle}>
+                        <Col md="4">
+                          <Card border="primary">
+                            <CardHeader>
+                              {item.feeName}
+                              <span>
+                                <i className="fas fa-info pr-2" />
+                              </span>
+                            </CardHeader>
+
+                            <CardBody>
+                              <CardText>
+                                <table>
+                                  <tr>
+                                    <td>Group </td>
+                                    <td>: {item.groupName} </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Amount</td>
+                                    <td>
+                                      : <span>{item.feeAmount} /-BDT</span>{' '}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Payment Mode</td>
+                                    <td>: {item.feePaymentMode} </td>
+                                  </tr>
+                                </table>
+                              </CardText>
+                            </CardBody>
+                          </Card>
+                          {/* <Popover placement="right" isOpen={this.state.feeDetailsDialog} target="Popover1" toggle={this.toggle}>
                   <PopoverHeader>Popover Title</PopoverHeader>
                   <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
                 </Popover> */}
-                      </Col>
+                        </Col>
 
-                    ))}
+                      ))}
 
                   </Row>
                   {/* <Row>
@@ -181,7 +189,7 @@ const mapStateToProps = createStructuredSelector({
   feesInfoList: makeSelectFeesInfoList(),
 
   classValue: makeSelectOnchangeClassValue(),
-
+  loaderStatus: makeSelectLoaderType()
 });
 
 function mapDispatchToProps(dispatch) {

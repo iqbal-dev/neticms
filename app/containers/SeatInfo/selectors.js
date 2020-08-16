@@ -8,7 +8,7 @@ import { initialState } from './reducer';
 const selectSeatInfoDomain = state => state.get('seatInfo', initialState);
 
 const makeSelectSeatInfoList = () =>
-createSelector(selectSeatInfoDomain, substate => substate.get('seatInfoList'));
+  createSelector(selectSeatInfoDomain, substate => substate.get('seatInfoList'));
 
 /**
  * Other specific selectors
@@ -21,5 +21,8 @@ createSelector(selectSeatInfoDomain, substate => substate.get('seatInfoList'));
 const makeSelectSeatInfo = () =>
   createSelector(selectSeatInfoDomain, substate => substate.toJS());
 
+const makeSelectLoaderType = () =>
+  createSelector(selectSeatInfoDomain, substate => substate.get('loaderType'));
+
 export default makeSelectSeatInfo;
-export { selectSeatInfoDomain, makeSelectSeatInfoList };
+export { selectSeatInfoDomain, makeSelectSeatInfoList, makeSelectLoaderType };

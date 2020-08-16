@@ -1,16 +1,18 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import { BASE_URL_NETI_CMS, fetch_syllabusBy_cmsId, fetch_syllabusFileBy_cmsId } from '../../utils/serviceUrl';
 import request from '../../utils/request';
-import { fetchSyllabusList, setSyllabusFile } from './actions';
+import { fetchSyllabusList, setSyllabusFile, setLoader } from './actions';
 import { makeSelectSyllabusRowdata } from './selectors';
 import { SUBMIT_FETCH_FILE } from './constants';
 
 export function* fetch_AllSyllabus() {
+
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-
   let cmsId = instituteUrlInfo[0].cmsId;
-  const requestURL = BASE_URL_NETI_CMS.concat(fetch_syllabusBy_cmsId).concat('?cmsId=').concat(cmsId);
 
+  yield put(setLoader('tableLoadOn'));
+
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_syllabusBy_cmsId).concat('?cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
     headers: {
@@ -20,7 +22,8 @@ export function* fetch_AllSyllabus() {
 
   try {
     const response = yield call(request, requestURL, options);
-    console.log('response.item', response.item);
+    // console.log('response.item', response.item);
+    yield put(setLoader('tableLoadOff'));
     yield put(fetchSyllabusList(response.item));
 
   } catch (error) {

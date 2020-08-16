@@ -14,12 +14,13 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectSeatInfo, { makeSelectSeatInfoList } from './selectors';
+import makeSelectSeatInfo, { makeSelectSeatInfoList, makeSelectLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from './../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
+import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SeatInfo extends React.Component {
@@ -42,33 +43,33 @@ export class SeatInfo extends React.Component {
             <div className="container-fluid">
               <div className="container p-t-60 p-b-60">
                 <div className="row">
-
-                  {this.props.seatInfoList && this.props.seatInfoList.map((item, index) => (
-                    <div className="col-sm-12 col-md-6">
-                      <div className="seat-info-wrapper seat-info-wrapper-full">
-                        <ul className="seat-info-list">
-                          <li className="m-b-40">
-                            <div className="seat">
-                              <div className="number">
-                                <span>{item.totalSeat}</span>
-                                <p>Total Seat</p>
-                              </div>
-                              <div className="seat-details">
-                                <div className="class-name">
-                                  <span className='class-title'>Class</span>
-                                  <span className='class-details'>: {item.className}</span>
+                  {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
+                    this.props.seatInfoList && this.props.seatInfoList.map((item, index) => (
+                      <div className="col-sm-12 col-md-6">
+                        <div className="seat-info-wrapper seat-info-wrapper-full">
+                          <ul className="seat-info-list">
+                            <li className="m-b-40">
+                              <div className="seat">
+                                <div className="number">
+                                  <span>{item.totalSeat}</span>
+                                  <p>Total Seat</p>
                                 </div>
-                                <div className="group-name">
-                                  <span className='group-title'>Group</span>
-                                  <span className='group-details'>: {item.groupName}</span>
+                                <div className="seat-details">
+                                  <div className="class-name">
+                                    <span className='class-title'>Class</span>
+                                    <span className='class-details'>: {item.className}</span>
+                                  </div>
+                                  <div className="group-name">
+                                    <span className='group-title'>Group</span>
+                                    <span className='group-details'>: {item.groupName}</span>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </li>
-                        </ul>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
                 <div className="row m-t-40">
                   <div className="col-md-12">
@@ -102,6 +103,7 @@ SeatInfo.propTypes = {
 const mapStateToProps = createStructuredSelector({
   seatInfo: makeSelectSeatInfo(),
   seatInfoList: makeSelectSeatInfoList(),
+  loaderStatus: makeSelectLoaderType()
 
 });
 

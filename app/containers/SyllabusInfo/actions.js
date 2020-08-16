@@ -4,7 +4,10 @@
  *
  */
 
-import { DEFAULT_ACTION, FETCH_SYLLABUS_LIST, SET_ROW_DATA, SUBMIT_FETCH_FILE, SET_FETCH_FILE } from './constants';
+import {
+  DEFAULT_ACTION, FETCH_SYLLABUS_LIST, SET_ROW_DATA, SUBMIT_FETCH_FILE,
+  SET_FETCH_FILE, SET_LOADER
+} from './constants';
 
 export function defaultAction() {
   return {
@@ -37,4 +40,10 @@ export function setSyllabusFile(file) {
     type: SET_FETCH_FILE,
     file
   };
+}
+
+export function setLoader(loaderType) {
+
+  return { type: SET_LOADER, loaderType, };
+
 }

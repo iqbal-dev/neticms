@@ -21,6 +21,10 @@ const makeSelectSyllabusRowdata = () =>
 const makeSelectSyllabusFile = () =>
   createSelector(selectSyllabusInfoDomain, substate => substate.get("file"));
 
+
+const makeSelectLoaderType = () =>
+  createSelector(selectSyllabusInfoDomain, substate => substate.get('loaderType'));
+
 /**
  * Default selector used by SyllabusInfo
  */
@@ -29,4 +33,7 @@ const makeSelectSyllabusInfo = () =>
   createSelector(selectSyllabusInfoDomain, substate => substate.toJS());
 
 export default makeSelectSyllabusInfo;
-export { selectSyllabusInfoDomain, makeSelectSyllabusList, makeSelectSyllabusRowdata, makeSelectSyllabusFile };
+export {
+  selectSyllabusInfoDomain, makeSelectSyllabusList, makeSelectSyllabusRowdata,
+  makeSelectSyllabusFile, makeSelectLoaderType
+};

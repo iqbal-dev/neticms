@@ -25,19 +25,20 @@ import { get_YYMMDD_Format_WithHyphen, getFullMonthName } from '../../utils/date
 /* eslint-disable react/prefer-stateless-function */
 export class AllNotice extends React.Component {
 
-  formatDate = (evtDetails) => {
+  getPlainTextFromHtml = (html) => {
+    var temp = document.createElement("div");
+    temp.innerHTML = html;
+    return temp.textContent;
+  }
 
-    // console.log('notice Date', evtDetails);
+  formatDate = (evtDetails) => {
 
     if (evtDetails) {
 
       let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
-      // const formatDate2 = formatDate.toLocaleDateString('en-GB');
-      // console.log('formate-ntc-date', formatDate);
 
       const splitDateArr = formatDate.split('-');
       let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
-      // console.log('eventStartDate', eventStartDate);
       return eventStartDate;
 
     }
@@ -78,7 +79,7 @@ export class AllNotice extends React.Component {
                             <div className="col-md-12">
                               <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
                               <h2 className='p-t-20'>{notice.noticeTitle}</h2>
-                              <p> {notice.noticeDetails}</p>
+                              <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
                             </div>
                           </div>
 

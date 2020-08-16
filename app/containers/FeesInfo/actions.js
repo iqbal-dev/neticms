@@ -4,15 +4,16 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_CLASS_LIST, SET_ON_CHANGE_CLASS_VALUE, SUBMIT_SEARCH_BUTTON, SET_FEES_INFO_LIST } from './constants';
+import {
+  DEFAULT_ACTION, SET_CLASS_LIST, SET_ON_CHANGE_CLASS_VALUE, SUBMIT_SEARCH_BUTTON,
+  SET_FEES_INFO_LIST, SET_LOADER
+} from './constants';
 
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
   };
 }
-
-
 
 export function setFeesInfoList(feesInfoList) {
   return {
@@ -35,9 +36,14 @@ export function setOnchangeClassValue(classValue) {
   };
 }
 
-
 export function submitSearchButton() {
   return {
     type: SUBMIT_SEARCH_BUTTON,
   };
+}
+
+export function setLoader(loaderType) {
+
+  return { type: SET_LOADER, loaderType, };
+
 }
