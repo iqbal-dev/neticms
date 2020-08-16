@@ -26,6 +26,9 @@ const makeStudentInfoResult = () =>
 const makeSelectGroupNameSelected = () =>
   createSelector(selectStudentInfoDomain, substate => substate.get('groupNameSelected'));
 
+const makeSelectLoaderType = () =>
+  createSelector(selectStudentInfoDomain, substate => substate.get('loaderType'));
+
 /**
  * Default selector used by StudentInfo
  */
@@ -34,4 +37,7 @@ const makeSelectStudentInfo = () =>
   createSelector(selectStudentInfoDomain, substate => substate.toJS());
 
 export default makeSelectStudentInfo;
-export { selectStudentInfoDomain, makeSelectClassNameDropDownINfo, makeSelectClassNameSelected, makeSelectGroupList, makeStudentInfoResult, makeSelectGroupNameSelected };
+export {
+  selectStudentInfoDomain, makeSelectClassNameDropDownINfo, makeSelectClassNameSelected,
+  makeSelectGroupList, makeStudentInfoResult, makeSelectGroupNameSelected, makeSelectLoaderType
+};

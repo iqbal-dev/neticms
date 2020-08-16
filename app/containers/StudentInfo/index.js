@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo, makeSelectGroupNameDropDownINfo, makeSelectGroupList, makeStudentInfoResult, makeSelectClassNameSelected, makeSelectGroupNameSelected } from './selectors';
+import makeSelectStudentInfo, { makeSelectClassNameDropDownINfo, makeSelectGroupNameDropDownINfo, makeSelectGroupList, makeStudentInfoResult, makeSelectClassNameSelected, makeSelectGroupNameSelected, makeSelectLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -24,9 +24,12 @@ import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 import { classNameListDropDown, classNameSelectedMethod, classGroupListDropDown, submitSearchButton, groupNameSelectedMethod } from './actions';
 import demoImageMale from '../../assets/img/demo-image.jpg';
+import { inputFieldLoader, tableLoader, centerTableLoader } from '../../utils/contentLoader';
+
 /* eslint-disable react/prefer-stateless-function */
 let classNameSelectedError = false;
 let groupNameSelectedError = false;
+
 export class StudentInfo extends React.Component {
 
   constructor(props) {
@@ -76,51 +79,63 @@ export class StudentInfo extends React.Component {
                         <Form inline>
                           {/* <div className="row"> */}
                           <div className="col-md-12 col-lg-4">
-                            <FormGroup className="custom-dropdown">
-                              <Input
-                                type="select"
-                                name="class"
-                                onChange={this.props.onChangeClassName}
-                              // value={ this.state.class }
-                              >
-                                <option value="">Choose a class</option>
-                                {
-                                  classNameDropDown && classNameDropDown.map(item => {
-                                    return (
-                                      <option value={item.classConfigId}>{item.classShiftSection}</option>
-                                    )
-                                  })
-                                }
-                              </Input>
-                            </FormGroup>
+
+                            {this.props.loaderStatus === "autoLoadOn" ? inputFieldLoader() : <div>
+
+                              <FormGroup className="custom-dropdown">
+                                <Input
+                                  type="select"
+                                  name="class"
+                                  onChange={this.props.onChangeClassName}
+                                // value={ this.state.class }
+                                >
+                                  <option value="">Choose a class</option>
+                                  {
+                                    classNameDropDown && classNameDropDown.map(item => {
+                                      return (
+                                        <option value={item.classConfigId}>{item.classShiftSection}</option>
+                                      )
+                                    })
+                                  }
+                                </Input>
+                              </FormGroup>
+                            </div>
+
+                            }
+
                             {classNameSelectedError === true ? <div className="error-message"> Class Name can't Left Empty</div> : <div className="error-message"> </div>}
                           </div>
 
                           <div className="col-md-12 col-lg-5">
-                            <FormGroup className="custom-dropdown with-search-btn">
-                              <Input
-                                type="select"
-                                name="group"
-                                onChange={this.props.onChangeGroupName}
-                              >
-                                <option value="">Select a group</option>
-                                {
-                                  classGroupDropDown && classGroupDropDown.map(item => {
-                                    return (
-                                      <option value={item.groupConfigId}>{item.groupObject.name}</option>
-                                    )
-                                  })
-                                }
-                              </Input>
 
-                              <Button
-                                className="btn explore-btn"
-                                onClick={this.props.submitSearch}
-                              >
-                                <i className="fas fa-chevron-circle-right" />{' '}
-                                Search
+                            {this.props.loaderStatus === "groupLoadOn" ? inputFieldLoader() : <div>
+
+                              <FormGroup className="custom-dropdown with-search-btn">
+                                <Input
+                                  type="select"
+                                  name="group"
+                                  onChange={this.props.onChangeGroupName}
+                                >
+                                  <option value="">Select a group</option>
+                                  {
+                                    classGroupDropDown && classGroupDropDown.map(item => {
+                                      return (
+                                        <option value={item.groupConfigId}>{item.groupObject.name}</option>
+                                      )
+                                    })
+                                  }
+                                </Input>
+
+                                <Button
+                                  className="btn explore-btn"
+                                  onClick={this.props.submitSearch}
+                                >
+                                  <i className="fas fa-chevron-circle-right" />{' '}
+                                  Search
                               </Button>
-                            </FormGroup>
+                              </FormGroup>
+                            </div>
+                            }
                             {groupNameSelectedError === true ? <div className="error-message"> Group Name can't Left Empty</div> : <div className="error-message"> </div>}
                           </div>
 
@@ -166,64 +181,70 @@ export class StudentInfo extends React.Component {
                   </div>
 
                   <div className="container">
-                    {studentInfiList && studentInfiList.map(item => {
-                      return (
-                        <div className="row">
-                          <div className="col-md-12 studentlist-data-inside">
-                            <div className="description">
-                              <div className="col-md-12 description-inside py-4">
-                                <div className="col-md-6 col-lg-2 roll-no">
-                                  <span className="roll-no-title">Roll No.</span>
-                                  <br />
-                                  <label className="text-orange">{item.studentRoll}</label>
-                                </div>
 
-                                <div className="col-md-6 col-lg-2 student-img">
-                                  <div className="img-div">
-                                    <div className="img-div overlay">
-                                      <i className="fas fa-search-plus" />
-                                    </div>
-                                    {item.imageName !== '' ? <img src={item.imageName} width="85px" height="85px" /> : <img src={demoImageMale} width="85px" height="85px" />}
-                                  </div>
-                                </div>
+                    {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
 
-                                <div className="col-md-12 col-lg-5">
-                                  <div className="col-lg-12 student-details">
-                                    <div className="">
-                                      <label>Student Name</label>: {item.studentName}
-                                    </div>
-                                    <div className="">
-                                      <label>Father's Name</label>: {item.fatherName}
-                                    </div>
-                                    <div className="">
-                                      <label>Mother's Name</label>: {item.motherName}
-                                    </div>
-                                    <div className="">
-                                      <label>Student Religion</label>: {item.studentReligion}
-                                    </div>
+                      studentInfiList && studentInfiList.map(item => {
+                        return (
+                          <div className="row">
+                            <div className="col-md-12 studentlist-data-inside">
+                              <div className="description">
+                                <div className="col-md-12 description-inside py-4">
+                                  <div className="col-md-6 col-lg-2 roll-no">
+                                    <span className="roll-no-title">Roll No.</span>
+                                    <br />
+                                    <label className="text-orange">{item.studentRoll}</label>
                                   </div>
-                                </div>
-                                {item.studentGender == 'Male' ?
-                                  <div className="col-md-6 col-lg-1 student-gender">
-                                    <i className="fas fa-male" />
-                                  </div>
-                                  :
-                                  <div className="col-md-6 col-lg-1 student-gender">
-                                    <i className="fas fa-female" />
-                                  </div>
-                                }
 
-                                <div className="col-md-6 col-lg-2 student-custom-id">
-                                  <span className="roll-no-title">Student ID</span>
-                                  <br />
-                                  <label className="text-orange">{item.studentId}</label>
+                                  <div className="col-md-6 col-lg-2 student-img">
+                                    <div className="img-div">
+                                      <div className="img-div overlay">
+                                        <i className="fas fa-search-plus" />
+                                      </div>
+                                      {item.imageName !== '' ? <img src={item.imageName} width="85px" height="85px" /> : <img src={demoImageMale} width="85px" height="85px" />}
+                                    </div>
+                                  </div>
+
+                                  <div className="col-md-12 col-lg-5">
+                                    <div className="col-lg-12 student-details">
+                                      <div className="">
+                                        <label>Student Name</label>: {item.studentName}
+                                      </div>
+                                      <div className="">
+                                        <label>Father's Name</label>: {item.fatherName}
+                                      </div>
+                                      <div className="">
+                                        <label>Mother's Name</label>: {item.motherName}
+                                      </div>
+                                      <div className="">
+                                        <label>Student Religion</label>: {item.studentReligion}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {item.studentGender == 'Male' ?
+                                    <div className="col-md-6 col-lg-1 student-gender">
+                                      <i className="fas fa-male" />
+                                    </div>
+                                    :
+                                    <div className="col-md-6 col-lg-1 student-gender">
+                                      <i className="fas fa-female" />
+                                    </div>
+                                  }
+
+                                  <div className="col-md-6 col-lg-2 student-custom-id">
+                                    <span className="roll-no-title">Student ID</span>
+                                    <br />
+                                    <label className="text-orange">{item.studentId}</label>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        )
+                      }
                       )
-                    })}
+                    }
+
                   </div>
                 </div>
                 : ''}
@@ -250,7 +271,8 @@ StudentInfo.propTypes = {
   submitSearch: PropTypes.func,
   searchResult: PropTypes.any,
   classNameSelected: PropTypes.any,
-  groupNameSelected: PropTypes.any
+  groupNameSelected: PropTypes.any,
+  loaderStatus: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -260,6 +282,7 @@ const mapStateToProps = createStructuredSelector({
   groupNameSelected: makeSelectGroupNameSelected(),
   groupList: makeSelectGroupList(),
   searchResult: makeStudentInfoResult(),
+  loaderStatus: makeSelectLoaderType()
 });
 
 function mapDispatchToProps(dispatch) {
