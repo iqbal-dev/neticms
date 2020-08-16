@@ -77,8 +77,8 @@ export function* fetch_instituteUrlInfo_byUrlName() {
             instituteInfo[i].instituteAddress = response.item.instituteAddress;
             instituteInfo[i].instituteContact = response.item.instituteContact;
             instituteInfo[i].instituteEmail = response.item.instituteEmail;
-            instituteInfo[i].logoName = response.logoName;
-            instituteInfo[i].logoContent = response.logoContent;
+            instituteInfo[i].logoName = response.item.logoName;
+            instituteInfo[i].logoContent = response.item.logoContent;
             instituteInfo[i].emInstituteList = response.item.edumanInstituteList
 
             break;

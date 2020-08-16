@@ -260,7 +260,7 @@ export class Menu extends React.Component {
 }
 
 Menu.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

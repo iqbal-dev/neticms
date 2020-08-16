@@ -63,7 +63,7 @@ class Slider extends React.Component {
           altText: item.fileName,
           caption: '',
           header: item.photoTitle,
-          key: index,
+          key: index+1,
         }
         items.push(sliderItem)
       })

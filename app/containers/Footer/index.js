@@ -321,7 +321,7 @@ export class Footer extends React.Component {
 }
 
 Footer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
   instituteUrlInfo: PropTypes.any,
 };
 
