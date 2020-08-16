@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_ON_CHANGE_DATE } from './constants';
+import { DEFAULT_ACTION, SET_ON_CHANGE_DATE, ONSUBMIT_SEARCH, SET_ATTENDANCE_LIST, SET_CHART_DATA } from './constants';
 
 export function defaultAction() {
   return {
@@ -13,18 +13,26 @@ export function defaultAction() {
 }
 
 export function makeChangeDate(date) {
-
-  console.log("ACTION date", date);
-  
   return {
     type: SET_ON_CHANGE_DATE,
     date
   };
 }
 
-export function setSectionWiseAttendanceListData(attendanceListData) {
+export function onSubmitSearchBtn() {
+  return { type: ONSUBMIT_SEARCH };
+}
+
+export function setSectionWiseAttendanceListData(dataList) {
   return {
-    type: SET_SECTION_WISE_ATTENDANCE_LIST_DATA,
-    attendanceListData,
+    type: SET_ATTENDANCE_LIST,
+    dataList,
+  };
+}
+
+export function setChartDataArray(dataArray) {
+  return {
+    type: SET_CHART_DATA,
+    dataArray,
   };
 }

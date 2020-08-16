@@ -17,22 +17,40 @@ import injectReducer from 'utils/injectReducer';
 import { Table } from 'reactstrap';
 import { Chart } from 'react-google-charts';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import makeSelectSectionWiseAttendance, { makeSelectSectionWiseAttendanceData } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
+
 import {
-  makeChangeDate,
+  makeChangeDate, onSubmitSearchBtn,
 } from './actions'
+import { makeSelectStdAttendanceList, makeSelectDate, makeSelectChartDataArray } from './selectors';
+
 import { AppLayout } from '../AppLayout';
-import makeSelectStudentWiseAttendance from '../StudentWiseAttendance/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SectionWiseAttendance extends React.Component {
+
+  constructor(props) {
+
+    super(props);
+    this.state = {}
+    this.onSubmitSearch = this.onSubmitSearch.bind(this);
+
+  }
+
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.props.onSubmitSearch();
+  }
+
   render() {
-    console.log("attendanceListData", this.props.attendanceListData);
-    
+
+    // console.log("data list - index", this.props.attendanceListData);
+    let { attendanceListData, chartDataArray } = this.props;
+    // console.log("chartDataArray list - index", chartDataArray);
+
     return (
       <div>
         <AppLayout>
@@ -59,69 +77,76 @@ export class SectionWiseAttendance extends React.Component {
                   <div className="col-md-12 attendance-body-header">
                     <div className="row attendance-body-header-inside">
                       <div className="col-lg-3">
-                        <Chart
-                          width="200px"
-                          height="200px"
-                          chartType="PieChart"
-                          loader={<div>Loading Chart</div>}
-                          data={[
-                            ['Attendance', 'count'],
-                            ['Present', 11],
-                            ['Absent', 2],
-                            ['On Time', 2],
-                          ]}
-                          options={{
-                            // title: 'My Daily Activities',
-                            chartArea: {
-                              left: 10,
-                              top: 10,
-                              right: 10,
-                              bottom: 10,
-                            },
-                            backgroundColor: 'transparent',
-                            legend: 'none',
-                            slices: {
-                              0: { color: '#1dbc60' },
-                              1: { color: '#ff0000' },
-                              2: { color: '#002749' },
-                            },
-                          }}
-                          rootProps={{ 'data-testid': '1' }}
-                        />
+                        {chartDataArray ?
+                          <Chart
+                            width="200px"
+                            height="200px"
+                            chartType="PieChart"
+                            loader={<div>Loading Chart</div>}
+                            data={[
+                              ['Attendance', 'count'],
+                              ['Present', chartDataArray.presentData],
+                              ['Absent', chartDataArray.absentData],
+                              ['Leave', chartDataArray.leaveData]
+                            ]}
+                            options={{
+                              // title: 'My Daily Activities',
+                              chartArea: {
+                                left: 10,
+                                top: 10,
+                                right: 10,
+                                bottom: 10,
+                              },
+                              backgroundColor: 'transparent',
+                              legend: 'none',
+                              slices: {
+                                0: { color: '#1dbc60' },
+                                1: { color: '#ff0000' },
+                                2: { color: '#002749' },
+                              },
+                            }}
+                            rootProps={{ 'data-testid': '1' }}
+                          />
+                          : ''
+                        }
                       </div>
+
                       <div className="col-lg-3 m-t-30 m-b-30 ">
                         <div className="legend-with-percent present">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Present</span>
-                          <span className="percent">( 73.3% )</span>
+                          <span className="percent">({chartDataArray ? chartDataArray.presentPercent : 0}%)</span>
                         </div>
 
                         <div className="legend-with-percent absent">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Absent</span>
-                          <span className="percent">( 13.3% )</span>
+                          <span className="percent">({chartDataArray ? chartDataArray.absentPercent : 0}%)</span>
                         </div>
 
                         <div className="legend-with-percent delay">
                           {/* <span className="symbol-squire"></span> */}
-                          <span className="title">On</span>
-                          <span className="percent">( 13.3% )</span>
+                          <span className="title">Leave</span>
+                          <span className="percent">({chartDataArray ? chartDataArray.leavePercent : 0}%)</span>
                         </div>
                       </div>
+
                       <div className="col-lg-6 form">
-                        <Form inline>
+                        <Form inline method='POST' onSubmit={(e) => this.onSubmitSearch(e)}>
                           <FormGroup>
                             <Input
                               type="date"
                               name="date"
                               id="exampleDate"
                               placeholder="date placeholder"
-                              onChange={ this.props.onChangeDate }
+                              value={this.props.selectedDate}
+                              onChange={(e) => this.props.onChangeDate(e)}
                             />
                             <Button className="btn explore-btn">Search</Button>
                           </FormGroup>
                         </Form>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -132,8 +157,8 @@ export class SectionWiseAttendance extends React.Component {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2>
-                        Total Student Found{' '}
-                        <span className="text-orange">(1212)</span>
+                        Total Class Found{' '}
+                        <span className="text-orange">({attendanceListData && attendanceListData.length ? attendanceListData.length : 0})</span>
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>
@@ -151,16 +176,36 @@ export class SectionWiseAttendance extends React.Component {
                       >
                         <thead>
                           <tr>
-                            <th>Section Name</th>
+                            <th>Class Name</th>
                             <th>Total Students</th>
                             <th>Present</th>
                             <th>Absent</th>
-                            <th>Delay</th>
+                            {/* <th>Delay</th> */}
                             <th>Leave</th>
                             {/* <th className="text-center">Action</th> */}
                           </tr>
                         </thead>
+
                         <tbody>
+
+                          {
+                            attendanceListData ?
+                              attendanceListData.map((item, index) =>
+                                <tr>
+                                  <td>{item.className}</td>
+                                  <td>{item.totalAttenTakenStds}</td>
+                                  <td>{item.presentStds}</td>
+                                  <td>{item.absentStds}</td>
+                                  <td>{item.totalLeaveStds}</td>
+                                </tr>
+                              )
+
+                              : <tr><td colSpan='5'>No Data Found</td></tr>
+                          }
+
+                        </tbody>
+
+                        {/* <tbody>
                           <tr>
                             <td>Class Ten Section - A</td>
                             <td>57</td>
@@ -169,23 +214,8 @@ export class SectionWiseAttendance extends React.Component {
                             <td>07</td>
                             <td className="present">00</td>
                           </tr>
-                          <tr>
-                            <td>Class One Section - A</td>
-                            <td>65</td>
-                            <td>65</td>
-                            <td>00</td>
-                            <td>00</td>
-                            <td className="absent">00</td>
-                          </tr>
-                          <tr>
-                            <td>Class Five Section - B</td>
-                            <td>45</td>
-                            <td>42</td>
-                            <td>03</td>
-                            <td>05</td>
-                            <td className="delay">00</td>
-                          </tr>
-                        </tbody>
+                        </tbody> */}
+
                       </Table>
                     </div>
                   </di>
@@ -218,17 +248,20 @@ export class SectionWiseAttendance extends React.Component {
 
 SectionWiseAttendance.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  attendanceListData: PropTypes.array
 };
 
 const mapStateToProps = createStructuredSelector({
-  sectionWiseAttendance: makeSelectSectionWiseAttendance(),
-  attendanceListData: makeSelectSectionWiseAttendanceData()
+  selectedDate: makeSelectDate(),
+  attendanceListData: makeSelectStdAttendanceList(),
+  chartDataArray: makeSelectChartDataArray(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onChangeDate: (evt) => { dispatch(makeChangeDate(evt.target.value)) },
+    onSubmitSearch: () => { dispatch(onSubmitSearchBtn()) }
   };
 }
 

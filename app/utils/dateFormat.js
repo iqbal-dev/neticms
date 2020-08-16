@@ -49,6 +49,13 @@ export function get_YYMMDD_Format_WithHyphen(date) {
     var dateFromString = moment(date).format('YYYY-MM-DD');
     return dateFromString;
 }
+
+export function get_DDMMYY_Format_WithHyphen(date) {
+    var moment = require('moment/moment');
+    var dateFromString = moment(date).format('DD-MM-YYYY');
+    return dateFromString;
+}
+
 export function getHHMMSS(date) {
     var moment = require('moment/moment');
     var hh = moment(date).format('h');
