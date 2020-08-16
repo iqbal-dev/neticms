@@ -59,6 +59,8 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
         localStorage.setItem('instituteInfo', JSON.stringify(instituteInfoArr));
 
+        console.log('instituteInfo OBJ....................>', instituteInfoArr);
+
       } else {
 
         var instituteInfo = JSON.parse(localStorage.instituteInfo);
@@ -83,6 +85,8 @@ export function* fetch_instituteUrlInfo_byUrlName() {
           }
         }
         localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
+
+        console.log('instituteInfo ARRAY....................>', instituteInfo[0]);
 
       }
 
