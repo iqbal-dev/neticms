@@ -200,8 +200,10 @@ export class HomePage extends React.Component {
 
     // institute history
     let instituteHistory = '';
+    let historyImageContent = '';
     if (this.props.instituteHistory && this.props.instituteHistory.aboutusDetails) {
       instituteHistory = this.props.instituteHistory.aboutusDetails;
+      historyImageContent = this.props.instituteHistory.aboutusImg ? "data:image/*;base64," + this.props.instituteHistory.aboutusImg : staticImg;
     }
 
     // history read more btn
@@ -223,11 +225,9 @@ export class HomePage extends React.Component {
                     <div className="speech-slider-wrapper">
                       <div className="slider-item">
                         <div className="slider-content">
-                          {/* {
-                          item.fileContent ? */}
-                          <img id="speechImg" align="left" className="fileContent" src={imageContent} />
-                          {/* <img src={staticImg} width="100%"/>
-                        } */}
+
+                          {this.props.instituteHistory ? <img id="speechImg" align="left" className="fileContent" src={imageContent} /> : ''}
+
                           {/* <img
                             src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
                             align="left"
@@ -246,10 +246,6 @@ export class HomePage extends React.Component {
                               : ''
                             }
 
-                            {/* {this.getPlainTextToHtml(welComeSpeech)} */}
-                            {/* <a href="#" align="left">
-                              See More
-                          </a> */}
                           </p>
                         </div>
                       </div>
@@ -331,15 +327,13 @@ export class HomePage extends React.Component {
 
                           {this.props.instituteHistory ?
 
-                            < ReadMoreReact text={instituteHistory}
+                            < ReadMoreReact text={this.getPlainTextToHtml(instituteHistory)}
                               min={200}
                               ideal={201}
                               max={1000}
                               readMoreText={historyMoreBtn} />
                             : ''
                           }
-
-                          {/* {this.props.instituteHistory ? this.props.instituteHistory.aboutusDetails : ''} */}
 
                         </p>
                       </div>
@@ -348,14 +342,18 @@ export class HomePage extends React.Component {
                   </div>
                   <div className="col-md-6">
                     <div className="video-wrapper m-b-30">
-                      <iframe
+
+                      <img width="100%" height="380" src={this.props.instituteHistory.aboutusImg ? "data:image/*;base64," + this.props.instituteHistory.aboutusImg : staticImg} />
+
+                      {/* <iframe
                         width="100%"
                         height="380"
                         src="https://www.youtube.com/embed/RFjLWGtA3R8"
                         frameBorder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                      />
+                      /> */}
+
                     </div>
                   </div>
                 </div>
