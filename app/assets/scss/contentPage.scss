@@ -130,6 +130,7 @@
         margin-bottom: 20px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 500;
+        text-align: justify;
         line-height: 1.8;
         a{
             color: $orangeColor;
@@ -262,11 +263,11 @@
             line-height: 2;
             margin-bottom: 25px;
             font-family: 'Montserrat', sans-serif;
-
+            text-align: justify;
             display: block;
-            display: -webkit-box;
+            // display: -webkit-box;
             /* max-width: 200px; */
-            -webkit-line-clamp: 5;
+            // -webkit-line-clamp: 5;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;

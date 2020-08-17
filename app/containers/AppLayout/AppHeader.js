@@ -19,6 +19,7 @@ export class AppHeader extends React.Component {
 
         let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
         const date = new Date();
+
         let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ' ' + date.getDate() + ', ' + date.getFullYear();
 
         return (
@@ -32,9 +33,9 @@ export class AppHeader extends React.Component {
                                         <img src={instituteUrlInfo && instituteUrlInfo.length ? "data:image/*;base64," + instituteUrlInfo[0].logoContent : ''} />
                                     </div>
                                     <div className="inst-title-wrapper">
-                                        <h1 className="ins-title">{instituteUrlInfo && instituteUrlInfo.length ? instituteUrlInfo[0].instituteName : ''}</h1>
+                                        <h1 className="ins-title" style={{ marginTop: '-15px' }}>{instituteUrlInfo && instituteUrlInfo.length ? instituteUrlInfo[0].instituteName : ''}</h1>
                                         <address>{instituteUrlInfo && instituteUrlInfo.length ? instituteUrlInfo[0].instituteAddress : ''}</address>
-                                        <span>Neti ID : {this.props.appHeaderData}</span>
+                                        {/* <span>Neti ID : {this.props.appHeaderData}</span> */}
                                     </div>
                                 </div>
                             </div>
@@ -67,9 +68,9 @@ export class AppHeader extends React.Component {
                                     <div className="calender-icon">
                                         <i className="far fa-calendar-alt" />
                                     </div>
-                                    <div className="calender-details">
+                                    <div className="calender-details" style={{ marginTop: '-20px' }}>
                                         <span>{fullDateInEng} (English)</span>
-                                        <span>26th Boishakh, 1427 (Bangla)</span>
+                                        {/* <span>26th Boishakh, 1427 (Bangla)</span> */}
                                         <span className="d-inline-flex justify-content-center align-items-center">
                                             <i className="fas fa-map-marker-alt pr-2" /> Bangladesh,
                                             Time :  {getHHcloneMMwithAMorPM()}

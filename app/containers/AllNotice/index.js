@@ -38,7 +38,7 @@ export class AllNotice extends React.Component {
       let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
 
       const splitDateArr = formatDate.split('-');
-      let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
+      let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
       return eventStartDate;
 
     }
@@ -47,7 +47,7 @@ export class AllNotice extends React.Component {
 
   render() {
 
-    console.log('noticeList-all ', JSON.parse(sessionStorage.allNoticeList));
+    // console.log('noticeList-all ', JSON.parse(sessionStorage.allNoticeList));
     let allNoticeDetails = JSON.parse(sessionStorage.allNoticeList)
 
     return (
@@ -56,8 +56,8 @@ export class AllNotice extends React.Component {
 
           <BreadcrumComponent
             pageTitle="All Notice"
-            menuStepFirst="Home"
-            menuStepSenond="Basic Infrastructure"
+            menuStepFirst="More"
+            menuStepSenond="More"
             menuStepThird="All Notice"
           />
 

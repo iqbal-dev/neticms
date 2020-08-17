@@ -13,6 +13,7 @@ export function getFullDayName(index) {
 }
 
 export function getFullMonthName(index) {
+    console.log('full Month', index);
 
     let fullMonthNameList = [
         'January',
@@ -28,7 +29,7 @@ export function getFullMonthName(index) {
         'November',
         'December',
     ];
-    return fullMonthNameList[index - 1];
+    return fullMonthNameList[index];
 
 }
 

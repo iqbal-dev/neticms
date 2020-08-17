@@ -57,6 +57,7 @@ let fileContent = "";
 let speakerDesignation = '';
 let speakerName = '';
 let welComeSpeech = '';
+let imageContent = '';
 
 export class HomePage extends React.Component {
 
@@ -82,7 +83,7 @@ export class HomePage extends React.Component {
       const formatDate2 = formatDate.toLocaleDateString('en-GB');
 
       const splitDateArr = formatDate2.split('/');
-      let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[0] + ', ' + splitDateArr[2];
+      let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[0] + ', ' + splitDateArr[2];
       return eventStartDate;
 
     }
@@ -164,39 +165,25 @@ export class HomePage extends React.Component {
 
   render() {
 
-    const date = new Date();
-
-    // console.log('welComeSpeechObj', welComeSpeechObj);
-
     let instituteName = '';
     if (this.props.urlInfo) {
       instituteName = this.props.urlInfo.instituteName;
     }
-    let plainText = '';
+
     if (!this.props.welComeInfo == '') {
-      // console.log('this.props.welComeInfo-------------------', this.props.welComeInfo[speechIndex]);
-      // fileContent = "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent
+
+      imageContent = this.props.welComeInfo[speechIndex].fileContent ? "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent : staticImg;
       speakerDesignation = this.props.welComeInfo[speechIndex].speakerDesignation;
       speakerName = this.props.welComeInfo[speechIndex].speakerName;
       welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
-      // console.log('welComeSpeech-', welComeSpeech);
-
-      // let plainText = this.getPlainTextToHtml(welComeSpeech);
-      // this.props.welComeInfo[speechIndex].speechDetails;
-      // plainText =  this.getPlainTextToHtml(welComeSpeech);
 
     }
 
-    // console.log('welComeSpeech-Text', welComeSpeech);
-
     let instituteTopEventList = [];
-    // let eventStartDate = '';
 
     if (!this.props.instituteTopEvents == '') {
       instituteTopEventList = this.props.instituteTopEvents;
     }
-
-    // console.log("homeSliderList......................", this.props.homeSliderList);
 
     // top scroll btn task below
 
@@ -211,10 +198,15 @@ export class HomePage extends React.Component {
       }
     }
 
-    // history read more btn
+    // institute history
+    let instituteHistory = '';
+    if (this.props.instituteHistory && this.props.instituteHistory.aboutusDetails) {
+      instituteHistory = this.props.instituteHistory.aboutusDetails;
+    }
 
+    // history read more btn
     let historyMoreBtn = <div className="content-btn">
-      <button className="btn btn-orange m-t-30">
+      <button className="btn btn-orange" style={{ marginTop: '12px' }}>
         Read More <i className="fas fa-angle-right" />
       </button>
     </div>
@@ -233,7 +225,7 @@ export class HomePage extends React.Component {
                         <div className="slider-content">
                           {/* {
                           item.fileContent ? */}
-                          <img id="speechImg" align="left" className="fileContent" />
+                          <img id="speechImg" align="left" className="fileContent" src={imageContent} />
                           {/* <img src={staticImg} width="100%"/>
                         } */}
                           {/* <img
@@ -247,10 +239,10 @@ export class HomePage extends React.Component {
                             {this.props.welComeInfo ?
 
                               <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
-                                min={200}
-                                ideal={201}
-                                max={1000}
-                                readMoreText={'See More'} />
+                                min={235}
+                                ideal={236}
+                                max={2000}
+                                readMoreText={historyMoreBtn} />
                               : ''
                             }
 
@@ -334,20 +326,14 @@ export class HomePage extends React.Component {
                         <h4>History of our Institute</h4>
                       </div>
                       <div className="content">
-                        <p>
-                          {/* <b>
-                          Environment is the key fact for a child to grow up
-                          with positive and clever attitude. That's where Holy
-                          Child.
-                        </b> */}
-                        </p>
+
                         <p>
 
                           {this.props.instituteHistory ?
 
-                            <ReadMoreReact text={this.props.instituteHistory.aboutusDetails}
-                              min={300}
-                              ideal={301}
+                            < ReadMoreReact text={instituteHistory}
+                              min={200}
+                              ideal={201}
                               max={1000}
                               readMoreText={historyMoreBtn} />
                             : ''
@@ -437,7 +423,7 @@ export class HomePage extends React.Component {
                               <img src={icon1} />
                             </div>
                             <div className="icon-title">
-                              <h5>Class routine</h5>
+                              <h5>Class Routine</h5>
                             </div>
                           </div>
                         </div>
@@ -463,7 +449,7 @@ export class HomePage extends React.Component {
                               <img src={icon1} />
                             </div>
                             <div className="icon-title">
-                              <h5>Exam routine</h5>
+                              <h5>Exam Routine</h5>
                             </div>
                           </div>
                         </div>
@@ -532,7 +518,7 @@ export class HomePage extends React.Component {
                   <div className="col-md-6 p-b-100">
                     <div className="bg-white calender-wrapper">
                       <div className="calender-title">
-                        <h3>Event calender</h3>
+                        <h3>Event Calender</h3>
                       </div>
                       <div className="calender">
                         {/* <Calendar onChange={this.onChange} value={date} /> */}
