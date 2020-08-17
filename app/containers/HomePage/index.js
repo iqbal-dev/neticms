@@ -226,7 +226,7 @@ export class HomePage extends React.Component {
                       <div className="slider-item">
                         <div className="slider-content">
 
-                          {this.props.instituteHistory ? <img id="speechImg" align="left" className="fileContent" src={imageContent} /> : ''}
+                          {this.props.welComeInfo ? <img id="speechImg" align="left" className="fileContent" src={imageContent} /> : ''}
 
                           {/* <img
                             src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
@@ -343,7 +343,7 @@ export class HomePage extends React.Component {
                   <div className="col-md-6">
                     <div className="video-wrapper m-b-30">
 
-                      <img width="100%" height="380" src={this.props.instituteHistory.aboutusImg ? "data:image/*;base64," + this.props.instituteHistory.aboutusImg : staticImg} />
+                      <img width="100%" height="380" src={historyImageContent} />
 
                       {/* <iframe
                         width="100%"

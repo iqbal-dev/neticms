@@ -21,9 +21,9 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
   let instituteHostNm = window.location.pathname.slice(1);
   // console.log('instituteHostNm', instituteHostNm);
-  if (instituteHostNm == 'home') {
+  if (instituteHostNm == 'institute/home') {
     var instituteInfo = JSON.parse(localStorage.instituteInfo);
-    instituteHostNm = instituteInfo[0].urlName;
+    instituteHostNm = instituteInfo[0].urlName
   }
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
