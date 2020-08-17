@@ -24,10 +24,8 @@ import icon1 from './crown-icon-1.png';
 import icon2 from './crown-icon-2.png';
 import icon3 from './crown-icon-3.png';
 import emergancyImage from './emegancy.png';
+import { Link } from 'react-router-dom';
 
-import { Footer } from '../Footer';
-import { Header } from '../Header';
-import Menu from '../../containers/Menu';
 import {
   makeSelectUrlInfo,
   makeSelectUrlId,
@@ -406,10 +404,12 @@ export class HomePage extends React.Component {
                         <div className="icon-box-border">
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
-                              <img src={icon1} />
+                              <Link to={{ pathname: '/institute/syllabus_info' }} >
+                                <img src={icon1} />
+                              </Link>
                             </div>
                             <div className="icon-title">
-                              <h5>Syllabus</h5>
+                              <Link to={{ pathname: '/institute/syllabus_info' }} ><h5>Syllabus</h5></Link>
                             </div>
                           </div>
                         </div>
@@ -432,10 +432,12 @@ export class HomePage extends React.Component {
                         <div className="icon-box-border">
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
-                              <img src={icon1} />
+                              <Link to={{ pathname: '/institute/individual_result' }} >
+                                <img src={icon1} />
+                              </Link>
                             </div>
                             <div className="icon-title">
-                              <h5>Result</h5>
+                              <Link to={{ pathname: '/institute/individual_result' }} ><h5>Result</h5></Link>
                             </div>
                           </div>
                         </div>

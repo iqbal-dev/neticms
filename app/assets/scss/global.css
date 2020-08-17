@@ -683,6 +683,9 @@
   font-size: 27px;
   font-weight: 700;
 }
+.icon-box-border:hover .icon-wrapper .icon-title a, .icon-box-border:hover .icon-box-border .icon-title a {
+  text-decoration: none;
+}
 .icon-box-border:hover .icon-wrapper .icon-title h5, .icon-box-border:hover .icon-box-border .icon-title h5 {
   color: #ff4e31;
 }
