@@ -21,7 +21,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
   let instituteHostNm = window.location.pathname.slice(1);
   // console.log('instituteHostNm', instituteHostNm);
-  if (instituteHostNm == 'home') {
+  if (instituteHostNm == 'institute/home') {
     var instituteInfo = JSON.parse(localStorage.instituteInfo);
     instituteHostNm = instituteInfo[0].urlName
   }
@@ -69,19 +69,19 @@ export function* fetch_instituteUrlInfo_byUrlName() {
         for (var i = 0; i < instituteInfo.length; i++) {
           //look for match with name
           // if (response.item.urlName !== instituteInfo[i].urlName) {
-            // console.log('not match');
+          // console.log('not match');
 
-            instituteInfo[i].urlName = response.item.urlName;
-            instituteInfo[i].cmsId = response.item.cmsId;
-            instituteInfo[i].instituteName = response.item.instituteName;
-            instituteInfo[i].instituteAddress = response.item.instituteAddress;
-            instituteInfo[i].instituteContact = response.item.instituteContact;
-            instituteInfo[i].instituteEmail = response.item.instituteEmail;
-            instituteInfo[i].logoName = response.item.logoName;
-            instituteInfo[i].logoContent = response.item.logoContent;
-            instituteInfo[i].emInstituteList = response.item.edumanInstituteList
+          instituteInfo[i].urlName = response.item.urlName;
+          instituteInfo[i].cmsId = response.item.cmsId;
+          instituteInfo[i].instituteName = response.item.instituteName;
+          instituteInfo[i].instituteAddress = response.item.instituteAddress;
+          instituteInfo[i].instituteContact = response.item.instituteContact;
+          instituteInfo[i].instituteEmail = response.item.instituteEmail;
+          instituteInfo[i].logoName = response.item.logoName;
+          instituteInfo[i].logoContent = response.item.logoContent;
+          instituteInfo[i].emInstituteList = response.item.edumanInstituteList
 
-            break;
+          break;
           // }
         }
         localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
@@ -96,12 +96,12 @@ export function* fetch_instituteUrlInfo_byUrlName() {
       yield fetch_emAuthToken();
       // yield fetch_Menu_byUrlId(response.item.cmsId);
 
+      yield fetch_SliderImage_byUrlId(response.item.cmsId);
       yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
       yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
       yield fetch_usefullLinks_byUrlId(response.item.cmsId);
       yield fetch_instituteHistory_byUrlId(response.item.cmsId);
       yield fetch_instituteTopEvent_byUrlId(response.item.cmsId);
-      yield fetch_SliderImage_byUrlId(response.item.cmsId);
 
     }
 
@@ -251,7 +251,7 @@ export function* fetch_instituteHistory_byUrlId(cmsId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('history-Res', response);
+  console.log('history-Res', response);
 
   try {
     yield put(setHistoryDetails(response.item));

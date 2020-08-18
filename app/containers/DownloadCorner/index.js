@@ -23,138 +23,188 @@ import { Table } from 'reactstrap';
 import { AppLayout } from '../AppLayout';
 import { concat } from 'lodash';
 import {
-  makeClickDownloadButton
+  makeClickDownloadButton, getDownloadFile
 } from "./actions"
 import { getFileContentType } from '../../utils/FileHandler'
 
 /* eslint-disable react/prefer-stateless-function */
 
-let downloadRowData={}
+let downloadRowData = {}
 export class DownloadCorner extends React.PureComponent {
 
-  // getFileContentType = (fileName) => {
-  //   if (fileName === undefined) {
-  //     return;
-  //   }
-  //   let contentType = '';
-  //   if (fileName.endsWith('.jpeg')) {
-  //     contentType = 'image/jpeg';
-  //   } else if (fileName.endsWith('.jpg')) {
-  //     contentType = 'image/jpg';
-  //   } else if (fileName.endsWith('.png')) {
-  //     contentType = 'image/png';
-  //   } else if (fileName.endsWith('.pdf')) {
-  //     contentType = 'application/pdf';
-  //   } else if (fileName.endsWith('.doc')) {
-  //     contentType = 'application/doc';
-  //   } else if (fileName.endsWith('.docx')) {
-  //     contentType = 'application/docx';
-  //   } else if (fileName.endsWith('.xls')) {
-  //     contentType = 'application/xls';
-  //   } else if (fileName.endsWith('.xlsx')) {
-  //     contentType = 'application/xlsx';
-  //   } else if (fileName.endsWith('.ppt')) {
-  //     contentType = 'application/ppt';
-  //   } else if (fileName.endsWith('.pptx')) {
-  //     contentType = 'application/pptx';
-  //   }
-  //   return 'data:' + contentType + ';base64,';;
-  // }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      exploreBtnShow: true,
+    }
+
+    this.showTableColumnsFirstFive = this.showTableColumnsFirstFive.bind(this);
+    this.showTableColumnsAll = this.showTableColumnsAll.bind(this);
+
+  }
+
+  showTableColumnsFirstFive() {
+
+    return this.props.downloadList && this.props.downloadList.slice(0, 5).map((item, index) => (
+
+      <tr>
+        <td>{index > 9 ? index + 1 : '0' + (index + 1)}</td>
+        <td>{item.fileTitle}</td>
+        <td className="text-center">
+          {
+            !item.fileName ? "No Attachment Found" :
+              <button class="btn explore-btn" onClick={e => this.props.downloadFile(e, item)}>
+                <i class="fas fa-download pr-2"></i>DOWNLOAD
+              </button>
+          }
+
+        </td>
+      </tr>
+
+    ))
+
+  }
+
+  showTableColumnsAll() {
+
+    return this.props.downloadList && this.props.downloadList.map((item, index) => (
+      <tr>
+        <td>{index > 9 ? index + 1 : '0' + (index + 1)}</td>
+        <td>{item.fileTitle}</td>
+        <td className="text-center">
+          {
+            !item.fileName ? "No Attachment Found" :
+              <button class="btn explore-btn" onClick={e => this.props.downloadFile(e, item)}>
+                <i class="fas fa-download pr-2"></i>DOWNLOAD
+              </button>
+          }
+
+        </td>
+      </tr>
+
+    ))
+  }
+
+  setBtnVisibleStatus = (visibleStatus) => {
+    this.setState({ exploreBtnShow: visibleStatus })
+  }
 
   render() {
+
     let downloadLists = this.props.downloadList;
+    let downloadFileContent = this.props.getDownloadFile;
 
-    // console.log("getDownloadFile::::", this.props.getDownloadFile);
+    if (!downloadFileContent == '') {
 
-    let downloadFileContent =  this.props.getDownloadFile
-    if(downloadFileContent){
       let contentType = getFileContentType(downloadRowData.fileName);
-
       let a = document.createElement("a");
+
       a.href = contentType + downloadFileContent;
       a.download = downloadRowData.fileName;
       document.body.appendChild(a);
       a.click();
       a.remove();
-      // document.body.removeChild(a);
+
+      this.props.reSetDownloadFile();
+
     }
 
     return (
       <div>
         <AppLayout>
-        <Helmet>
-          <title>ClassRooms</title>
-          <meta name="description" content="Description of ClassRooms" />
-        </Helmet>
-        <BreadcrumComponent pageTitle="Download Corner" menuStepFirst="Home" menuStepSenond="Administration" menuStepThird="Download Corner" />
-        <section>
-          <div className="container-fluid">
-            <div className="container p-t-60">
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="page-inner-title">
-                    <h2 className="text-orange">Download Corner</h2>
-                    <div className="custom-title-border-left"></div>
+          <Helmet>
+            <title>ClassRooms</title>
+            <meta name="description" content="Description of ClassRooms" />
+          </Helmet>
+          <BreadcrumComponent pageTitle="Download Corner" menuStepFirst="More" menuStepSenond="More" menuStepThird="Download Corner" />
+          <section>
+            <div className="container-fluid">
+              <div className="container p-t-60">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="page-inner-title">
+                      <h2 className="text-orange">Download Corner</h2>
+                      <div className="custom-title-border-left"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="container">
-              <div className="row">
-                <di className="col-md-12">
-                  <div className="table-responsive custom-table">
-                    <Table striped className="download-corner-table">
-                      <thead>
-                        <tr>
-                          <th>Sl No.</th>
-                          <th>File Name</th>
-                          <th className="text-center">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                          downloadLists && downloadLists.map((item, index) =>{
-                            return(
-                              <tr>
-                                <td>{index > 9 ? index + 1 : '0' + (index + 1)}</td>
-                                <td>{item.fileTitle}</td>
-                                <td className="text-center">
-                                  {
-                                    !item.fileName ? "No Attachment Found" :
-                                      <button class="btn explore-btn" onClick={ e => this.props.downloadFile(e, item)}>
-                                        <i class="fas fa-download pr-2"></i>DOWNLOAD
-                                      </button>
-                                  }
-                                  
-                                </td>
-                              </tr>
-                            )
+              <div className="container">
+                <div className="row">
+                  <di className="col-md-12">
+                    <div className="table-responsive custom-table">
+                      <Table striped className="download-corner-table">
+                        <thead>
+                          <tr>
+                            <th>Sl No.</th>
+                            <th>Title</th>
+                            <th className="text-center">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          {this.state.exploreBtnShow ?
+
+                            this.showTableColumnsFirstFive()
+                            :
+                            this.showTableColumnsAll()
                           }
-                          )
-                        }
-                      </tbody>
-                    </Table>
+
+                          {/* {
+                            downloadLists && downloadLists.map((item, index) => {
+                              return (
+                                <tr>
+                                  <td>{index > 9 ? index + 1 : '0' + (index + 1)}</td>
+                                  <td>{item.fileTitle}</td>
+                                  <td className="text-center">
+                                    {
+                                      !item.fileName ? "No Attachment Found" :
+                                        <button class="btn explore-btn" onClick={e => this.props.downloadFile(e, item)}>
+                                          <i class="fas fa-download pr-2"></i>DOWNLOAD
+                                      </button>
+                                    }
+
+                                  </td>
+                                </tr>
+                              )
+                            }
+                            )
+                          } */}
+
+                        </tbody>
+                      </Table>
+                    </div>
+                  </di>
+                </div>
+                <div className="row m-t-40">
+                  <div className="col-md-12">
+                    <div className="text-center m-t-40">
+
+                      {this.state.exploreBtnShow ?
+                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                          Load More <i className="fas fa-angle-right" />
+                        </button>
+                        :
+                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
+                          Load Less <i className="fas fa-angle-right" />
+                        </button>
+                      }
+
+                    </div>
                   </div>
-                </di>
+                </div>
               </div>
-              <div className="row m-t-40">
-              <div className="col-md-12">
-                <div className="text-center m-t-40">
-                <button class="btn explore-btn-lg">Load More <i class="fas fa-angle-right"></i></button>
+
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-1 col-md-10">
+                    <div className="custom-title-border-center"></div>
+                  </div>
                 </div>
               </div>
             </div>
-            </div>
-            
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-1 col-md-10">
-                  <div className="custom-title-border-center"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
         </AppLayout>
       </div>
     );
@@ -175,10 +225,12 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    downloadFile: (e, item) => { 
-      dispatch(makeClickDownloadButton(e, item))
-      downloadRowData = item
-     }
+    downloadFile: (e, item) => {
+      dispatch(makeClickDownloadButton(e, item));
+      downloadRowData = item;
+    },
+    reSetDownloadFile: () => { dispatch(getDownloadFile('')) }
+
   };
 }
 

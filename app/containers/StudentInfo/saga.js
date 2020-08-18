@@ -1,6 +1,6 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import { CLASS_NAME_LIST, CLASS_NAME_SELECTED, CLASS_GROUP_NAME_DROPDOWN_LIST, SUBMIT_SEARCH_BUTTON } from './constants';
-import { BASE_URL_EM, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_group_names_by_classConfigId, fetch_student_info_by_groupConfigId } from '../../utils/serviceUrl';
+import { BASE_URL_EM, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_group_names_by_classConfigId, FETCH_STUDEN_INFO_BY_GROUP_CONFIG_ID } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 import { classNameListDropDown, classGroupListDropDown, searchResult, studentSearchResult, setLoader } from './actions';
 import { makeSelectClassNameSelected, makeSelectGroupNameSelected } from './selectors';
@@ -79,7 +79,7 @@ export function* fetch_studentInfo() {
 
   yield put(setLoader('tableLoadOn'));
 
-  const requestURL = BASE_URL_EM.concat(fetch_student_info_by_groupConfigId).concat('?classConfigId=').concat(classConfigId).concat('&instituteId=').concat(instituteId);
+  const requestURL = BASE_URL_EM.concat(FETCH_STUDEN_INFO_BY_GROUP_CONFIG_ID).concat('?classConfigId=').concat(classConfigId).concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -92,6 +92,7 @@ export function* fetch_studentInfo() {
     const response = yield call(request, requestURL, options);
     yield put(setLoader('tableLoadOff'));
     yield put(studentSearchResult(response.item));
+    console.log('std-list-res', response);
 
   } catch (error) { }
 

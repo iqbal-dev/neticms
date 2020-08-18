@@ -1,6 +1,6 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../utils/request';
-import { BASE_URL, fetch_staffsInformaions, BASE_URL_EM } from '../../utils/serviceUrl';
+import { BASE_URL, FETCH_STAFF_INFORMATION, BASE_URL_EM } from '../../utils/serviceUrl';
 import { getMethod, getMethodWithAuth } from '../../utils/baseMethod';
 import { STUFF_SEARCH_BUTTON } from './constants'
 import { setStaffInfoList } from './actions';
@@ -15,11 +15,11 @@ export function* fetch_stuffsInfoList() {
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
   let emToken = JSON.parse(localStorage.getItem('emToken'));
 
-  const token = JSON.parse(localStorage.getItem("emToken")) ;
-  console.log("TOKENNNNN:::", token);
-  
-  const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Staff").concat('&instituteId=').concat(instituteId);
-  const options =     {
+  const token = JSON.parse(localStorage.getItem("emToken"));
+  // console.log("TOKENNNNN:::", token);
+
+  const requestURL = BASE_URL_EM.concat(FETCH_STAFF_INFORMATION).concat('?categoryName=').concat("Staff").concat('&instituteId=').concat(instituteId);
+  const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -28,7 +28,7 @@ export function getFullMonthName(index) {
         'November',
         'December',
     ];
-    return fullMonthNameList[index - 1];
+    return fullMonthNameList[index];
 
 }
 

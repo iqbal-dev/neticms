@@ -9,6 +9,7 @@ import { DEFAULT_ACTION, DOWNLOAD_ALL_LINKS, SET_DOWNLOAD_ITEM, GET_DOWNLOAD_ITE
 
 export const initialState = fromJS({
   downloadLinks: [],
+  downloadFile: '',
 });
 
 function downloadCornerReducer(state = initialState, action) {

@@ -24,24 +24,20 @@ class Slider extends React.Component {
 
   formatDate = (evtDetails) => {
 
-    // console.log('notice Date', evtDetails);
-
     if (evtDetails) {
 
       let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
       const splitDateArr = formatDate.split('-');
-      let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
+      let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
       return eventStartDate;
 
     }
 
   }
 
-
   render() {
+
     let { slider } = this.props
-    // console.log("Slider>>>>>>>>>>>>>>>>>>>>>>>>", slider);
-    // console.log("Slide_4>>>>>>>>>>>>>>>>>>>>>>>>", Slide_4);
     const items = [];
     if (!slider) {
       let sliderItem = {
@@ -93,7 +89,7 @@ class Slider extends React.Component {
                       </li>
                     ))}
                   </ul>
-                  <Link className="allNotice" to={{ pathname: '/institute/all_notice', personWiseTokenInfo: noticeArrayList }} target='_blank' >Read All</Link>
+                  <Link className="allNotice" to={{ pathname: '/institute/all_notice', personWiseTokenInfo: noticeArrayList }} >Read All</Link>
                 </div>
               </div>
             </div>

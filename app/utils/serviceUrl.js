@@ -26,7 +26,7 @@ export const fetch_classListBy_cmsId = '/public/classes';
 export const fetch_bookListBy_classId = '/public/classWise/book';
 export const submit_footerContactForm = '';
 export const fetch_latestNews = '';
-export const fetch_staffsInformaions = '/nw/sa-point/basic/list/by/category/with/photo'
+export const FETCH_STAFF_INFORMATION = '/nw/sa-point/basic/list/by/category/with/photo';
 export const fetch_coreSettingsListBy_typeId = '/core/setting/list/by-type-id'; // fetch list by typeid
 export const fetch_coreSettingsClassConfigurationListBy_instituteId = '/core/setting/class-configuration/list'; // class-shift-section list
 
@@ -38,7 +38,7 @@ export const fetch_student_paySlipList = '/nw/student-point/accounts/unpaid-invo
 
 export const fetch_group_names_by_classConfigId = '/core/setting/group-configuration/list/by/class-config-id';
 
-export const fetch_student_info_by_groupConfigId = '/nw/sa-point/student/list/by/class-config-id';
+export const FETCH_STUDEN_INFO_BY_GROUP_CONFIG_ID = '/nw/sa-point/student/list/by/class-config-id';
 
 export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
 

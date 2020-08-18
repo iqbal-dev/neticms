@@ -21,25 +21,89 @@ import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
-import { setRowData, submitForFetchFile } from './actions';
+import { setRowData, submitForFetchFile, setSyllabusFile } from './actions';
 import { getFileContentType } from '../../utils/FileHandler'
 import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SyllabusInfo extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      exploreBtnShow: true,
+    }
+
+    this.showTableColumnsFirstFive = this.showTableColumnsFirstFive.bind(this);
+    this.showTableColumnsAll = this.showTableColumnsAll.bind(this);
+
+  }
+
+  showTableColumnsFirstFive() {
+
+    return this.props.allSyllabusList && this.props.allSyllabusList.slice(0, 5).map(item => (
+
+      <tr>
+        <td>{item.className}</td>
+        <td>{item.groupName}</td>
+        {/* <td>20th Sep, 2020</td> */}
+        <td className="text-center">
+          {
+            !item.syllabusFileName ? "No Attachment Found" :
+              <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, item)}>
+                <i className="fas fa-download pr-2" />
+                DOWNLOAD
+              </button>
+          }
+        </td>
+      </tr>
+    ))
+
+  }
+
+  showTableColumnsAll() {
+
+    return this.props.allSyllabusList && this.props.allSyllabusList.map(item => (
+
+      <tr>
+        <td>{item.className}</td>
+        <td>{item.groupName}</td>
+        {/* <td>20th Sep, 2020</td> */}
+        <td className="text-center">
+          {
+            !item.syllabusFileName ? "No Attachment Found" :
+              <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, item)}>
+                <i className="fas fa-download pr-2" />
+                DOWNLOAD
+              </button>
+          }
+        </td>
+      </tr>
+
+    ))
+  }
+
+  setBtnVisibleStatus = (visibleStatus) => {
+    this.setState({ exploreBtnShow: visibleStatus })
+  }
+
   render() {
 
-    let downloadFileContent = this.props.syllabusFile
-    if (downloadFileContent) {
-      let contentType = getFileContentType(syllabusRowdata.fileName);
+    let downloadFileContent = this.props.syllabusFile;
 
+    if (!downloadFileContent == '') {
+
+      let contentType = getFileContentType(this.props.syllabusRowdata.syllabusFileName);
       let a = document.createElement("a");
+
       a.href = contentType + downloadFileContent;
-      a.download = syllabusRowdata.fileName;
+      a.download = this.props.syllabusRowdata.syllabusFileName;
       document.body.appendChild(a);
       a.click();
       a.remove();
-      // document.body.removeChild(a);
+
+      this.props.reSetSyllabusFile();
     }
 
     let syllabusList = this.props.allSyllabusList;
@@ -83,28 +147,19 @@ export class SyllabusInfo extends React.Component {
                             <tr>
                               <th>Class Name</th>
                               <th>Group Name</th>
-                              <th>Published Date</th>
+                              {/* <th>Published Date</th> */}
                               <th className="text-center">Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {
-                              syllabusList && syllabusList.map(itme => {
-                                return (
-                                  <tr>
-                                    <td>{itme.className}</td>
-                                    <td>{itme.groupName}</td>
-                                    <td>20th Sep, 2020</td>
-                                    <td className="text-center">
-                                      <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, itme)}>
-                                        <i className="fas fa-download pr-2" />
-                                        DOWNLOAD
-                                </button>
-                                    </td>
-                                  </tr>
-                                )
-                              })
+
+                            {this.state.exploreBtnShow ?
+
+                              this.showTableColumnsFirstFive()
+                              :
+                              this.showTableColumnsAll()
                             }
+
                           </tbody>
                         </Table>
                       }
@@ -114,9 +169,17 @@ export class SyllabusInfo extends React.Component {
                 <div className="row m-t-40">
                   <div className="col-md-12">
                     <div className="text-center m-t-40">
-                      <button className="btn explore-btn-lg">
-                        Load More <i className="fas fa-angle-right" />
-                      </button>
+
+                      {this.state.exploreBtnShow ?
+                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                          Load More <i className="fas fa-angle-right" />
+                        </button>
+                        :
+                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
+                          Load Less <i className="fas fa-angle-right" />
+                        </button>
+                      }
+
                     </div>
                   </div>
                 </div>
@@ -155,9 +218,9 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     downloadFile: (e, rowdata) => {
       dispatch(setRowData(rowdata)),
-        dispatch(submitForFetchFile(e, rowdata))
-      // downloadRowData = rowdata;
-    }
+        dispatch(submitForFetchFile(e, rowdata));
+    },
+    reSetSyllabusFile: () => { dispatch(setSyllabusFile('')) }
   };
 }
 

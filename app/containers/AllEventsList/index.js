@@ -31,17 +31,19 @@ export class AllEventsList extends React.PureComponent {
 
       let formatDate = new Date(evtDetails.eventStartDate);
       const formatDate2 = formatDate.toLocaleDateString('en-GB');
+      // console.log('evtDetails', evtDetails);
 
       const splitDateArr = formatDate2.split('/');
-      let eventStartDate = getFullMonthName(splitDateArr[1]) + ' ' + splitDateArr[0] + ', ' + splitDateArr[2];
+      let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[0] + ', ' + splitDateArr[2];
       return eventStartDate;
 
     }
 
   }
   render() {
+
     let allEvents = this.props.eventsList;
-    console.log('allEvents', allEvents);
+
     return (
       <AppLayout>
         <div>

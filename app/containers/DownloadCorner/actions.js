@@ -4,9 +4,9 @@
  *
  */
 
-import { 
-  DEFAULT_ACTION, 
-  DOWNLOAD_ALL_LINKS, 
+import {
+  DEFAULT_ACTION,
+  DOWNLOAD_ALL_LINKS,
   SET_DOWNLOAD_ITEM,
   GET_DOWNLOAD_ITEM
 } from './constants';
@@ -25,7 +25,6 @@ export function downloadLinksLists(downloadLinks) {
 }
 
 export function makeClickDownloadButton(e, downloadItem) {
-  console.log("Action", e, downloadItem);
   return {
     type: SET_DOWNLOAD_ITEM,
     downloadItem
@@ -33,7 +32,6 @@ export function makeClickDownloadButton(e, downloadItem) {
 }
 
 export function getDownloadFile(downloadFile) {
-  // console.log("Action downloadFile", e, downloadFile);
   return {
     type: GET_DOWNLOAD_ITEM,
     downloadFile

@@ -34,9 +34,8 @@ export class EventGallery extends React.PureComponent {
     imageCounter: 0
   }
 
-
-  getAttr = (e, index) =>{
-    console.log('e:::', e, index )
+  getAttr = (e, index) => {
+    console.log('e:::', e, index)
 
     this.state.imageCounter = index
 
@@ -47,82 +46,84 @@ export class EventGallery extends React.PureComponent {
     //     }
   }
   render() {
+
     let galleryImageLists = this.props.galleryImageList;
+
     return (
       <div>
         <AppLayout>
-        <Helmet>
-          <title>EventGallery</title>
-          <meta name="description" content="Description of EventGallery" />
-        </Helmet>
-        <BreadcrumComponent
-          pageTitle="Event Gallery"
-          menuStepFirst="Home"
-          menuStepSenond="Administration"
-          menuStepThird="Event Gallery"
-        />
-        <div className="container p-t-60 content-wrapper ">
-          <div className="row">
-            { galleryImageLists && galleryImageLists.map((item, index) => {
+          <Helmet>
+            <title>PhotoGallery</title>
+            <meta name="description" content="Description of EventGallery" />
+          </Helmet>
+          <BreadcrumComponent
+            pageTitle="Photo Gallery"
+            menuStepFirst="More"
+            menuStepSenond="Gallery"
+            menuStepThird="Photo Gallery"
+          />
+          <div className="container p-t-60 content-wrapper ">
+            <div className="row">
+              {galleryImageLists && galleryImageLists.map((item, index) => {
 
-              let image = ''
-              item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
-                
-              return(
-                <div className="col-md-4">
-                  <div className="book-list-wrapper m-b-30">
-                    <div className="book-list-image" onClick={ e => this.getAttr(e, index)}>
-                      <img id={"image_" + index} className="gallery-img w-100" src={ image } width="100%"/>
-                      <Button
-                        className="book-image-zoom"
-                        onClick={ this.props.onChangemodalVisiable }
-                      >
-                        <i className="fas fa-search" />
-                      </Button>
+                let image = ''
+                item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
+
+                return (
+                  <div className="col-md-4">
+                    <div className="book-list-wrapper m-b-30">
+                      <div className="book-list-image" onClick={e => this.getAttr(e, index)}>
+                        <img id={"image_" + index} className="img-fluid w-100" src={image} width="100%" />
+                        <Button
+                          className="book-image-zoom"
+                          onClick={this.props.onChangemodalVisiable}
+                        >
+                          <i className="fas fa-search" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )
+                )
 
-            }
-              
-            )}
-          </div>
-          <div className="row m-t-40">
-            <div className="col-md-12">
-              <div className="text-center m-t-40">
-                <button className="btn explore-btn">
-                  Explore all <i className="fas fa-angle-right" />
-                </button>
+              }
+
+              )}
+            </div>
+            <div className="row m-t-40">
+              <div className="col-md-12">
+                <div className="text-center m-t-40">
+                  <button className="btn explore-btn">
+                    Explore all <i className="fas fa-angle-right" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <Modal
-          className="event-gallery-modal modal-dialog-centered"
-          isOpen={this.props.modalVisiable}
-          toggle={this.props.onChangemodalVisiable}
+          <Modal
+            className="event-gallery-modal modal-dialog-centered"
+            isOpen={this.props.modalVisiable}
+            toggle={this.props.onChangemodalVisiable}
           // style={{ height : '100%'}}
-        >
-          <Button
-            className="close-btn"
-            onClick={this.props.onChangemodalVisiable}
           >
-            <i className="fas fa-times" />
-          </Button>
-          <ModalBody>
-            <div className="content-wrapper content-padding-sm pt-0 pb-0">
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="no-thumble no-radius">
-                    <Carousel selectedItem={this.state.imageCounter}>
-                    { galleryImageLists && galleryImageLists.map((item) => 
-                        <div>
-                          <img src={ item.fileContent ? "data:image/*;base64," + item.fileContent : staticImg} alt="Event Gallery one" width="200px"/>
-                        </div>
-                      
-                    )}
-                      {/* <div>
+            <Button
+              className="close-btn"
+              onClick={this.props.onChangemodalVisiable}
+            >
+              <i className="fas fa-times" />
+            </Button>
+            <ModalBody>
+              <div className="content-wrapper content-padding-sm pt-0 pb-0">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="no-thumble no-radius">
+                      <Carousel selectedItem={this.state.imageCounter}>
+                        {galleryImageLists && galleryImageLists.map((item) =>
+                          <div>
+                            <img src={item.fileContent ? "data:image/*;base64," + item.fileContent : staticImg} alt="Event Gallery one" width="200px" />
+                          </div>
+
+                        )}
+                        {/* <div>
                         <img src={image} alt="Event Gallery two" />
                       </div>
                       <div>
@@ -131,20 +132,20 @@ export class EventGallery extends React.PureComponent {
                       <div>
                         <img src={image} alt="Event Gallery four" />
                       </div> */}
-                    </Carousel>
+                      </Carousel>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </ModalBody>
-        </Modal>
-        <div className="container">
-          <div className="row">
-            <div className="offset-md-1 col-md-10">
-              <div className="custom-title-border-center" />
+            </ModalBody>
+          </Modal>
+          <div className="container">
+            <div className="row">
+              <div className="offset-md-1 col-md-10">
+                <div className="custom-title-border-center" />
+              </div>
             </div>
           </div>
-        </div>
         </AppLayout>
       </div>
     );

@@ -162,92 +162,92 @@ export class StudentInfo extends React.Component {
                   </div>
                 </div>
               </div>
-              {studentInfiList.length > 0 ?
-                <div>
-                  <div className="container">
-                    <div className="row">
-                      <div className="offset-md-1 col-md-10">
-                        <div className="custom-title-border-center" />
-                      </div>
+
+              <div>
+                <div className="container">
+                  <div className="row">
+                    <div className="offset-md-1 col-md-10">
+                      <div className="custom-title-border-center" />
                     </div>
                   </div>
+                </div>
 
-                  <div className="container info-header-title">
-                    <div className="row">
-                      <h5 className="col-lg-12">
-                        Showing result for <span className="text-orange"> Class {classNameFind ? classNameFind : ''} ({studentInfiList ? studentInfiList.length + ' Students' : ''})</span>
-                      </h5>
-                    </div>
+                <div className="container info-header-title">
+                  <div className="row">
+                    <h5 className="col-lg-12">
+                      Showing result for <span className="text-orange"> Class {classNameFind ? classNameFind : ''} ({studentInfiList ? studentInfiList.length + ' Students' : ''})</span>
+                    </h5>
                   </div>
+                </div>
 
-                  <div className="container">
+                <div className="container">
 
-                    {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
+                  {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
 
-                      studentInfiList && studentInfiList.map(item => {
-                        return (
-                          <div className="row">
-                            <div className="col-md-12 studentlist-data-inside">
-                              <div className="description">
-                                <div className="col-md-12 description-inside py-4">
-                                  <div className="col-md-6 col-lg-2 roll-no">
-                                    <span className="roll-no-title">Roll No.</span>
-                                    <br />
-                                    <label className="text-orange">{item.studentRoll}</label>
+                    studentInfiList && studentInfiList.map(item => {
+                      return (
+                        <div className="row">
+                          <div className="col-md-12 studentlist-data-inside">
+                            <div className="description">
+                              <div className="col-md-12 description-inside py-4">
+                                <div className="col-md-6 col-lg-2 roll-no">
+                                  <span className="roll-no-title">Roll No.</span>
+                                  <br />
+                                  <label className="text-orange">{item.studentRoll}</label>
+                                </div>
+
+                                <div className="col-md-6 col-lg-2 student-img">
+                                  <div className="img-div">
+                                    <div className="img-div overlay">
+                                      <i className="fas fa-search-plus" />
+                                    </div>
+                                    {item.imageName !== '' ? <img src={item.imageName} width="85px" height="85px" /> : <img src={demoImageMale} width="85px" height="85px" />}
                                   </div>
+                                </div>
 
-                                  <div className="col-md-6 col-lg-2 student-img">
-                                    <div className="img-div">
-                                      <div className="img-div overlay">
-                                        <i className="fas fa-search-plus" />
-                                      </div>
-                                      {item.imageName !== '' ? <img src={item.imageName} width="85px" height="85px" /> : <img src={demoImageMale} width="85px" height="85px" />}
+                                <div className="col-md-12 col-lg-5">
+                                  <div className="col-lg-12 student-details">
+                                    <div className="">
+                                      <label>Student Name</label>: {item.studentName}
+                                    </div>
+                                    <div className="">
+                                      <label>Father's Name</label>: {item.fatherName}
+                                    </div>
+                                    <div className="">
+                                      <label>Mother's Name</label>: {item.motherName}
+                                    </div>
+                                    <div className="">
+                                      <label>Student Religion</label>: {item.studentReligion}
                                     </div>
                                   </div>
-
-                                  <div className="col-md-12 col-lg-5">
-                                    <div className="col-lg-12 student-details">
-                                      <div className="">
-                                        <label>Student Name</label>: {item.studentName}
-                                      </div>
-                                      <div className="">
-                                        <label>Father's Name</label>: {item.fatherName}
-                                      </div>
-                                      <div className="">
-                                        <label>Mother's Name</label>: {item.motherName}
-                                      </div>
-                                      <div className="">
-                                        <label>Student Religion</label>: {item.studentReligion}
-                                      </div>
-                                    </div>
+                                </div>
+                                {item.studentGender == 'Male' ?
+                                  <div className="col-md-6 col-lg-1 student-gender">
+                                    <i className="fas fa-male" />
                                   </div>
-                                  {item.studentGender == 'Male' ?
-                                    <div className="col-md-6 col-lg-1 student-gender">
-                                      <i className="fas fa-male" />
-                                    </div>
-                                    :
-                                    <div className="col-md-6 col-lg-1 student-gender">
-                                      <i className="fas fa-female" />
-                                    </div>
-                                  }
-
-                                  <div className="col-md-6 col-lg-2 student-custom-id">
-                                    <span className="roll-no-title">Student ID</span>
-                                    <br />
-                                    <label className="text-orange">{item.studentId}</label>
+                                  :
+                                  <div className="col-md-6 col-lg-1 student-gender">
+                                    <i className="fas fa-female" />
                                   </div>
+                                }
+
+                                <div className="col-md-6 col-lg-2 student-custom-id">
+                                  <span className="roll-no-title">Student ID</span>
+                                  <br />
+                                  <label className="text-orange">{item.studentId}</label>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        )
-                      }
+                        </div>
                       )
                     }
+                    )
+                  }
 
-                  </div>
                 </div>
-                : ''}
+              </div>
+
             </div>
           </section>
 
