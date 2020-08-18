@@ -29,14 +29,93 @@ import saga from './saga';
 import { Link, NavLink } from 'react-router-dom';
 
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
+import { makeSelectNoticeList } from '../HomePage/selectors';
 
 export class Menu extends React.Component {
 
   toggle = () => { };
 
+
+  componentDidMount(){
+    this.animateNoticeTitle()
+    
+  }
+
+  // componentWillReceiveProps(nextProps){
+  //   console.log("nextProps>>>>>>>>>>>>>>>>>>>>>>>>>>>", nextProps.noticeList);
+    
+
+  //   if(nextProps.noticeList.length>0){
+      
+  //     if(count == 1){
+  //       console.log("............................................................................");
+  //       this.animateNoticeTitle()
+  //       count++
+  //     }
+  //   }
+  // }
+
+  animateNoticeTitle = () =>{
+    // if(this.props.noticeList.length > 0){
+      var noticeTxt = document.getElementsByClassName("notdetls-top");
+
+
+      var elements1 = document.getElementsByClassName('typewrite')[0];
+      let innerData = ''
+      for (var i = 0; i < noticeTxt.length; i++) {
+
+        if (i == 0) {
+          innerData += '['
+        }
+        if (i == noticeTxt.length - 1) {
+          innerData += '"' + noticeTxt[i].innerText + '"] '
+        } else {
+          innerData += '"' + noticeTxt[i].innerText + '", ';
+        }
+      }
+
+      if (elements1) { elements1.setAttribute("data-type", innerData); }
+
+      for (var i = 0; i < noticeTxt.length; i++) {
+
+        noticeTxt[i].style.display = "none";
+      }
+
+      var elements = document.getElementsByClassName('typewrite');
+
+      // console.log("elements:::::::::", elements)
+
+      for (var i = 0; i < elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-type');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtType(elements[i], JSON.parse(toRotate), period);
+        }
+      }
+      // INJECT CSS
+      var css = document.createElement("style");
+      css.type = "text/css";
+      css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+      document.body.appendChild(css);
+    // }
+  }
+  
+
   render() {
 
     const info = JSON.parse(getUrlInfoLocally());
+
+    let noticeList = JSON.parse(sessionStorage.getItem('allNoticeList'));
+
+    // console.log("this.props.noticeList MENU", noticeList);
+
+    
+
+    
+
+
+
+
 
     return (
       <div>
@@ -243,10 +322,26 @@ export class Menu extends React.Component {
                     <div className="notice-title">Latest News</div>
                     <div className="notice">
                       <i className="far fa-square" />
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, Class will be close.
+                      {
+                        noticeList && noticeList.map((item, index) =>
+                          <React.Fragment>
+                            <p className="text-secondary notdetls-top" style={{ display: 'none'}} >{item.noticeTitle}</p>
+                            
+                          </React.Fragment>
+
+                        )
+                      }
+
+                      <p className="text-secondary">
+                        <a href=""
+                          class="typewrite text-secondary"
+                          data-period="2000"
+                          data-type='["Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop."]'
+                        >
+                          <span class="wrap"></span>
+                        </a>
                       </p>
+
                     </div>
                   </div>
                 </div>
@@ -265,6 +360,7 @@ Menu.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   menu: makeSelectMenu(),
+  noticeList: makeSelectNoticeList(),
 });
 
 function mapDispatchToProps(dispatch) {

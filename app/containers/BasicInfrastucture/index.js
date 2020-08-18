@@ -67,8 +67,8 @@ export class BasicInfrastucture extends React.PureComponent {
                       </div>
                       <div className="col-md-6">
                         <div className="infrastructure-content-image">
-                        {item.aboutusImg ?
-                          <img className="img-fluid w-100 box-shadow" src={ "data:image/*;base64," + item.aboutusImg } alt="infrastructure"/>:
+                        {item.fileContent ?
+                          <img className="img-fluid w-100 box-shadow" src={ "data:image/*;base64," + item.fileContent } alt="infrastructure"/>:
                           <img className="img-fluid w-100 box-shadow" src={ staticImg} style={{ objectFit: 'contain', background: 'white', padding: '16px'}} alt="infrastructure"/>
                         }
                           </div>

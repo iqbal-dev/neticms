@@ -817,6 +817,11 @@
                     width: 165px;
                     height: 215px;
                 }
+
+                .gallery-img{
+                    max-height: 190px;
+                    object-fit: cover;
+                }
             }
             &::after{
                 position: absolute;
