@@ -219,6 +219,8 @@ export class HomePage extends React.Component {
       </button>
     </div>
 
+    // console.log("this.props.noticeList HOME", this.props.noticeList);
+
     return (
       <div>
         <AppLayout>

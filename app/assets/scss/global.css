@@ -893,6 +893,9 @@
   .content-wrapper .book-list-wrapper .book-list-image .book-image-wrapper img {
     width: 165px;
     height: 215px; }
+  .content-wrapper .book-list-wrapper .book-list-image .book-image-wrapper .gallery-img {
+    max-height: 190px;
+    object-fit: cover; }
   .content-wrapper .book-list-wrapper .book-list-image::after {
     position: absolute;
     left: 0;

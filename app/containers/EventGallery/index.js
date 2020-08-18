@@ -72,7 +72,7 @@ export class EventGallery extends React.PureComponent {
                 <div className="col-md-4">
                   <div className="book-list-wrapper m-b-30">
                     <div className="book-list-image" onClick={ e => this.getAttr(e, index)}>
-                      <img id={"image_" + index} className="img-fluid w-100" src={ image } width="100%"/>
+                      <img id={"image_" + index} className="gallery-img w-100" src={ image } width="100%"/>
                       <Button
                         className="book-image-zoom"
                         onClick={ this.props.onChangemodalVisiable }
