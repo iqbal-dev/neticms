@@ -41,7 +41,7 @@ export class TeacherInformation extends React.PureComponent {
             content="Description of TeacherInformation"
           />
         </Helmet>
-        <BreadcrumComponent pageTitle="Teacher's Information" menuStepFirst="Home" menuStepSenond="Administration" menuStepThird="Teacher's Information" />
+        <BreadcrumComponent pageTitle="Teacher's Information" menuStepFirst="Institute Info" menuStepSenond="List of" menuStepThird="Teacher's Information" />
 
         <section>
           <div className="container-fluid">

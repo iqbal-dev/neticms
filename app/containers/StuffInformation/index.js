@@ -37,8 +37,8 @@ export class StuffInformation extends React.Component {
         <AppLayout>
         <BreadcrumComponent
           pageTitle="Stuff's Information"
-          menuStepFirst="Home"
-          menuStepSenond="Administration"
+          menuStepFirst="Institute Info"
+          menuStepSenond="List of"
           menuStepThird="Stuff's Information"
         />
         <section>

@@ -234,7 +234,7 @@ export class StudentInfo extends React.Component {
                                 <div className="col-md-6 col-lg-2 student-custom-id">
                                   <span className="roll-no-title">Student ID</span>
                                   <br />
-                                  <label className="text-orange">{item.studentId}</label>
+                                  <label className="text-orange">{item.customStudentId}</label>
                                 </div>
                               </div>
                             </div>

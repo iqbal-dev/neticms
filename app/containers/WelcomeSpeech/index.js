@@ -25,7 +25,7 @@ import staticImg from '../../assets/img/avatar.png';
 /* eslint-disable react/prefer-stateless-function */
 export class WelcomeSpeech extends React.Component {
 
-  getPlainTextToHtml = (index, html) =>{
+  getPlainTextToHtml = (index, html) => {
     setTimeout(() => {
       let speechDetails = document.getElementsByClassName('speechDetails');
       speechDetails && speechDetails[index] ? speechDetails[index].innerHTML = html : ''
@@ -35,74 +35,72 @@ export class WelcomeSpeech extends React.Component {
   render() {
     return (
       <div>
-      <AppLayout>
+        <AppLayout>
 
-        <Helmet>
-          <title>WelcomeSpeech</title>
-          <meta name="description" content="Description of WelcomeSpeech" />
-        </Helmet>
-        <BreadcrumComponent
-          pageTitle="Welcome Speech"
-          menuStepFirst="Home"
-          menuStepSenond="Basic Infrastructure"
-          menuStepThird="Speech"
-        /> 
+          <Helmet>
+            <title>WelcomeSpeech</title>
+            <meta name="description" content="Description of WelcomeSpeech" />
+          </Helmet>
+          <BreadcrumComponent
+            pageTitle="Welcome Speech"
+            menuStepFirst="Institute Info"
+            menuStepSenond="Academic Info"
+            menuStepThird="Speech"
+          />
 
-        <section className="speech-wrapper welcome-speech my-3">
-          <div className="container-fluid">
-            <div className="container">
-              <div className="row">
-              {this.props.welcomeSpeechList && this.props.welcomeSpeechList.map((item,index) => (
-                <div className="col-lg-12">
-                  <div className="speech-slider-wrapper">
-                    <div className="slider-item">
-                      <div className="slider-content grid-list-wrapper">
-                        <div className="grid-image">
-                        {
-                          item.fileContent ?
-                            <img src={ "data:image/*;base64," + item.fileContent } align="left" className="mx-auto d-block"/>:
-                            <img src={staticImg} width="100%"/>
-                        }
-                          <div className="grid-social">
-                            <ul className="d-flex justify-content-center w-100 nav">
-                              <li><a className={!item.speakerMobile?'':"phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
-                              <li><a className={!item.speakerEmail?'':"email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
-                              <li><a className={!item.speakerFacebookLinke?'':"facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
-                              <li><a className={!item.speakerLinkedinLinke?'':"linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                          </div>
-                        </div>
-                        {/* <img
+          <section className="speech-wrapper welcome-speech my-3">
+            <div className="container-fluid">
+              <div className="container">
+                <div className="row">
+                  {this.props.welcomeSpeechList && this.props.welcomeSpeechList.map((item, index) => (
+                    <div className="col-lg-12">
+                      <div className="speech-slider-wrapper">
+                        <div className="slider-item">
+                          <div className="slider-content grid-list-wrapper">
+                            <div className="grid-image">
+                              {
+                                item.fileContent ?
+                                  <img src={"data:image/*;base64," + item.fileContent} align="left" className="mx-auto d-block" /> :
+                                  <img src={staticImg} width="100%" />
+                              }
+                              <div className="grid-social">
+                                <ul className="d-flex justify-content-center w-100 nav">
+                                  <li><a className={!item.speakerMobile ? '' : "phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
+                                  <li><a className={!item.speakerEmail ? '' : "email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
+                                  <li><a className={!item.speakerFacebookLinke ? '' : "facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
+                                  <li><a className={!item.speakerLinkedinLinke ? '' : "linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            {/* <img
                           src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
                           align="left"
                         /> */}
-                        
-                        <h4 className="designation">{item.speakerDesignation}</h4>
-                        <h1 className="employe-name">{item.speakerName}</h1>
-                        {/* <p>{ this.getPlainTextToHtml(item.speechDetails) }</p> */}
-                        <div className='speechDetails'>
-                          {this.getPlainTextToHtml(index, item.speechDetails) }
+
+                            <h4 className="designation">{item.speakerDesignation}</h4>
+                            <h1 className="employe-name">{item.speakerName}</h1>
+                            {/* <p>{ this.getPlainTextToHtml(item.speechDetails) }</p> */}
+                            <div className='speechDetails'>
+                              {this.getPlainTextToHtml(index, item.speechDetails)}
+                            </div>
+                          </div>
                         </div>
+
                       </div>
                     </div>
-                    
-                  </div>
+                  ))}
                 </div>
-                 ))}
+              </div>
+            </div>
+          </section>
+
+          <div className="container">
+            <div className="row">
+              <div className="offset-md-1 col-md-10">
+                <div className="custom-title-border-center" />
               </div>
             </div>
           </div>
-        </section>
-
-      
-
-        <div className="container">
-          <div className="row">
-            <div className="offset-md-1 col-md-10">
-              <div className="custom-title-border-center" />
-            </div>
-          </div>
-        </div>
         </AppLayout>
       </div>
     );

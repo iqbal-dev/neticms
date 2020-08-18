@@ -29,67 +29,64 @@ export class CommitteeMembers extends React.PureComponent {
     return (
       <div>
         <AppLayout>
-        <Helmet>
-          <title>CommitteeMembers</title>
-          <meta name="description" content="Description of CommitteeMembers" />
-        </Helmet>
-        <BreadcrumComponent pageTitle="Committee Members" menuStepFirst="Home" menuStepSenond="Administration" menuStepThird="Committee Members" />
-        <section>
-          <div className="container-fluid">
-            <div className="container p-t-60">
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="page-inner-title">
-                    <h2 className="text-orange">Committee Members</h2>
-                    <div className="custom-title-border-left"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-              {this.props.committeMembersList && this.props.committeMembersList.map((item,index) => (
-                <div className="col-md-4">
-                  <div className="grid-list-wrapper">
-                    <div className="grid-image">
-                    {
-                          item.memberImg ?
-                            <img src={ "data:image/*;base64," + item.memberImg }className="mx-auto d-block"/>:
-                            <img src={staticImg} />
-                        }
-                    </div>
-                    <div className="grid-content text-center">
-                        <div className="grid-title">
-                          <h3>{item.memberName}</h3>
-                        </div>
-                        <div className="grid-subtitle-title">
-                          <h4>{item.memberDesignation}</h4>
-                        </div>
-                    </div>
-                    <div className="grid-social">
-                      <ul className="d-flex justify-content-center w-100 nav">
-                        <li><a className="phone" href="#" phoneNumber={item.memberMobile}><i class="fas fa-phone"></i></a></li>
-                        <li><a href={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
-                        <li><a href={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
-                      </ul>
+          <Helmet>
+            <title>CommitteeMembers</title>
+            <meta name="description" content="Description of CommitteeMembers" />
+          </Helmet>
+          <BreadcrumComponent pageTitle="Committee Members" menuStepFirst="Institute Info" menuStepSenond="Academic Info" menuStepThird="Committee Members" />
+          <section>
+            <div className="container-fluid">
+              <div className="container p-t-60">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="page-inner-title">
+                      <h2 className="text-orange">Committee Members</h2>
+                      <div className="custom-title-border-left"></div>
                     </div>
                   </div>
                 </div>
+                <div className="row">
+                  {this.props.committeMembersList && this.props.committeMembersList.map((item, index) => (
+                    <div className="col-md-4">
+                      <div className="grid-list-wrapper">
+                        <div className="grid-image">
+                          {
+                            item.memberImg ?
+                              <img src={"data:image/*;base64," + item.memberImg} className="mx-auto d-block" /> :
+                              <img src={staticImg} />
+                          }
+                        </div>
+                        <div className="grid-content text-center">
+                          <div className="grid-title">
+                            <h3>{item.memberName}</h3>
+                          </div>
+                          <div className="grid-subtitle-title">
+                            <h4>{item.memberDesignation}</h4>
+                          </div>
+                        </div>
+                        <div className="grid-social">
+                          <ul className="d-flex justify-content-center w-100 nav">
+                            <li><a className="phone" href="#" phoneNumber={item.memberMobile}><i class="fas fa-phone"></i></a></li>
+                            <li><a href={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
+                            <li><a href={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   ))}
+                </div>
+
+              </div>
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-1 col-md-10">
+                    <div className="custom-title-border-center"></div>
                   </div>
-           
-             
-                
-             
-            </div>
-            <div className="container">
-              <div className="row">
-                <div className="offset-md-1 col-md-10">
-                  <div className="custom-title-border-center"></div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
         </AppLayout>
       </div>
     );
