@@ -2,7 +2,7 @@ import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import { 
   TEACHER_INFORMATON_LIST,
 } from './constants';
-import { BASE_URL, BASE_URL_EM, fetch_staffsInformaions } from '../../utils/serviceUrl';
+import { BASE_URL, BASE_URL_EM, FETCH_STAFF_INFORMATION } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 import {teacherInformationList} from './actions';
 // Individual exports for testing
@@ -16,7 +16,7 @@ export function* teacherInformationSaga() {
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
   
-  const requestURL = BASE_URL_EM.concat(fetch_staffsInformaions).concat('?categoryName=').concat("Teacher").concat('&instituteId=').concat(instituteId);
+  const requestURL = BASE_URL_EM.concat(FETCH_STAFF_INFORMATION).concat('?categoryName=').concat("Teacher").concat('&instituteId=').concat(instituteId);
   
   const options = {
     method: 'GET',
@@ -35,7 +35,6 @@ export function* teacherInformationSaga() {
   } catch (error) { }
 
 }
-
 
 export default function* teacherListSaga() {
   yield call(teacherInformationSaga);

@@ -36,8 +36,6 @@ export function* fetch_SyllabusFile() {
 
   let selectedRowdata = yield select(makeSelectSyllabusRowdata());
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_syllabusFileBy_cmsId).concat('?syllabusId=').concat(selectedRowdata.syllabusId);
-  console.log('requestURL', requestURL);
-
   const options = {
     method: 'GET',
     headers: {
@@ -47,8 +45,8 @@ export function* fetch_SyllabusFile() {
 
   try {
     const response = yield call(request, requestURL, options);
-    console.log('setSyllabusFile-response', response.item);
-    yield put(setSyllabusFile(response.item));
+    // console.log('setSyllabusFile-response', response.item);
+    yield put(setSyllabusFile(response.file));
 
   } catch (error) {
 

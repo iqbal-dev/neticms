@@ -48,7 +48,7 @@ export class AllNotice extends React.Component {
   render() {
 
     // console.log('noticeList-all ', JSON.parse(sessionStorage.allNoticeList));
-    let allNoticeDetails = JSON.parse(sessionStorage.allNoticeList)
+    let allNoticeDetails = JSON.parse(sessionStorage.allNoticeList);
 
     return (
       <AppLayout>
