@@ -3,7 +3,7 @@ import { BASE_URL_NETI_CMS, fetch_infrastructureListBy_cmsId } from '../../utils
 import request from '../../utils/request';
 import { fetchInfrastructureList } from './actions';
 
-export function* fetch_Infrastructure_List(){
+export function* fetch_Infrastructure_List() {
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
 
@@ -17,14 +17,13 @@ export function* fetch_Infrastructure_List(){
     },
   };
 
-
   try {
     const response = yield call(request, requestURL, options);
-    console.log('response.item fetchInfrastructureList', response.item);
+    // console.log('response.item fetchInfrastructureList', response.item);
     yield put(fetchInfrastructureList(response.item));
-    
+
   } catch (error) {
-    
+
   }
 
 }
