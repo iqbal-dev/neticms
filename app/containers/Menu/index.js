@@ -29,15 +29,34 @@ import saga from './saga';
 import { Link, NavLink } from 'react-router-dom';
 
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
-import { makeSelectNoticeList } from '../HomePage/selectors';
 
+
+// let noticeList = []
 export class Menu extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+        noticeList: [],
+    }
+  }
   toggle = () => { };
 
-  componentDidMount() {
-    this.animateNoticeTitle()
 
+  componentDidMount(){
+    
+
+    setTimeout(() => {
+      let sessionNoticeList = JSON.parse(sessionStorage.getItem('allNoticeList'));
+      // let noticeList = this.props.noticeList;
+
+      this.setState({ noticeList: sessionNoticeList})
+      this.animateNoticeTitle()
+      console.log("this.props.noticeList MENU", sessionNoticeList);
+      
+    }, 10000);
+    
   }
 
   // componentWillReceiveProps(nextProps){
@@ -98,12 +117,12 @@ export class Menu extends React.Component {
   }
 
   render() {
+    let { noticeList } = this.state
 
     const info = JSON.parse(getUrlInfoLocally());
 
-    let noticeList = JSON.parse(sessionStorage.getItem('allNoticeList'));
 
-    // console.log("this.props.noticeList MENU", noticeList);
+    
 
     return (
       <div>
@@ -348,7 +367,6 @@ Menu.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   menu: makeSelectMenu(),
-  noticeList: makeSelectNoticeList(),
 });
 
 function mapDispatchToProps(dispatch) {

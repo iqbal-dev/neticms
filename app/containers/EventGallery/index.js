@@ -48,6 +48,19 @@ export class EventGallery extends React.PureComponent {
   render() {
 
     let galleryImageLists = this.props.galleryImageList;
+    let unique = galleryImageLists.map(item => item.photoType).filter((value, index, self) => self.indexOf(value) === index)
+    // console.log('unique', unique);
+
+    let assigned = {}
+    unique.map((uniqueItem, index) => {
+      let filteredEle = galleryImageLists.filter(galleryItem => galleryItem.photoType == uniqueItem)
+      // console.log('filteredEle', filteredEle);
+      // assigned.push(filteredEle)
+      assigned[uniqueItem] = filteredEle
+    })
+
+    console.log("assigned", assigned);
+    
 
     return (
       <div>
@@ -64,16 +77,60 @@ export class EventGallery extends React.PureComponent {
           />
           <div className="container p-t-60 content-wrapper ">
             <div className="row">
+              {
+                Object.keys(assigned).map((item, index) => 
+                  // let image = ''
+                  // item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
+                  <div className="col-md-12">
+                    <h4>{item}</h4>
+                    <hr/>
+                    <div className="row">
+                    {
+                      assigned && assigned[item].map((item1, index1) =>{
+                        let image = ''
+                        item1.fileContent ? image = "data:image/*;base64," + item1.fileContent : image = staticImg
+                        return(
+                          // <p>{item1.photoTitle}</p>
+                          <div className="col-sm-6 col-md-3">
+                            <div className="book-list-wrapper event-gallery-wrapper m-b-30">
+                              <div className="book-list-image event-gallery-inside" onClick={e => this.getAttr(e, index)}>
+                                <img id={"image_" + index} className="img-fluid event-gallery-image" src={image} width="100%" />
+                                {/* <Button
+                                  className="book-image-zoom"
+                                  onClick={this.props.onChangemodalVisiable}
+                                >
+                                  <i className="fas fa-search" />
+                                </Button> */}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+                    </div>
+                    
+                  </div>
+                )
+              }
+            </div>
+
+            <br/>
+            <br/>
+
+            <h4>All Gallery Images</h4>
+            <hr/>
+            <div className="row">
+              
               {galleryImageLists && galleryImageLists.map((item, index) => {
 
                 let image = ''
                 item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
 
                 return (
-                  <div className="col-md-4">
-                    <div className="book-list-wrapper m-b-30">
-                      <div className="book-list-image" onClick={e => this.getAttr(e, index)}>
-                        <img id={"image_" + index} className="img-fluid w-100" src={image} width="100%" />
+                  <div className="col-sm-6 col-md-3">
+                    <div className="book-list-wrapper event-gallery-wrapper m-b-30">
+                      <div className="book-list-image event-gallery-inside" onClick={e => this.getAttr(e, index)}>
+                        <img id={"image_" + index} className="img-fluid event-gallery-image w-100" src={image} width="100%" />
                         <Button
                           className="book-image-zoom"
                           onClick={this.props.onChangemodalVisiable}

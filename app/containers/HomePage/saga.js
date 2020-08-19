@@ -96,13 +96,13 @@ export function* fetch_instituteUrlInfo_byUrlName() {
       yield fetch_emAuthToken();
       // yield fetch_Menu_byUrlId(response.item.cmsId);
 
-      yield fetch_SliderImage_byUrlId(response.item.cmsId);
+      
       yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
       yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
       yield fetch_usefullLinks_byUrlId(response.item.cmsId);
       yield fetch_instituteHistory_byUrlId(response.item.cmsId);
       yield fetch_instituteTopEvent_byUrlId(response.item.cmsId);
-
+      yield fetch_SliderImage_byUrlId(response.item.cmsId);
     }
 
     // console.log('after updt', JSON.parse(localStorage.instituteInfo));
