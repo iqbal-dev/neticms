@@ -766,6 +766,28 @@
 }
 .content-wrapper{
     .book-list-wrapper{
+        &.event-gallery-wrapper{
+            height: 200px;
+
+            .event-gallery-inside{
+                height: 100%;
+
+                &:hover{
+                    &::after{
+                        background: rgba(0,0,0,0.25);
+                    }
+                    .book-image-zoom{
+                        display: block;
+                    }
+                }
+
+                .event-gallery-image{
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+
         .book-list{
             & > tr{
                 border-bottom: 1px solid $grayColorLight;

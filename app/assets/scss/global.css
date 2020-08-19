@@ -857,6 +857,17 @@
   padding-top: 60px;
   padding-bottom: 60px; }
 
+.content-wrapper .book-list-wrapper.event-gallery-wrapper {
+  height: 200px; }
+  .content-wrapper .book-list-wrapper.event-gallery-wrapper .event-gallery-inside {
+    height: 100%; }
+    .content-wrapper .book-list-wrapper.event-gallery-wrapper .event-gallery-inside:hover::after {
+      background: rgba(0, 0, 0, 0.25); }
+    .content-wrapper .book-list-wrapper.event-gallery-wrapper .event-gallery-inside:hover .book-image-zoom {
+      display: block; }
+    .content-wrapper .book-list-wrapper.event-gallery-wrapper .event-gallery-inside .event-gallery-image {
+      height: 100%;
+      object-fit: cover; }
 .content-wrapper .book-list-wrapper .book-list > tr {
   border-bottom: 1px solid #f2f2f2;
   display: inline-flex;
