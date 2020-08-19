@@ -43,6 +43,7 @@ import {
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
+import blank_image from '../../assets/img/blank-image-2.png';
 /* eslint-disable react/prefer-stateless-function */
 import { MyCalendar } from './AdminEventInfoCalendar'
 import ReadMoreReact from 'read-more-react';
@@ -201,8 +202,9 @@ export class HomePage extends React.Component {
     let historyImageContent = '';
     if (this.props.instituteHistory && this.props.instituteHistory.aboutusDetails) {
       instituteHistory = this.props.instituteHistory.aboutusDetails;
-      historyImageContent = this.props.instituteHistory.aboutusImg ? "data:image/*;base64," + this.props.instituteHistory.aboutusImg : staticImg;
+      historyImageContent = this.props.instituteHistory.fileContent ? "data:image/*;base64," + this.props.instituteHistory.fileContent : blank_image;
     }
+    console.log('institute history', this.props.instituteHistory);
 
     // history read more btn
     let historyMoreBtn = <div className="content-btn">
