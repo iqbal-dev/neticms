@@ -21,25 +21,26 @@ import saga from './saga';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Form, FormGroup, Input, Button, Table } from 'reactstrap';
 import donorImage from '../../assets/img/donor-image.png';
+import staticImage from '../../assets/img/avatar.png';
 import positionIcon from '../../assets/img/positionIcon.png';
 import { AppLayout } from '../AppLayout';
-import makeSelectIndividualResult, { 
-  makeSelectAcademicYearList, 
-  makeSelectAcademicYear, 
+import makeSelectIndividualResult, {
+  makeSelectAcademicYearList,
+  makeSelectAcademicYear,
   makeSelectExamList,
   makeSelectIndividualResultData
 } from './selectors';
 
-import { 
-  makeChangeStudentID, 
+import {
+  makeChangeStudentID,
   makeChangeStudentMobile,
   submitSearchHandle,
   makeChangeAcademicYear,
   makeChangeExamType,
 } from './actions';
 
-import { 
-  makeSelectStudentID, 
+import {
+  makeSelectStudentID,
 } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -47,15 +48,15 @@ export class IndividualResult extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        studentID: "",
-        mobileNo: "",
-        year: "",
-        examType: "",
-        errors: {}
+      studentID: "",
+      mobileNo: "",
+      year: "",
+      examType: "",
+      errors: {}
     }
   }
 
-  onChangeInputField = (event) =>{
+  onChangeInputField = (event) => {
     let { errors } = this.state
     // console.log('e', event.target.value);
     errors[event.target.name] = ''
@@ -91,39 +92,31 @@ export class IndividualResult extends React.Component {
     return formIsValid;
   }
 
-  onSearchStudentInfo = () =>{
-    if(this.handleError()){
+  onSearchStudentInfo = () => {
+    if (this.handleError()) {
 
     }
   }
-  
+
   render() {
-    let { errors } =this.state
+
+    let { errors } = this.state
     let { academicYearList, academicYear, examList, resultData } = this.props
-    console.log("YEAR_LIST", academicYearList);
-    console.log("EXAM_LIST", examList);//resultData
-    console.log("Result Data", resultData);//resultData
 
     let resultColumnName = []
     let shortCodeTitle = []
 
-    for ( let i = 1 ; i <= 4 ; i++ ){
-      if(resultData && resultData['shortCode' + i + 'Name'] != null){
+    for (let i = 1; i <= 4; i++) {
+      if (resultData && resultData['shortCode' + i + 'Name'] != null) {
         resultColumnName.push(resultData && resultData['shortCode' + i + 'Name']);
-        shortCodeTitle.push('shortCode' + i );
+        shortCodeTitle.push('shortCode' + i);
       }
     }
 
-    console.log('resultColumnName', resultColumnName);
-
     let column = resultColumnName.map((item, index) =>
-        <th>{item}</th>
+      <th>{item}</th>
     )
 
-    console.log("column", column, shortCodeTitle);
-    
-    
-    
     return (
       <div>
         <AppLayout>
@@ -135,8 +128,8 @@ export class IndividualResult extends React.Component {
 
           <BreadcrumComponent
             pageTitle="Individual Result"
-            menuStepFirst="Home"
-            menuStepSenond="Result Info"
+            menuStepFirst="Result Info"
+            menuStepSenond="Semester Exam"
             menuStepThird="Individual"
           />
 
@@ -149,7 +142,7 @@ export class IndividualResult extends React.Component {
                       <div className="col-md-6 col-lg-3 top-position">
                         <img src={positionIcon} />
                         <div>
-                          <h2>{ resultData && resultData.classPosition }</h2>
+                          <h2>{resultData && resultData.classPosition}</h2>
                           <p>Merit Position</p>
                         </div>
                       </div>
@@ -161,7 +154,7 @@ export class IndividualResult extends React.Component {
                               <FormGroup className=" custom-input-text">
                                 <Input
                                   type="text"
-                                  placeholder="Write Student Id"
+                                  placeholder="Enter Student Id"
                                   name="studentID"
                                   onChange={this.props.onChangeStudentID}
                                 />
@@ -186,7 +179,7 @@ export class IndividualResult extends React.Component {
                                 <Input
                                   type="text"
                                   name="mobileNo"
-                                  placeholder="Write Reg. Mobile No."
+                                  placeholder="Enter Reg. Mobile No."
                                   onChange={this.props.onChangeStudentMobile}
                                 />
                               </FormGroup>
@@ -213,16 +206,14 @@ export class IndividualResult extends React.Component {
                                   <i class="fas fa-chevron-circle-right mr-3"></i> Search
                               </Button>
                               </FormGroup>
-                              <FormGroup className="my-3">
+                              {/* <FormGroup className="my-3">
                                 <span className="print text-orange"><i className="fas fa-print text-secondary"></i> Print Result</span>
-                              </FormGroup>
+                              </FormGroup> */}
                             </div>
                           </Form>
                           {/* <div className="col-md-12 col-lg-6 form">
                           <Form inline>
                             
-                            
-
                             <Button className="btn explore-btn full-width">Search</Button>
                           </Form>
                         </div> */}
@@ -241,8 +232,8 @@ export class IndividualResult extends React.Component {
                     <div className="page-inner-title with-print mb-4">
                       <h2>
                         <span className="font-20">
-                          Showing Result for Student ID. <span className="text-orange">{ resultData && resultData.customStudentId }</span>, Reg. Mobile No. <span className="text-orange">{ resultData.mobileNo }</span></span>
-                        <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span>
+                          Showing Result for Student ID. <span className="text-orange">{resultData && resultData.customStudentId}</span>, Reg. Mobile No. <span className="text-orange">{resultData.mobileNo}</span></span>
+                        {/* <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span> */}
                       </h2>
                       <div className="custom-title-border-left my-4" />
                     </div>
@@ -259,11 +250,11 @@ export class IndividualResult extends React.Component {
                         <div class="col-md-6 col-lg-2 roll-no">
                           <span class="roll-no-title">Roll No.</span>
                           <br />
-                          <label className="text-orange mb-0">{ resultData && resultData.studentRoll }</label>
+                          <label className="text-orange mb-0">{resultData && resultData.studentRoll}</label>
                           <hr className="my-1" />
                           <span class="roll-no-title">Student ID</span>
                           <br />
-                          <label className="text-orange">{ resultData && resultData.customStudentId }</label>
+                          <label className="text-orange">{resultData && resultData.customStudentId}</label>
                         </div>
 
                         <div class="col-md-6 col-lg-2 student-img mx-0">
@@ -271,30 +262,29 @@ export class IndividualResult extends React.Component {
                             <div class="img-div overlay">
                               <i class="fas fa-search-plus"></i>
                             </div>
-                            <img src={donorImage} width="85px" height="85px" />
+                            <img src={staticImage} width="85px" height="85px" />
                           </div>
                         </div>
 
                         <div class="col-md-6 col-lg-4">
                           <div class="col-lg-12 student-details">
-                            <div className=""><label>Student Name</label>: { resultData && resultData.studentName }</div>
-                            <div className=""><label>Father's Name</label>: { resultData && resultData.fatherName }</div>
-                            <div className=""><label>Mother's Name</label>: { resultData && resultData.motherName }</div>
-                            <div className=""><label>Reg. Mobile No.</label>: { resultData && resultData.mobileNo }</div>
-                            <div className=""><label>Exam Name</label>: { /*resultData.studentName*/ }</div>
+                            <div className=""><label>Student Name</label>: {resultData && resultData.studentName}</div>
+                            <div className=""><label>Father's Name</label>: {resultData && resultData.fatherName}</div>
+                            <div className=""><label>Mother's Name</label>: {resultData && resultData.motherName}</div>
+                            <div className=""><label>Reg. Mobile No.</label>: {resultData && resultData.mobileNo}</div>
+                            <div className=""><label>Exam Name</label>: { /*resultData.studentName*/}</div>
                           </div>
                         </div>
                         <div className="row vertical-border ml-md-1 px-0 d-sm-none d-md-block d-lg-block"></div>
                         <div class="col-md-6 col-lg-4 ml-md-0">
                           <div class="col-lg-12 student-details">
-                            <div className=""><label>Section</label>: { resultData && resultData.sectionName }</div>
-                            <div className=""><label>Total Marks</label>: { resultData && resultData.obtainedMarks }</div>
-                            <div className=""><label>GPA</label>: { resultData && resultData.gpa }</div>
-                            <div className=""><label>Grade</label>: { resultData && resultData.grade }</div>
-                            <div className=""><label>Academic Year</label>: { this.props.academicYear }</div>
+                            <div className=""><label>Section</label>: {resultData && resultData.sectionName}</div>
+                            <div className=""><label>Total Marks</label>: {resultData && resultData.obtainedMarks}</div>
+                            <div className=""><label>GPA</label>: {resultData && resultData.gpa}</div>
+                            <div className=""><label>Grade</label>: {resultData && resultData.grade}</div>
+                            <div className=""><label>Academic Year</label>: {this.props.academicYear}</div>
                           </div>
                         </div>
-
 
                         {/* <div class="col-md-6 col-lg-1 student-gender">
                           <i class="fas fa-male" />
@@ -324,7 +314,7 @@ export class IndividualResult extends React.Component {
                           <tr>
                             <th>Subject</th>
                             <th>Total Marks</th>
-                            { column }
+                            {column}
                             {/* <th>CT</th>
                             <th>CP</th>
                             <th>WR</th>
@@ -339,13 +329,13 @@ export class IndividualResult extends React.Component {
                         <tbody>
                           {
                             resultData ?
-                            resultData.examMarks && resultData.examMarks.map((item, index) =>
+                              resultData.examMarks && resultData.examMarks.map((item, index) =>
                                 <tr>
                                   <td>{item.subjectName}</td>
                                   <td>{item.fullMarks}</td>
 
                                   {
-                                    shortCodeTitle.map((item2, index) => 
+                                    shortCodeTitle.map((item2, index) =>
                                       <td>{
                                         item[item2]
                                       }</td>
@@ -358,54 +348,12 @@ export class IndividualResult extends React.Component {
                                   <td>{item.obtainedMarks}</td>
                                   <td>{item.gpa}</td>
                                   <td>{item.grade}</td>
-                                  
+
                                 </tr>
                               )
                               : <tr><td colSpan='9'>No Data Found</td></tr>
                           }
 
-                          {/* <tr>
-                            <td>Bangla 1st Paper</td>
-                            <td>549.60</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>500.96</td>
-                            <td>4.88</td>
-                            <td>A</td>
-                          </tr>
-                          <tr>
-                            <td>Bangla 1st Paper</td>
-                            <td>549.60</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>500.96</td>
-                            <td>4.88</td>
-                            <td>A</td>
-                          </tr><tr>
-                            <td>Bangla 1st Paper</td>
-                            <td>549.60</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>500.96</td>
-                            <td>4.88</td>
-                            <td>A</td>
-                          </tr><tr>
-                            <td>Bangla 1st Paper</td>
-                            <td>549.60</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>95.55</td>
-                            <td>500.96</td>
-                            <td>4.88</td>
-                            <td>A</td>
-                          </tr> */}
                         </tbody>
                       </Table>
                     </div>
@@ -432,7 +380,7 @@ export class IndividualResult extends React.Component {
             </div>
           </div>
         </AppLayout>
-        
+
       </div>
     );
   }

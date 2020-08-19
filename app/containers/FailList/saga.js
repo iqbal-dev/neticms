@@ -29,8 +29,7 @@ export function* fetch_AcademicYearList() {
   };
   try {
     const response = yield call(request, requestURL, options);
-    console.log('ac-year', response);
-
+    // console.log('ac-year', response);
     yield put(setAcademicYearList(response.item));
   } catch (error) { }
 
@@ -54,11 +53,8 @@ export function* fetch_classShiftSectionBy_instituteId() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('home-saga-sec', response);
+  // console.log('home-saga-sec', response);
   yield put(setSectionList(response.item));
-
-  // yield put(setGlobalSectionList(response.item));
-
 }
 
 export function* fetch_examListBy_sectionId() {
@@ -71,7 +67,7 @@ export function* fetch_examListBy_sectionId() {
   let emToken = JSON.parse(localStorage.getItem('emToken'));
 
   let classConfigId = yield select(makeSelectClassConfigId());
-  console.log('classConfigId', classConfigId);
+  // console.log('classConfigId', classConfigId);
 
   const requestURL = BASE_URL_EM.concat(fetch_examListBy_classConfigID).concat('?instituteId=').concat(instituteId).concat('&classConfigId=').concat(classConfigId);
   const options = {
@@ -82,7 +78,7 @@ export function* fetch_examListBy_sectionId() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('home-saga-sec', response);
+  // console.log('home-saga-sec', response);
   yield put(setExamList(response.item));
 
 }
@@ -99,7 +95,7 @@ export function* fetch_failList() {
   let classConfigId = yield select(makeSelectClassConfigId());
   let examConfigId = yield select(makeSelectExamConfigId());
 
-  console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
+  // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
 
   const requestURL = BASE_URL_EM.concat(fetch_sectionWiseFailList).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
@@ -111,7 +107,7 @@ export function* fetch_failList() {
   };
 
   const response = yield call(request, requestURL, options);
-  console.log('FAIL LIST Response>>>>>>>>>>>>>>>>', response);
+  // console.log('FAIL LIST Response>>>>>>>>>>>>>>>>', response);
   try {
     yield put(setFailListData(response.item));
   } catch (error) { }

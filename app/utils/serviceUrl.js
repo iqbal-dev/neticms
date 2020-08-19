@@ -40,7 +40,7 @@ export const fetch_group_names_by_classConfigId = '/core/setting/group-configura
 
 export const FETCH_STUDEN_INFO_BY_GROUP_CONFIG_ID = '/nw/sa-point/student/list/by/class-config-id';
 
-export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
+export const FETCH_SECTION_WISE_MERIT_LIST = '/nw/sa-point/student/section-wise/result/merit/details';
 
 export const fetch_teacherAttendanceListBy_date = '/nw/staff-attendance/date-wise/multiple/staff/attendance/details';
 

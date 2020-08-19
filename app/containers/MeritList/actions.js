@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SUBMIT_SEARCH_BUTTON,SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST,SET_ON_CHANGE_EXAM_TYPE, SET_ON_CHANGE_SECTION, SET_MERIT_LIST_DATA } from './constants';
+import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SUBMIT_SEARCH_BUTTON, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_ON_CHANGE_EXAM_TYPE, SET_ON_CHANGE_SECTION, SET_MERIT_LIST_DATA } from './constants';
 
 export function defaultAction() {
   return {
@@ -13,8 +13,6 @@ export function defaultAction() {
 }
 
 export function setAcademicYear(academicYear) {
-  console.log('academicYear selected',academicYear);
-
   return {
     type: SET_ACADEMIC_YEAR,
     academicYear
@@ -35,8 +33,6 @@ export function setExamList(examList) {
 }
 
 export function setAcademicYearList(academicYearList) {
-  console.log('action academicYearList',academicYearList);
-
   return {
     type: SET_ACADEMIC_YEAR_LIST,
     academicYearList

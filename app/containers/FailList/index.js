@@ -58,7 +58,6 @@ export class FailList extends React.Component {
 
   onChangeInputField = (event) => {
     let { errors } = this.state
-    // console.log('e', event.target.value);
     errors[event.target.name] = ''
     this.setState({
       [event.target.name]: event.target.value, errors
@@ -97,10 +96,6 @@ export class FailList extends React.Component {
 
     let { errors } = this.state
     let { academicYearList, sectionList, examList, classList, failList } = this.props;
-    console.log('examType', this.props.examConfigId);
-
-    console.log("this.props.failList container ::::::::::::::", this.props.academicYear, this.props.classConfigId, this.props.examConfigId);
-    console.log('globalSections-FAIL-List', this.props.globalSections);
 
     return (
       <div>
@@ -197,8 +192,8 @@ export class FailList extends React.Component {
                   <div className="col-md-12">
                     <div className="page-inner-title with-print">
                       <h2>
-                        <span>Total Failed Student Found<span className="text-orange">(1212)</span></span>
-                        <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span>
+                        <span>Total Failed Student Found<span className="text-orange">({failList && failList.length ? failList.length : 0})</span></span>
+                        {/* <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span> */}
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>
@@ -216,7 +211,7 @@ export class FailList extends React.Component {
                       >
                         <thead>
                           <tr>
-                            <th>Photo</th>
+                            {/* <th>Photo</th> */}
                             <th>Student ID</th>
                             <th>Roll No</th>
                             <th>Student Name</th>
@@ -229,7 +224,7 @@ export class FailList extends React.Component {
                             failList ?
                               failList.map((item, index) =>
                                 <tr>
-                                  <td><center className="attendance failed"><img src={donorImage} /></center></td>
+                                  {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
                                   <td>{item.customStudentId}</td>
                                   <td>{item.studentRoll}</td>
                                   <td>{item.studentName}</td>

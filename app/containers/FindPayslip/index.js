@@ -20,21 +20,22 @@ import { Button, Input, Form, FormGroup, Table } from 'reactstrap';
 import Chart from 'react-google-charts';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
+import staticImage from '../../assets/img/avatar.png';
 import classnames from 'classnames';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import { setActivePanel } from '../DressCode/actions';
 import { AppLayout } from '../AppLayout';
-import { 
-  makeChangeAcademicYear, 
-  makeChangeStudentID, 
-  submitSearchHandle 
+import {
+  makeChangeAcademicYear,
+  makeChangeStudentID,
+  submitSearchHandle
 } from './actions';
-import { 
-  makeSelectTabPanelStatus, 
-  makeSelectAcademicYearList, 
-  makeSelectAcademicYear, 
-  makeSelectStudentID, 
-  makeSelectFindPayslipData 
+import {
+  makeSelectTabPanelStatus,
+  makeSelectAcademicYearList,
+  makeSelectAcademicYear,
+  makeSelectStudentID,
+  makeSelectFindPayslipData
 } from './selectors';
 
 // import { 
@@ -48,7 +49,7 @@ export class FindPayslip extends React.PureComponent {
   toggleTab = tabId => this.props.onChangeTabPanel(tabId);
 
   onSearchStudentInfo = () => {
-    if (true) {this.props.onSubmitSearch();}
+    if (true) { this.props.onSubmitSearch(); }
   }
 
   render() {
@@ -58,7 +59,6 @@ export class FindPayslip extends React.PureComponent {
     let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
     let instituteId = '';
     { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
-
 
     console.log("this.props.makeSelectFindPayslipData ::::::::::::::", makeSelectFindPayslipData);
 
@@ -72,8 +72,8 @@ export class FindPayslip extends React.PureComponent {
           <BreadcrumComponent
             pageTitle="Find Payslip"
             menuStepFirst="Academic Info"
-            menuStepSenond="Student Attendance"
-            menuStepThird="Section Wise"
+            menuStepSenond="Fees Info"
+            menuStepThird="Find Due Info"
           />
 
           <section>
@@ -92,7 +92,7 @@ export class FindPayslip extends React.PureComponent {
                                 type="select"
                                 name="year"
                                 onChange={this.props.onChangeAcademicYear}
-                                // value={ this.props.academicYear}
+                              // value={ this.props.academicYear}
                               >
                                 <option value=''>Select Academic Year</option>
                                 {academicYearList && academicYearList.map(item => (<option key={item.name} value={academicYear || item.name}>{item.name}</option>))}
@@ -103,14 +103,14 @@ export class FindPayslip extends React.PureComponent {
 
                           <div className="col-md-7">
                             <FormGroup className="mb-0">
-                              <Input 
-                                type="text" 
-                                name="studentID" 
-                                placeholder="Enter Your Student ID Number"
+                              <Input
+                                type="text"
+                                name="studentID"
+                                placeholder="Enter Student ID Number"
                                 onChange={this.props.onChangeStudentID}
                               />
 
-                              <Button 
+                              <Button
                                 className="btn explore-btn mb-0"
                                 onClick={this.onSearchStudentInfo}
                               >
@@ -141,21 +141,21 @@ export class FindPayslip extends React.PureComponent {
                       <div className="col-lg-6 col-md-12">
                         <div className="student-info d-md-flex align-items-lg-center justify-content-md-center">
                           <div className="student-image">
-                            <img src={donorImage} className="img-fluid rounded-circle" width="140" />
+                            <img src={staticImage} className="img-fluid rounded-circle" width="140" />
                           </div>
                           <div className="student-info-table">
                             <Table>
                               <tr>
                                 <td>Student Name</td>
-                                <td>: { makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].name }</td>
+                                <td>: {makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].name}</td>
                               </tr>
                               <tr>
                                 <td>Student ID</td>
-                                <td>: { makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].customId }</td>
+                                <td>: {makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].customId}</td>
                               </tr>
                               <tr>
                                 <td>Institute ID</td>
-                                <td>: { instituteId }</td>
+                                <td>: {instituteId}</td>
                               </tr>
                             </Table>
                           </div>
@@ -166,7 +166,7 @@ export class FindPayslip extends React.PureComponent {
                           <div className="roll-no-box">
                             <div className="text-center">
                               <span>Roll No.</span>
-                              <h1>{ makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].roll }</h1>
+                              <h1>{makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].roll}</h1>
                             </div>
                           </div>
                           <div className="student-info-table">
@@ -230,29 +230,29 @@ export class FindPayslip extends React.PureComponent {
                                   <div className="col-md-6 mb-3">
                                     <div className="student-info-box-wrapper">
                                       <div className="student-info-box-title">
-                                        Fee Type :  <span>{ item.feeHeadDetails }</span>
+                                        Fee Type :  <span>{item.feeHeadDetails}</span>
                                       </div>
                                       <div className="student-info-table">
                                         <Table>
                                           <tr>
                                             <td>Invoice ID</td>
-                                            <td>: { item.invoiceId }</td>
+                                            <td>: {item.invoiceId}</td>
                                           </tr>
                                           <tr>
                                             <td>Fee Name</td>
-                                            <td>: { item.feeSubHeadDetails }</td>
+                                            <td>: {item.feeSubHeadDetails}</td>
                                           </tr>
                                           <tr>
                                             <td>Total Payable</td>
-                                            <td>: { item.totalPayable }</td>
+                                            <td>: {item.totalPayable}</td>
                                           </tr>
                                           <tr>
                                             <td>Paid</td>
-                                            <td>: { item.totalPaid }</td>
+                                            <td>: {item.totalPaid}</td>
                                           </tr>
                                           <tr>
                                             <td>Total Due</td>
-                                            <td className='text-orange'>: { item.totalDue }</td>
+                                            <td className='text-orange'>: {item.totalDue}</td>
                                           </tr>
                                         </Table>
                                       </div>
@@ -260,7 +260,7 @@ export class FindPayslip extends React.PureComponent {
                                   </div>
                                 )
                               }
-                              
+
                             </div>
                           </div>
 
@@ -278,7 +278,6 @@ export class FindPayslip extends React.PureComponent {
               </div>
             </div>
           </section>
-
 
           <div className="container">
             <div className="row">
