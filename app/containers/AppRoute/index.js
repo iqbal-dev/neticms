@@ -91,7 +91,7 @@ export default function AppRoute() {
       <Route exact path="/institute/all_notice" component={AllNotice} />
       <Route exact path="/institute/stuff_information" component={StuffInformation} />
       <Route exact path="/institute/photo_gallery" component={EventGallery} />
-      <Route exact path="/institute/infrastucture" component={BasicInfrastucture} />
+      <Route exact path="/institute/infrastructure" component={BasicInfrastucture} />
       <Route exact path="/institute/find_paySlip" component={FindPayslip} />
 
       {/* <Route exact path="/admin/login" component={AdminLogin} /> */}

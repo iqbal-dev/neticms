@@ -204,7 +204,8 @@ export class HomePage extends React.Component {
       instituteHistory = this.props.instituteHistory.aboutusDetails;
       historyImageContent = this.props.instituteHistory.fileContent ? "data:image/*;base64," + this.props.instituteHistory.fileContent : blank_image;
     }
-    console.log('institute history', this.props.instituteHistory);
+
+    // console.log('institute history', this.props.instituteHistory);
 
     // history read more btn
     let historyMoreBtn = <div className="content-btn">

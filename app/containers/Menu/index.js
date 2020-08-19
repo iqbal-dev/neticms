@@ -35,18 +35,16 @@ export class Menu extends React.Component {
 
   toggle = () => { };
 
-
-  componentDidMount(){
+  componentDidMount() {
     this.animateNoticeTitle()
-    
+
   }
 
   // componentWillReceiveProps(nextProps){
   //   console.log("nextProps>>>>>>>>>>>>>>>>>>>>>>>>>>>", nextProps.noticeList);
-    
 
   //   if(nextProps.noticeList.length>0){
-      
+
   //     if(count == 1){
   //       console.log("............................................................................");
   //       this.animateNoticeTitle()
@@ -55,51 +53,49 @@ export class Menu extends React.Component {
   //   }
   // }
 
-  animateNoticeTitle = () =>{
+  animateNoticeTitle = () => {
     // if(this.props.noticeList.length > 0){
-      var noticeTxt = document.getElementsByClassName("notdetls-top");
+    var noticeTxt = document.getElementsByClassName("notdetls-top");
 
+    var elements1 = document.getElementsByClassName('typewrite')[0];
+    let innerData = ''
+    for (var i = 0; i < noticeTxt.length; i++) {
 
-      var elements1 = document.getElementsByClassName('typewrite')[0];
-      let innerData = ''
-      for (var i = 0; i < noticeTxt.length; i++) {
-
-        if (i == 0) {
-          innerData += '['
-        }
-        if (i == noticeTxt.length - 1) {
-          innerData += '"' + noticeTxt[i].innerText + '"] '
-        } else {
-          innerData += '"' + noticeTxt[i].innerText + '", ';
-        }
+      if (i == 0) {
+        innerData += '['
       }
-
-      if (elements1) { elements1.setAttribute("data-type", innerData); }
-
-      for (var i = 0; i < noticeTxt.length; i++) {
-
-        noticeTxt[i].style.display = "none";
+      if (i == noticeTxt.length - 1) {
+        innerData += '"' + noticeTxt[i].innerText + '"] '
+      } else {
+        innerData += '"' + noticeTxt[i].innerText + '", ';
       }
+    }
 
-      var elements = document.getElementsByClassName('typewrite');
+    if (elements1) { elements1.setAttribute("data-type", innerData); }
 
-      // console.log("elements:::::::::", elements)
+    for (var i = 0; i < noticeTxt.length; i++) {
 
-      for (var i = 0; i < elements.length; i++) {
-        var toRotate = elements[i].getAttribute('data-type');
-        var period = elements[i].getAttribute('data-period');
-        if (toRotate) {
-          new TxtType(elements[i], JSON.parse(toRotate), period);
-        }
+      noticeTxt[i].style.display = "none";
+    }
+
+    var elements = document.getElementsByClassName('typewrite');
+
+    // console.log("elements:::::::::", elements)
+
+    for (var i = 0; i < elements.length; i++) {
+      var toRotate = elements[i].getAttribute('data-type');
+      var period = elements[i].getAttribute('data-period');
+      if (toRotate) {
+        new TxtType(elements[i], JSON.parse(toRotate), period);
       }
-      // INJECT CSS
-      var css = document.createElement("style");
-      css.type = "text/css";
-      css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
-      document.body.appendChild(css);
+    }
+    // INJECT CSS
+    var css = document.createElement("style");
+    css.type = "text/css";
+    css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+    document.body.appendChild(css);
     // }
   }
-  
 
   render() {
 
@@ -108,14 +104,6 @@ export class Menu extends React.Component {
     let noticeList = JSON.parse(sessionStorage.getItem('allNoticeList'));
 
     // console.log("this.props.noticeList MENU", noticeList);
-
-    
-
-    
-
-
-
-
 
     return (
       <div>
@@ -179,7 +167,7 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/institute/fees_info' className='nav-link'> Fees Info</Link></NavItem>
                                 <NavItem><Link to='/institute/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
                                 <NavItem><Link to='/institute/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>
-                                <NavItem><Link to='/institute/infrastucture' className='nav-link'> Infrastucture</Link></NavItem>
+                                <NavItem><Link to='/institute/infrastructure' className='nav-link'> Infrastructure</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
@@ -325,8 +313,8 @@ export class Menu extends React.Component {
                       {
                         noticeList && noticeList.map((item, index) =>
                           <React.Fragment>
-                            <p className="text-secondary notdetls-top" style={{ display: 'none'}} >{item.noticeTitle}</p>
-                            
+                            <p className="text-secondary notdetls-top" style={{ display: 'none' }} >{item.noticeTitle}</p>
+
                           </React.Fragment>
 
                         )
