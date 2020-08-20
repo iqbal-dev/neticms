@@ -50,7 +50,7 @@ export class SyllabusInfo extends React.Component {
         {/* <td>20th Sep, 2020</td> */}
         <td className="text-center">
           {
-            !item.syllabusFileName ? "No Attachment Found" :
+            !item.fileContent ? "No Attachment Found" :
               <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, item)}>
                 <i className="fas fa-download pr-2" />
                 DOWNLOAD
@@ -72,7 +72,7 @@ export class SyllabusInfo extends React.Component {
         {/* <td>20th Sep, 2020</td> */}
         <td className="text-center">
           {
-            !item.syllabusFileName ? "No Attachment Found" :
+            !item.fileContent ? "No Attachment Found" :
               <button className="btn explore-btn" onClick={e => this.props.downloadFile(e, item)}>
                 <i className="fas fa-download pr-2" />
                 DOWNLOAD
@@ -107,6 +107,7 @@ export class SyllabusInfo extends React.Component {
     }
 
     let syllabusList = this.props.allSyllabusList;
+    // console.log('syllabus-list-index', syllabusList);
 
     return (
       <div>
@@ -210,7 +211,6 @@ const mapStateToProps = createStructuredSelector({
   syllabusRowdata: makeSelectSyllabusRowdata(),
   syllabusFile: makeSelectSyllabusFile(),
   loaderStatus: makeSelectLoaderType()
-
 });
 
 function mapDispatchToProps(dispatch) {

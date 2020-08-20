@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectStudentWiseAttendance, { makeSelectStudentID, makeSelectAttendanceFromDate, makeSelectAttendancToeDate } from './selectors';
+import makeSelectStudentWiseAttendance, { makeSelectStudentID, makeSelectAttendanceFromDate, makeSelectAttendancToeDate, makeSelectAttendanceList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -22,13 +22,39 @@ import { Table } from 'reactstrap';
 import { Chart } from 'react-google-charts';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
-import donorImage from '../../assets/img/donor-image.png';
+import donorImage from '../../assets/img/avatar.png';
 import { submitSearchButton, setStudentID, setAttendanceFromDate, setAttendanceToDate, } from './actions';
 import { AppLayout } from '../AppLayout';
+import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StudentWiseAttendance extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+  }
+
+  onChangeAttendanceFromDate = (evt) => {
+    let formatedFromDate = get_DDMMYY_Format_WithSlash(evt.target.value);
+    this.props.onChangeFromDate(formatedFromDate);
+  }
+
+  onChangeAttendanceToDate = (evt) => {
+    let formatedToDate = get_DDMMYY_Format_WithSlash(evt.target.value);
+    this.props.onChangeToDate(formatedToDate);
+  }
+
+  onSubmitSearch = (e) => {
+    e.preventDefault();
+    this.props.submitSearch();
+  }
+
   render() {
+
+    // console.log('attendanceList-index', this.props.attendanceList);
+    let { attendanceList } = this.props;
+
     return (
       <div>
         <AppLayout>
@@ -39,7 +65,6 @@ export class StudentWiseAttendance extends React.Component {
               content="Description of StudentWiseAttendance"
             />
           </Helmet>
-          {/* <FormattedMessage {...messages.header} /> */}
 
           <BreadcrumComponent
             pageTitle="Student Wise Attendance"
@@ -55,10 +80,8 @@ export class StudentWiseAttendance extends React.Component {
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
                     <div className="row attendance-body-header-inside">
-                      {/* <div className="row"> */}
                       <div className="col-md-12 col-lg-12 form">
-                        <Form inline>
-                          {/* <div className="row"> */}
+                        <Form method='POST' onSubmit={(e) => this.onSubmitSearch(e)} inline>
                           <div className="col-md-12 col-lg-3">
                             <FormGroup className=" custom-input-text">
                               <Input
@@ -77,6 +100,7 @@ export class StudentWiseAttendance extends React.Component {
                                 name="date"
                                 id="exampleDate"
                                 placeholder="from date placeholder"
+                                onChange={(evt) => this.onChangeAttendanceFromDate(evt)}
                               />
                             </FormGroup>
                           </div>
@@ -85,18 +109,17 @@ export class StudentWiseAttendance extends React.Component {
                             <FormGroup>
                               <Input
                                 type="date"
-                                name="date"
-                                id="exampleDate"
+                                name="toDate"
+                                id="toDate"
                                 placeholder="to date placeholder"
+                                onChange={(evt) => this.onChangeAttendanceToDate(evt)}
                               />
-                              <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button>
+                              <Button className="btn explore-btn" type='submit'>Search</Button>
                             </FormGroup>
                           </div>
 
-                          {/* </div> */}
                         </Form>
                       </div>
-                      {/* </div> */}
                     </div>
                   </div>
                 </div>
@@ -113,7 +136,7 @@ export class StudentWiseAttendance extends React.Component {
               <div className="container info-header-title">
                 <div className="row">
                   <h5 className="col-lg-12">
-                    Showing result for  <span className="text-orange">Student ID: 5214578P ( 01 Jan - 2020 to 16 Feb -2020 )</span>
+                    Showing result for  <span className="text-orange">Student ID : {attendanceList ? attendanceList.studentId : 0}  ( {this.props.attendanceFromDate + ' to ' + this.props.attendanceToDate})</span>
                   </h5>
                 </div>
               </div>
@@ -134,15 +157,15 @@ export class StudentWiseAttendance extends React.Component {
                           <tbody>
                             <tr>
                               <td>Student Name</td>
-                              <td className="text-orange">: Md. Shahrear Kabir</td>
+                              <td className="text-orange">: {attendanceList ? attendanceList.studentName : ''}</td>
                             </tr>
                             <tr>
                               <td>Student ID</td>
-                              <td>: Md. Shahrear Kabir 2</td>
+                              <td>: {attendanceList ? attendanceList.studentId : 0}</td>
                             </tr>
                             <tr>
                               <td>Institute ID</td>
-                              <td>: Md. Shahrear Kabir 3</td>
+                              <td>: {attendanceList ? attendanceList.instituteId : 0}</td>
                             </tr>
                           </tbody>
                         </Table>
@@ -150,57 +173,59 @@ export class StudentWiseAttendance extends React.Component {
 
                       <div className="col-md-3 col-lg-1 roll-no">
                         <div className="title">Roll No.</div>
-                        <div className="value text-orange">123</div>
+                        <div className="value text-orange">{attendanceList ? attendanceList.studentRoll : 0}</div>
                       </div>
 
                       <div className="col-md-12 col-lg-2">
-                        <Chart
-                          width="100%"
-                          height="120px"
-                          chartType="PieChart"
-                          loader={<div>Loading Chart</div>}
-                          data={[
-                            ['Attendance', 'count'],
-                            ['Present', 11],
-                            ['Absent', 2],
-                            ['On Time', 2],
-                          ]}
-                          options={{
-                            // title: 'My Daily Activities',
-                            chartArea: {
-                              left: 10,
-                              top: 10,
-                              right: 10,
-                              bottom: 10,
-                            },
-                            backgroundColor: 'transparent',
-                            legend: 'none',
-                            slices: {
-                              0: { color: '#1dbc60' },
-                              1: { color: '#ff0000' },
-                              2: { color: '#002749' },
-                            },
-                          }}
-                          rootProps={{ 'data-testid': '1' }}
-                        />
+                        {attendanceList && attendanceList.details && attendanceList.details.length ?
+                          <Chart
+                            width="100%"
+                            height="120px"
+                            chartType="PieChart"
+                            loader={<div>Loading Chart</div>}
+                            data={[
+                              ['Attendance', 'count'],
+                              ['Present', attendanceList.details.filter(b => b.status === "Present").length],
+                              ['Absent', attendanceList.details.filter(b => b.status === "Absent").length],
+                              ['Leave', attendanceList.details.filter(b => b.status === "Leave").length],
+                            ]}
+                            options={{
+                              // title: 'My Daily Activities',
+                              chartArea: {
+                                left: 10,
+                                top: 10,
+                                right: 10,
+                                bottom: 10,
+                              },
+                              backgroundColor: 'transparent',
+                              legend: 'none',
+                              slices: {
+                                0: { color: '#1dbc60' },
+                                1: { color: '#ff0000' },
+                                2: { color: '#002749' },
+                              },
+                            }}
+                            rootProps={{ 'data-testid': '1' }}
+                          />
+                          : ''}
                       </div>
                       <div className="col-md-12 col-lg-3 ">
                         <div className="legend-with-percent present">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Present</span>
-                          <span className="percent">( 73.3% )</span>
+                          <span className="percent">( {attendanceList ? attendanceList.presentPercent : 0}% )</span>
                         </div>
 
                         <div className="legend-with-percent absent">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Absent</span>
-                          <span className="percent">( 13.3% )</span>
+                          <span className="percent">( {attendanceList ? attendanceList.absentPercent : 0}%} )</span>
                         </div>
 
                         <div className="legend-with-percent delay">
                           {/* <span className="symbol-squire"></span> */}
-                          <span className="title">On</span>
-                          <span className="percent">( 13.3% )</span>
+                          <span className="title">Leave</span>
+                          <span className="percent">( {attendanceList ? attendanceList.leavePercent : 0}%} )</span>
                         </div>
                       </div>
 
@@ -215,7 +240,7 @@ export class StudentWiseAttendance extends React.Component {
                     <div className="page-inner-title">
                       <h2>
                         Total Attendance Found{' '}
-                        <span className="text-orange">(1212)</span>
+                        <span className="text-orange">({attendanceList && attendanceList.details && attendanceList.details.length ? attendanceList.details.length : 0})</span>
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>
@@ -240,6 +265,26 @@ export class StudentWiseAttendance extends React.Component {
                             {/* <th className="text-center">Action</th> */}
                           </tr>
                         </thead>
+
+                        <tbody>
+                          {
+                            attendanceList && attendanceList.details ?
+                              attendanceList.details.map((item, index) =>
+
+                                <tr>
+                                  <td>{item.date}</td>
+                                  <td>{item.day}</td>
+                                  <td>{item.status}</td>
+                                  <td>{item.presentTime}</td>
+                                </tr>
+                              )
+
+                              : <tr><td colSpan='4'>No Data Found</td></tr>
+                          }
+
+                        </tbody>
+
+                        {/* 
                         <tbody>
                           <tr>
                             <td>22-07-2020</td>
@@ -271,7 +316,8 @@ export class StudentWiseAttendance extends React.Component {
                             </td>
                             <td className="delay">10.17 AM</td>
                           </tr>
-                        </tbody>
+                        </tbody> */}
+
                       </Table>
                     </div>
                   </di>
@@ -311,23 +357,15 @@ const mapStateToProps = createStructuredSelector({
   studentID: makeSelectStudentID(),
   attendanceFromDate: makeSelectAttendanceFromDate(),
   attendanceToDate: makeSelectAttendancToeDate(),
+  attendanceList: makeSelectAttendanceList(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onChangeStudentID: (evt) => {
-      console.log('evt', evt);
-      dispatch(setStudentID(evt))
-    },
-    onChangeAttendanceFromDate: (evt) => {
-      console.log('evt', evt);
-      dispatch(setAttendanceFromDate(evt))
-    },
-    onChangeAttendanceToDate: (evt) => {
-      console.log('evt', evt);
-      dispatch(setAttendanceToDate(evt))
-    },
+    onChangeStudentID: (evt) => { dispatch(setStudentID(evt.target.value)) },
+    onChangeFromDate: (evt) => { dispatch(setAttendanceFromDate(evt)) },
+    onChangeToDate: (evt) => { dispatch(setAttendanceToDate(evt)) },
     submitSearch: () => { dispatch(submitSearchButton()) },
   };
 }

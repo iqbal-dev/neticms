@@ -12,10 +12,13 @@ const makeSelectStudentID = () =>
   createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('studentID'));
 
 const makeSelectAttendanceFromDate = () =>
-createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceFromDate'));
+  createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceFromDate'));
 
 const makeSelectAttendancToeDate = () =>
-createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceToDate'));
+  createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceToDate'));
+
+const makeSelectAttendanceList = () =>
+  createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceList'));
 
 /**
  * Other specific selectors
@@ -31,8 +34,10 @@ const makeSelectStudentWiseAttendance = () =>
   );
 
 export default makeSelectStudentWiseAttendance;
-export { selectStudentWiseAttendanceDomain,
+export {
+  selectStudentWiseAttendanceDomain,
   makeSelectStudentID,
   makeSelectAttendanceFromDate,
-  makeSelectAttendancToeDate
- };
+  makeSelectAttendancToeDate,
+  makeSelectAttendanceList
+};

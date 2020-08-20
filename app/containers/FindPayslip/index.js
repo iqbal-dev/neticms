@@ -73,7 +73,7 @@ export class FindPayslip extends React.PureComponent {
             pageTitle="Find Payslip"
             menuStepFirst="Academic Info"
             menuStepSenond="Fees Info"
-            menuStepThird="Find Due Info"
+            menuStepThird="Find Payslip Info"
           />
 
           <section>
@@ -226,20 +226,20 @@ export class FindPayslip extends React.PureComponent {
                           <div className="tab-panel-wrapper student-info">
                             <div className="row">
                               {
-                                makeSelectFindPayslipData && makeSelectFindPayslipData.map((item, index) =>
+                                makeSelectFindPayslipData && makeSelectFindPayslipData.map((item) =>
                                   <div className="col-md-6 mb-3">
                                     <div className="student-info-box-wrapper">
                                       <div className="student-info-box-title">
-                                        Fee Type :  <span>{item.feeHeadDetails}</span>
+                                        Fee Name :  <span>{item.feeHeadDetails}</span>
                                       </div>
                                       <div className="student-info-table">
                                         <Table>
                                           <tr>
-                                            <td>Invoice ID</td>
+                                            <td>Payslip ID</td>
                                             <td>: {item.invoiceId}</td>
                                           </tr>
                                           <tr>
-                                            <td>Fee Name</td>
+                                            <td>Fee Subhead</td>
                                             <td>: {item.feeSubHeadDetails}</td>
                                           </tr>
                                           <tr>

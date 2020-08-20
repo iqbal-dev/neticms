@@ -24,9 +24,10 @@ import ReadMoreReact from 'read-more-react';
 
 /* eslint-disable react/prefer-stateless-function */
 export class BasicInfrastucture extends React.PureComponent {
+  
   render() {
+
     let { infrastructureList } = this.props
-    // console.log("infrastructureList0", infrastructureList);
     return (
       <div>
         <AppLayout>
@@ -38,10 +39,10 @@ export class BasicInfrastucture extends React.PureComponent {
             />
           </Helmet>
           <BreadcrumComponent
-            pageTitle="Basic Infrastructure"
-            menuStepFirst="Home"
-            menuStepSenond=""
-            menuStepThird="Basic Infrastructure"
+            pageTitle="Institute Details"
+            menuStepFirst="Institute Info"
+            menuStepSenond="About"
+            menuStepThird="Institute Details"
           />
           <section>
             <div className="container p-t-60 content-wrapper">
