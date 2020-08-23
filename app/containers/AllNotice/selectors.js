@@ -18,5 +18,11 @@ const selectAllNoticeDomain = state => state.get('allNotice', initialState);
 const makeSelectAllNotice = () =>
   createSelector(selectAllNoticeDomain, substate => substate.toJS());
 
+const makeSelectNoticeRowdata = () =>
+  createSelector(selectAllNoticeDomain, substate => substate.get("singleRowData"));
+
+const makeSelectNoticeFileContent = () =>
+  createSelector(selectAllNoticeDomain, substate => substate.get("singleFileContent"));
+
 export default makeSelectAllNotice;
-export { selectAllNoticeDomain };
+export { selectAllNoticeDomain, makeSelectNoticeRowdata, makeSelectNoticeFileContent };
