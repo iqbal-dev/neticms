@@ -44,7 +44,7 @@ export class WelcomeSpeech extends React.Component {
           <BreadcrumComponent
             pageTitle="Welcome Speech"
             menuStepFirst="Institute Info"
-            menuStepSenond="Academic Info"
+            menuStepSenond="Administration"
             menuStepThird="Speech"
           />
 

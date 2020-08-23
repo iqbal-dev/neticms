@@ -20,6 +20,7 @@ import teacher from './teacher.png';
 
 /* eslint-disable react/prefer-stateless-function */
 class LoginAccess extends React.PureComponent {
+
   render() {
     return (
       <section className="p-b-100">
@@ -30,43 +31,51 @@ class LoginAccess extends React.PureComponent {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="section-title text-center">
-                      <h1>Events</h1>
+                      <h1>Login to Access</h1>
                     </div>
                     <div className="section-sub-title text-center p-b-70">
-                      <p>Keep eyes on all events and try to join those what related with you It will help you to stay updated and learn many things</p>
+                      <p>If You are a registered user of this site, you can easily login from our bellow buttons.</p>
                     </div>
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-4 p-b-60">
-                    <div className="login-form-wrapper">
-                      <div className="login-image">
-                        <img src={student} className="img-fluid w-100" />
+                    <a href="https://www.netiworld.com" target='_blank'>
+                      <div className="login-form-wrapper">
+                        <div className="login-image">
+                          <img src={student} className="img-fluid w-100" />
+                        </div>
+                        <div className="login-btn text-center">
+                          <button className="btn" >Student login</button>
+                        </div>
                       </div>
-                      <div className="login-btn text-center">
-                        <button className="btn">Student login</button>
-                      </div>
-                    </div>
+                    </a>
+
                   </div>
                   <div className="col-md-4 p-b-60">
-                    <div className="login-form-wrapper">
-                      <div className="login-image">
-                        <img src={guardian} className="img-fluid w-100" />
+                    <a href="https://www.netiworld.com" target='_blank'>
+                      <div className="login-form-wrapper">
+                        <div className="login-image">
+                          <img src={guardian} className="img-fluid w-100" />
+                        </div>
+                        <div className="login-btn text-center">
+                          <button className="btn">Guardian login</button>
+                        </div>
                       </div>
-                      <div className="login-btn text-center">
-                        <button className="btn">Guardian login</button>
-                      </div>
-                    </div>
+                    </a>
                   </div>
+
                   <div className="col-md-4 p-b-60">
-                    <div className="login-form-wrapper">
-                      <div className="login-image">
-                        <img src={teacher} className="img-fluid w-100" />
+                    <a href="https://www.netiworld.com" target='_blank'>
+                      <div className="login-form-wrapper">
+                        <div className="login-image">
+                          <img src={teacher} className="img-fluid w-100" />
+                        </div>
+                        <div className="login-btn text-center">
+                          <button className="btn">Teachers login</button>
+                        </div>
                       </div>
-                      <div className="login-btn text-center">
-                        <button className="btn">Teachers login</button>
-                      </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>

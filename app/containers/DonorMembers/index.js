@@ -38,7 +38,7 @@ export class DonorMembers extends React.PureComponent {
             <title>DonorMembers</title>
             <meta name="description" content="Description of DonorMembers" />
           </Helmet>
-          <BreadcrumComponent pageTitle="Donor Members" menuStepFirst="Institute Info" menuStepSenond="Academic Info" menuStepThird="Donor Members" />
+          <BreadcrumComponent pageTitle="Donor Members" menuStepFirst="Institute Info" menuStepSenond="Administration" menuStepThird="Donor Members" />
           <section>
             <div className="container-fluid">
               <div className="container p-t-60">

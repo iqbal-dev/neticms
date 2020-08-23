@@ -30,7 +30,6 @@ import { Link, NavLink } from 'react-router-dom';
 
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
 
-
 // let noticeList = []
 export class Menu extends React.Component {
 
@@ -38,25 +37,23 @@ export class Menu extends React.Component {
     super(props);
 
     this.state = {
-        noticeList: [],
+      noticeList: [],
     }
   }
   toggle = () => { };
 
-
-  componentDidMount(){
-    
+  componentDidMount() {
 
     setTimeout(() => {
       let sessionNoticeList = JSON.parse(sessionStorage.getItem('allNoticeList'));
       // let noticeList = this.props.noticeList;
 
-      this.setState({ noticeList: sessionNoticeList})
+      this.setState({ noticeList: sessionNoticeList })
       this.animateNoticeTitle()
       console.log("this.props.noticeList MENU", sessionNoticeList);
-      
+
     }, 10000);
-    
+
   }
 
   // componentWillReceiveProps(nextProps){
@@ -121,9 +118,6 @@ export class Menu extends React.Component {
 
     const info = JSON.parse(getUrlInfoLocally());
 
-
-    
-
     return (
       <div>
         <section className="topmenu-wrapper">
@@ -143,7 +137,7 @@ export class Menu extends React.Component {
                           <DropdownToggle nav caret>Institute Info</DropdownToggle>
                           <DropdownMenu right>
                             <UncontrolledDropdown nav inNavbar>
-                              <DropdownToggle nav caret>Academic Info</DropdownToggle>
+                              <DropdownToggle nav caret>Administration</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem><Link to='/institute/welcome_speech' className='nav-link'>Welcome Speech</Link></NavItem>
                                 <NavItem><Link to='/institute/committee' className='nav-link'>Committee</Link></NavItem>
@@ -159,6 +153,15 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/institute/all_teachers' className='nav-link'>Teacher</Link></NavItem>
                                 <NavItem><Link to='/institute/Student_info' className='nav-link'>Student</Link></NavItem>
                                 <NavItem><Link to='/institute/stuff_information' className='nav-link'>Staff</Link></NavItem>
+                              </DropdownMenu>
+
+                            </UncontrolledDropdown>
+
+                            <UncontrolledDropdown nav inNavbar>
+
+                              <DropdownToggle nav caret>About</DropdownToggle>
+                              <DropdownMenu right>
+                                <NavItem><Link to='/institute/infrastructure' className='nav-link'> Institute Details</Link></NavItem>
                               </DropdownMenu>
 
                             </UncontrolledDropdown>
@@ -186,7 +189,6 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/institute/fees_info' className='nav-link'> Fees Info</Link></NavItem>
                                 <NavItem><Link to='/institute/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
                                 <NavItem><Link to='/institute/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>
-                                <NavItem><Link to='/institute/infrastructure' className='nav-link'> Infrastructure</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
@@ -205,7 +207,7 @@ export class Menu extends React.Component {
                               <DropdownToggle nav caret>Fees Info</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
-                                  <Link to='/institute/find_paySlip' className='nav-link'>Find Due Info</Link>
+                                  <Link to='/institute/find_paySlip' className='nav-link'>Find Payslip Info</Link>
                                 </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>

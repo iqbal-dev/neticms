@@ -2,7 +2,7 @@ import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../utils/request';
 
 import {
-  fetch_examListBy_classConfigID, BASE_URL_EM,fetch_sectionWiseMeritList, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId
+  fetch_examListBy_classConfigID, BASE_URL_EM, FETCH_SECTION_WISE_MERIT_LIST, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId
 } from '../../utils/serviceUrl';
 
 import {
@@ -18,9 +18,9 @@ import {
 // Individual exports for testing
 
 export function* fetch_AcademicYearList() {
-  console.log("saga");
+
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  console.log('meritlist-instituteUrlInfo', instituteUrlInfo);
+  // console.log('meritlist-instituteUrlInfo', instituteUrlInfo);
 
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
@@ -36,12 +36,13 @@ export function* fetch_AcademicYearList() {
   };
   try {
     const response = yield call(request, requestURL, options);
-    console.log('ac-year merit list', response);
+    // console.log('ac-year merit list', response);
     yield put(setAcademicYearList(response.item));
   } catch (error) { }
 };
 
 export function* fetch_classShiftSectionBy_instituteId() {
+
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let emToken = JSON.parse(localStorage.getItem('emToken'));
   let instituteId = '';
@@ -56,7 +57,7 @@ export function* fetch_classShiftSectionBy_instituteId() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('home-saga-sec', response);
+  // console.log('home-saga-sec', response);
   yield put(setSectionList(response.item));
 
 }
@@ -69,7 +70,7 @@ export function* fetch_examListBy_sectionId() {
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
   let classConfigId = yield select(makeSelectClassConfigId());
-  console.log('classConfigId', classConfigId);
+  // console.log('classConfigId', classConfigId);
 
   const requestURL = BASE_URL_EM.concat(fetch_examListBy_classConfigID).concat('?instituteId=').concat(instituteId).concat('&classConfigId=').concat(classConfigId);
   const options = {
@@ -80,14 +81,14 @@ export function* fetch_examListBy_sectionId() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('home-saga-sec', response);
+  // console.log('home-saga-sec', response);
   yield put(setExamList(response.item));
 
 }
 
 export function* fetch_meritList() {
 
-  let emToken = JSON.parse(localStorage.getItem('emToken'));  
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
@@ -95,9 +96,9 @@ export function* fetch_meritList() {
   let classConfigId = yield select(makeSelectClassConfigId());
   let examConfigId = yield select(makeSelectExamConfigId());
 
-  console.log('acyear', acYear);
-  
-  const requestURL = BASE_URL_EM.concat(fetch_sectionWiseMeritList).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
+  // console.log('acyear', acYear);
+
+  const requestURL = BASE_URL_EM.concat(FETCH_SECTION_WISE_MERIT_LIST).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -106,9 +107,9 @@ export function* fetch_meritList() {
     },
   };
 
-  const response = yield call(request, requestURL, options);
-  console.log('merit LIST Res', response);
   try {
+    const response = yield call(request, requestURL, options);
+    console.log('merit lis Res', response);
     yield put(setMeritListData(response.item));
   } catch (error) { }
 

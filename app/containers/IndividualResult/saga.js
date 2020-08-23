@@ -12,6 +12,7 @@ import request from '../../utils/request';
 import { setAcademicYearList, setExamList, setIndividualResultData } from './actions';
 
 function emCommonRequestOptions() {
+
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let emToken = JSON.parse(localStorage.getItem('emToken'));
 
@@ -33,28 +34,28 @@ function emCommonRequestOptions() {
 }
 
 export function* fetch_AcademicYearList() {
-  const requestOptions = emCommonRequestOptions();
 
+  const requestOptions = emCommonRequestOptions();
   let instituteID = '10020';
   const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteID);
 
   try {
     const response = yield call(request, requestURL, requestOptions.options);
-    console.log('ac_year', response);
-
+    // console.log('ac_year', response);
     yield put(setAcademicYearList(response.item));
   } catch (error) { }
 
 };
 
 export function* fetch_examListBy_Type() {
+
   const requestOptions = emCommonRequestOptions();
 
   let stdID = yield select(makeSelectStudentID());
   let academicYear = yield select(makeSelectAcademicYear());
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  console.log('meritlist-instituteUrlInfo', instituteUrlInfo);
+  // console.log('meritlist-instituteUrlInfo', instituteUrlInfo);
 
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
@@ -76,7 +77,7 @@ export function* fetch_individual_result() {
   let academicYear = yield select(makeSelectAcademicYear());
   let examConfigId = yield select(makeSelectExamConfigId());
 
-  console.log("CLICK stdID", stdID, stdMobile, academicYear, examConfigId);
+  // console.log("CLICK stdID", stdID, stdMobile, academicYear, examConfigId);
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 

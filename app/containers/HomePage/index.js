@@ -310,11 +310,12 @@ export class HomePage extends React.Component {
                   </div>
                   <div className="offset-md-1 col-md-10 p-b-100">
                     <div className="section-sub-title text-center">
-                      <p style={{ textAlign: 'justify' }}>
+                      <p style={{ textAlign: 'center' }}>
                         {instituteName} website.
-                        You will find here all information and updates about our
-                        institute
-                    </p>
+                        {/* You will find here */}
+                        {/* all information and updates about our
+                        institute */}
+                      </p>
                     </div>
                   </div>
                 </div>

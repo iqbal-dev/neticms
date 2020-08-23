@@ -142,8 +142,8 @@ export class DressCode extends React.Component {
                                     <div className="panel-image text-center">
                                       {
                                         item.fileContent ?
-                                          <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
-                                          <img src={staticImg} width="100%" />
+                                          <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
+                                          <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
                                       }
                                     </div>
                                   </div>
@@ -215,8 +215,9 @@ export class DressCode extends React.Component {
                                     <div className="panel-image text-center">
                                       {
                                         item.fileContent ?
-                                          <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
-                                          <img src={staticImg} width="100%" />
+                                          // <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
+                                          <img src={"data:image/*;base64," + item.fileContent} align="left"  height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
+                                          <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
                                       }
                                     </div>
                                   </div>
@@ -250,8 +251,8 @@ export class DressCode extends React.Component {
                                     <div className="panel-image text-center">
                                       {
                                         item.fileContent ?
-                                          <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
-                                          <img src={staticImg} width="100%" />
+                                          <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
+                                          <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
                                       }
 
                                     </div>

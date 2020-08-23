@@ -1,6 +1,62 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, put, select, takeLatest } from 'redux-saga/effects';
+import request from '../../utils/request';
+
+import { makeSelectStudentID, makeSelectAttendanceFromDate, makeSelectAttendancToeDate } from './selectors';
+import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
+import { postMethod, postMethodWithAuth } from '../../utils/baseMethod';
+import { BASE_URL_EM, FETCH_STUDENT_ID_WISE_ATTENDANCE } from '../../utils/serviceUrl';
+import { SUBMIT_SEARCH_BUTTON } from './constants';
+import { setAttendanceList } from './actions';
+
+export function* fetchStudentAttendanceByStudentId() {
+
+  const customStdId = yield select(makeSelectStudentID());
+
+  let fromDate = yield select(makeSelectAttendanceFromDate());
+  let toDate = yield select(makeSelectAttendancToeDate());
+  // console.log('toDate', toDate);
+
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  let instituteId = '';
+  { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+  let emToken = JSON.parse(localStorage.getItem('emToken'));
+
+  let requestedBody = {
+    "customStudentId": customStdId,
+    "fromDate": fromDate,
+    "instituteId": instituteId,
+    "toDate": toDate,
+  }
+
+  // let requestedBody = {
+  //   "customStudentId": "1890102",
+  //   "fromDate": "01/01/2020",
+  //   "instituteId": "13348",
+  //   "toDate": "17/08/2020"
+  // }
+
+  const requestURL = BASE_URL_EM + FETCH_STUDENT_ID_WISE_ATTENDANCE;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + emToken.access_token,
+    },
+    body: JSON.stringify(requestedBody)
+  };
+
+  try {
+    const response = yield call(request, requestURL, options);
+    console.log('search-res', response);
+    if (response.item) { yield put(setAttendanceList(response.item)) }
+    else { yield put(setAttendanceList()) }
+  } catch (error) { }
+
+}
 
 // Individual exports for testing
 export default function* studentWiseAttendanceSaga() {
-  // See example in containers/HomePage/saga.js
+
+  yield takeLatest(SUBMIT_SEARCH_BUTTON, fetchStudentAttendanceByStudentId);
+
 }

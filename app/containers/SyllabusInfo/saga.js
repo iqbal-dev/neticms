@@ -22,7 +22,7 @@ export function* fetch_AllSyllabus() {
 
   try {
     const response = yield call(request, requestURL, options);
-    // console.log('response.item', response.item);
+    console.log('response.item', response.item);
     yield put(setLoader('tableLoadOff'));
     yield put(fetchSyllabusList(response.item));
 
@@ -35,22 +35,24 @@ export function* fetch_AllSyllabus() {
 export function* fetch_SyllabusFile() {
 
   let selectedRowdata = yield select(makeSelectSyllabusRowdata());
-  const requestURL = BASE_URL_NETI_CMS.concat(fetch_syllabusFileBy_cmsId).concat('?syllabusId=').concat(selectedRowdata.syllabusId);
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+    yield put(setSyllabusFile(selectedRowdata.fileContent));
 
-  try {
-    const response = yield call(request, requestURL, options);
-    // console.log('setSyllabusFile-response', response.item);
-    yield put(setSyllabusFile(response.file));
+  // const requestURL = BASE_URL_NETI_CMS.concat(fetch_syllabusFileBy_cmsId).concat('?syllabusId=').concat(selectedRowdata.syllabusId);
+  // const options = {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // };
 
-  } catch (error) {
+  // try {
+  //   const response = yield call(request, requestURL, options);
+  //   // console.log('setSyllabusFile-response', response.item);
+    // yield put(setSyllabusFile(selectedRowdata.fileContent));
 
-  }
+  // } catch (error) {
+
+  // }
 
 }
 

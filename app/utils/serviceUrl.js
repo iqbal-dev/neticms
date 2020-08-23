@@ -40,11 +40,12 @@ export const fetch_group_names_by_classConfigId = '/core/setting/group-configura
 
 export const FETCH_STUDEN_INFO_BY_GROUP_CONFIG_ID = '/nw/sa-point/student/list/by/class-config-id';
 
-export const fetch_sectionWiseMeritList = '/nw/sa-point/student/section-wise/result/merit/details';
+export const FETCH_SECTION_WISE_MERIT_LIST = '/nw/sa-point/student/section-wise/result/merit/details';
 
 export const fetch_teacherAttendanceListBy_date = '/nw/staff-attendance/date-wise/multiple/staff/attendance/details';
 
 export const FETCH_SECTION_WISE_ATTENDANCE = '/nw/student-attendance/period-wise/attendance/summary/by/date';
+export const FETCH_STUDENT_ID_WISE_ATTENDANCE = '/nw/student-attendance/details/single-student/date-to-date';
 
 export const fetch_examListBy_studentID_and_year = '/exam/configuration/list/by/custom-student-id';
 export const fetch_individual_result_data = '/nw/sa-point/student/result-details/by/custom-student-id';

@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_STUDENT_ID, SET_ATTENDANCE_FROM_DATE, SET_ATTENDANCE_TO_DATE,SUBMIT_SEARCH_BUTTON } from './constants';
+import { DEFAULT_ACTION, SET_STUDENT_ID, SET_ATTENDANCE_FROM_DATE, SET_ATTENDANCE_TO_DATE, SUBMIT_SEARCH_BUTTON, SET_ATTENDANCE_LIST } from './constants';
 
 export function defaultAction() {
   return {
@@ -36,5 +36,11 @@ export function setAttendanceToDate(attendanceToDate) {
 export function submitSearchButton() {
   return {
     type: SUBMIT_SEARCH_BUTTON,
+  };
+}
+
+export function setAttendanceList(list) {
+  return {
+    type: SET_ATTENDANCE_LIST, list
   };
 }

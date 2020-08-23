@@ -56,6 +56,12 @@ export function get_DDMMYY_Format_WithHyphen(date) {
     return dateFromString;
 }
 
+export function get_DDMMYY_Format_WithSlash(date) {
+    var moment = require('moment/moment');
+    var dateFormat = moment(date).format('DD/MM/YYYY');
+    return dateFormat;
+}
+
 export function getHHMMSS(date) {
     var moment = require('moment/moment');
     var hh = moment(date).format('h');
