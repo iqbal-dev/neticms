@@ -82,7 +82,13 @@ class Slider extends React.Component {
                   <ul>
                     {noticeArrayList.slice(0, 5).map(singleNotice => (
                       <li key={singleNotice.noticeID}>
-                        <Link to={{ pathname: '/institute/all_notice', personWiseTokenInfo: noticeArrayList }} >
+                        <Link 
+                          to={{ 
+                            pathname: '/institute/all_notice', 
+                            personWiseTokenInfo: noticeArrayList,
+                            singleNotice: singleNotice,
+                          }} 
+                        >
                           <span>Publish on <i className="fas fa-calendar-alt" /> {this.formatDate(singleNotice.noticeIssueDate)}</span>
                           <h4>{singleNotice.noticeTitle}</h4>
                         </Link>

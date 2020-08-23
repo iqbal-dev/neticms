@@ -84,4 +84,6 @@ export const update_newDressInfo = '/dress-info/update';
 export const fetch_downloadFileContent = '/public/downloadcorner/file/find';
 export const fetch_sliderImage_cmsId = '/public/typeWise/photoGallerys';
 export const fetch_infrastructureListBy_cmsId = '/public/aboutus';
-// fetch_infrastructureListBy_cmsId
+
+export const fetch_notice_file_content = '/public/notice/file/find';
+// https://api.netizendev.com:2096/public/notice/file/find?noticeId=2236
