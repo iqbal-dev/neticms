@@ -54,7 +54,7 @@ export class Header extends React.Component {
     return (
       <header className="header-wrapper pt-4 pb-4">
         <div className="container-fluid">
-          <div className="">  {/* container */}
+          <div className="container">
             <div className="row">
               <div className="col-md-8">
                 <div className="d-md-inline-flex d-sm-block justify-content-md-center align-items-sm-center">

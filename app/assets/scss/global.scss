@@ -14,3 +14,9 @@
 *{
     font-family: 'Montserrat', sans-serif;
 }
+
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 900px;
+    }
+}

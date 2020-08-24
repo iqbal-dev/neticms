@@ -122,7 +122,7 @@ export class Menu extends React.Component {
       <div>
         <section className="topmenu-wrapper">
           <div className="container-fluid">
-            <Container>
+            <div>
               <div className="row">
                 <div className="col-12">
 
@@ -318,13 +318,13 @@ export class Menu extends React.Component {
                   </Navbar>
                 </div>
               </div>
-            </Container>
+            </div>
           </div>
         </section>
 
         <div className="notice-wrapper">
           <div className="container-fluid">
-            <div className="container">
+            <div className="">  {/*   container   */}
               <div className="row">
                 <div className="col-md-12">
                   <div className="d-flex">

@@ -70,7 +70,7 @@ class Slider extends React.Component {
 
     return (
       <div className="home-slider-wrapper">
-        <Container>
+        <div>
           <Row>
             <div className="col-md-8">
               <UncontrolledCarousel items={items} />
@@ -102,7 +102,7 @@ class Slider extends React.Component {
               </div>
             </div>
           </Row>
-        </Container>
+        </div>
       </div>
     );
   }

@@ -47,7 +47,7 @@
     .nav-item{
         a{
             color: $colorWhite;
-            font-size: 18px;
+            font-size: 16px;
             padding: 1em !important;
             &:hover{
                 background: $orangeColor;
@@ -63,7 +63,7 @@
                     margin-left: 1.255em;
                     position: absolute;
                     right: 12px;
-                    top: 30px;
+                    top: 25px;
                 }
             }
         }
@@ -73,7 +73,7 @@
     background: $orangeColor;
     .notice-title{
         background: $orangeColorDark;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         font-family: 'Montserrat', sans-serif;
         color: $colorWhite;

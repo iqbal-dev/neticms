@@ -129,7 +129,7 @@ export class Footer extends React.Component {
           </div>
           <div className="footer-main-wrapper">
             <div className="container-fluid">
-              <div className="container">
+              <div className=""> {/**   container */}
                 <div className="row">
                   <div className="col-md-4">
                     <div className="footer-logo-wrapper text-center">
