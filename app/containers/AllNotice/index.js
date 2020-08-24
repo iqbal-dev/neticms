@@ -302,28 +302,34 @@ export class AllNotice extends React.Component {
 
             <div>
               {/* <Button color="danger" onClick={toggle}>check</Button> */}
-              <Modal isOpen={this.state.pdfVisible} toggle={toggle} >
-                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+              <Modal isOpen={this.state.pdfVisible} toggle={toggle} style={{ width: "90%"}}>
+                <ModalHeader toggle={toggle}>PDF Viewer</ModalHeader>
                 <ModalBody>
                   {
                     this.state.pdfVisible ?
-                      <div className="col-md-12">
-                        {
-                          this.props.noticeFileContent && this.props.noticeFileContent.file ?
-                            <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                              <Viewer
-                                fileUrl={base64ToBufferAsync(this.props.noticeFileContent.file)}
-                              />
-                            </Worker>
-                            : ''
-                        }
-                      </div>
+                     
+                        
+                        <div className="col-md-12">
+                          {
+                            this.props.noticeFileContent && this.props.noticeFileContent.file ? 
+                              <React.Fragment>
+                                <button className="btn btn-primary my-2" onClick={() => downloadPdf(this.props.noticeFileContent, 'single')}>Download PDF</button>
+                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                                  <Viewer
+                                    fileUrl={base64ToBufferAsync(this.props.noticeFileContent.file)}
+                                  />
+                                </Worker>
+                              </React.Fragment>
+                              : ''
+                          }
+                        </div>
+                      
                       :
                       ""
                   }
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+                  {/* <Button color="primary" onClick={toggle}>Do Something</Button>{' '} */}
                   <Button color="secondary" onClick={toggle}>Cancel</Button>
                 </ModalFooter>
               </Modal>
