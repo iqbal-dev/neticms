@@ -22,7 +22,7 @@ import { makeSelectNoticeList } from '../HomePage/selectors';
 import { AppLayout } from '../AppLayout';
 import { get_YYMMDD_Format_WithHyphen, getFullMonthName } from '../../utils/dateFormat';
 import PDFViewer from 'pdf-viewer-reactjs'
-import { getNoticeFileContent } from './actions';
+import { getNoticeFileContent, reSetDownloadFile } from './actions';
 import { getFileContentType } from '../../utils/FileHandler'
 
 import { Worker } from '@phuocng/react-pdf-viewer';
@@ -30,6 +30,7 @@ import Viewer from '@phuocng/react-pdf-viewer';
 
 // Import the CSS
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AllNotice extends React.Component {
@@ -37,7 +38,7 @@ export class AllNotice extends React.Component {
     super(props);
 
     this.state = {
-      pdfVisible: {}
+      pdfVisible: false
     }
   }
 
@@ -75,106 +76,15 @@ export class AllNotice extends React.Component {
     }
   }
 
-  viewPdf = (e, notice) =>{
-    this.props.getNoticeFileContent(notice)
-    // let {pdfVisible} = this.state
-    // pdfVisible[notice.noticeId.toString()] = true
-    // this.setState({ pdfVisible })
-  }
+  
 
-  async downloadPdf(e, notice){
-    
-    let downloadFileContent = await this.props.noticeFileContent;
-    let getContent = await this.props.getNoticeFileContent(notice)
-    console.log("........", getContent, downloadFileContent);
+  
 
-    if (downloadFileContent && downloadFileContent.file) {
-    let contentType = getFileContentType(downloadFileContent.noticeFileName);
-      let a = document.createElement("a");
+  
 
-      a.href = contentType + downloadFileContent.file;
-      a.download = downloadFileContent.noticeFileName;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
+  
 
-      // this.props.reSetDownloadFile();
-    }
-  }
-
-  base64ToBufferAsync(base64) {
-    var binary_string = window.atob(base64);
-    var len = binary_string.length;
-    var bytes = new Uint8Array(len);
-    for (var i = 0; i < len; i++) {
-        bytes[i] = binary_string.charCodeAt(i);
-    }
-    return bytes.buffer;
-  }
-
-  getNoticeView = (notice, type) => {
-    // console.log("contentType......", contentType+this.props.noticeFileContent.file);
-    let viewerBase64File
-    if (this.props.noticeFileContent && this.props.noticeFileContent.file) {
-      let contentType = getFileContentType(this.props.noticeFileContent && this.props.noticeFileContent.noticeFileName);
-      viewerBase64File = contentType + this.props.noticeFileContent.file
-      // console.log("contentType......", contentType + this.props.noticeFileContent.file);
-    }
-
-    return(
-      notice.map(notice => (
-        <div className='all-notice-wrapper m-b-20'>
-          <div className='notice-wrapper'>
-            <div className="row" >
-              <div className="col-md-12 mb-3">
-                <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
-                <h2 className='p-t-20'>{notice.noticeTitle}</h2>
-                <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
-                { type == 'single' ? 
-                  <React.Fragment>
-                    {/* <button className="btn btn-secondary mr-2" onClick={(e) => this.viewPdf(e, notice) }>pdf</button> */}
-                    {this.props.noticeFileContent && this.props.noticeFileContent.file ?
-                      <button className="btn btn-primary mr-2" onClick={(e) => this.downloadPdf(e, notice)}>Download PDF</button>
-                      : ""
-                    }
-                  </React.Fragment>
-                  :""  
-                }
-              </div>
-              {
-                type == 'single' ?
-                  <div className="col-md-12">
-                    { 
-                      this.props.noticeFileContent && this.props.noticeFileContent.file? 
-                        
-                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                            <Viewer 
-                              fileUrl={ this.base64ToBufferAsync(this.props.noticeFileContent.file) }
-                            />
-                        </Worker>
-                      : ''
-                    }
-                    
-                  </div>
-                  : 
-                  <div className="col-md-12">
-                    { 
-                      // Object.keys(this.state.pdfVisible)[notice.noticeId] == notice.noticeId? 
-                      //   Object.keys(this.state.pdfVisible)[notice.noticeId]
-                      // : Object.keys(this.state.pdfVisible)[notice.noticeId]
-                    }
-                    
-                  </div>
-              }
-              
-            </div>
-
-          </div>
-
-        </div>
-      ))
-    )
-  }
+  
 
   render() {
 
@@ -186,7 +96,156 @@ export class AllNotice extends React.Component {
       filteredNoticeEle = allNoticeDetails.filter(item => item.noticeId == this.props.location.singleNotice.noticeId)
       // console.log('filteredEle', filteredNoticeEle);
     }
+
+    let downloadFileContent = this.props.noticeFileContent
+
+    console.log("Render downloadFileContent", downloadFileContent);
+
     
+    let getNoticeView = (notice, type) => {
+      // console.log("contentType......", contentType+this.props.noticeFileContent.file);
+      let viewerBase64File
+      if(this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId){
+        if (this.props.noticeFileContent && this.props.noticeFileContent.file) {
+          let contentType = getFileContentType(this.props.noticeFileContent && this.props.noticeFileContent.noticeFileName);
+          viewerBase64File = contentType + this.props.noticeFileContent.file
+          // console.log("contentType......", contentType + this.props.noticeFileContent.file);
+        }
+      }
+      return(
+        notice.map(notice => (
+          <div className='all-notice-wrapper m-b-20'>
+            <div className='notice-wrapper'>
+              <div className="row" >
+                <div className="col-md-12 mb-3">
+                  <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
+                  <h2 className='p-t-20'>{notice.noticeTitle}</h2>
+                  <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
+                  { type == 'single' ? 
+                    <React.Fragment>
+                      {/* <button className="btn btn-secondary mr-2" onClick={(e) => this.viewPdf(e, notice) }>pdf</button> */}
+                      {this.props.noticeFileContent && this.props.noticeFileContent.file ?
+                        <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'single')}>Download PDF</button>
+                        : ""
+                      }
+                    </React.Fragment>
+                    :
+                    <React.Fragment>
+                      <button className="btn btn-secondary mr-2" onClick={(e) => viewPdf(e, notice) }>pdf</button>
+                      
+                      {/* <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'all')}>Download PDF</button> */}
+                       
+                    </React.Fragment>
+                  }
+                </div>
+                {
+                  type == 'single' ?
+                    <div className="col-md-12">
+                      { 
+                        this.props.noticeFileContent && this.props.noticeFileContent.file? 
+                          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                              <Viewer 
+                                fileUrl={ base64ToBufferAsync(this.props.noticeFileContent.file) }
+                              />
+                          </Worker>
+                        : ''
+                      }
+                    </div>
+                    : 
+                    <div className="col-md-12">
+                    </div>
+                }
+              </div>
+            </div>
+          </div>
+        ))
+      )
+    }
+
+    let base64ToBufferAsync = (base64) => {
+      var binary_string = window.atob(base64);
+      var len = binary_string.length;
+      var bytes = new Uint8Array(len);
+      for (var i = 0; i < len; i++) {
+          bytes[i] = binary_string.charCodeAt(i);
+      }
+      return bytes.buffer;
+    }
+
+    let downloadPdf = (notice, type) => {
+    
+      if(type == "single"){
+        // let downloadFileContent = this.props.noticeFileContent;
+  
+        console.log("........if", downloadFileContent);
+        if (downloadFileContent && downloadFileContent.file) {
+          let contentType = getFileContentType(downloadFileContent.noticeFileName);
+          let a = document.createElement("a");
+
+          a.href = contentType + downloadFileContent.file;
+          a.download = downloadFileContent.noticeFileName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+
+          // this.props.reSetDownloadFile();
+        }
+      }
+      else{
+        // this.props.reSetDownloadFile();
+        this.props.getNoticeFileContent(notice)
+
+        if (downloadFileContent && downloadFileContent.file) {
+          let contentType = getFileContentType(downloadFileContent.noticeFileName);
+          let a = document.createElement("a");
+
+          a.href = contentType + downloadFileContent.file;
+          a.download = downloadFileContent.noticeFileName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+
+          // this.props.reSetDownloadFile();
+        }
+
+        // console.log("........else notice", notice);
+        
+        // getDownloadExecute(notice);
+        // console.log("........else getContent", getContent);
+        // console.log("........else noticeFileContent", this.props.noticeFileContent);
+      }
+    }
+
+    const getDownloadExecute = async (notice) =>{
+      // console.log("........else notice", notice);
+      // this.props.reSetDownloadFile();
+      // this.props.getNoticeFileContent(notice)
+      
+      // if (downloadFileContent && downloadFileContent.file) {
+      //   let contentType = getFileContentType(downloadFileContent.noticeFileName);
+      //   let a = document.createElement("a");
+
+      //   a.href = contentType + downloadFileContent.file;
+      //   a.download = downloadFileContent.noticeFileName;
+      //   document.body.appendChild(a);
+      //   a.click();
+      //   a.remove();
+
+      //   this.props.reSetDownloadFile();
+      // }
+    }
+
+    const viewPdf = (e, notice) =>{
+      this.props.getNoticeFileContent(notice)
+
+      this.setState({ pdfVisible: true})
+      // let getContent = await this.props.getNoticeFileContent(notice)
+      // let {pdfVisible} = this.state
+      // pdfVisible[notice.noticeId.toString()] = true
+      // this.setState({ pdfVisible })
+    }
+
+    const toggle = () => {this.setState({ pdfVisible: !this.state.pdfVisible})};
 
     return (
       <AppLayout>
@@ -206,11 +265,14 @@ export class AllNotice extends React.Component {
 
                 <div className="row" >
                   <div className="col-md-12 all-notice-bg">
+                    {/* <div className="col-md-12"> */}
+                      
+                    {/* </div> */}
 
                     {
                       filteredNoticeEle ? 
-                        this.getNoticeView(filteredNoticeEle, 'single')
-                        :this.getNoticeView(allNoticeDetails, 'all')
+                        getNoticeView(filteredNoticeEle, 'single')
+                        :getNoticeView(allNoticeDetails, 'all')
                       
                     }
 
@@ -238,6 +300,41 @@ export class AllNotice extends React.Component {
 
             </div>
 
+            <div>
+              {/* <Button color="danger" onClick={toggle}>check</Button> */}
+              <Modal isOpen={this.state.pdfVisible} toggle={toggle} style={{ width: "90%"}}>
+                <ModalHeader toggle={toggle}>PDF Viewer</ModalHeader>
+                <ModalBody>
+                  {
+                    this.state.pdfVisible ?
+                     
+                        
+                        <div className="col-md-12">
+                          {
+                            this.props.noticeFileContent && this.props.noticeFileContent.file ? 
+                              <React.Fragment>
+                                <button className="btn btn-primary my-2" onClick={() => downloadPdf(this.props.noticeFileContent, 'single')}>Download PDF</button>
+                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                                  <Viewer
+                                    fileUrl={base64ToBufferAsync(this.props.noticeFileContent.file)}
+                                  />
+                                </Worker>
+                              </React.Fragment>
+                              : ''
+                          }
+                        </div>
+                      
+                      :
+                      ""
+                  }
+                </ModalBody>
+                <ModalFooter>
+                  {/* <Button color="primary" onClick={toggle}>Do Something</Button>{' '} */}
+                  <Button color="secondary" onClick={toggle}>Cancel</Button>
+                </ModalFooter>
+              </Modal>
+            </div>
+
           </section>
         </div >
       </AppLayout>
@@ -259,7 +356,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    getNoticeFileContent: e => dispatch(getNoticeFileContent(e))
+    getNoticeFileContent: e => dispatch(getNoticeFileContent(e)),
+    reSetDownloadFile: () => { dispatch(reSetDownloadFile('')) }
   };
 }
 

@@ -24,5 +24,8 @@ const makeSelectNoticeRowdata = () =>
 const makeSelectNoticeFileContent = () =>
   createSelector(selectAllNoticeDomain, substate => substate.get("singleFileContent"));
 
+const makeSelectGetDownloadFile = () =>
+  createSelector(selectAllNoticeDomain, substate => substate.get('downloadFile'));
+
 export default makeSelectAllNotice;
-export { selectAllNoticeDomain, makeSelectNoticeRowdata, makeSelectNoticeFileContent };
+export { selectAllNoticeDomain, makeSelectNoticeRowdata, makeSelectNoticeFileContent, makeSelectGetDownloadFile };

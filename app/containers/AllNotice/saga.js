@@ -11,7 +11,9 @@ export function* fetchNoticeFile() {
 
   let noticeRowdata = yield select(makeSelectNoticeRowdata());
 
-  // console.log('fetchNoticeFile saga', noticeRowdata);
+  yield put(setNoticeFileContent(''));
+
+  console.log('fetchNoticeFile saga', noticeRowdata);
 
   // let selectedRowdata = yield select(makeSelectSyllabusRowdata());
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_notice_file_content).concat('?noticeId=').concat(noticeRowdata.noticeId);

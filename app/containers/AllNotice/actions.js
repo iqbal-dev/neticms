@@ -6,7 +6,8 @@
 
 import { DEFAULT_ACTION, SET_NOTICE_FILE_CONTENT } from './constants';
 import {
-  GET_NOTICE_FILE_CONTENT
+  GET_NOTICE_FILE_CONTENT,
+  GET_DOWNLOAD_ITEM
 } from './constants';
 
 export function defaultAction() {
@@ -26,6 +27,13 @@ export function setNoticeFileContent(singleFileContent) {
   return {
     type: SET_NOTICE_FILE_CONTENT,
     singleFileContent
+  };
+}
+
+export function reSetDownloadFile(resetFile) {
+  return {
+    type: GET_NOTICE_FILE_CONTENT,
+    resetFile
   };
 }
 
