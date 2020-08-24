@@ -8,6 +8,7 @@ import {
   DEFAULT_ACTION, SET_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE,
   SET_LOADER, SET_LATEST_NEWS, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_ACCESS_TOKEN,
   SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS, SET_HOME_SLIDER,
+  VISIBLE_INST_MAPPING_DIALOG, HIDE_INST_MAPPING_DIALOG, SET_MAPPING_INSTITUTE, SUBMIT_MAP,
 } from './constants';
 
 export function defaultAction() {
@@ -83,6 +84,31 @@ export function setTopEvents(topEvents) {
   return {
     type: SET_TOP_EVENT,
     topEvents,
+  };
+}
+
+export function visibleInstMappingDialog() {
+  return {
+    type: VISIBLE_INST_MAPPING_DIALOG,
+  };
+}
+
+export function hideInstMappingDialog() {
+  return {
+    type: HIDE_INST_MAPPING_DIALOG,
+  };
+}
+
+export function setMappingInstitute(mappingInstId) {
+  return {
+    type: SET_MAPPING_INSTITUTE,
+    mappingInstId,
+  };
+}
+
+export function submitToMapInstitute() {
+  return {
+    type: SUBMIT_MAP,
   };
 }
 

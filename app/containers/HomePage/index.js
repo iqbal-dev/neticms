@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input } from 'reactstrap';
 import Slider from 'components/Slider';
 import Calendar from 'react-calendar';
 import reducer from './reducer';
@@ -38,7 +38,9 @@ import {
   makeSelectHistoryDetails,
   makeSelectTopEvents,
   makeSelectLoaderStatus,
-  makeSelectHomeSliderList
+  makeSelectHomeSliderList,
+  makeSelectInstMappingDialog,
+  makeSelectMappingInstId
 } from './selectors';
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 import { AppLayout } from '../AppLayout';
@@ -47,6 +49,7 @@ import blank_image from '../../assets/img/blank-image-2.png';
 /* eslint-disable react/prefer-stateless-function */
 import { MyCalendar } from './AdminEventInfoCalendar'
 import ReadMoreReact from 'read-more-react';
+import { hideInstMappingDialog, setMappingInstitute, submitToMapInstitute } from './actions';
 
 //
 
@@ -65,11 +68,16 @@ export class HomePage extends React.Component {
 
     this.state = {
       usefullExploreBtnShow: true,
+      emptyErrors: {},
     }
 
     this.showUseFullLinksFirstFive = this.showUseFullLinksFirstFive.bind(this);
     this.showUseFullLinksAll = this.showUseFullLinksAll.bind(this);
     this.topScrollFunction = this.topScrollFunction.bind(this);
+    this.onChangeModalStatus = this.onChangeModalStatus.bind(this);
+    this.onChangeInstitute = this.onChangeInstitute.bind(this);
+    this.submitToMapInstitute = this.submitToMapInstitute.bind(this);
+    this.clearErrorMsg = this.clearErrorMsg.bind(this);
   }
 
   onChange = date => this.setState({ date });
@@ -101,7 +109,6 @@ export class HomePage extends React.Component {
     document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
     welComeSpeechObj = this.props.welComeInfo[speechIndex];
-    // console.log('increse-speechIndex', speechIndex);
 
   }
 
@@ -111,21 +118,14 @@ export class HomePage extends React.Component {
     else if (speechIndex == 0) { speechIndex = this.props.welComeInfo.length; }
 
     speechIndex -= 1;
-
-    // console.log("this.props.welComeInfo[speechIndex].fileContent", this.props.welComeInfo[speechIndex].fileContent);
-
     document.getElementById('speechImg').src = this.props.welComeInfo[speechIndex].fileContent ? "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent : staticImg
     document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
-    // console.log('decrese-speechIndex', speechIndex);
-
   }
 
   getPlainTextToHtml = (html) => {
-
-    // console.log('speecg-html', html);
 
     var temp = document.createElement("div");
     temp.innerHTML = html;
@@ -162,9 +162,37 @@ export class HomePage extends React.Component {
     document.documentElement.scrollTop = 0;
   }
 
+  onChangeModalStatus() {
+
+  }
+
+  onChangeInstitute(evt) {
+    this.props.onChangeEmInstitute(evt);
+    this.clearErrorMsg();
+  }
+
+  submitToMapInstitute() {
+
+    let { emptyErrors } = this.state;
+    if (this.props.mappingInstId === '') {
+      emptyErrors["mappInstitute"] = "institute can't left empty.";
+      this.setState({ emptyErrors });
+    } else { this.props.onSubmitToMapp(); }
+  }
+
+  clearErrorMsg() {
+    let { emptyErrors } = this.state;
+    emptyErrors["mappInstitute"] = '';
+    this.setState({ emptyErrors })
+  }
+
   render() {
 
+    let { emptyErrors } = this.state;
     let instituteName = '';
+    // console.log('index-urlInfo', this.props.urlInfo);
+    let urlInfoDetails = this.props.urlInfo;
+
     if (this.props.urlInfo) {
       instituteName = this.props.urlInfo.instituteName;
     }
@@ -204,8 +232,6 @@ export class HomePage extends React.Component {
       instituteHistory = this.props.instituteHistory.aboutusDetails;
       historyImageContent = this.props.instituteHistory.fileContent ? "data:image/*;base64," + this.props.instituteHistory.fileContent : blank_image;
     }
-
-    // console.log('institute history', this.props.instituteHistory);
 
     // history read more btn
     let historyMoreBtn = <div className="content-btn">
@@ -544,6 +570,27 @@ export class HomePage extends React.Component {
               </div>
             </div>
           </section>
+
+          <Modal isOpen={this.props.instMappingDialogStatus} toggle={this.onChangeModalStatus} >
+            <ModalHeader toggle={this.onChangeModalStatus}>Institute Map</ModalHeader>
+            <ModalBody>
+
+              <Input type="select" name="mappInstitute" onChange={this.onChangeInstitute}
+              >
+                <option value=''>Select Institute to Map</option>
+                {urlInfoDetails.edumanInstituteList && urlInfoDetails.edumanInstituteList.map(item => (
+                  <option key={item.edumanInstituteId} value={item.edumanInstituteId}>{item.edumanInstituteName}</option>
+                ))}
+              </Input>
+
+              <span className="error-message">{emptyErrors["mappInstitute"]}</span>
+
+            </ModalBody>
+            <ModalFooter>
+              <Button className="btn explore-btn all-border-radious" onClick={this.submitToMapInstitute}>Submit</Button>
+            </ModalFooter>
+          </Modal>
+
         </AppLayout>
       </div>
     );
@@ -573,11 +620,19 @@ const mapStateToProps = createStructuredSelector({
   loaderStatus: makeSelectLoaderStatus(),
   accessToken: makeSelectEmAccessToken(),
   homeSliderList: makeSelectHomeSliderList(),
+  instMappingDialogStatus: makeSelectInstMappingDialog(),
+  mappingInstId: makeSelectMappingInstId(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeEmInstitute: (evt) => {
+      dispatch(setMappingInstitute(evt.target.value));
+    },
+    onSubmitToMapp: () => {
+      dispatch(submitToMapInstitute());
+    }
   };
 }
 

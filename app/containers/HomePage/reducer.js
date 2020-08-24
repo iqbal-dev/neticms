@@ -8,7 +8,8 @@ import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION, SET_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE,
   SET_LOADER, SET_LATEST_NEWS, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_ACCESS_TOKEN,
-  SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS, SET_HOME_SLIDER
+  SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS, SET_HOME_SLIDER,
+  VISIBLE_INST_MAPPING_DIALOG, HIDE_INST_MAPPING_DIALOG, SET_MAPPING_INSTITUTE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -26,6 +27,8 @@ export const initialState = fromJS({
 
   academicYearList: '',
   sectionList: '',
+  instMappingDialog: false,
+  mappingInstId: '',
 });
 
 function homePageReducer(state = initialState, action) {
@@ -63,6 +66,15 @@ function homePageReducer(state = initialState, action) {
 
     case SET_TOP_EVENT:
       return state.set('topEvents', action.topEvents);
+
+    case VISIBLE_INST_MAPPING_DIALOG:
+      return state.set('instMappingDialog', true);
+
+    case HIDE_INST_MAPPING_DIALOG:
+      return state.set('instMappingDialog', false);
+
+    case SET_MAPPING_INSTITUTE:
+      return state.set('mappingInstId', action.mappingInstId);
 
     case SET_LOADER:
       return state.set('loadingStatus', action.loadingStatus);
