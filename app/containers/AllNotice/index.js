@@ -115,7 +115,7 @@ export class AllNotice extends React.Component {
       return(
         notice.map(notice => (
           <div className='all-notice-wrapper m-b-20'>
-            <div className='notice-wrapper'>
+            <div className='notice-wrapper' style={{ backgroundColor: "#ffffff"}}>
               <div className="row" >
                 <div className="col-md-12 mb-3">
                   <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
@@ -131,7 +131,7 @@ export class AllNotice extends React.Component {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                      <button className="btn btn-secondary mr-2" onClick={(e) => viewPdf(e, notice) }>pdf</button>
+                      <button className="btn btn-secondary mr-2 d-flex ml-auto" onClick={(e) => viewPdf(e, notice) }><i className="fa fa-eye m-1 "></i> PDF</button>
                       
                       {/* <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'all')}>Download PDF</button> */}
                        
