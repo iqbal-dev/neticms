@@ -47,8 +47,10 @@
     .nav-item{
         a{
             color: $colorWhite;
-            font-size: 16px;
+            font-size: $fontSizeSecondary;
             padding: 1em !important;
+            font-weight: $fontWeightSecondary;
+
             &:hover{
                 background: $orangeColor;
             }
@@ -71,14 +73,15 @@
 }
 .notice-wrapper{
     background: $orangeColor;
+    
     .notice-title{
         background: $orangeColorDark;
-        font-size: 16px;
-        font-weight: bold;
+        font-size: $fontSizeSecondary;
+        font-weight: $fontWeightPrimary;
         font-family: 'Montserrat', sans-serif;
         color: $colorWhite;
-        padding:5px 10px;
-        width: 160px;
+        padding: 0px 10px;
+        width: 130px;
         display: flex;
         align-items: center;
     }

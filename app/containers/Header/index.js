@@ -98,7 +98,7 @@ export class Header extends React.Component {
                     <i className="far fa-calendar-alt" />
                   </div>
                   <div className="calender-details">
-                    <span>{fullDateInEng} (English)</span>
+                    <span>{fullDateInEng}</span>
                     <span>26th Boishakh, 1427 (Bangla)</span>
                     <span className="d-inline-flex justify-content-center align-items-center">
                       <i className="fas fa-map-marker-alt pr-2" /> Bangladesh,

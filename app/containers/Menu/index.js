@@ -122,7 +122,7 @@ export class Menu extends React.Component {
       <div>
         <section className="topmenu-wrapper">
           <div className="container-fluid">
-            <div>
+            <div className="container"> {/*  container   */}
               <div className="row">
                 <div className="col-12">
 
@@ -324,7 +324,7 @@ export class Menu extends React.Component {
 
         <div className="notice-wrapper">
           <div className="container-fluid">
-            <div className="">  {/*   container   */}
+            <div className="container">  {/*  container   */}
               <div className="row">
                 <div className="col-md-12">
                   <div className="d-flex">
@@ -334,21 +334,23 @@ export class Menu extends React.Component {
                       {
                         noticeList && noticeList.map((item, index) =>
                           <React.Fragment>
-                            <p className="text-secondary notdetls-top" style={{ display: 'none' }} >{item.noticeTitle}</p>
+                            <p className="notdetls-top" style={{ display: 'none' }} >{item.noticeTitle}</p>
 
                           </React.Fragment>
 
                         )
                       }
 
-                      <p className="text-secondary">
-                        <a href=""
-                          class="typewrite text-secondary"
-                          data-period="2000"
-                          data-type='["Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop."]'
-                        >
-                          <span class="wrap"></span>
-                        </a>
+                      <p className="">
+                        <i className="">
+                          <a href=""
+                            class="typewrite"
+                            data-period="2000"
+                            data-type='["Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop."]'
+                          >
+                            <span class="wrap"></span>
+                          </a>
+                        </i>
                       </p>
 
                     </div>

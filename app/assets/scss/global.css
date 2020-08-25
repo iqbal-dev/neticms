@@ -12,15 +12,16 @@
   .header-wrapper .inst-title-wrapper {
     margin-top: 15px; }
     .header-wrapper .inst-title-wrapper .ins-title {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 600;
       color: #fff; }
     .header-wrapper .inst-title-wrapper address {
-      font-size: 18x;
+      font-size: 16px;
       color: #fff;
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      font-weight: 500; }
     .header-wrapper .inst-title-wrapper span {
-      font-size: 18x;
+      font-size: 16px;
       color: #fff; }
   .header-wrapper .social-wrapper {
     margin-top: 20px; }
@@ -39,19 +40,24 @@
         color: #0077b5; }
     .header-wrapper .social-wrapper a {
       color: #fff; }
-  .header-wrapper .calender-wrapper-top .calender-icon {
-    padding-right: 15px;
-    margin-bottom: 10px; }
-    .header-wrapper .calender-wrapper-top .calender-icon i {
-      font-size: 50px;
-      color: #fff; }
-  .header-wrapper .calender-wrapper-top .calender-details {
-    text-align: left; }
-    .header-wrapper .calender-wrapper-top .calender-details span {
-      color: #fff;
-      font-size: 15px;
-      line-height: 1.8;
-      display: block; }
+  .header-wrapper .calender-wrapper-top {
+    justify-content: flex-end !important; }
+    .header-wrapper .calender-wrapper-top .calender-icon {
+      padding-right: 15px;
+      margin: 0 5px 0px 0; }
+      .header-wrapper .calender-wrapper-top .calender-icon i {
+        font-size: 50px;
+        color: #fff; }
+    .header-wrapper .calender-wrapper-top .calender-details {
+      text-align: left;
+      flex: 0 0 auto;
+      width: auto; }
+      .header-wrapper .calender-wrapper-top .calender-details span {
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.8;
+        display: block;
+        font-weight: 500; }
   @media screen and (min-width: 767px) {
     .header-wrapper .inst-title-wrapper {
       margin-left: 15px;
@@ -103,7 +109,8 @@
   .topmenu-wrapper .nav-item a {
     color: #fff;
     font-size: 16px;
-    padding: 1em !important; }
+    padding: 1em !important;
+    font-weight: 500; }
     .topmenu-wrapper .nav-item a:hover {
       background: #ff4e31; }
   .topmenu-wrapper .nav-item.dropdown a {
@@ -121,11 +128,11 @@
   .notice-wrapper .notice-title {
     background: #f23010;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     font-family: 'Montserrat', sans-serif;
     color: #fff;
-    padding: 5px 10px;
-    width: 160px;
+    padding: 0px 10px;
+    width: 130px;
     display: flex;
     align-items: center; }
   .notice-wrapper .notice {
@@ -732,43 +739,41 @@
     .calender-wrapper .calender .react-calendar__tile react-calendar__month-view__days__day {
       padding: 10px !important; }
 
-.page-title-wrapper {
-  padding: 85px 15px;
-  background-color: #f2f2f2;
-  border-bottom: 1px solid #b2bec8; }
-  .page-title-wrapper h1 {
-    font-weight: 700;
-    color: #ff4e31;
-    margin-bottom: 0px; }
-
-.breadcrumb-wrapper {
-  border-bottom: 1px solid #b2bec8; }
-  .breadcrumb-wrapper .breadcrumb {
-    margin-bottom: 0px;
-    background: transparent;
-    padding-top: 25px;
-    padding-bottom: 25px; }
-    .breadcrumb-wrapper .breadcrumb .breadcrumb-item {
-      position: relative; }
-      .breadcrumb-wrapper .breadcrumb .breadcrumb-item a {
-        font-size: 25px;
-        color: #000;
-        font-family: 'Montserrat', sans-serif; }
-        .breadcrumb-wrapper .breadcrumb .breadcrumb-item a:hover {
-          text-decoration: none; }
-      .breadcrumb-wrapper .breadcrumb .breadcrumb-item.active {
-        font-size: 25px;
-        color: #ff4e31; }
-    .breadcrumb-wrapper .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
-      font-size: 25px; }
-    .breadcrumb-wrapper .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
-      display: inline-block;
-      padding-right: .5rem;
-      color: #000;
-      content: "\F054";
-      font-size: 20px;
-      font-family: "Font Awesome 5 Pro";
-      margin-top: 5px; }
+.breadcrumb-main {
+  display: flex;
+  border-bottom: 1px solid #b2bec8;
+  padding: 5px 10px; }
+  .breadcrumb-main .page-title-wrapper {
+    padding: 0px 15px; }
+    .breadcrumb-main .page-title-wrapper h1 {
+      color: #ff4e31;
+      margin-bottom: 0px;
+      font-size: 26px; }
+  .breadcrumb-main .breadcrumb-wrapper {
+    display: flex;
+    align-items: flex-end; }
+    .breadcrumb-main .breadcrumb-wrapper .breadcrumb {
+      margin-bottom: 0px;
+      background: transparent;
+      padding: unset; }
+      .breadcrumb-main .breadcrumb-wrapper .breadcrumb .breadcrumb-item {
+        position: relative; }
+        .breadcrumb-main .breadcrumb-wrapper .breadcrumb .breadcrumb-item a {
+          font-size: 14px;
+          color: #454545;
+          font-family: 'Montserrat', sans-serif; }
+          .breadcrumb-main .breadcrumb-wrapper .breadcrumb .breadcrumb-item a:hover {
+            text-decoration: none; }
+        .breadcrumb-main .breadcrumb-wrapper .breadcrumb .breadcrumb-item.active {
+          font-size: 14px;
+          color: #ff4e31; }
+      .breadcrumb-main .breadcrumb-wrapper .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+        display: inline-block;
+        padding-right: .5rem;
+        color: #454545;
+        content: "\F054";
+        font-size: 14px;
+        font-family: "Font Awesome 5 Pro"; }
 
 .custom-title-border-left {
   border-top: 1px solid #e5e5e5;
@@ -2295,8 +2300,7 @@
   background-color: #f2f2f2; }
 
 .notice-wrapper {
-  background-color: #fff;
-  padding: 15px;
+  padding: 0px 15px;
   border: 1px solid #b2bec8; }
   .notice-wrapper p {
     font-size: 16px; }
@@ -2351,8 +2355,15 @@
 * {
   font-family: 'Montserrat', sans-serif; }
 
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1300px; } }
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 900px; } }
+.typewrite {
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px; }
 
 /*# sourceMappingURL=global.css.map */

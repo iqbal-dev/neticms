@@ -13,17 +13,18 @@
     .inst-title-wrapper{
         margin-top: 15px;
         .ins-title{
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 600;
             color: $colorWhite;
         }
         address{
-            font-size: 18x;
+            font-size: $fontSizeSecondary;
             color: $colorWhite;
             margin-bottom: 0;
+            font-weight: $fontWeightSecondary;
         }
         span{
-            font-size: 18x;
+            font-size: $fontSizeSecondary;
             color: $colorWhite;
         }
     }
@@ -62,22 +63,30 @@
         }
     }
     .calender-wrapper-top{
+        justify-content: flex-end !important;
+
         .calender-icon{
+            padding-right: 15px;
+            margin: 0 5px 0px 0;
+
             i{
                 font-size: 50px;
                 color: $colorWhite;
             }
-            padding-right: 15px;
-            margin-bottom: 10px;
+            
             
         }
         .calender-details{
             text-align: left;
+            flex: 0 0 auto;
+            width: auto;
+
             span{
                 color: $colorWhite;
-                font-size: 15px;
+                font-size: $fontSizeSecondarySmall;
                 line-height: 1.8;
                 display: block;
+                font-weight: $fontWeightSecondary;
             }
         }
     }

@@ -25,7 +25,7 @@ export class AppHeader extends React.Component {
         return (
             <header className="header-wrapper pt-4 pb-4">
                 <div className="container-fluid">
-                    <div className=""> {/*  container   */}
+                    <div className="container"> {/*  container   */}
                         <div className="row">
                             <div className="col-md-8">
                                 <div className="d-md-inline-flex d-sm-block justify-content-md-center align-items-sm-center">
@@ -68,8 +68,8 @@ export class AppHeader extends React.Component {
                                     <div className="calender-icon">
                                         <i className="far fa-calendar-alt" />
                                     </div>
-                                    <div className="calender-details" style={{ marginTop: '-20px' }}>
-                                        <span>{fullDateInEng} (English)</span>
+                                    <div className="calender-details" style={{ marginTop: '0' }}>
+                                        <span>{fullDateInEng}</span>
                                         {/* <span>26th Boishakh, 1427 (Bangla)</span> */}
                                         <span className="d-inline-flex justify-content-center align-items-center">
                                             <i className="fas fa-map-marker-alt pr-2" /> Bangladesh,
