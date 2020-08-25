@@ -329,7 +329,7 @@ export function* emInstituteIdMapping() {
   urlDetails[0].emInstituteList.filter((details => {
 
     if (selectedInstituteId == details.edumanInstituteId) {
-      console.log('matched inst', details);
+      // console.log('matched inst', details);
       mappinginstitute.push(details);
     }
 
@@ -342,7 +342,7 @@ export function* emInstituteIdMapping() {
   }
 
   localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
-  console.log('fetch-afterset', JSON.parse(localStorage.instituteInfo));
+  // console.log('fetch-afterset', JSON.parse(localStorage.instituteInfo));
   yield put(hideInstMappingDialog());
   yield put(setMappingInstitute(''));
 
