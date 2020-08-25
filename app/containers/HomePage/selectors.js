@@ -53,6 +53,12 @@ const makeSelectGlobalSectionList = () =>
 const makeSelectHomeSliderList = () =>
   createSelector(selectHomePageDomain, substate => substate.get('homeSliderList'));
 
+const makeSelectInstMappingDialog = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('instMappingDialog'));
+
+const makeSelectMappingInstId = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('mappingInstId'));
+
 /**
  * Default selector used by HomePage
  */
@@ -76,5 +82,7 @@ export {
   makeSelectTopEvents,
   makeSelectAcademicYearList,
   makeSelectGlobalSectionList,
-  makeSelectHomeSliderList
+  makeSelectHomeSliderList,
+  makeSelectInstMappingDialog,
+  makeSelectMappingInstId
 };

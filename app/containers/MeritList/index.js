@@ -166,7 +166,7 @@ export class MeritList extends React.Component {
                             meritList ?
                               meritList.map((item, index) =>
                                 <tr>
-                                  <td>{item.meritPosition}</td>
+                                  <td>{item.sectionPosition}</td>
                                   {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
                                   <td>{item.customStudentId}</td>
                                   <td>{item.studentRoll}</td>

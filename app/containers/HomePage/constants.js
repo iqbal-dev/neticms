@@ -21,6 +21,11 @@ export const SET_USEFULL_LINKS = 'app/HomePage/SET_USEFULL_LINKS';
 export const SET_HISTORY_DETAILS = 'app/HomePage/SET_HISTORY_DETAILS';
 export const SET_TOP_EVENT = 'app/HomePage/SET_TOP_EVENT';
 
+export const VISIBLE_INST_MAPPING_DIALOG = 'app/HomePage/VISIBLE_INST_MAPPING_DIALOG';
+export const HIDE_INST_MAPPING_DIALOG = 'app/HomePage/HIDE_INST_MAPPING_DIALOG';
+export const SET_MAPPING_INSTITUTE = 'app/HomePage/SET_MAPPING_INSTITUTE';
+export const SUBMIT_MAP = 'app/HomePage/SUBMIT_MAP';
+
 export const SET_LOADER = 'app/HomePage/SET_LOADER';
 
 // for global list
