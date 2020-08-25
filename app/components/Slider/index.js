@@ -25,12 +25,13 @@ class Slider extends React.Component {
   formatDate = (evtDetails) => {
 
     if (evtDetails) {
+      var dt = new Date(evtDetails);
+      dt.setDate( dt.getDate() - 1 );
 
-      console.log("evtDetails..........................", evtDetails);
-
-      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails);
+      let formatDate = get_YYMMDD_Format_WithHyphen(dt);
       const splitDateArr = formatDate.split('-');
       let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
+
       return eventStartDate;
 
     }
@@ -70,7 +71,7 @@ class Slider extends React.Component {
 
     return (
       <div className="home-slider-wrapper">
-        <div>
+        <Container>   {/*  container   */}
           <Row>
             <div className="col-md-8">
               <UncontrolledCarousel items={items} />
@@ -102,7 +103,7 @@ class Slider extends React.Component {
               </div>
             </div>
           </Row>
-        </div>
+        </Container>
       </div>
     );
   }

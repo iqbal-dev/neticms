@@ -15,6 +15,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.container{
+    max-width: 1300px;
+}
+
 @media (min-width: 576px){
     .modal-dialog {
         max-width: 900px;
