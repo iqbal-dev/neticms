@@ -16,10 +16,10 @@ import messages from './messages';
 class BreadcrumComponent extends React.PureComponent {
   render() {
     return (
-      <div>
+      <div className="breadcrumb-main">
         <div className="page-title-wrapper">
-          <div className="container-fluid">
-            <div className="container">
+          <div className="container-fluid pr-0">
+            <div className="container pr-0">
               <div className="row">
                 <div className="col-md-12 text-center">
                   <h1>{this.props.pageTitle}</h1>
@@ -29,37 +29,30 @@ class BreadcrumComponent extends React.PureComponent {
           </div>
         </div>
         <div className="breadcrumb-wrapper">
-          <div className="container-fluid">
-            <div className="container">
-              <div className="row" style={{ display: "flex", justifyContent:"center"}}>
-                <div className="">
-                  <Breadcrumb>
-                    {this.props.menuStepFirst ? (
-                      <BreadcrumbItem>
-                        <a href="#">{this.props.menuStepFirst}</a>
-                      </BreadcrumbItem>
-                    ) : (
-                      ''
-                    )}
-                    {this.props.menuStepSenond ? (
-                      <BreadcrumbItem>
-                        <a href="#">{this.props.menuStepSenond}</a>
-                      </BreadcrumbItem>
-                    ) : (
-                      ''
-                    )}
-                    {this.props.menuStepThird ? (
-                      <BreadcrumbItem active>
-                        {this.props.menuStepThird}
-                      </BreadcrumbItem>
-                    ) : (
-                      ''
-                    )}
-                  </Breadcrumb>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Breadcrumb>
+            {this.props.menuStepFirst ? (
+              <BreadcrumbItem>
+                <a href="#">{this.props.menuStepFirst}</a>
+              </BreadcrumbItem>
+            ) : (
+                ''
+              )}
+            {this.props.menuStepSenond ? (
+              <BreadcrumbItem>
+                <a href="#">{this.props.menuStepSenond}</a>
+              </BreadcrumbItem>
+            ) : (
+                ''
+              )}
+            {this.props.menuStepThird ? (
+              <BreadcrumbItem active>
+                {this.props.menuStepThird}
+              </BreadcrumbItem>
+            ) : (
+                ''
+              )}
+          </Breadcrumb>
+
         </div>
       </div>
     );

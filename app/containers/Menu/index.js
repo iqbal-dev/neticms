@@ -334,21 +334,23 @@ export class Menu extends React.Component {
                       {
                         noticeList && noticeList.map((item, index) =>
                           <React.Fragment>
-                            <p className="text-secondary notdetls-top" style={{ display: 'none' }} >{item.noticeTitle}</p>
+                            <p className="notdetls-top" style={{ display: 'none' }} >{item.noticeTitle}</p>
 
                           </React.Fragment>
 
                         )
                       }
 
-                      <p className="text-secondary">
-                        <a href=""
-                          class="typewrite text-secondary"
-                          data-period="2000"
-                          data-type='["Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop."]'
-                        >
-                          <span class="wrap"></span>
-                        </a>
+                      <p className="">
+                        <i className="">
+                          <a href=""
+                            class="typewrite"
+                            data-period="2000"
+                            data-type='["Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop."]'
+                          >
+                            <span class="wrap"></span>
+                          </a>
+                        </i>
                       </p>
 
                     </div>
