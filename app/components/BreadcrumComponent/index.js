@@ -29,29 +29,37 @@ class BreadcrumComponent extends React.PureComponent {
           </div>
         </div>
         <div className="breadcrumb-wrapper">
-          <Breadcrumb>
-            {this.props.menuStepFirst ? (
-              <BreadcrumbItem>
-                <a href="#">{this.props.menuStepFirst}</a>
-              </BreadcrumbItem>
-            ) : (
-                ''
-              )}
-            {this.props.menuStepSenond ? (
-              <BreadcrumbItem>
-                <a href="#">{this.props.menuStepSenond}</a>
-              </BreadcrumbItem>
-            ) : (
-                ''
-              )}
-            {this.props.menuStepThird ? (
-              <BreadcrumbItem active>
-                {this.props.menuStepThird}
-              </BreadcrumbItem>
-            ) : (
-                ''
-              )}
-          </Breadcrumb>
+        <div className="container-fluid">
+            <div className="container">
+              <div className="row" >
+                <div className="">
+                  <Breadcrumb>
+                    {this.props.menuStepFirst ? (
+                      <BreadcrumbItem>
+                        <a href="#">{this.props.menuStepFirst}</a>
+                      </BreadcrumbItem>
+                    ) : (
+                      ''
+                    )}
+                    {this.props.menuStepSenond ? (
+                      <BreadcrumbItem>
+                        <a href="#">{this.props.menuStepSenond}</a>
+                      </BreadcrumbItem>
+                    ) : (
+                      ''
+                    )}
+                    {this.props.menuStepThird ? (
+                      <BreadcrumbItem active>
+                        {this.props.menuStepThird}
+                      </BreadcrumbItem>
+                    ) : (
+                      ''
+                    )}
+                  </Breadcrumb>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
