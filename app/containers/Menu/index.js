@@ -343,7 +343,7 @@ export class Menu extends React.Component {
 
                       <p className="">
                         <i className="">
-                          <a href=""
+                          <a
                             class="typewrite"
                             data-period="2000"
                             data-type='["Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop."]'

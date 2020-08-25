@@ -23,9 +23,13 @@
         .notice-board-title{
             background: $grayColor;
             padding: 15px 25px;
-            color: $orangeColor;
+            
             font-size: 20px;
             font-weight: bold;
+
+            i{
+                color: $orangeColor;
+            }
         }
         .notice-board{
             background: #d9dde1;

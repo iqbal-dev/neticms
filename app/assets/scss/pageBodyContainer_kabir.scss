@@ -377,11 +377,11 @@
                         tr{
                             td{
                                 padding: 3px 0;
-                                font-weight: 500;
+                                font-weight: $fontWeightSecondary;
                                 font-size: 14px;
 
                                 &:nth-child(odd){
-                                    font-weight: 500;
+                                    font-weight: $fontWeightSecondary;
                                 }
                                 &:nth-child(even){
                                     font-weight: 400;

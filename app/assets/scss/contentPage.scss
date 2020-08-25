@@ -86,9 +86,12 @@
     }
     .slider-content{
         padding: 25px;
+
         img{
-            height: 260px;
-            width: 210px;
+            // height: 260px;
+            // width: 210px;
+            height: 210px;
+            width: 180px;
             border: 2px solid $orangeColor;
             border-radius: 5px;
             float: none;
@@ -100,7 +103,7 @@
         right: 14px;
     }
     .designation{
-        font-size: 16px;
+        font-size: $fontSizeSecondary;
         color: $colorBlack;
         font-family: 'Montserrat', sans-serif;
         margin-top: 10px;
@@ -108,27 +111,28 @@
         margin-bottom: 0px;
     }
     .employe-name{
-        font-size: 30px;
+        font-size: $fontSizePrimary;
         color: $colorBlack;
         font-family: 'Montserrat', sans-serif;
         line-height: 1.8;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         display: inline-block;
         position: relative;
         margin-top: 0;
         font-weight: 600;
+
         &::before{
             position: absolute;
             left: 0;
-            bottom: -5px;
+            bottom: 0px;
             content: "";
-            height: 5px;
+            height: 2px;
             width: 160px;
             background: $orangeColor;
         }
     }
     p{
-        font-size: 16px;
+        font-size: $fontSizeSecondarySmall;
         color: $colorBlack;
         margin-bottom: 20px;
         font-family: 'Montserrat', sans-serif;
@@ -230,18 +234,18 @@
 }
 .section-title{
     h1{
-        font-size: 40px;
+        font-size: $fontSizePrimary;
         font-weight: 700;
         color: $orangeColor;
-        font-family: 'Montserrat', sans-serif;
+        // font-family: 'Montserrat', sans-serif;
     }
 }
 .section-sub-title{
     p{
-        font-size: 24px;
+        font-size: $fontSizeSecondary;
         line-height: 1.8;
         color: $colorBlack;
-        font-family: 'Montserrat', sans-serif;
+        // font-family: 'Montserrat', sans-serif;
         margin-bottom: 0;
     }
 }
@@ -253,14 +257,15 @@
 .content-wrapper{
     .content-title{
         margin-bottom: 30px;
+
         h4{
-            font-size: 36px;
-            font-weight: 600;
+            font-size: $fontSizePrimary;
+            font-weight: $fontWeightPrimary;
         }
     }
     .content{
         p{
-            font-size: 16px;
+            font-size: $fontSizeSecondarySmall;
             color: $colorBlack;
             margin-bottom: 0;
             line-height: 2;
@@ -274,6 +279,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-weight: $fontWeightSecondary;
         
         }
     }
@@ -304,8 +310,10 @@
 .icon-wrapper{
     padding-bottom: 60px;
     .icon{
-        height: 200px;
-        width: 200px;
+        // height: 200px;
+        // width: 200px;
+        height: 130px;
+        width: 130px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -316,12 +324,16 @@
         &:hover{
             background: $orangeColor;
         }
+
+        img{
+            width: 60px;
+        }
     }
     .icon-title{
         text-align: center;
         h5{
-            font-size: 36px;
-            font-weight: 800;
+            font-size: $fontSizePrimary;
+            font-weight: $fontWeightPrimary;
             color: #fff;
             margin-top: 25px;
             margin-bottom: 0px;
@@ -345,8 +357,8 @@
         .icon-title{
             h5{
                 color: $primaryColorDark;
-                font-size: 27px;
-                font-weight: 700;
+                font-size: $fontSizePrimary;
+                font-weight: $fontWeightPrimary;
             }
         }
     }
@@ -610,61 +622,64 @@
 }
 
 .breadcrumb-main{
-    display: flex;
     border-bottom: 1px solid $grayColor;
     padding: 5px 10px;
 
-    .page-title-wrapper{
-        padding: 0px 15px;
-        // background-color: $grayColorLight; 
-        // border-bottom: 1px solid $grayColor;
-    
-        h1{
-            // font-weight: 700;
-            color: $orangeColor;
-            margin-bottom: 0px;
-            font-size: $fontSizePrimary;
-        }
-    }
-    .breadcrumb-wrapper{
-        // border-bottom: 1px solid $grayColor;
+    .container{
         display: flex;
-        align-items: flex-end;
-
-        .breadcrumb{
-            margin-bottom: 0px;
-            background: transparent;
-            padding: unset;
-            // padding-top: 25px;
-            // padding-bottom: 25px;
-            .breadcrumb-item{
-                position: relative;
-
-                a{
-                    font-size: $fontSizeSecondarySmall;
-                    color: $darkTextColor;
-                    font-family: 'Montserrat', sans-serif;
-
-                    &:hover{
-                        text-decoration: none;
+        
+        .page-title-wrapper{
+            padding: 0px 15px;
+            // background-color: $grayColorLight; 
+            // border-bottom: 1px solid $grayColor;
+        
+            h1{
+                // font-weight: 700;
+                color: $orangeColor;
+                margin-bottom: 0px;
+                font-size: $fontSizePrimary;
+            }
+        }
+        .breadcrumb-wrapper{
+            // border-bottom: 1px solid $grayColor;
+            display: flex;
+            align-items: flex-end;
+    
+            .breadcrumb{
+                margin-bottom: 0px;
+                background: transparent;
+                padding: unset;
+                // padding-top: 25px;
+                // padding-bottom: 25px;
+                .breadcrumb-item{
+                    position: relative;
+    
+                    a{
+                        font-size: $fontSizeSecondarySmall;
+                        color: $darkTextColor;
+                        font-family: 'Montserrat', sans-serif;
+    
+                        &:hover{
+                            text-decoration: none;
+                        }
+                    }
+                    &.active{
+                        font-size: $fontSizeSecondarySmall;
+                        color: $orangeColor;
                     }
                 }
-                &.active{
-                    font-size: $fontSizeSecondarySmall;
-                    color: $orangeColor;
+                .breadcrumb-item+.breadcrumb-item::before{
+                    // font-size: 25px;
                 }
-            }
-            .breadcrumb-item+.breadcrumb-item::before{
-                // font-size: 25px;
-            }
-            .breadcrumb-item+.breadcrumb-item::before {
-                display: inline-block;
-                padding-right: .5rem;
-                color:  $darkTextColor;
-                content: "\F054";
-                font-size: $fontSizeSecondarySmall;
-                font-family: "Font Awesome 5 Pro";
-                // margin-top: 5px;
+                .breadcrumb-item+.breadcrumb-item::before {
+                    display: inline-block;
+                    padding-right: .5rem;
+                    color:  $darkTextColor;
+                    content: "\F054";
+                    font-size: $fontSizeSecondarySmall;
+                    font-family: "Font Awesome 5 Pro";
+                    // margin-top: 5px;
+                }
             }
         }
     }
