@@ -52,7 +52,7 @@ export class AllNotice extends React.Component {
 
     if (evtDetails) {
 
-      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
+      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails);
 
       const splitDateArr = formatDate.split('-');
       let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
@@ -99,7 +99,7 @@ export class AllNotice extends React.Component {
 
     let downloadFileContent = this.props.noticeFileContent
 
-    console.log("Render downloadFileContent", downloadFileContent);
+    // console.log("Render downloadFileContent", downloadFileContent);
 
     
     let getNoticeView = (notice, type) => {
