@@ -28,11 +28,14 @@ import { AppLayout } from '../AppLayout';
 import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
 
 /* eslint-disable react/prefer-stateless-function */
+
 export class StudentWiseAttendance extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.state = {
+      stdDetailsHeaderVisible: false
+    }
   }
 
   onChangeAttendanceFromDate = (evt) => {
@@ -46,6 +49,7 @@ export class StudentWiseAttendance extends React.Component {
   }
 
   onSubmitSearch = (e) => {
+    this.setState({ stdDetailsHeaderVisible: true });
     e.preventDefault();
     this.props.submitSearch();
   }
@@ -54,7 +58,7 @@ export class StudentWiseAttendance extends React.Component {
 
     // console.log('attendanceList-index', this.props.attendanceList);
     let { attendanceList } = this.props;
-
+    console.log('stdDetailsHeader', this.state.stdDetailsHeaderVisible);
     return (
       <div>
         <AppLayout>
@@ -136,7 +140,7 @@ export class StudentWiseAttendance extends React.Component {
               <div className="container info-header-title">
                 <div className="row">
                   <h5 className="col-lg-12">
-                    Showing result for  <span className="text-orange">Student ID : {attendanceList ? attendanceList.studentId : 0}  ( {this.props.attendanceFromDate + ' to ' + this.props.attendanceToDate})</span>
+                    Showing result for  <span className="text-orange">Student ID : {this.state.stdDetailsHeaderVisible == true ? this.props.studentID + ' (' + this.props.attendanceFromDate + ' to ' + this.props.attendanceToDate + ')' : ''} </span>
                   </h5>
                 </div>
               </div>

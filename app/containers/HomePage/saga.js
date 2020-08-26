@@ -23,97 +23,95 @@ export function* fetch_instituteUrlInfo_byUrlName() {
   let instituteHostNm = window.location.pathname.slice(1);
 
   // console.log('instituteHostNm', instituteHostNm);
+  let instMappingCheck = true;
   if (instituteHostNm == 'institute/home') {
     var instituteInfo = JSON.parse(localStorage.instituteInfo);
     instituteHostNm = instituteInfo[0].urlName;
-  } else {
+    instMappingCheck = false;
+  } else { instMappingCheck = true }
 
-    const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const response = yield call(request, requestURL, options);
-    console.log('url-mapping-response', response);
-    try {
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_urlMappingInfoBy_urlName).concat(instituteHostNm);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = yield call(request, requestURL, options);
+  console.log('url-mapping-response', response);
+  try {
 
-      if (response) {
+    if (response) {
 
-        let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-        // console.log('after-response', instituteUrlInfo);
+      let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+      // console.log('after-response', instituteUrlInfo);
 
-        if (instituteUrlInfo == null) {
+      if (instituteUrlInfo == null) {
 
-          let instituteInfoArr = [{
-            key: 1,
-            urlName: response.item.urlName,
-            cmsId: response.item.cmsId,
-            emInstituteList: response.item.edumanInstituteList,
-            instituteName: response.item.instituteName,
-            instituteAddress: response.item.instituteAddress,
-            instituteContact: response.item.instituteContact,
-            instituteEmail: response.item.instituteEmail,
-            logoName: response.item.logoName,
-            logoContent: response.item.logoContent
-          }]
+        let instituteInfoArr = [{
+          key: 1,
+          urlName: response.item.urlName,
+          cmsId: response.item.cmsId,
+          emInstituteList: response.item.edumanInstituteList,
+          instituteName: response.item.instituteName,
+          instituteAddress: response.item.instituteAddress,
+          instituteContact: response.item.instituteContact,
+          instituteEmail: response.item.instituteEmail,
+          logoName: response.item.logoName,
+          logoContent: response.item.logoContent
+        }]
 
-          localStorage.setItem('instituteInfo', JSON.stringify(instituteInfoArr));
+        localStorage.setItem('instituteInfo', JSON.stringify(instituteInfoArr));
 
-        } else {
+      } else {
 
-          var instituteInfo = JSON.parse(localStorage.instituteInfo);
-          for (var i = 0; i < instituteInfo.length; i++) {
-            //look for match with name
-            // if (response.item.urlName !== instituteInfo[i].urlName) {
-            // console.log('not match');
+        var instituteInfo = JSON.parse(localStorage.instituteInfo);
+        for (var i = 0; i < instituteInfo.length; i++) {
+          //look for match with name
+          // if (response.item.urlName !== instituteInfo[i].urlName) {
+          // console.log('not match');
 
-            instituteInfo[i].urlName = response.item.urlName;
-            instituteInfo[i].cmsId = response.item.cmsId;
-            instituteInfo[i].instituteName = response.item.instituteName;
-            instituteInfo[i].instituteAddress = response.item.instituteAddress;
-            instituteInfo[i].instituteContact = response.item.instituteContact;
-            instituteInfo[i].instituteEmail = response.item.instituteEmail;
-            instituteInfo[i].logoName = response.item.logoName;
-            instituteInfo[i].logoContent = response.item.logoContent;
-            instituteInfo[i].emInstituteList = response.item.edumanInstituteList
+          instituteInfo[i].urlName = response.item.urlName;
+          instituteInfo[i].cmsId = response.item.cmsId;
+          instituteInfo[i].instituteName = response.item.instituteName;
+          instituteInfo[i].instituteAddress = response.item.instituteAddress;
+          instituteInfo[i].instituteContact = response.item.instituteContact;
+          instituteInfo[i].instituteEmail = response.item.instituteEmail;
+          instituteInfo[i].logoName = response.item.logoName;
+          instituteInfo[i].logoContent = response.item.logoContent;
+          instituteInfo[i].emInstituteList = response.item.edumanInstituteList
 
-            break;
-            // }
-          }
-          localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
-
+          break;
+          // }
         }
-        // console.log('instInfo-storage', JSON.parse(localStorage.instituteInfo));
-
-        yield fetch_emAuthToken();
-        yield put(setUrlInfo(response.item));
-
-        let urlDetails = JSON.parse(localStorage.instituteInfo);
-        if (urlDetails[0].cmsId && urlDetails[0].emInstituteList.length > 1) {
-          yield put(visibleInstMappingDialog());
-
-        } else {
-
-          yield put(hideInstMappingDialog());
-
-          // yield fetch_Menu_byUrlId(response.item.cmsId);
-          yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
-          yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
-          yield fetch_usefullLinks_byUrlId(response.item.cmsId);
-          yield fetch_instituteHistory_byUrlId(response.item.cmsId);
-          yield fetch_instituteTopEvent_byUrlId(response.item.cmsId);
-          yield fetch_SliderImage_byUrlId(response.item.cmsId);
-
-        }
+        localStorage.setItem("instituteInfo", JSON.stringify(instituteInfo));
 
       }
+      // console.log('instInfo-storage', JSON.parse(localStorage.instituteInfo));
 
-      // console.log('after updt', JSON.parse(localStorage.instituteInfo));
+      yield fetch_emAuthToken();
+      yield put(setUrlInfo(response.item));
 
-    } catch (error) { }
-  }
+      let urlDetails = JSON.parse(localStorage.instituteInfo);
+      if (urlDetails[0].cmsId && urlDetails[0].emInstituteList.length > 1 && instMappingCheck) {
+        yield put(visibleInstMappingDialog());
+        console.log('inst home not found');
+      } else {
+        yield put(hideInstMappingDialog());
+        // yield fetch_Menu_byUrlId(response.item.cmsId);
+        yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
+        yield fetch_WelcomeSpeech_byUrlId(response.item.cmsId);
+        yield fetch_usefullLinks_byUrlId(response.item.cmsId);
+        yield fetch_instituteHistory_byUrlId(response.item.cmsId);
+        yield fetch_instituteTopEvent_byUrlId(response.item.cmsId);
+        yield fetch_SliderImage_byUrlId(response.item.cmsId);
+      }
+
+    }
+
+    // console.log('after updt', JSON.parse(localStorage.instituteInfo));
+
+  } catch (error) { }
 
 }
 

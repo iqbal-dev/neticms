@@ -185,7 +185,7 @@ export class Menu extends React.Component {
                               <DropdownToggle nav caret>Details Info</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem><Link to='/institute/booklist' className='nav-link'>  Book List</Link></NavItem>
-                                <NavItem><Link to='/institute/dressCode' className='nav-link'>  Uniform</Link></NavItem>
+                                <NavItem><Link to='/institute/dressCode' className='nav-link'> Dress Code</Link></NavItem>
                                 <NavItem><Link to='/institute/fees_info' className='nav-link'> Fees Info</Link></NavItem>
                                 <NavItem><Link to='/institute/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
                                 <NavItem><Link to='/institute/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>

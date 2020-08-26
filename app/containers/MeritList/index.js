@@ -177,7 +177,7 @@ export class MeritList extends React.Component {
                                 </tr>
                               )
 
-                              : <tr><td colSpan='5'>No Data Found</td></tr>
+                              : <tr><td colSpan='7'>No Data Found</td></tr>
                           }
 
                         </tbody>

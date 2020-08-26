@@ -40,6 +40,10 @@ export class SyllabusInfo extends React.Component {
 
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   showTableColumnsFirstFive() {
 
     return this.props.allSyllabusList && this.props.allSyllabusList.slice(0, 5).map(item => (

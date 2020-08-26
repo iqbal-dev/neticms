@@ -41,14 +41,14 @@ export class DressCode extends React.Component {
         <AppLayout>
           {/* {console.log('tabID', this.props.tabVisibleStatus)} */}
           <Helmet>
-            <title>Uniform</title>
+            <title>DressCode</title>
             <meta name="description" content="Description of DressCode" />
           </Helmet>
           <BreadcrumComponent
-            pageTitle="Uniform Dress Code"
+            pageTitle="Dress Code"
             menuStepFirst="Academic Info"
             menuStepSenond="Details Info"
-            menuStepThird="Uniform"
+            menuStepThird="Dress Code"
           />
           <section>
             <div className="container-fluid">
@@ -216,7 +216,7 @@ export class DressCode extends React.Component {
                                       {
                                         item.fileContent ?
                                           // <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
-                                          <img src={"data:image/*;base64," + item.fileContent} align="left"  height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
+                                          <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
                                           <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
                                       }
                                     </div>

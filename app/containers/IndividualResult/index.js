@@ -45,6 +45,7 @@ import {
 
 /* eslint-disable react/prefer-stateless-function */
 export class IndividualResult extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -54,6 +55,10 @@ export class IndividualResult extends React.Component {
       examType: "",
       errors: {}
     }
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
 
   onChangeInputField = (event) => {

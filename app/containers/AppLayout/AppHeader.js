@@ -3,6 +3,8 @@ import logo from '../../assets/img/logo.png';
 
 import { getFullDayName, getFullMonthName, getHHcloneMMwithAMorPM } from '../../utils/dateFormat';
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
+import LocalClockTime from './LocalClockTime';
+
 export class AppHeader extends React.Component {
 
     constructor() {
@@ -12,7 +14,6 @@ export class AppHeader extends React.Component {
 
     componentDidUpdate() {
         let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-        // console.log('appHead--instituteUrlInfo', instituteUrlInfo);
     }
 
     render() {
@@ -70,12 +71,11 @@ export class AppHeader extends React.Component {
                                     </div>
                                     <div className="calender-details" style={{ marginTop: '0' }}>
                                         <span>{fullDateInEng}</span>
+
+                                        <LocalClockTime />
+
                                         {/* <span>26th Boishakh, 1427 (Bangla)</span> */}
-                                        <span className="d-inline-flex justify-content-center align-items-center">
-                                            <i className="fas fa-map-marker-alt pr-2" /> Bangladesh,
-                                            Time :  {getHHcloneMMwithAMorPM()}
-                                            {/* Time : 11:47 PM */}
-                                        </span>
+
                                     </div>
                                 </div>
                             </div>

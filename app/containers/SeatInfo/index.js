@@ -24,6 +24,86 @@ import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SeatInfo extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      exploreBtnShow: true,
+    }
+
+    this.showTableColumnsFirstFive = this.showTableColumnsFirstFive.bind(this);
+    this.showTableColumnsAll = this.showTableColumnsAll.bind(this);
+
+  }
+
+  showTableColumnsFirstFive() {
+
+    return this.props.seatInfoList && this.props.seatInfoList.slice(0, 6).map(item => (
+
+      <div className="col-sm-12 col-md-6">
+        <div className="seat-info-wrapper seat-info-wrapper-full">
+          <ul className="seat-info-list">
+            <li className="m-b-40">
+              <div className="seat">
+                <div className="number">
+                  <span>{item.totalSeat}</span>
+                  <p>Total Seat</p>
+                </div>
+                <div className="seat-details">
+                  <div className="class-name">
+                    <span className='class-title'>Class</span>
+                    <span className='class-details'>: {item.className}</span>
+                  </div>
+                  <div className="group-name">
+                    <span className='group-title'>Group</span>
+                    <span className='group-details'>: {item.groupName}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    ))
+
+  }
+
+  showTableColumnsAll() {
+
+    return this.props.seatInfoList && this.props.seatInfoList.map((item, index) => (
+      <div className="col-sm-12 col-md-6">
+        <div className="seat-info-wrapper seat-info-wrapper-full">
+          <ul className="seat-info-list">
+            <li className="m-b-40">
+              <div className="seat">
+                <div className="number">
+                  <span>{item.totalSeat}</span>
+                  <p>Total Seat</p>
+                </div>
+                <div className="seat-details">
+                  <div className="class-name">
+                    <span className='class-title'>Class</span>
+                    <span className='class-details'>: {item.className}</span>
+                  </div>
+                  <div className="group-name">
+                    <span className='group-title'>Group</span>
+                    <span className='group-details'>: {item.groupName}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    ))
+
+  }
+
+  setBtnVisibleStatus = (visibleStatus) => {
+    this.setState({ exploreBtnShow: visibleStatus })
+  }
+
   render() {
     console.log("seatInfoList", this.props.seatInfoList);
     return (
@@ -44,37 +124,30 @@ export class SeatInfo extends React.Component {
               <div className="container p-t-60 p-b-60">
                 <div className="row">
                   {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
-                    this.props.seatInfoList && this.props.seatInfoList.map((item, index) => (
-                      <div className="col-sm-12 col-md-6">
-                        <div className="seat-info-wrapper seat-info-wrapper-full">
-                          <ul className="seat-info-list">
-                            <li className="m-b-40">
-                              <div className="seat">
-                                <div className="number">
-                                  <span>{item.totalSeat}</span>
-                                  <p>Total Seat</p>
-                                </div>
-                                <div className="seat-details">
-                                  <div className="class-name">
-                                    <span className='class-title'>Class</span>
-                                    <span className='class-details'>: {item.className}</span>
-                                  </div>
-                                  <div className="group-name">
-                                    <span className='group-title'>Group</span>
-                                    <span className='group-details'>: {item.groupName}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    ))}
+
+                    this.state.exploreBtnShow ?
+
+                      this.showTableColumnsFirstFive()
+                      :
+                      this.showTableColumnsAll()
+
+                  }
                 </div>
                 <div className="row m-t-40">
                   <div className="col-md-12">
                     <div className="text-center m-t-40">
-                      <button class="btn explore-btn-lg">Explore all <i class="fas fa-angle-right"></i></button>
+
+                      {this.state.exploreBtnShow ?
+                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                          Explore all <i className="fas fa-angle-right" />
+                        </button>
+                        :
+                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
+                          Explore less <i className="fas fa-angle-right" />
+                        </button>
+                      }
+
+                      {/* <button class="btn explore-btn-lg">Explore all <i class="fas fa-angle-right"></i></button> */}
                     </div>
                   </div>
                 </div>

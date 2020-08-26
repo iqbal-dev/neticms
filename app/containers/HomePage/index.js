@@ -78,6 +78,7 @@ export class HomePage extends React.Component {
     this.onChangeInstitute = this.onChangeInstitute.bind(this);
     this.submitToMapInstitute = this.submitToMapInstitute.bind(this);
     this.clearErrorMsg = this.clearErrorMsg.bind(this);
+
   }
 
   onChange = date => this.setState({ date });
@@ -337,7 +338,7 @@ export class HomePage extends React.Component {
                   <div className="offset-md-1 col-md-10 p-b-100">
                     <div className="section-sub-title text-center">
                       <p style={{ textAlign: 'center' }}>
-                        {instituteName} website.
+                        {instituteName}.
                         {/* You will find here */}
                         {/* all information and updates about our
                         institute */}
@@ -519,10 +520,10 @@ export class HomePage extends React.Component {
                     <div className="event-list-wrapper p-b-100">
                       <ul className="event-list">
 
-                        {instituteTopEventList.map(event => (
+                        {instituteTopEventList.slice(0, 6).map(event => (
                           // console.log('singleNotice in ul', singleNotice);
                           <li key={event.eventID}>
-                            <a className="event" href="#">
+                            <a className="event top" >
                               <div className="date">
                                 <span>{event.totalDay}</span>
                                 <p>Days</p>
