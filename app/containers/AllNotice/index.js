@@ -118,7 +118,7 @@ export class AllNotice extends React.Component {
             <div className='notice-wrapper' style={{ backgroundColor: "#ffffff"}}>
               <div className="row" >
                 <div className="col-md-12 mb-3">
-                  <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
+                  <div className="event-date mt-3">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
                   <h2 className='p-t-20'>{notice.noticeTitle}</h2>
                   <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
                   { type == 'single' ? 

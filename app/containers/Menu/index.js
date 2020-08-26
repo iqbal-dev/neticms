@@ -344,6 +344,7 @@ export class Menu extends React.Component {
                       <p className="">
                         <i className="">
                           <a
+                            href="/institute/all_notice"
                             class="typewrite"
                             data-period="2000"
                             data-type='["Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop."]'
