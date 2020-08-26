@@ -33,7 +33,7 @@
             display: block;
         }
         .content{
-            font-size: 15px;
+            font-size: $fontSizeSecondarySmall;
             line-height: 1.8;
             font-family: 'Montserrat', sans-serif;
         }
@@ -100,7 +100,7 @@
             margin-bottom: 20px;
             .widget-title {
                 font-size: 16px;
-                font-weight: 700;
+                font-weight: $fontWeightSecondary;
                 border-bottom: 3px solid $colorWhite;
                 padding-bottom: 15px;
                 color: $colorWhite;
@@ -111,7 +111,7 @@
                 li{
                     a{
                         color: $colorWhite;
-                        font-weight: 15px;
+                        font-size: $fontSizeSecondarySmall;
                         line-height: 1.8;
                        &:hover{
                            text-decoration: none;

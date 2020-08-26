@@ -52,7 +52,7 @@ export class AllNotice extends React.Component {
 
     if (evtDetails) {
 
-      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails.eventStartDate);
+      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails);
 
       const splitDateArr = formatDate.split('-');
       let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
@@ -89,7 +89,7 @@ export class AllNotice extends React.Component {
 
     let downloadFileContent = this.props.noticeFileContent
 
-    console.log("Render downloadFileContent", downloadFileContent);
+    // console.log("Render downloadFileContent", downloadFileContent);
 
     let getNoticeView = (notice, type) => {
       // console.log("contentType......", contentType+this.props.noticeFileContent.file);
@@ -105,10 +105,10 @@ export class AllNotice extends React.Component {
       return (
         notice.map(notice => (
           <div className='all-notice-wrapper m-b-20'>
-            <div className='notice-wrapper'>
+            <div className='notice-wrapper' style={{ backgroundColor: "#ffffff" }}>
               <div className="row" >
                 <div className="col-md-12 mb-3">
-                  <div className="event-date">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
+                  <div className="event-date mt-3">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
                   <h2 className='p-t-20'>{notice.noticeTitle}</h2>
                   <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
                   {type == 'single' ?
@@ -121,7 +121,7 @@ export class AllNotice extends React.Component {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                      <button className="btn btn-secondary mr-2" onClick={(e) => viewPdf(e, notice)}>pdf</button>
+                      <button className="btn btn-secondary mr-2 d-flex ml-auto" onClick={(e) => viewPdf(e, notice)}><i className="fa fa-eye m-1 "></i> PDF</button>
 
                       {/* <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'all')}>Download PDF</button> */}
 

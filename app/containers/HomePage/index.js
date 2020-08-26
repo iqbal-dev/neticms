@@ -431,7 +431,7 @@ export class HomePage extends React.Component {
             <div className="container-fluid">
               <div className="container">
                 <div className="row">
-                  <div className="col-md-8 section-space-60">
+                  <div className="col-md-9 section-space-60">
                     <div className="row">
                       <div className="col-md-6">
                         <div className="icon-box-border">
@@ -489,8 +489,8 @@ export class HomePage extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-4 text-center">
-                    <img src={emergancyImage} className="img-fluid" />
+                  <div className="col-md-3 text-center section-space-60">
+                    <img src={emergancyImage} width="auto" height="556px"/>
                   </div>
                 </div>
               </div>

@@ -80,14 +80,14 @@
         font-weight: $fontWeightPrimary;
         font-family: 'Montserrat', sans-serif;
         color: $colorWhite;
-        padding: 0px 10px;
-        width: 130px;
+        padding: 5px 15px;
+        width: auto;
         display: flex;
         align-items: center;
     }
     .notice{
         display: flex;
-        align-items: baseline;
+        align-items: center;
         justify-content: center;
         margin-left: 15px;
         color: $colorWhite;
