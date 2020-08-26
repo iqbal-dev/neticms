@@ -25,10 +25,10 @@ class Slider extends React.Component {
   formatDate = (evtDetails) => {
 
     if (evtDetails) {
-      var dt = new Date(evtDetails);
-      dt.setDate( dt.getDate() - 1 );
+      // var dt = new Date(evtDetails);
+      // dt.setDate( dt.getDate() - 1 );
 
-      let formatDate = get_YYMMDD_Format_WithHyphen(dt);
+      let formatDate = get_YYMMDD_Format_WithHyphen(evtDetails);
       const splitDateArr = formatDate.split('-');
       let eventStartDate = getFullMonthName(splitDateArr[1] - 1) + ' ' + splitDateArr[2] + ', ' + splitDateArr[0];
 

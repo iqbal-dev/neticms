@@ -19,6 +19,12 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+// *::placeholder{
+//     color: $grayColor !important;
+//     font-size: $fontSizeSecondary;
+//     font-weight: $fontWeightSecondary;
+// }
+
 @media (min-width: 1200px){
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1300px;
