@@ -115,7 +115,11 @@ export class MeritList extends React.Component {
 
                           <div className="col-md-6 col-lg-3">
                             <FormGroup>
-                              <Button className="btn explore-btn all-border-radious" onClick={this.props.submitSearch}>Search</Button>
+                              <Button 
+                                className="btn explore-btn all-border-radious" 
+                                onClick={this.props.submitSearch}>
+                                  <i class="fas fa-chevron-circle-right mr-3" ></i> Search
+                              </Button>
                             </FormGroup>
                           </div>
                         </Form>

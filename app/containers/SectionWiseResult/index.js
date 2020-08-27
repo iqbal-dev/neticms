@@ -189,9 +189,9 @@ export class SectionWiseResult extends React.Component {
                         <thead>
                           <tr>
                             {/* <th>Photo</th> */}
-                            <th>Student ID</th>
-                            <th>Roll No</th>
-                            <th>Student Name</th>
+                            <th>Student's ID.</th>
+                            <th>Roll No.</th>
+                            <th>Student's Name</th>
                             <th>Total Marks</th>
                             <th>GPA</th>
                             <th>Grade</th>

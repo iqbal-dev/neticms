@@ -114,7 +114,7 @@ export class FindPayslip extends React.PureComponent {
                                 className="btn explore-btn mb-0"
                                 onClick={this.onSearchStudentInfo}
                               >
-                                Search
+                                <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                               </Button>
                             </FormGroup>
                           </div>
@@ -204,7 +204,7 @@ export class FindPayslip extends React.PureComponent {
                               this.toggleTab('1');
                             }}
                           >
-                            <p>Male</p>
+                            <p>Student's Unpaid Payslip Details</p>
                           </NavLink>
                         </NavItem>
                         <NavItem>
@@ -216,7 +216,7 @@ export class FindPayslip extends React.PureComponent {
                               this.toggleTab('2');
                             }}
                           >
-                            <p>Female</p>
+                            <p>Student's Paid Payslip Details</p>
                           </NavLink>
                         </NavItem>
                       </Nav>
@@ -244,16 +244,16 @@ export class FindPayslip extends React.PureComponent {
                                           </tr>
                                           <tr>
                                             <td>Total Payable</td>
-                                            <td>: {item.totalPayable}</td>
+                                            <td className='text-orange'>: {item.totalPayable} /-BDT</td>
                                           </tr>
-                                          <tr>
+                                          {/* <tr>
                                             <td>Paid</td>
-                                            <td>: {item.totalPaid}</td>
+                                            <td>: {item.totalPaid} /-BDT</td>
                                           </tr>
                                           <tr>
                                             <td>Total Due</td>
-                                            <td className='text-orange'>: {item.totalDue}</td>
-                                          </tr>
+                                            <td className='text-orange'>: {item.totalDue} /-BDT</td>
+                                          </tr> */}
                                         </Table>
                                       </div>
                                     </div>
@@ -267,7 +267,7 @@ export class FindPayslip extends React.PureComponent {
                         </TabPane>
                         <TabPane tabId="2">
                           <div className="tab-panel-wrapper">
-                            this is demo
+                            under construction
                         </div>
                         </TabPane>
                       </TabContent>

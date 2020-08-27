@@ -109,7 +109,7 @@ export class FailList extends React.Component {
           <BreadcrumComponent
             pageTitle="Fail List"
             menuStepFirst="Result Info"
-            menuStepSenond="Semister Exam"
+            menuStepSenond="Semester Exam"
             menuStepThird="Fail List"
           />
 
@@ -176,7 +176,7 @@ export class FailList extends React.Component {
                                 className="btn explore-btn all-border-radious"
                                 onClick={this.onSearchStudentInfo}
                               >
-                                Search
+                                <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                             </Button>
                             </FormGroup>
                           </div>
