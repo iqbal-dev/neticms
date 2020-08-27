@@ -30,38 +30,42 @@ export function* fetchDataByDate() {
 
   try {
     const response = yield call(request, requestURL, options);
-    // console.log('search-res', response);
+    console.log('search-res', response);
 
     if (response) {
 
-      yield put(setSectionWiseAttendanceListData(response));
+      yield put(setSectionWiseAttendanceListData(response.item));
 
       let chartObj = [];
 
-      let totalStd = 0;
-      let totalPresentStd = 0;
-      let totalAbsentStd = 0;
-      let totalLeaveStd = 0;
+      if (response && response.item.length) {
 
-      response.forEach(attendanceDetails => {
+        let totalStd = 0;
+        let totalPresentStd = 0;
+        let totalAbsentStd = 0;
+        let totalLeaveStd = 0;
 
-        totalStd += attendanceDetails.totalAttenTakenStds;
-        totalPresentStd += attendanceDetails.presentStds;
-        totalAbsentStd += attendanceDetails.absentStds;
-        totalLeaveStd += attendanceDetails.totalLeaveStds;
-      });
+        response.item.forEach(attendanceDetails => {
+          totalStd += attendanceDetails.totalAttenTakenStds;
+          totalPresentStd += attendanceDetails.presentStds;
+          totalAbsentStd += attendanceDetails.absentStds;
+          totalLeaveStd += attendanceDetails.totalLeaveStds;
+        });
 
-      chartObj = {
-        totalStdData: totalStd,
-        presentData: totalPresentStd,
-        absentData: totalAbsentStd,
-        leaveData: totalLeaveStd,
-        presentPercent: ((totalPresentStd * 100) / totalStd).toFixed(1),
-        absentPercent: ((totalAbsentStd * 100) / totalStd).toFixed(1),
-        leavePercent: ((totalLeaveStd * 100) / totalStd).toFixed(1),
+        chartObj = {
+          totalStdData: totalStd,
+          presentData: totalPresentStd,
+          absentData: totalAbsentStd,
+          leaveData: totalLeaveStd,
+          presentPercent: ((totalPresentStd * 100) / totalStd).toFixed(1),
+          absentPercent: ((totalAbsentStd * 100) / totalStd).toFixed(1),
+          leavePercent: ((totalLeaveStd * 100) / totalStd).toFixed(1),
+        }
+
+        yield put(setChartDataArray(chartObj));
+
       }
 
-      yield put(setChartDataArray(chartObj))
     }
 
   } catch (error) { }

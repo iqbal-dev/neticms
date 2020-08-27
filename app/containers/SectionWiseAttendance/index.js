@@ -189,7 +189,7 @@ export class SectionWiseAttendance extends React.Component {
                         <tbody>
 
                           {
-                            attendanceListData ?
+                            attendanceListData && attendanceListData.length ?
                               attendanceListData.map((item, index) =>
                                 <tr>
                                   <td>{item.className}</td>
