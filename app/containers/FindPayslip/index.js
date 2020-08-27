@@ -114,7 +114,7 @@ export class FindPayslip extends React.PureComponent {
                                 className="btn explore-btn mb-0"
                                 onClick={this.onSearchStudentInfo}
                               >
-                                Search
+                                <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                               </Button>
                             </FormGroup>
                           </div>
@@ -244,16 +244,16 @@ export class FindPayslip extends React.PureComponent {
                                           </tr>
                                           <tr>
                                             <td>Total Payable</td>
-                                            <td>: {item.totalPayable}</td>
+                                            <td className='text-orange'>: {item.totalPayable} /-BDT</td>
                                           </tr>
-                                          <tr>
+                                          {/* <tr>
                                             <td>Paid</td>
-                                            <td>: {item.totalPaid}</td>
+                                            <td>: {item.totalPaid} /-BDT</td>
                                           </tr>
                                           <tr>
                                             <td>Total Due</td>
-                                            <td className='text-orange'>: {item.totalDue}</td>
-                                          </tr>
+                                            <td className='text-orange'>: {item.totalDue} /-BDT</td>
+                                          </tr> */}
                                         </Table>
                                       </div>
                                     </div>
