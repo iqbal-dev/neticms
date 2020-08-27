@@ -204,7 +204,7 @@ export class FindPayslip extends React.PureComponent {
                               this.toggleTab('1');
                             }}
                           >
-                            <p>Male</p>
+                            <p>Student's Unpaid Payslip Details</p>
                           </NavLink>
                         </NavItem>
                         <NavItem>
@@ -216,7 +216,7 @@ export class FindPayslip extends React.PureComponent {
                               this.toggleTab('2');
                             }}
                           >
-                            <p>Female</p>
+                            <p>Student's Paid Payslip Details</p>
                           </NavLink>
                         </NavItem>
                       </Nav>
@@ -267,7 +267,7 @@ export class FindPayslip extends React.PureComponent {
                         </TabPane>
                         <TabPane tabId="2">
                           <div className="tab-panel-wrapper">
-                            this is demo
+                            under construction
                         </div>
                         </TabPane>
                       </TabContent>
