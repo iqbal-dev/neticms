@@ -112,7 +112,19 @@ export function submitToMapInstitute() {
   };
 }
 
-export function setLoader(loadingStatus) {
+export function setLoader(loadingSection, status) {
+  let loadingStatus={
+    // homeSlider: true,
+    // noticeList: true,
+    // welcomeSpeech: false,
+    // usefullLink: false,
+    // eventList: false,
+  }
+  // loadingStatus[loadingSection] = status
+  let load = {}
+  load[loadingSection] = status
+
+  Object.assign(loadingStatus, {...load} )
   return {
     type: SET_LOADER,
     loadingStatus,

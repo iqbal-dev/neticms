@@ -78,10 +78,15 @@ export class TeacherInformation extends React.PureComponent {
                           <div className="grid-social">
                             <ul className="d-flex justify-content-center w-100 nav">
                               
-                              {item.staffMobile1 ? <li><a className="phone" href="#" phoneNumber={item.staffMobile1}><i class="fas fa-phone"></i></a></li> : <li><a className="phone" href="#" phoneNumber="No Phone Found"><i class="fas fa-phone"></i></a></li>}
+                              {/* {item.staffMobile1 ? <li><a className="phone" href="#" phoneNumber={item.staffMobile1}><i class="fas fa-phone"></i></a></li> : <li><a className="phone" href="#" phoneNumber="No Phone Found"><i class="fas fa-phone"></i></a></li>}
                               {item.staffEmail ? <li><a href="#" className="phone" phoneNumber={item.staffEmail}><i class="fas fa-envelope"></i></a></li> : <li><a href="#" phoneNumber="No Email Found"><i class="fas fa-envelope"></i></a></li>}
                               <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                              <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                              <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li> */}
+                              <li><a className={!item.staffMobile1 ? '' : "phone"} phone={item.staffMobile1}><i class="fas fa-phone"></i></a></li>
+                              <li><a className={!item.staffEmail ? '' : "email"} email={item.staffEmail}><i class="fas fa-envelope"></i></a></li>
+                              <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
+                              <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
+
                             </ul>
                           </div>
                         </div>

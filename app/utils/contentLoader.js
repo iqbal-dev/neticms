@@ -152,4 +152,27 @@ function smallTableLoader() {
         <rect x="-5" y="24" rx="0" ry="0" width="510" height="10" />
     </ContentLoader>
 }
-export { normalFormInputField, inlineFormInputField, inputFieldLoader, tableLoader, centerTableLoader, smallTableLoader, emptyTableMessage, emptyAutoLoadTableMsg };
+
+function listLoader() {
+    return <ContentLoader
+        viewBox="0 0 300 70"
+        width={300}
+        height={70}
+        speed={2}
+    >
+        <rect x="5" y="5" rx="0" ry="0" width="150" height="20" />
+        <rect x="5" y="40" rx="0" ry="0" width="300" height="20" />
+    </ContentLoader>
+    
+}
+export { 
+    normalFormInputField, 
+    inlineFormInputField, 
+    inputFieldLoader, 
+    tableLoader, 
+    centerTableLoader, 
+    smallTableLoader, 
+    emptyTableMessage, 
+    emptyAutoLoadTableMsg,
+    listLoader
+ };

@@ -36,10 +36,10 @@ export class StuffInformation extends React.Component {
       <div>
         <AppLayout>
           <BreadcrumComponent
-            pageTitle="Stuff's Information"
+            pageTitle="Staff's Information"
             menuStepFirst="Institute Info"
             menuStepSenond="List of"
-            menuStepThird="Stuff's Information"
+            menuStepThird="Staff's Information"
           />
           <section>
             <div className="container-fluid">
@@ -48,7 +48,7 @@ export class StuffInformation extends React.Component {
 
                   <div className="col-md-12">
                     <div className="page-inner-title">
-                      <h2 className="text-orange">List of Stuff's</h2>
+                      <h2 className="text-orange">List of Staff's</h2>
                       <div className="custom-title-border-left" />
                     </div>
                   </div>
@@ -71,10 +71,12 @@ export class StuffInformation extends React.Component {
                         </div>
                         <div className="grid-social">
                           <ul className="d-flex justify-content-center w-100 nav">
-                            <li><a className="phone" href="#" phoneNumber={item.staffMobile1}><i className="fas fa-phone" /></a></li>
-                            <li><a className="phone" href="#" phoneNumber={item.staffEmail}><i className="fas fa-envelope" /></a></li>
-                            <li><a href="#"><i className="fab fa-facebook-f" /></a></li>
-                            <li><a href="#"><i className="fab fa-linkedin-in" /></a></li>
+
+                            <li><a className={!item.staffMobile1 ? '' : "phone"} phone={item.staffMobile1}><i class="fas fa-phone"></i></a></li>
+                            <li><a className={!item.staffEmail ? '' : "email"} email={item.staffEmail}><i class="fas fa-envelope"></i></a></li>
+                            <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
+
                           </ul>
                         </div>
                       </div>
@@ -82,6 +84,13 @@ export class StuffInformation extends React.Component {
                   )}
                 </div>
               </div>
+              <div className="container">
+              <div className="row">
+                <div className="offset-md-1 col-md-10">
+                  <div className="custom-title-border-center"></div>
+                </div>
+              </div>
+            </div>
             </div>
           </section>
 

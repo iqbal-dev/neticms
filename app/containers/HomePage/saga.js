@@ -12,7 +12,7 @@ import {
 } from '../../utils/serviceUrl';
 
 import {
-  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider, visibleInstMappingDialog, hideInstMappingDialog, setMappingInstitute
+  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider, visibleInstMappingDialog, hideInstMappingDialog, setMappingInstitute, setLoader
 } from './actions';
 import { makeSelectEmAccessToken, makeSelectMappingInstId } from './selectors';
 import { setAcademicYearList } from '../FailList/actions';
@@ -97,6 +97,18 @@ export function* fetch_instituteUrlInfo_byUrlName() {
         yield put(visibleInstMappingDialog());
         console.log('inst home not found');
       } else {
+
+        let loadingStatus= {
+          homeSlider: true,
+          noticeList: true,
+          welcomeSpeech: true,
+          usefullLink: true,
+          eventList: true,
+        }
+
+        // yield put(setLoader("homeSlider", true));
+        // yield put(setLoader("noticeList", true));
+
         yield put(hideInstMappingDialog());
         // yield fetch_Menu_byUrlId(response.item.cmsId);
         yield fetch_InstituteTopNotices_byUrlId(response.item.cmsId);
@@ -187,6 +199,7 @@ export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
   try {
     yield put(setNotice(response.item));
     sessionStorage.setItem('allNoticeList', JSON.stringify(response.item));
+    // yield put(setLoader("noticeList", false));
   } catch (error) { }
 
 }
@@ -206,6 +219,7 @@ export function* fetch_SliderImage_byUrlId(cmsId) {
 
   try {
     yield put(setHomeSlider(response.item));
+    // yield put(setLoader("homeSlider", false));
     // sessionStorage.setItem('allNoticeList', JSON.stringify(response.item));
   } catch (error) { }
 

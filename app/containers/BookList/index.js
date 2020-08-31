@@ -25,8 +25,8 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
-import bookImage from '../../assets/img/book-image.png';
-import bookImageBig from '../../assets/img/book-image-big.png';
+import bookImage from '../../assets/img/demo-book.png';
+import bookImageBig from '../../assets/img/demo-book.png';
 import { setModalVisibleStatus, setSubmitClassBtn, fetchBookListByClassId } from './actions';
 import { AppLayout } from '../AppLayout';
 

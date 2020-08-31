@@ -19,6 +19,7 @@ import staticImg from '../../assets/img/slider_bg.jpg';
 /* eslint-disable react/prefer-stateless-function */
 import { Link } from 'react-router-dom';
 import { getFullMonthName, get_YYMMDD_Format_WithHyphen, getHHMMSS } from '../../utils/dateFormat';
+import { listLoader } from '../../utils/contentLoader';
 
 class Slider extends React.Component {
 
@@ -74,7 +75,12 @@ class Slider extends React.Component {
         <Container>   {/*  container   */}
           <Row>
             <div className="col-md-8">
-              <UncontrolledCarousel items={items} />
+              {
+                this.props.loaderStatus && this.props.loaderStatus.homeSlider ? 
+                  "loading":
+                  <UncontrolledCarousel items={items} />
+              }
+              
             </div>
             <div className="col-md-4">
               <div className="notice-board-wrapper">
@@ -83,20 +89,27 @@ class Slider extends React.Component {
                 </div>
                 <div id="notice-list" className="notice-board">
                   <ul>
-                    {noticeArrayList.slice(0, 5).map(singleNotice => (
-                      <li key={singleNotice.noticeID}>
-                        <Link 
-                          to={{ 
-                            pathname: '/institute/all_notice', 
-                            personWiseTokenInfo: noticeArrayList,
-                            singleNotice: singleNotice,
-                          }} 
-                        >
-                          <span>Publish on <i className="fas fa-calendar-alt" /> {this.formatDate(singleNotice.noticeIssueDate)}</span>
-                          <h4>{singleNotice.noticeTitle}</h4>
-                        </Link>
+                    {
+                      this.props.loaderStatus && this.props.loaderStatus.noticeList ? 
+                      <li>
+                        {listLoader()}
                       </li>
-                    ))}
+                      :
+                      noticeArrayList.slice(0, 5).map(singleNotice => (
+                        <li key={singleNotice.noticeID}>
+                          <Link 
+                            to={{ 
+                              pathname: '/institute/all_notice', 
+                              personWiseTokenInfo: noticeArrayList,
+                              singleNotice: singleNotice,
+                            }} 
+                          >
+                            <span>Publish on <i className="fas fa-calendar-alt" /> {this.formatDate(singleNotice.noticeIssueDate)}</span>
+                            <h4>{singleNotice.noticeTitle}</h4>
+                          </Link>
+                        </li>
+                      ))
+                    }
                   </ul>
                   <Link className="allNotice" to={{ pathname: '/institute/all_notice', personWiseTokenInfo: noticeArrayList }} >Read All</Link>
                 </div>
