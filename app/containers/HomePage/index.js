@@ -241,12 +241,12 @@ export class HomePage extends React.Component {
       </button>
     </div>
 
-    // console.log("this.props.noticeList HOME", this.props.noticeList);
+    console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.loaderStatus);
 
     return (
       <div>
         <AppLayout>
-          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList} />
+          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList} loaderStatus={ this.props.loaderStatus }/>
           <section className="speech-wrapper section-space-60">
             <div className="container-fluid">
               <div className="container">

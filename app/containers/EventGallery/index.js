@@ -146,7 +146,7 @@ export class EventGallery extends React.PureComponent {
 
               )}
             </div>
-            <div className="row m-t-40">
+            {/* <div className="row m-t-40">
               <div className="col-md-12">
                 <div className="text-center m-t-40">
                   <button className="btn explore-btn">
@@ -154,7 +154,7 @@ export class EventGallery extends React.PureComponent {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <Modal
             className="event-gallery-modal modal-dialog-centered"

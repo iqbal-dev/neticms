@@ -71,9 +71,14 @@ export class DonorMembers extends React.PureComponent {
                         </div>
                         <div className="grid-social">
                           <ul className="d-flex justify-content-center w-100 nav">
-                            <li><a href={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
+                            {/* <li><a href={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
                             <li><a href={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li> */}
+
+                            <li><a className={!item.memberEmail ? '' : "email"} email={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
+                            <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
+                         
                           </ul>
                         </div>
                       </div>

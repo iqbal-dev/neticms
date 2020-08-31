@@ -865,36 +865,36 @@
                         object-fit: cover;
                     }
 
-                    .grid-social{
-                        ul{
-                            li{
-                                .phone{
-                                    &:after{
-                                        content: attr(phone);
-                                    }
-                                }
+                    // .grid-social{
+                    //     ul{
+                    //         li{
+                    //             .phone{
+                    //                 &:after{
+                    //                     content: attr(phone);
+                    //                 }
+                    //             }
 
-                                .email{
-                                    &:after{
-                                        content: attr(email);
-                                    }
-                                }
+                    //             .email{
+                    //                 &:after{
+                    //                     content: attr(email);
+                    //                 }
+                    //             }
 
-                                .facebook{
-                                    &:after{
-                                        content: attr(facebook);
-                                    }
-                                }
+                    //             .facebook{
+                    //                 &:after{
+                    //                     content: attr(facebook);
+                    //                 }
+                    //             }
 
-                                .linkedin{
-                                    &:after{
-                                        content: attr(linkedin);
-                                    }
-                                }
-                            }
-                        }
+                    //             .linkedin{
+                    //                 &:after{
+                    //                     content: attr(linkedin);
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
 
-                    }
+                    // }
 
                 }
             }

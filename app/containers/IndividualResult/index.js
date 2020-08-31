@@ -155,7 +155,8 @@ export class IndividualResult extends React.Component {
                       <div className="col-md-6 col-lg-9 mt-sm-5 mt-md-1 mt-lg-0 mt-5">
                         <div className="row form">
                           <Form inline className="col-lg-12">
-                            <div className="col-md-12 col-lg-4">
+                            <div className="col-md-12 col-lg-6">
+
                               <FormGroup className=" custom-input-text">
                                 <Input
                                   type="text"
@@ -165,7 +166,8 @@ export class IndividualResult extends React.Component {
                                 />
                               </FormGroup>
                               <div className="error-message"> {errors['studentID']}</div>
-                              <FormGroup className="custom-dropdown m-t-10">
+                              
+                              <FormGroup className="custom-dropdown mt-2">
                                 <Input
                                   type="select"
                                   name="year"
@@ -177,19 +179,14 @@ export class IndividualResult extends React.Component {
                                 </Input>
                               </FormGroup>
                               <div className="error-message"> {errors['year']}</div>
+
+                              
+                              
+
                             </div>
 
-                            <div className="col-md-12 col-lg-4">
-                              <FormGroup className="custom-input-text">
-                                <Input
-                                  type="text"
-                                  name="mobileNo"
-                                  placeholder="Enter Reg. Mobile No."
-                                  onChange={this.props.onChangeStudentMobile}
-                                />
-                              </FormGroup>
-                              <div className="error-message"> {errors['mobileNo']}</div>
-                              <FormGroup className="custom-dropdown m-t-10">
+                            <div className="col-md-12 col-lg-6">
+                              <FormGroup className="custom-dropdown mt-0">
                                 <Input
                                   type="select"
                                   name="examType"
@@ -200,9 +197,17 @@ export class IndividualResult extends React.Component {
                                 </Input>
                               </FormGroup>
                               <div className="error-message"> {errors['examType']}</div>
-                            </div>
 
-                            <div className="col-md-12 col-lg-3">
+                              {/* <FormGroup className="custom-input-text">
+                                <Input
+                                  type="text"
+                                  name="mobileNo"
+                                  placeholder="Enter Reg. Mobile No."
+                                  onChange={this.props.onChangeStudentMobile}
+                                />
+                              </FormGroup>
+                              <div className="error-message"> {errors['mobileNo']}</div> */}
+
                               <FormGroup>
                                 <Button
                                   className="btn explore-btn full-width all-border-radious"
@@ -211,6 +216,11 @@ export class IndividualResult extends React.Component {
                                   <i class="fas fa-chevron-circle-right mr-3"></i> Search
                               </Button>
                               </FormGroup>
+                              
+                            </div>
+
+                            <div className="col-md-12 col-lg-3">
+                              
                               {/* <FormGroup className="my-3">
                                 <span className="print text-orange"><i className="fas fa-print text-secondary"></i> Print Result</span>
                               </FormGroup> */}
