@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_ON_CHANGE_DATE, ONSUBMIT_SEARCH, SET_ATTENDANCE_LIST, SET_CHART_DATA } from './constants';
+import { DEFAULT_ACTION, SET_ON_CHANGE_DATE, ONSUBMIT_SEARCH, SET_ATTENDANCE_LIST, SET_CHART_DATA, SET_LOADER } from './constants';
 
 export function defaultAction() {
   return {
@@ -34,5 +34,12 @@ export function setChartDataArray(dataArray) {
   return {
     type: SET_CHART_DATA,
     dataArray,
+  };
+}
+
+export function setLoader(loaderStatus) {
+  return {
+    type: SET_LOADER,
+    loaderStatus,
   };
 }

@@ -7,13 +7,18 @@ import { postMethod, postMethodWithAuth } from '../../utils/baseMethod';
 import { BASE_URL_EM, FETCH_STUDENT_ID_WISE_ATTENDANCE } from '../../utils/serviceUrl';
 import { SUBMIT_SEARCH_BUTTON } from './constants';
 import { setAttendanceList } from './actions';
+var moment = require('moment/moment');
 
 export function* fetchStudentAttendanceByStudentId() {
 
   const customStdId = yield select(makeSelectStudentID());
 
   let fromDate = yield select(makeSelectAttendanceFromDate());
+  let formatedFromDate = moment(fromDate).format('DD/MM/YYYY');
+
   let toDate = yield select(makeSelectAttendancToeDate());
+  let formatedToDate = moment(toDate).format('DD/MM/YYYY');
+
   // console.log('toDate', toDate);
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
@@ -23,10 +28,11 @@ export function* fetchStudentAttendanceByStudentId() {
 
   let requestedBody = {
     "customStudentId": customStdId,
-    "fromDate": fromDate,
+    "fromDate": formatedFromDate,
     "instituteId": instituteId,
-    "toDate": toDate,
+    "toDate": formatedToDate,
   }
+  console.log('requestedBody-saga', requestedBody);
 
   // let requestedBody = {
   //   "customStudentId": "1890102",

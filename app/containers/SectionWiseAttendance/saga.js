@@ -5,6 +5,7 @@ import { setSectionWiseAttendanceListData, setChartDataArray } from './actions';
 import { BASE_URL_EM, FETCH_SECTION_WISE_ATTENDANCE } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 import { get_DDMMYY_Format_WithHyphen } from '../../utils/dateFormat';
+import { setLoader } from './actions';
 
 export function* fetchDataByDate() {
 
@@ -16,6 +17,8 @@ export function* fetchDataByDate() {
   let emToken = JSON.parse(localStorage.getItem('emToken'));
   let date = yield select(makeSelectDate());
   let formatedDate = get_DDMMYY_Format_WithHyphen(date);
+
+  yield put(setLoader('tableLoadOn'));
 
   const requestURL = BASE_URL_EM + FETCH_SECTION_WISE_ATTENDANCE + '?stringDate=' + formatedDate + '&instituteId=' + instituteId;
   //  BASE_URL_EM + FETCH_SECTION_WISE_ATTENDANCE+'?stringDate=25-01-2020&instituteId=13348';
@@ -34,6 +37,7 @@ export function* fetchDataByDate() {
 
     if (response) {
 
+      yield put(setLoader('tableLoadOff'));
       yield put(setSectionWiseAttendanceListData(response.item));
 
       let chartObj = [];

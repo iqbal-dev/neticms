@@ -22,10 +22,14 @@ const makeSelectStdAttendanceList = () =>
 const makeSelectChartDataArray = () =>
   createSelector(selectSectionWiseAttendanceDomain, substate => substate.get('chartDataArray'));
 
+const makeSelectLoaderStatus = () =>
+  createSelector(selectSectionWiseAttendanceDomain, substate => substate.get('loaderStatus'));
+
 // export default makeSelectSectionWiseAttendance;
 export {
   selectSectionWiseAttendanceDomain,
   makeSelectDate,
   makeSelectStdAttendanceList,
-  makeSelectChartDataArray
+  makeSelectChartDataArray,
+  makeSelectLoaderStatus
 };

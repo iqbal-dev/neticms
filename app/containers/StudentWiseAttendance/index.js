@@ -27,6 +27,9 @@ import { submitSearchButton, setStudentID, setAttendanceFromDate, setAttendanceT
 import { AppLayout } from '../AppLayout';
 import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 /* eslint-disable react/prefer-stateless-function */
 
 export class StudentWiseAttendance extends React.Component {
@@ -34,31 +37,74 @@ export class StudentWiseAttendance extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stdDetailsHeaderVisible: false
+      stdDetailsHeaderVisible: false,
+      errors: {},
+
     }
   }
 
-  onChangeAttendanceFromDate = (evt) => {
-    let formatedFromDate = get_DDMMYY_Format_WithSlash(evt.target.value);
-    this.props.onChangeFromDate(formatedFromDate);
+  onChangeAttendanceFromDate = (value, name) => {
+    console.log('frm date', value);
+    // let formatedFromDate = get_DDMMYY_Format_WithSlash(value);
+    this.props.onChangeFromDate(value);
+    this.setState({ errors: {} });
+
   }
 
-  onChangeAttendanceToDate = (evt) => {
-    let formatedToDate = get_DDMMYY_Format_WithSlash(evt.target.value);
-    this.props.onChangeToDate(formatedToDate);
+  onChangeAttendanceToDate = (value, name) => {
+    // let formatedToDate = get_DDMMYY_Format_WithSlash(value);
+    this.props.onChangeToDate(value);
+    this.setState({ errors: {} });
   }
 
   onSubmitSearch = (e) => {
+
     this.setState({ stdDetailsHeaderVisible: true });
+
     e.preventDefault();
-    this.props.submitSearch();
+    if (!this.emptyFieldCheck()) {
+
+      this.props.submitSearch();
+
+    }
+  }
+
+  emptyFieldCheck() {
+
+    let fieldIsEmpty = false;
+    let { errors } = this.state;
+
+    if (this.props.attendanceFromDate === '' || this.props.attendanceFromDate === null) {
+      fieldIsEmpty = true;
+      errors["fromDate"] = "From Date can't left empty.";
+    }
+    if (this.props.attendanceToDate === '' || this.props.attendanceToDate === null) {
+      fieldIsEmpty = true;
+      errors["toDate"] = "To Date can't left empty.";
+    }
+
+    this.setState({ errors });
+    return fieldIsEmpty;
+
   }
 
   render() {
 
     // console.log('attendanceList-index', this.props.attendanceList);
-    let { attendanceList } = this.props;
-    console.log('stdDetailsHeader', this.state.stdDetailsHeaderVisible);
+    let { attendanceList, attendanceFromDate, attendanceToDate } = this.props;
+    let { errors } = this.state;
+
+    let fromDateForHeader = '';
+    if (attendanceFromDate == '' || !attendanceFromDate == null) {
+      fromDateForHeader = '';
+    } else { fromDateForHeader = get_DDMMYY_Format_WithSlash(attendanceFromDate); }
+
+    let toDateForHeader = '';
+    if (attendanceToDate == '' || !attendanceToDate == null) {
+      toDateForHeader = '';
+    } else { toDateForHeader = get_DDMMYY_Format_WithSlash(attendanceToDate); }
+
+    console.log('fromDateForHeader', fromDateForHeader);
     return (
       <div>
         <AppLayout>
@@ -97,7 +143,26 @@ export class StudentWiseAttendance extends React.Component {
                             </FormGroup>
                           </div>
 
-                          <div className="col-md-5 col-lg-3">
+                          <div className="col-md-5 col-lg-3" style={{ marginTop: '-8px' }}>
+                            <div>
+                              <DatePicker
+                                placeholderText='select from date'
+                                dateFormat="dd/MM/yyyy"
+                                peekNextMonth
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
+                                isClearable
+                                fixedHeight
+                                selected={this.props.attendanceFromDate}
+                                onChange={(e) => this.onChangeAttendanceFromDate(e, name)}
+                                className="dayPicker-custom-input"
+                                name='fromDate'
+                              />
+                            </div>
+                            <span className='error-message'>{errors['fromDate']}</span>
+
+                            {/*                             
                             <FormGroup>
                               <Input
                                 type="date"
@@ -106,11 +171,29 @@ export class StudentWiseAttendance extends React.Component {
                                 placeholder="from date placeholder"
                                 onChange={(evt) => this.onChangeAttendanceFromDate(evt)}
                               />
-                            </FormGroup>
+                            </FormGroup> */}
                           </div>
 
-                          <div className="col-md-7 col-lg-6">
-                            <FormGroup>
+                          <div className="col-md-7 col-lg-3" style={{ marginTop: '-8px' }}>
+
+                            <DatePicker
+                              placeholderText='select to date'
+                              dateFormat="dd/MM/yyyy"
+                              peekNextMonth
+                              showMonthDropdown
+                              showYearDropdown
+                              dropdownMode="select"
+                              isClearable
+                              fixedHeight
+                              selected={this.props.attendanceToDate}
+                              onChange={(e) => this.onChangeAttendanceToDate(e, name)}
+                              className="dayPicker-custom-input"
+                              name='toDate'
+                              style={{ marginRight: '42px' }}
+                            />
+                            <span className='error-message'>{errors['toDate']}</span>
+
+                            {/* <FormGroup>
                               <Input
                                 type="date"
                                 name="toDate"
@@ -118,8 +201,11 @@ export class StudentWiseAttendance extends React.Component {
                                 placeholder="to date placeholder"
                                 onChange={(evt) => this.onChangeAttendanceToDate(evt)}
                               />
-                              <Button className="btn explore-btn" type='submit'>Search</Button>
-                            </FormGroup>
+                              
+                            </FormGroup> */}
+                          </div>
+                          <div className="col-md-7 col-lg-3" style={{ marginTop: '-8px', marginLeft: '-75px' }}>
+                            <Button className="btn explore-btn" type='submit'>Search</Button>
                           </div>
 
                         </Form>
@@ -140,7 +226,7 @@ export class StudentWiseAttendance extends React.Component {
               <div className="container info-header-title">
                 <div className="row">
                   <h5 className="col-lg-12">
-                    Showing result for  <span className="text-orange">Student ID : {this.state.stdDetailsHeaderVisible == true ? this.props.studentID + ' (' + this.props.attendanceFromDate + ' to ' + this.props.attendanceToDate + ')' : ''} </span>
+                    Showing result for  <span className="text-orange">Student ID : {this.state.stdDetailsHeaderVisible == true ? this.props.studentID + ' (' + fromDateForHeader + ' to ' + toDateForHeader + ')' : ''} </span>
                   </h5>
                 </div>
               </div>

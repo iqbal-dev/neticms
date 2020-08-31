@@ -5,10 +5,12 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_ON_CHANGE_DATE, SET_ATTENDANCE_LIST, SET_CHART_DATA } from './constants';
+import { DEFAULT_ACTION, SET_ON_CHANGE_DATE, SET_ATTENDANCE_LIST, SET_CHART_DATA, SET_LOADER } from './constants';
 
 export const initialState = fromJS({
   stdAttendanceList: [],
+  date: '',
+  loaderStatus: '',
 });
 
 function sectionWiseAttendanceReducer(state = initialState, action) {
@@ -24,6 +26,10 @@ function sectionWiseAttendanceReducer(state = initialState, action) {
 
     case SET_CHART_DATA:
       return state.set('chartDataArray', action.dataArray);
+
+
+    case SET_LOADER:
+      return state.set('loaderStatus', action.loaderStatus);
 
     default:
       return state;

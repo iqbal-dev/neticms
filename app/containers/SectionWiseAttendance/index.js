@@ -22,12 +22,16 @@ import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import {
   makeChangeDate, onSubmitSearchBtn,
 } from './actions'
-import { makeSelectStdAttendanceList, makeSelectDate, makeSelectChartDataArray } from './selectors';
+import { makeSelectStdAttendanceList, makeSelectDate, makeSelectChartDataArray, makeSelectLoaderStatus } from './selectors';
 
 import { AppLayout } from '../AppLayout';
+import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SectionWiseAttendance extends React.Component {
@@ -35,21 +39,50 @@ export class SectionWiseAttendance extends React.Component {
   constructor(props) {
 
     super(props);
-    this.state = {}
+    this.state = {
+      errors: {},
+    }
     this.onSubmitSearch = this.onSubmitSearch.bind(this);
+    this.emptyFieldCheck = this.emptyFieldCheck.bind(this);
 
   }
 
+  handleDateChange = (e) => {
+    console.log('selected date', e);
+    this.props.onChangeDate(e);
+    this.setState({ errors: {} });
+  }
+
   onSubmitSearch = (e) => {
+
     e.preventDefault();
-    this.props.onSubmitSearch();
+    console.log('emptyCheck', this.emptyFieldCheck());
+    if (!this.emptyFieldCheck()) {
+      this.props.onSubmitSearch();
+    }
+
+  }
+
+  emptyFieldCheck() {
+
+    let fieldIsEmpty = false;
+    let { errors } = this.state;
+
+    if (this.props.selectedDate === '' || this.props.selectedDate === null) {
+      fieldIsEmpty = true;
+      errors["date"] = "Date can't left empty.";
+    }
+
+    this.setState({ errors });
+    return fieldIsEmpty;
+
   }
 
   render() {
 
     // console.log("data list - index", this.props.attendanceListData);
     let { attendanceListData, chartDataArray } = this.props;
-    // console.log("chartDataArray list - index", chartDataArray);
+    console.log("chartDataArray list - index", chartDataArray);
 
     return (
       <div>
@@ -133,7 +166,21 @@ export class SectionWiseAttendance extends React.Component {
 
                       <div className="col-lg-6 form">
                         <Form inline method='POST' onSubmit={(e) => this.onSubmitSearch(e)}>
-                          <FormGroup>
+                          <DatePicker
+                            placeholderText='select date'
+                            dateFormat="dd/MM/yyyy"
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
+                            isClearable
+                            fixedHeight
+                            selected={this.props.selectedDate}
+                            onChange={this.handleDateChange}
+                            className="dayPicker-custom-input"
+                            name='date'
+                          />
+                          {/*                             
                             <Input
                               type="date"
                               name="date"
@@ -141,10 +188,11 @@ export class SectionWiseAttendance extends React.Component {
                               placeholder="date placeholder"
                               value={this.props.selectedDate}
                               onChange={(e) => this.props.onChangeDate(e)}
-                            />
-                            <Button className="btn explore-btn">Search</Button>
-                          </FormGroup>
+                            /> */}
+                          <Button className="btn explore-btn">Search</Button>
                         </Form>
+                        <span className='error-message'>{this.state.errors['date']}</span>
+
                       </div>
 
                     </div>
@@ -166,46 +214,48 @@ export class SectionWiseAttendance extends React.Component {
                 </div>
               </div>
 
-              <div className="container">
-                <div className="row">
-                  <di className="col-md-12">
-                    <div className="table-responsive custom-table">
-                      <Table
-                        responsive
-                        className="section-wise-attendance-table attendance-symbol"
-                      >
-                        <thead>
-                          <tr>
-                            <th>Class Name</th>
-                            <th>Total Students</th>
-                            <th>Present</th>
-                            <th>Absent</th>
-                            {/* <th>Delay</th> */}
-                            <th>Leave</th>
-                            {/* <th className="text-center">Action</th> */}
-                          </tr>
-                        </thead>
+              {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
 
-                        <tbody>
+                <div className="container">
+                  <div className="row">
+                    <di className="col-md-12">
+                      <div className="table-responsive custom-table">
+                        <Table
+                          responsive
+                          className="section-wise-attendance-table attendance-symbol"
+                        >
+                          <thead>
+                            <tr>
+                              <th>Class Name</th>
+                              <th>Total Students</th>
+                              <th>Present</th>
+                              <th>Absent</th>
+                              {/* <th>Delay</th> */}
+                              <th>Leave</th>
+                              {/* <th className="text-center">Action</th> */}
+                            </tr>
+                          </thead>
 
-                          {
-                            attendanceListData && attendanceListData.length ?
-                              attendanceListData.map((item, index) =>
-                                <tr>
-                                  <td>{item.className}</td>
-                                  <td>{item.totalAttenTakenStds}</td>
-                                  <td>{item.presentStds}</td>
-                                  <td>{item.absentStds}</td>
-                                  <td>{item.totalLeaveStds}</td>
-                                </tr>
-                              )
+                          <tbody>
 
-                              : <tr><td colSpan='5'>No Data Found</td></tr>
-                          }
+                            {
+                              attendanceListData && attendanceListData.length ?
+                                attendanceListData.map((item) =>
+                                  <tr>
+                                    <td>{item.className}</td>
+                                    <td>{item.totalAttenTakenStds}</td>
+                                    <td>{item.presentStds}</td>
+                                    <td>{item.absentStds}</td>
+                                    <td>{item.totalLeaveStds}</td>
+                                  </tr>
+                                )
 
-                        </tbody>
+                                : <tr><td colSpan='5'>No Data Found</td></tr>
+                            }
 
-                        {/* <tbody>
+                          </tbody>
+
+                          {/* <tbody>
                           <tr>
                             <td>Class Ten Section - A</td>
                             <td>57</td>
@@ -216,11 +266,11 @@ export class SectionWiseAttendance extends React.Component {
                           </tr>
                         </tbody> */}
 
-                      </Table>
-                    </div>
-                  </di>
-                </div>
-                {/* <div className="row m-t-40">
+                        </Table>
+                      </div>
+                    </di>
+                  </div>
+                  {/* <div className="row m-t-40">
                   <div className="col-md-12">
                     <div className="text-center m-t-40">
                       <button className="btn explore-btn-lg">
@@ -229,7 +279,8 @@ export class SectionWiseAttendance extends React.Component {
                     </div>
                   </div>
                 </div> */}
-              </div>
+                </div>
+              }
             </div>
           </section>
 
@@ -255,12 +306,13 @@ const mapStateToProps = createStructuredSelector({
   selectedDate: makeSelectDate(),
   attendanceListData: makeSelectStdAttendanceList(),
   chartDataArray: makeSelectChartDataArray(),
+  loaderStatus: makeSelectLoaderStatus(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onChangeDate: (evt) => { dispatch(makeChangeDate(evt.target.value)) },
+    onChangeDate: (value) => { dispatch(makeChangeDate(value)) },
     onSubmitSearch: () => { dispatch(onSubmitSearchBtn()) }
   };
 }

@@ -16,7 +16,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Button, Input } from 'reactstrap';
 import Slider from 'components/Slider';
-import Calendar from 'react-calendar';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -490,7 +489,7 @@ export class HomePage extends React.Component {
                     </div>
                   </div>
                   <div className="col-md-3 text-center section-space-60">
-                    <img src={emergancyImage} width="auto" height="556px"/>
+                    <img src={emergancyImage} width="auto" height="556px" />
                   </div>
                 </div>
               </div>
