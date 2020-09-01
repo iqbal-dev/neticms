@@ -14,15 +14,15 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectWelcomeSpeech, { makeSelectWelcomeSpeechList } from './selectors';
+import makeSelectWelcomeSpeech, { makeSelectWelcomeSpeechList, makeSelectWelcomeSpeechLoader } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
+import { centerTableLoader } from '../../utils/contentLoader';
 
-/* eslint-disable react/prefer-stateless-function */
 export class WelcomeSpeech extends React.Component {
 
   getPlainTextToHtml = (index, html) => {
@@ -51,45 +51,45 @@ export class WelcomeSpeech extends React.Component {
           <section className="speech-wrapper welcome-speech my-3">
             <div className="container-fluid">
               <div className="container">
-                <div className="row">
-                  {this.props.welcomeSpeechList && this.props.welcomeSpeechList.map((item, index) => (
-                    <div className="col-lg-12">
-                      <div className="speech-slider-wrapper">
-                        <div className="slider-item">
-                          <div className="slider-content grid-list-wrapper">
-                            <div className="grid-image">
-                              {
-                                item.fileContent ?
-                                  <img src={"data:image/*;base64," + item.fileContent} align="left" className="mx-auto d-block" /> :
-                                  <img src={staticImg} width="100%" />
-                              }
-                              <div className="grid-social">
-                                <ul className="d-flex justify-content-center w-100 nav">
-                                  <li><a className={!item.speakerMobile ? '' : "phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
-                                  <li><a className={!item.speakerEmail ? '' : "email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
-                                  <li><a className={!item.speakerFacebookLinke ? '' : "facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
-                                  <li><a className={!item.speakerLinkedinLinke ? '' : "linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
-                                </ul>
+
+                {this.props.loaderStatus === 'autoLoadOn' ? centerTableLoader() :
+
+                  <div className="row">
+                    {this.props.welcomeSpeechList && this.props.welcomeSpeechList.map((item, index) => (
+                      <div className="col-lg-12">
+                        <div className="speech-slider-wrapper">
+                          <div className="slider-item">
+                            <div className="slider-content grid-list-wrapper">
+                              <div className="grid-image">
+                                {
+                                  item.fileContent ?
+                                    <img src={"data:image/*;base64," + item.fileContent} align="left" className="mx-auto d-block" /> :
+                                    <img src={staticImg} width="100%" />
+                                }
+                                <div className="grid-social">
+                                  <ul className="d-flex justify-content-center w-100 nav">
+                                    <li><a className={!item.speakerMobile ? '' : "phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
+                                    <li><a className={!item.speakerEmail ? '' : "email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
+                                    <li><a className={!item.speakerFacebookLinke ? '' : "facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a className={!item.speakerLinkedinLinke ? '' : "linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
+                                  </ul>
+                                </div>
+                              </div>
+
+                              <h4 className="designation">{item.speakerDesignation}</h4>
+                              <h1 className="employe-name">{item.speakerName}</h1>
+                              {/* <p>{ this.getPlainTextToHtml(item.speechDetails) }</p> */}
+                              <div className='speechDetails'>
+                                {this.getPlainTextToHtml(index, item.speechDetails)}
                               </div>
                             </div>
-                            {/* <img
-                          src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
-                          align="left"
-                        /> */}
-
-                            <h4 className="designation">{item.speakerDesignation}</h4>
-                            <h1 className="employe-name">{item.speakerName}</h1>
-                            {/* <p>{ this.getPlainTextToHtml(item.speechDetails) }</p> */}
-                            <div className='speechDetails'>
-                              {this.getPlainTextToHtml(index, item.speechDetails)}
-                            </div>
                           </div>
-                        </div>
 
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                }
               </div>
             </div>
           </section>
@@ -115,7 +115,7 @@ WelcomeSpeech.propTypes = {
 const mapStateToProps = createStructuredSelector({
   welcomeSpeech: makeSelectWelcomeSpeech(),
   welcomeSpeechList: makeSelectWelcomeSpeechList(),
-
+  loaderStatus: makeSelectWelcomeSpeechLoader()
 });
 
 function mapDispatchToProps(dispatch) {

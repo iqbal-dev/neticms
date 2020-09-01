@@ -11,20 +11,19 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Tooltip } from 'reactstrap';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectCommitteeMembers, { makeSelectCommitteeMemberList } from './selectors';
+import makeSelectCommitteeMembers, { makeSelectCommitteeMemberList, makeSelectCommitteeloaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
-import donorImage from '../../assets/img/donor-image.png';
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
+import { centerTableLoader } from '../../utils/contentLoader';
 
-/* eslint-disable react/prefer-stateless-function */
 export class CommitteeMembers extends React.PureComponent {
+
   render() {
     return (
       <div>
@@ -45,39 +44,43 @@ export class CommitteeMembers extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  {this.props.committeMembersList && this.props.committeMembersList.map((item, index) => (
-                    <div className="col-md-4">
-                      <div className="grid-list-wrapper">
-                        <div className="grid-image">
-                          {
-                            item.memberImg ?
-                              <img src={"data:image/*;base64," + item.memberImg} className="mx-auto d-block" /> :
-                              <img src={staticImg} />
-                          }
-                        </div>
-                        <div className="grid-content text-center">
-                          <div className="grid-title">
-                            <h3>{item.memberName}</h3>
-                          </div>
-                          <div className="grid-subtitle-title">
-                            <h4>{item.memberDesignation}</h4>
-                          </div>
-                        </div>
-                        <div className="grid-social">
-                          <ul className="d-flex justify-content-center w-100 nav">
 
-                            <li><a className={!item.memberMobile ? '' : "phone"} phone={item.memberMobile}><i class="fas fa-phone"></i></a></li>
-                            <li><a className={!item.memberEmail ? '' : "email"} email={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
-                            <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
-                         
-                          </ul>
+                {this.props.loaderTYpe === 'autoLoadOn' ? centerTableLoader() :
+
+                  <div className="row">
+                    {this.props.committeMembersList && this.props.committeMembersList.map((item, index) => (
+                      <div className="col-md-4">
+                        <div className="grid-list-wrapper">
+                          <div className="grid-image">
+                            {
+                              item.memberImg ?
+                                <img src={"data:image/*;base64," + item.memberImg} className="mx-auto d-block" /> :
+                                <img src={staticImg} />
+                            }
+                          </div>
+                          <div className="grid-content text-center">
+                            <div className="grid-title">
+                              <h3>{item.memberName}</h3>
+                            </div>
+                            <div className="grid-subtitle-title">
+                              <h4>{item.memberDesignation}</h4>
+                            </div>
+                          </div>
+                          <div className="grid-social">
+                            <ul className="d-flex justify-content-center w-100 nav">
+
+                              <li><a className={!item.memberMobile ? '' : "phone"} phone={item.memberMobile}><i class="fas fa-phone"></i></a></li>
+                              <li><a className={!item.memberEmail ? '' : "email"} email={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
+                              <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
+                              <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
+
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                }
 
               </div>
               <div className="container">
@@ -103,7 +106,7 @@ CommitteeMembers.propTypes = {
 const mapStateToProps = createStructuredSelector({
   committeeMembers: makeSelectCommitteeMembers(),
   committeMembersList: makeSelectCommitteeMemberList(),
-
+  loaderTYpe: makeSelectCommitteeloaderType(),
 });
 
 function mapDispatchToProps(dispatch) {

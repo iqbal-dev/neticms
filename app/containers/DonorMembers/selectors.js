@@ -14,6 +14,10 @@ const selectDonorMembersDomain = state =>
 
 const makeSelectDonorMembersList = () =>
   createSelector(selectDonorMembersDomain, substate => substate.get('donorMembers'));
+
+const makeSelectDonorloaderType = () =>
+  createSelector(selectDonorMembersDomain, substate => substate.get('loaderType'));
+
 /**
  * Default selector used by DonorMembers
  */
@@ -24,5 +28,6 @@ const makeSelectDonorMembers = () =>
 export default makeSelectDonorMembers;
 export {
   selectDonorMembersDomain,
-  makeSelectDonorMembersList
+  makeSelectDonorMembersList,
+  makeSelectDonorloaderType
 };
