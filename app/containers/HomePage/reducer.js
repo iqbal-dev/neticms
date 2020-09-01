@@ -23,13 +23,15 @@ export const initialState = fromJS({
   noticeList: '',
   welcomeSpeech: '',
   useFullLinks: '',
-  loadingStatus: {
-    homeSlider: true,
-    noticeList: true,
-    // welcomeSpeech: false,
-    // usefullLink: false,
-    // eventList: false,
-  },
+  loadingStatus: '',
+  
+  // {
+  //   // homeSlider: true,
+  //   // noticeList: true,
+  //   // welcomeSpeech: false,
+  //   // usefullLink: false,
+  //   // eventList: false,
+  // },
 
   academicYearList: '',
   sectionList: '',
