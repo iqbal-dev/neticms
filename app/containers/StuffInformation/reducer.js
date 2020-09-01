@@ -5,11 +5,12 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_STAFF_INFO_LIST, SET_STUFF_INFORMATION_ROWDATA  } from './constants';
+import { DEFAULT_ACTION, SET_STAFF_INFO_LIST, SET_STUFF_INFORMATION_ROWDATA, SET_LOADER } from './constants';
 
 export const initialState = fromJS({
   staffInfoList: [],
-  stuffRowData: ''
+  stuffRowData: '',
+  loaderType: '',
 });
 
 function stuffInformationReducer(state = initialState, action) {
@@ -17,11 +18,14 @@ function stuffInformationReducer(state = initialState, action) {
     case DEFAULT_ACTION:
       return state;
 
-      case SET_STAFF_INFO_LIST:
-        return state.set('staffInfoList', action.staffInfoList);
+    case SET_STAFF_INFO_LIST:
+      return state.set('staffInfoList', action.staffInfoList);
 
-        case SET_STUFF_INFORMATION_ROWDATA:
-          return state.set('stuffRowData', action.rowData);
+    case SET_STUFF_INFORMATION_ROWDATA:
+      return state.set('stuffRowData', action.rowData);
+
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
 
     default:
       return state;

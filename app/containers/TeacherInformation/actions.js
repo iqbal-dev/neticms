@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, TEACHER_INFORMATON_LIST } from './constants';
+import { DEFAULT_ACTION, TEACHER_INFORMATON_LIST, SET_LOADER } from './constants';
 
 export function defaultAction() {
   return {
@@ -17,4 +17,8 @@ export function teacherInformationList(teacherList) {
     type: TEACHER_INFORMATON_LIST,
     teacherList
   };
+}
+
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
 }

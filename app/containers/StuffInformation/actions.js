@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_STAFF_INFO_LIST, STUFF_SEARCH_BUTTON, SET_STUFF_INFORMATION_ROWDATA } from './constants';
+import { DEFAULT_ACTION, SET_STAFF_INFO_LIST, STUFF_SEARCH_BUTTON, SET_STUFF_INFORMATION_ROWDATA, SET_LOADER } from './constants';
 
 export function defaultAction() {
   return {
@@ -20,18 +20,20 @@ export function setStaffInfoList(staffInfoList) {
 }
 
 export function onSubmitStuffInfoSearchBtn() {
-  console.log('banna in action');
   return {
     type: STUFF_SEARCH_BUTTON,
   };
 }
 
 export function onSubmitStuffInfoSetRowData(rowData) {
-  console.log('banna in action');
   return {
     type: SET_STUFF_INFORMATION_ROWDATA,
     rowData
   };
+}
+
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
 }
 
 

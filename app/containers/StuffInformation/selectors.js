@@ -15,12 +15,11 @@ const selectStuffInformationDomain = state =>
 const makeSelectStuffInfoList = () =>
   createSelector(selectStuffInformationDomain, substate => substate.get('staffInfoList'));
 
-
-  const makeSelectStuffRowData = () =>
+const makeSelectStuffRowData = () =>
   createSelector(selectStuffInformationDomain, substate => substate.get('stuffRowData'));
 
-
-  
+const makeSelectStuffLoaderType = () =>
+  createSelector(selectStuffInformationDomain, substate => substate.get('loaderType'));
 
 /**
  * Default selector used by StuffInformation
@@ -33,5 +32,6 @@ export default makeSelectStuffInformation;
 export {
   selectStuffInformationDomain,
   makeSelectStuffInfoList,
-  makeSelectStuffRowData
+  makeSelectStuffRowData,
+  makeSelectStuffLoaderType
 };

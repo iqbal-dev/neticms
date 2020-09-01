@@ -1,37 +1,35 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { 
+import {
   TEACHER_INFORMATON_LIST,
 } from './constants';
 import { BASE_URL, BASE_URL_EM, FETCH_STAFF_INFORMATION } from '../../utils/serviceUrl';
 import request from '../../utils/request';
-import {teacherInformationList} from './actions';
-// Individual exports for testing
+import { teacherInformationList, setLoader } from './actions';
+
 export function* teacherInformationSaga() {
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  
   let token = JSON.parse(localStorage.getItem('emToken'));
-  console.log('instituteUrlInfo', instituteUrlInfo);
-  
+  // console.log('instituteUrlInfo', instituteUrlInfo);
+
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
-  
+  yield put(setLoader('autoLoadOn'));
+
   const requestURL = BASE_URL_EM.concat(FETCH_STAFF_INFORMATION).concat('?categoryName=').concat("Teacher").concat('&instituteId=').concat(instituteId);
-  
   const options = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'bearer ' + token.access_token,
-
     },
   };
   const response = yield call(request, requestURL, options);
+  yield put(setLoader('autoLoadOff'));
 
   try {
     yield put(teacherInformationList(response.item));
     console.log('response.item', response.item);
-    
   } catch (error) { }
 
 }
