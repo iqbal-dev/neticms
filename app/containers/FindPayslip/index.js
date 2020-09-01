@@ -38,23 +38,71 @@ import {
   makeSelectFindPayslipData
 } from './selectors';
 
-// import { 
-//   // makeSelectFindPayslip,
-//   makeSelectTabPanelStatus,
-//   makeSelectAcademicYearList 
-// } from './selectors';
-
-/* eslint-disable react/prefer-stateless-function */
 export class FindPayslip extends React.PureComponent {
-  toggleTab = tabId => this.props.onChangeTabPanel(tabId);
 
-  onSearchStudentInfo = () => {
-    if (true) { this.props.onSubmitSearch(); }
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: {},
+    }
   }
 
+  onChangeAcYear = (e) => {
+    this.props.onChangeAcademicYear(e)
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onChangeStudentId = (e) => {
+    this.props.onChangeStudentID(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  handleSubmitSearch = (e) => {
+
+    console.log('handleSubmitSearch', !this.emptyFieldCheck());
+    e.preventDefault();
+
+    if (!this.emptyFieldCheck()) {
+      this.props.onSubmitSearch();
+    }
+
+  }
+
+  emptyFieldCheck = () => {
+
+    let { errors } = this.state;
+    let fieldIsEmpty = false;
+
+    if (this.props.academicYear === '') {
+      fieldIsEmpty = true;
+      errors["year"] = "Year can't left empty.";
+    }
+
+    if (this.props.studentID === '') {
+      fieldIsEmpty = true;
+      errors["studentID"] = "Student ID can't left empty.";
+    }
+
+    this.setState({ errors });
+    return fieldIsEmpty;
+
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = ''
+    this.setState({ errors })
+  }
+
+  toggleTab = tabId => this.props.onChangeTabPanel(tabId);
+  // onSearchStudentInfo = () => {
+  //   if (true) { this.props.onSubmitSearch(); }
+  // }
+
   render() {
-    // let { errors } = this.state
+
     let { academicYearList, makeSelectFindPayslipData, academicYear } = this.props;
+    let { errors } = this.state;
 
     let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
     let instituteId = '';
@@ -82,23 +130,22 @@ export class FindPayslip extends React.PureComponent {
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
                     <div className="row attendance-body-header-inside">
-                      {/* <div className="row"> */}
+
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
-                          {/* <div className="row"> */}
                           <div className="col-md-5">
                             <FormGroup className="custom-dropdown">
                               <Input
                                 type="select"
                                 name="year"
-                                onChange={this.props.onChangeAcademicYear}
+                                onChange={(e) => this.onChangeAcYear(e)}
                               // value={ this.props.academicYear}
                               >
                                 <option value=''>Select Academic Year</option>
                                 {academicYearList && academicYearList.map(item => (<option key={item.name} value={academicYear || item.name}>{item.name}</option>))}
                               </Input>
                             </FormGroup>
-                            {/* <div className="error-message"> {errors['year']}</div> */}
+                            <span className="error-message">{errors["year"]}</span>
                           </div>
 
                           <div className="col-md-7">
@@ -107,16 +154,17 @@ export class FindPayslip extends React.PureComponent {
                                 type="text"
                                 name="studentID"
                                 placeholder="Enter Student ID Number"
-                                onChange={this.props.onChangeStudentID}
+                                onChange={(e) => this.onChangeStudentId(e)}
                               />
 
                               <Button
                                 className="btn explore-btn mb-0"
-                                onClick={this.onSearchStudentInfo}
+                                onClick={this.handleSubmitSearch}
                               >
                                 <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                               </Button>
                             </FormGroup>
+                            <span className="error-message">{errors["studentID"]}</span>
                           </div>
 
                           {/* </div> */}

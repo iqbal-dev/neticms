@@ -40,8 +40,10 @@ import {
   makeSelectClassConfigId,
   makeSelectAcademicYear,
   makeSelectExamConfigId,
+  makeSelectFailListLoaderType
 } from './selectors';
 import { makeSelectGlobalSectionList } from '../HomePage/selectors';
+import { centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FailList extends React.Component {
@@ -56,45 +58,61 @@ export class FailList extends React.Component {
     }
   }
 
-  onChangeInputField = (event) => {
-    let { errors } = this.state
-    errors[event.target.name] = ''
-    this.setState({
-      [event.target.name]: event.target.value, errors
-    });
+  onChangeAcYear = (e) => {
+    this.props.onChangeAcademicYear(e);
+    this.clearErrorMsg(e.target.name);
   }
 
-  handleError = () => {
+  onChangeSection = (e) => {
+    this.props.onChangeSection(e);
+    this.clearErrorMsg(e.target.name);
+  }
 
+  onChangeExam = (e) => {
+    this.props.onChangeExamType(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  emptyFieldCheck() {
+
+    let fieldIsEmpty = false;
     let { errors } = this.state;
-    let formIsValid = true;
 
-    if (this.props.acYear == '') {
-      errors["year"] = "Year can't left empty"
-      formIsValid = false;
+    if (this.props.academicYear === '' || this.props.academicYear === null) {
+      fieldIsEmpty = true;
+      errors["year"] = "Academic Year can't left empty.";
     }
 
-    if (this.props.classConfigId == '') {
-      errors["section"] = "Section can't left empty"
-      formIsValid = false;
+    if (this.props.classConfigId === '' || this.props.classConfigId === null) {
+      fieldIsEmpty = true;
+      errors["section"] = "section can't left empty.";
+    }
+    if (this.props.examConfigId === '' || this.props.examConfigId === null) {
+      fieldIsEmpty = true;
+      errors["examType"] = "Exam can't left empty.";
     }
 
-    if (this.props.examConfigId == '') {
-      errors["examType"] = "Exam type can't left empty"
-      formIsValid = false;
-    }
+    this.setState({ errors });
+    return fieldIsEmpty;
 
-    this.setState({ errors })
-    return formIsValid;
   }
 
-  onSearchStudentInfo = () => {
-    if (true) { this.props.onSubmitSearch(); }
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = ''
+    this.setState({ errors })
+  }
+
+  onSearchStudentInfo = (e) => {
+    e.preventDefault();
+    if (!this.emptyFieldCheck()) {
+      this.props.onSubmitSearch();
+    }
   }
 
   render() {
 
-    let { errors } = this.state
+    let { errors } = this.state;
     let { academicYearList, sectionList, examList, classList, failList } = this.props;
 
     return (
@@ -123,51 +141,65 @@ export class FailList extends React.Component {
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
                           <div className="col-md-6 col-lg-3">
-                            <FormGroup className="custom-dropdown">
-                              <Input
-                                type="select"
-                                name="year"
-                                onChange={this.props.onChangeAcademicYear}
-                              >
-                                <option value=''>Select Academic Year</option>
-                                {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
-                              </Input>
-                            </FormGroup>
-                            <div className="error-message"> {errors['year']}</div>
+                            {this.props.loaderType === 'autoLoadOn' ? inputFieldLoader() : <div>
+
+                              <FormGroup className="custom-dropdown">
+                                <Input
+                                  type="select"
+                                  name="year"
+                                  onChange={this.onChangeAcYear}
+                                >
+                                  <option value=''>Select Academic Year</option>
+                                  {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
+                                </Input>
+                              </FormGroup>
+                              <span className="error-message"> {errors['year']}</span>
+                            </div>
+                            }
                           </div>
 
                           <div className="col-md-6 col-lg-3">
-                            <FormGroup className="custom-dropdown">
-                              <Input
-                                type="select"
-                                name="section"
-                                onChange={this.props.onChangeSection}
-                              >
-                                <option value=''>Select a Section</option>
-                                {
-                                  sectionList && sectionList.map((item, index) =>
-                                    <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
-                                  )
-                                }
-                              </Input>
-                            </FormGroup>
-                            <div className="error-message"> {errors['section']}</div>
+                            {this.props.loaderType === 'autoLoadOn' ? inputFieldLoader() : <div>
+
+                              <FormGroup className="custom-dropdown">
+                                <Input
+                                  type="select"
+                                  name="section"
+                                  onChange={this.onChangeSection}
+                                >
+                                  <option value=''>Select a Section</option>
+                                  {
+                                    sectionList && sectionList.map((item, index) =>
+                                      <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
+                                    )
+                                  }
+                                </Input>
+                              </FormGroup>
+                              <span className="error-message"> {errors['section']}</span>
+                            </div>
+                            }
                           </div>
 
                           <div className="col-md-6 col-lg-3">
-                            <FormGroup className="custom-dropdown">
-                              <Input
-                                type="select"
-                                name="examType"
-                                onChange={this.props.onChangeExamType}
-                              >
-                                <option value=''>Select Exam</option>
-                                {examList && examList.map(item => (
-                                  <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
-                                ))}
-                              </Input>
-                            </FormGroup>
-                            <div className="error-message"> {errors['examType']}</div>
+                            {this.props.loaderType === 'dependendLoadOn' ? inputFieldLoader() : <div>
+
+                              <FormGroup className="custom-dropdown">
+                                <Input
+                                  type="select"
+                                  name="examType"
+                                  onChange={this.onChangeExam}
+                                >
+                                  <option value=''>Select Exam</option>
+                                  {examList && examList.map(item => (
+                                    <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
+                                  ))}
+                                </Input>
+                              </FormGroup>
+                              <span className="error-message"> {errors['examType']}</span>
+
+                            </div>
+                            }
+
                           </div>
 
                           <div className="col-md-6 col-lg-3">
@@ -204,41 +236,45 @@ export class FailList extends React.Component {
               <div className="container">
                 <div className="row">
                   <di className="col-md-12">
-                    <div className="table-responsive custom-table">
-                      <Table
-                        responsive
-                        className="section-wise-attendance-table attendance-symbol"
-                      >
-                        <thead>
-                          <tr>
-                            {/* <th>Photo</th> */}
-                            <th>Student ID</th>
-                            <th>Roll No</th>
-                            <th>Student Name</th>
-                            <th>Total Marks</th>
-                            <th>Failed Subject</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {
-                            failList ?
-                              failList.map((item, index) =>
-                                <tr>
-                                  {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
-                                  <td>{item.customStudentId}</td>
-                                  <td>{item.studentRoll}</td>
-                                  <td>{item.studentName}</td>
-                                  <td>{item.totalMarks}</td>
-                                  <td>{item.numOfFailedSubjects}</td>
-                                </tr>
-                              )
 
-                              : <tr><td colSpan='6'>No Data Found</td></tr>
-                          }
+                    {this.props.loaderType === 'tableLoadOn' ? centerTableLoader() :
 
-                        </tbody>
-                      </Table>
-                    </div>
+                      <div className="table-responsive custom-table">
+                        <Table
+                          responsive
+                          className="section-wise-attendance-table attendance-symbol"
+                        >
+                          <thead>
+                            <tr>
+                              {/* <th>Photo</th> */}
+                              <th>Student ID</th>
+                              <th>Roll No</th>
+                              <th>Student Name</th>
+                              <th>Total Marks</th>
+                              <th>Failed Subject</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {
+                              failList ?
+                                failList.map((item, index) =>
+                                  <tr>
+                                    {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
+                                    <td>{item.customStudentId}</td>
+                                    <td>{item.studentRoll}</td>
+                                    <td>{item.studentName}</td>
+                                    <td>{item.totalMarks}</td>
+                                    <td>{item.numOfFailedSubjects}</td>
+                                  </tr>
+                                )
+
+                                : <tr><td colSpan='6'>No Data Found</td></tr>
+                            }
+
+                          </tbody>
+                        </Table>
+                      </div>
+                    }
                   </di>
                 </div>
                 {/* <div className="row m-t-40">
@@ -284,6 +320,7 @@ const mapStateToProps = createStructuredSelector({
   classConfigId: makeSelectClassConfigId(),
   examConfigId: makeSelectExamConfigId(),
   globalSections: makeSelectGlobalSectionList(),
+  loaderType: makeSelectFailListLoaderType(),
 });
 
 function mapDispatchToProps(dispatch) {

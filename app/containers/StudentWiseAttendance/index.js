@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectStudentWiseAttendance, { makeSelectStudentID, makeSelectAttendanceFromDate, makeSelectAttendancToeDate, makeSelectAttendanceList } from './selectors';
+import makeSelectStudentWiseAttendance, { makeSelectStudentID, makeSelectAttendanceFromDate, makeSelectAttendancToeDate, makeSelectAttendanceList, makeSelectAttendanceLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -29,6 +29,7 @@ import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -43,18 +44,19 @@ export class StudentWiseAttendance extends React.Component {
     }
   }
 
-  onChangeAttendanceFromDate = (value, name) => {
-    console.log('frm date', value);
-    // let formatedFromDate = get_DDMMYY_Format_WithSlash(value);
-    this.props.onChangeFromDate(value);
-    this.setState({ errors: {} });
+  onChangeStudentId = (e) => {
+    this.props.onChangeStudentID(e);
+    this.clearErrorMsg(e.target.name);
+  }
 
+  onChangeAttendanceFromDate = (value, name) => {
+    this.props.onChangeFromDate(value);
+    this.clearErrorMsg(name);
   }
 
   onChangeAttendanceToDate = (value, name) => {
-    // let formatedToDate = get_DDMMYY_Format_WithSlash(value);
     this.props.onChangeToDate(value);
-    this.setState({ errors: {} });
+    this.clearErrorMsg(name);
   }
 
   onSubmitSearch = (e) => {
@@ -63,9 +65,7 @@ export class StudentWiseAttendance extends React.Component {
 
     e.preventDefault();
     if (!this.emptyFieldCheck()) {
-
       this.props.submitSearch();
-
     }
   }
 
@@ -73,6 +73,11 @@ export class StudentWiseAttendance extends React.Component {
 
     let fieldIsEmpty = false;
     let { errors } = this.state;
+
+    if (this.props.studentID === '' || this.props.studentID === null) {
+      fieldIsEmpty = true;
+      errors["studentID"] = "Student ID can't left empty.";
+    }
 
     if (this.props.attendanceFromDate === '' || this.props.attendanceFromDate === null) {
       fieldIsEmpty = true;
@@ -86,6 +91,12 @@ export class StudentWiseAttendance extends React.Component {
     this.setState({ errors });
     return fieldIsEmpty;
 
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = ''
+    this.setState({ errors })
   }
 
   render() {
@@ -104,7 +115,6 @@ export class StudentWiseAttendance extends React.Component {
       toDateForHeader = '';
     } else { toDateForHeader = get_DDMMYY_Format_WithSlash(attendanceToDate); }
 
-    console.log('fromDateForHeader', fromDateForHeader);
     return (
       <div>
         <AppLayout>
@@ -138,9 +148,10 @@ export class StudentWiseAttendance extends React.Component {
                                 type="text"
                                 name="studentID"
                                 placeholder="Enter Student ID "
-                                onChange={this.props.onChangeStudentID}
+                                onChange={this.onChangeStudentId}
                               />
                             </FormGroup>
+                            <span className="error-message">{errors["studentID"]}</span>
                           </div>
 
                           <div className="col-md-5 col-lg-3" style={{ marginTop: '-8px' }}>
@@ -155,7 +166,7 @@ export class StudentWiseAttendance extends React.Component {
                                 isClearable
                                 fixedHeight
                                 selected={this.props.attendanceFromDate}
-                                onChange={(e) => this.onChangeAttendanceFromDate(e, name)}
+                                onChange={(e) => this.onChangeAttendanceFromDate(e, 'fromDate')}
                                 className="dayPicker-custom-input"
                                 name='fromDate'
                               />
@@ -186,7 +197,7 @@ export class StudentWiseAttendance extends React.Component {
                               isClearable
                               fixedHeight
                               selected={this.props.attendanceToDate}
-                              onChange={(e) => this.onChangeAttendanceToDate(e, name)}
+                              onChange={(e) => this.onChangeAttendanceToDate(e, 'toDate')}
                               className="dayPicker-custom-input"
                               name='toDate'
                               style={{ marginRight: '42px' }}
@@ -338,43 +349,44 @@ export class StudentWiseAttendance extends React.Component {
                 </div>
               </div>
 
-              <div className="container">
-                <div className="row">
-                  <di className="col-md-12">
-                    <div className="table-responsive custom-table">
-                      <Table
-                        responsive
-                        className="student-wise-attendance-table attendance-symbol center"
-                      >
-                        <thead>
-                          <tr>
-                            <th>Date</th>
-                            <th>Day</th>
-                            <th>Status</th>
-                            <th>Present Time</th>
-                            {/* <th className="text-center">Action</th> */}
-                          </tr>
-                        </thead>
+              {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
+                <div className="container">
+                  <div className="row">
+                    <di className="col-md-12">
+                      <div className="table-responsive custom-table">
+                        <Table
+                          responsive
+                          className="student-wise-attendance-table attendance-symbol center"
+                        >
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Day</th>
+                              <th>Status</th>
+                              <th>Present Time</th>
+                              {/* <th className="text-center">Action</th> */}
+                            </tr>
+                          </thead>
 
-                        <tbody>
-                          {
-                            attendanceList && attendanceList.details ?
-                              attendanceList.details.map((item, index) =>
+                          <tbody>
+                            {
+                              attendanceList && attendanceList.details ?
+                                attendanceList.details.map((item, index) =>
 
-                                <tr>
-                                  <td>{item.date}</td>
-                                  <td>{item.day}</td>
-                                  <td>{item.status}</td>
-                                  <td>{item.presentTime}</td>
-                                </tr>
-                              )
+                                  <tr>
+                                    <td>{item.date}</td>
+                                    <td>{item.day}</td>
+                                    <td>{item.status}</td>
+                                    <td>{item.presentTime}</td>
+                                  </tr>
+                                )
 
-                              : <tr><td colSpan='4'>No Data Found</td></tr>
-                          }
+                                : <tr><td colSpan='4'>No Data Found</td></tr>
+                            }
 
-                        </tbody>
+                          </tbody>
 
-                        {/* 
+                          {/* 
                         <tbody>
                           <tr>
                             <td>22-07-2020</td>
@@ -408,11 +420,11 @@ export class StudentWiseAttendance extends React.Component {
                           </tr>
                         </tbody> */}
 
-                      </Table>
-                    </div>
-                  </di>
-                </div>
-                {/* <div className="row m-t-40">
+                        </Table>
+                      </div>
+                    </di>
+                  </div>
+                  {/* <div className="row m-t-40">
                 <div className="col-md-12">
                   <div className="text-center m-t-40">
                     <button className="btn explore-btn-lg">
@@ -421,7 +433,8 @@ export class StudentWiseAttendance extends React.Component {
                   </div>
                 </div>
               </div> */}
-              </div>
+                </div>
+              }
             </div>
           </section>
 
@@ -448,6 +461,7 @@ const mapStateToProps = createStructuredSelector({
   attendanceFromDate: makeSelectAttendanceFromDate(),
   attendanceToDate: makeSelectAttendancToeDate(),
   attendanceList: makeSelectAttendanceList(),
+  loaderType: makeSelectAttendanceLoaderType(),
 });
 
 function mapDispatchToProps(dispatch) {

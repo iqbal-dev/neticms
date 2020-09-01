@@ -16,8 +16,4 @@ export const SET_SECTION_LIST = 'app/MeritList/SET_SECTION_LIST';
 export const SET_EXAM_LIST = 'app/MeritList/SET_EXAM_LIST';
 
 export const SET_MERIT_LIST_DATA = 'app/MeritList/SET_MERIT_LIST_DATA';
-
-
-
-
-
+export const SET_LOADER = 'app/MeritList/SET_LOADER';

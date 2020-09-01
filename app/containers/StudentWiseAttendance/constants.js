@@ -11,4 +11,4 @@ export const SET_ATTENDANCE_TO_DATE = 'app/StudentWiseAttendance/SET_ATTENDANCE_
 export const SUBMIT_SEARCH_BUTTON = 'app/StudentWiseAttendance/SUBMIT_SEARCH_BUTTON';
 
 export const SET_ATTENDANCE_LIST = 'app/StudentWiseAttendance/SET_ATTENDANCE_LIST';
-// export const SET_CHART_DATA = 'app/StudentWiseAttendance/SET_CHART_DATA';
+export const SET_LOADER = 'app/StudentWiseAttendance/SET_LOADER';

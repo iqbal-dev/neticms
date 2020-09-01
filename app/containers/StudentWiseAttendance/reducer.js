@@ -5,13 +5,14 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_STUDENT_ID, SET_ATTENDANCE_FROM_DATE, SET_ATTENDANCE_TO_DATE, SET_ATTENDANCE_LIST } from './constants';
+import { DEFAULT_ACTION, SET_STUDENT_ID, SET_ATTENDANCE_FROM_DATE, SET_ATTENDANCE_TO_DATE, SET_ATTENDANCE_LIST, SET_LOADER } from './constants';
 
 export const initialState = fromJS({
   studentID: '',
   attendanceFromDate: '',
   attendanceToDate: '',
   attendanceList: [],
+  loaderType: '',
 });
 
 function studentWiseAttendanceReducer(state = initialState, action) {
@@ -31,6 +32,9 @@ function studentWiseAttendanceReducer(state = initialState, action) {
 
     case SET_ATTENDANCE_LIST:
       return state.set('attendanceList', action.list);
+
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
 
     default:
       return state;

@@ -20,6 +20,9 @@ const makeSelectAttendancToeDate = () =>
 const makeSelectAttendanceList = () =>
   createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('attendanceList'));
 
+const makeSelectAttendanceLoaderType = () =>
+  createSelector(selectStudentWiseAttendanceDomain, substate => substate.get('loaderType'));
+
 /**
  * Other specific selectors
  */
@@ -39,5 +42,6 @@ export {
   makeSelectStudentID,
   makeSelectAttendanceFromDate,
   makeSelectAttendancToeDate,
-  makeSelectAttendanceList
+  makeSelectAttendanceList,
+  makeSelectAttendanceLoaderType
 };

@@ -20,7 +20,4 @@ export const SUBMIT_SEARCH_BUTTON = 'app/FailList/SUBMIT_SEARCH_BUTTON';
 
 //Get Table Fail List Data
 export const SET_FAIL_LIST_DATA = 'app/FailList/SET_FAIL_LIST_DATA';
-
-
-
-
+export const SET_LOADER = 'app/FailList/SET_LOADER';

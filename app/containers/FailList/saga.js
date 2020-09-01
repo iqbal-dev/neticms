@@ -7,7 +7,7 @@ import {
 } from './constants';
 import { BASE_URL_EM, fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_examListBy_classConfigID, fetch_sectionWiseFailList } from '../../utils/serviceUrl';
 import request from '../../utils/request';
-import { setFailListData, setAcademicYearList, setSectionList, setExamList } from './actions';
+import { setFailListData, setAcademicYearList, setSectionList, setExamList, setLoader } from './actions';
 import { makeSelectAcademicYear, makeSelectClassConfigId, makeSelectExamConfigId } from './selectors';
 
 export function* fetch_AcademicYearList() {
@@ -17,6 +17,7 @@ export function* fetch_AcademicYearList() {
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
   let emToken = JSON.parse(localStorage.getItem('emToken'));
+  yield put(setLoader('autoLoadOn'));
 
   const requestURL = BASE_URL_EM.concat(fetch_coreSettingsListBy_typeId).concat('?typeId=').concat('2101').concat('&instituteId=').concat(instituteId);
   const options = {
@@ -24,12 +25,11 @@ export function* fetch_AcademicYearList() {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'bearer ' + emToken.access_token,
-
     },
   };
   try {
     const response = yield call(request, requestURL, options);
-    // console.log('ac-year', response);
+    yield put(setLoader('autoLoadOff'));
     yield put(setAcademicYearList(response.item));
   } catch (error) { }
 
@@ -65,9 +65,8 @@ export function* fetch_examListBy_sectionId() {
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
   let emToken = JSON.parse(localStorage.getItem('emToken'));
-
   let classConfigId = yield select(makeSelectClassConfigId());
-  // console.log('classConfigId', classConfigId);
+  yield put(setLoader('dependendLoadOn'));
 
   const requestURL = BASE_URL_EM.concat(fetch_examListBy_classConfigID).concat('?instituteId=').concat(instituteId).concat('&classConfigId=').concat(classConfigId);
   const options = {
@@ -78,7 +77,7 @@ export function* fetch_examListBy_sectionId() {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('home-saga-sec', response);
+  yield put(setLoader('dependendLoadOff'));
   yield put(setExamList(response.item));
 
 }
@@ -96,6 +95,7 @@ export function* fetch_failList() {
   let examConfigId = yield select(makeSelectExamConfigId());
 
   // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
+  yield put(setLoader('tableLoadOn'));
 
   const requestURL = BASE_URL_EM.concat(fetch_sectionWiseFailList).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
@@ -107,6 +107,8 @@ export function* fetch_failList() {
   };
 
   const response = yield call(request, requestURL, options);
+  yield put(setLoader('tableLoadOff'));
+
   // console.log('FAIL LIST Response>>>>>>>>>>>>>>>>', response);
   try {
     yield put(setFailListData(response.item));

@@ -16,9 +16,6 @@ export const SET_MALE_DRESS_CODE_LIST = 'app/DressCode/SET_MALE_DRESS_CODE_LIST'
 export const SET_FEMALE_DRESS_CODE_LIST = 'app/DressCode/SET_FEMALE_DRESS_CODE_LIST';
 export const SET_COMBINED_DRESS_CODE_LIST = 'app/DressCode/SET_COMBINED_DRESS_CODE_LIST';
 
-
-
-
-
+export const SET_LOADER = 'app/DressCode/SET_LOADER';
 
 // export const SUBMIT_BUTTON = 'app/DressCode/SUBMIT_BUTTON';

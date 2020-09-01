@@ -60,7 +60,7 @@ function inputFieldLoader() {
         secondaryColor="#ecebeb"
     >
         {/* <rect x="-1" y="15" rx="0" ry="0" width="99" height="20" /> */}
-        <rect x="-5" y="26" rx="0" ry="0" width="350" height="40" />
+        <rect x="-5" y="26" rx="0" ry="0" width="300" height="40" />
     </ContentLoader>
 }
 
