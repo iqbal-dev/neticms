@@ -114,8 +114,8 @@ export class DownloadCorner extends React.PureComponent {
       <div>
         <AppLayout>
           <Helmet>
-            <title>ClassRooms</title>
-            <meta name="description" content="Description of ClassRooms" />
+            <title>Download Corner</title>
+            <meta name="description" content="Description of Download Corner" />
           </Helmet>
           <BreadcrumComponent pageTitle="Download Corner" menuStepFirst="More" menuStepSenond="More" menuStepThird="Download Corner" />
           <section>
