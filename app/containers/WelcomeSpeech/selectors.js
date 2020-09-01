@@ -11,6 +11,9 @@ const selectWelcomeSpeechDomain = state =>
 const makeSelectWelcomeSpeechList = () =>
   createSelector(selectWelcomeSpeechDomain, substate => substate.get('speechList'));
 
+const makeSelectWelcomeSpeechLoader = () =>
+  createSelector(selectWelcomeSpeechDomain, substate => substate.get('loaderType'));
+
 /**
  * Other specific selectors
  */
@@ -23,4 +26,4 @@ const makeSelectWelcomeSpeech = () =>
   createSelector(selectWelcomeSpeechDomain, substate => substate.toJS());
 
 export default makeSelectWelcomeSpeech;
-export { selectWelcomeSpeechDomain, makeSelectWelcomeSpeechList };
+export { selectWelcomeSpeechDomain, makeSelectWelcomeSpeechList, makeSelectWelcomeSpeechLoader };

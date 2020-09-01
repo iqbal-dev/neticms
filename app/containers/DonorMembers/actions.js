@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_DONOR_MEMBERS } from './constants';
+import { DEFAULT_ACTION, SET_DONOR_MEMBERS, SET_LOADER } from './constants';
 
 export function defaultAction() {
   return {
@@ -17,4 +17,8 @@ export function setDonorMembers(memberList) {
     type: SET_DONOR_MEMBERS,
     memberList,
   };
+}
+
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
 }

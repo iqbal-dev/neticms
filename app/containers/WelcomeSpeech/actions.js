@@ -20,7 +20,5 @@ export function setWelcomeSpeechList(speechList) {
 }
 
 export function setLoader(loaderType) {
-
   return { type: SET_LOADER, loaderType, };
-
 }

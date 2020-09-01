@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_COMMITTEE_MEMBERS } from './constants';
+import { DEFAULT_ACTION, SET_COMMITTEE_MEMBERS, SET_LOADER } from './constants';
 
 export function defaultAction() {
   return {
@@ -19,5 +19,6 @@ export function setCommitteeMembers(committeeMemberList) {
   };
 }
 
-
-
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
+}
