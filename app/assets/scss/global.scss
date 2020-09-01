@@ -43,3 +43,17 @@
     font-size: $fontSizeSecondarySmall;
 }
 
+.react-datepicker-wrapper{
+    .react-datepicker__input-container{
+        &:focus{
+            outline: none;
+        }
+        .dayPicker-custom-input{
+            &:focus{
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+            }
+        }
+    }
+}
+

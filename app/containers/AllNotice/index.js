@@ -38,7 +38,8 @@ export class AllNotice extends React.Component {
     super(props);
 
     this.state = {
-      pdfVisible: false
+      pdfVisible: false,
+      noticeQty: 5
     }
   }
 
@@ -103,11 +104,11 @@ export class AllNotice extends React.Component {
       }
 
       return (
-        notice.map(notice => (
+        notice.slice(0, this.state.noticeQty).map(notice => (
           <div className='all-notice-wrapper m-b-20'>
             <div className='notice-wrapper' style={{ backgroundColor: "#ffffff" }}>
               <div className="row" >
-                <div className="col-md-12 mb-3">
+                <div className="col-md-12 mb-3 px-4">
                   <div className="event-date mt-3">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
                   <h2 className='p-t-20'>{notice.noticeTitle}</h2>
                   <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
@@ -273,7 +274,16 @@ export class AllNotice extends React.Component {
                 <div className="row m-t-40">
                   <div className="col-md-12">
                     <div className="text-center m-t-40">
-                      <button class="btn explore-btn-lg">Explore all <i class="fas fa-angle-right"></i></button>
+                      <button 
+                        class="btn explore-btn-lg"
+                        onClick={ () => 
+                          this.state.noticeQty <= 5 ? 
+                            this.setState({ noticeQty: this.props.noticeList.length}) : 
+                            this.setState({ noticeQty: 5}) 
+                          }
+                      >
+                        Explore all <i class="fas fa-angle-right"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
