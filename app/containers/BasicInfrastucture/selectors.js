@@ -22,10 +22,16 @@ const makeSelectBasicInfrastucture = () =>
 const makeSelectInfrastructureList = () =>
   createSelector(selectBasicInfrastuctureDomain, substate =>
     substate.get('infrastructureList'),
-);
+  );
+
+const makeSelectInfrastructureLoaderType = () =>
+  createSelector(selectBasicInfrastuctureDomain, substate =>
+    substate.get('loaderType'),
+  );
 
 export default makeSelectBasicInfrastucture;
-export { 
+export {
   selectBasicInfrastuctureDomain,
-  makeSelectInfrastructureList
+  makeSelectInfrastructureList,
+  makeSelectInfrastructureLoaderType,
 };

@@ -13,7 +13,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectBasicInfrastucture, { makeSelectInfrastructureList } from './selectors';
+import makeSelectBasicInfrastucture, { makeSelectInfrastructureList, makeSelectInfrastructureLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
@@ -21,10 +21,11 @@ import infrastructure from '../../assets/img/Infrustructure.png';
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/blank-image.png';
 import ReadMoreReact from 'read-more-react';
+import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class BasicInfrastucture extends React.PureComponent {
-  
+
   render() {
 
     let { infrastructureList } = this.props
@@ -46,8 +47,8 @@ export class BasicInfrastucture extends React.PureComponent {
           />
           <section>
             <div className="container p-t-60 content-wrapper">
-              {
-                infrastructureList && infrastructureList.map((item, index) =>
+              {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
+                infrastructureList && infrastructureList.map((item) =>
                   <React.Fragment>
 
                     <div className="row align-items-md-center ">
@@ -112,7 +113,8 @@ BasicInfrastucture.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   basicInfrastucture: makeSelectBasicInfrastucture(),
-  infrastructureList: makeSelectInfrastructureList()
+  infrastructureList: makeSelectInfrastructureList(),
+  loaderType: makeSelectInfrastructureLoaderType(),
 });
 
 function mapDispatchToProps(dispatch) {

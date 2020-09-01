@@ -26,14 +26,57 @@ import { classNameListDropDown, classNameSelectedMethod, classGroupListDropDown,
 import demoImageMale from '../../assets/img/demo-image.jpg';
 import { inputFieldLoader, tableLoader, centerTableLoader } from '../../utils/contentLoader';
 
-/* eslint-disable react/prefer-stateless-function */
-let classNameSelectedError = false;
-let groupNameSelectedError = false;
-
 export class StudentInfo extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      errors: {},
+    }
+  }
+
+  onChangeClass = (e) => {
+    this.props.onChangeClassName(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onChangeGroup = (e) => {
+    this.props.onChangeGroupName(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  handleSubmitSearch = () => {
+
+    if (!this.emptyFieldCheck()) {
+      this.props.submitSearch();
+    }
+
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = ''
+    this.setState({ errors })
+  }
+
+  emptyFieldCheck = () => {
+
+    let { errors } = this.state;
+    let fieldIsEmpty = false;
+
+    if (this.props.classNameSelected === '') {
+      fieldIsEmpty = true;
+      errors["class"] = "Class can't left empty.";
+    }
+
+    if (this.props.groupNameSelected === '') {
+      fieldIsEmpty = true;
+      errors["group"] = "Group can't left empty.";
+    }
+
+    this.setState({ errors });
+    return fieldIsEmpty;
 
   }
 
@@ -81,62 +124,54 @@ export class StudentInfo extends React.Component {
                           <div className="col-md-12 col-lg-4">
 
                             {this.props.loaderStatus === "autoLoadOn" ? inputFieldLoader() : <div>
-
                               <FormGroup className="custom-dropdown">
                                 <Input
                                   type="select"
                                   name="class"
-                                  onChange={this.props.onChangeClassName}
-                                // value={ this.state.class }
+                                  onChange={(e) => this.onChangeClass(e, 'class')}
                                 >
                                   <option value="">Choose a class</option>
                                   {
                                     classNameDropDown && classNameDropDown.map(item => {
-                                      return (
-                                        <option value={item.classConfigId}>{item.classShiftSection}</option>
-                                      )
+                                      return (<option value={item.classConfigId}>{item.classShiftSection}</option>)
                                     })
                                   }
                                 </Input>
                               </FormGroup>
+                              <span className="error-message">{this.state.errors["class"]}</span>
                             </div>
-
                             }
 
-                            {classNameSelectedError === true ? <div className="error-message"> Class Name can't Left Empty</div> : <div className="error-message"> </div>}
                           </div>
 
                           <div className="col-md-12 col-lg-5">
 
                             {this.props.loaderStatus === "groupLoadOn" ? inputFieldLoader() : <div>
-
                               <FormGroup className="custom-dropdown with-search-btn">
                                 <Input
                                   type="select"
                                   name="group"
-                                  onChange={this.props.onChangeGroupName}
+                                  onChange={this.onChangeGroup}
                                 >
                                   <option value="">Select a group</option>
                                   {
                                     classGroupDropDown && classGroupDropDown.map(item => {
-                                      return (
-                                        <option value={item.groupConfigId}>{item.groupObject.name}</option>
-                                      )
+                                      return (<option value={item.groupConfigId}>{item.groupObject.name}</option>)
                                     })
                                   }
                                 </Input>
 
                                 <Button
                                   className="btn explore-btn"
-                                  onClick={this.props.submitSearch}
+                                  onClick={this.handleSubmitSearch}
                                 >
                                   <i className="fas fa-chevron-circle-right" />{' '}
                                   Search
                               </Button>
                               </FormGroup>
+                              <span className="error-message">{this.state.errors["group"]}</span>
                             </div>
                             }
-                            {groupNameSelectedError === true ? <div className="error-message"> Group Name can't Left Empty</div> : <div className="error-message"> </div>}
                           </div>
 
                           {/* <div className="col-md-12 col-lg-1 d-sm-none d-md-none d-lg-block">

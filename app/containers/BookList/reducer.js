@@ -5,14 +5,15 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_MODAL_STATUS, FETCH_CLASS_LIST, FETCH_BOOK_LIST_BY_CLASS_ID, FETCH_BOOK_LIST } from './constants';
+import { DEFAULT_ACTION, SET_MODAL_STATUS, FETCH_CLASS_LIST, FETCH_BOOK_LIST_BY_CLASS_ID, FETCH_BOOK_LIST, SET_LOADER } from './constants';
 
 export const initialState = fromJS({
   modalVisible: false,
   bookList: [],
-  allClassList:[],
+  allClassList: [],
   classId: '',
-  allBookList: []
+  allBookList: [],
+  loaderType: '',
 });
 
 function bookListReducer(state = initialState, action) {
@@ -25,14 +26,16 @@ function bookListReducer(state = initialState, action) {
       return state.set('modalVisible', !status);
 
     case FETCH_CLASS_LIST:
-        return state.set('allClassList', action.allClassList);
+      return state.set('allClassList', action.allClassList);
 
     case FETCH_BOOK_LIST_BY_CLASS_ID:
-        return state.set('classId', action.classId);
+      return state.set('classId', action.classId);
 
     case FETCH_BOOK_LIST:
-      console.log('action.allBookList reducer', action.allBookList);
       return state.set('allBookList', action.allBookList);
+
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
 
     default:
       return state;

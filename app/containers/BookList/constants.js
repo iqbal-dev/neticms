@@ -9,3 +9,4 @@ export const FETCH_CLASS_LIST = 'app/BookList/FETCH_CLASS_LIST';
 export const FETCH_BOOK_LIST = 'app/BookList/FETCH_BOOK_LIST';
 export const FETCH_BOOK_LIST_BY_CLASS_ID = 'app/BookList/FETCH_BOOK_LIST_BY_CLASS_ID';
 export const SET_MODAL_STATUS = 'app/BookList/SET_MODAL_STATUS';
+export const SET_LOADER = 'app/BookList/SET_LOADER';

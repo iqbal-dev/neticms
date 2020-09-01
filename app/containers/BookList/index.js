@@ -20,6 +20,7 @@ import makeSelectBookList, {
   makeSelectAllBookList,
   makeSelectAllClassList,
   makeSelectBookListByClassId,
+  makeSelectBookListLoaderType,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -29,6 +30,7 @@ import bookImage from '../../assets/img/demo-book.png';
 import bookImageBig from '../../assets/img/demo-book.png';
 import { setModalVisibleStatus, setSubmitClassBtn, fetchBookListByClassId } from './actions';
 import { AppLayout } from '../AppLayout';
+import { centerTableLoader, tableLoader } from '../../utils/contentLoader';
 
 const modal = false;
 const toggle = false;
@@ -95,81 +97,86 @@ export class BookList extends React.Component {
                       </div>
                     </div>
                   </div>
+
                   <div className="col-md-8">
-                    {booklist.length > 0 ? <div className="content-wrapper content-padding-sm">
-                      <div className="book-list-wrapper">
-                        <div className="table-responsive">
-                          <table className="book-list w-100">
-                            {booklist && booklist.map((item, index) => {
-                              return (
-                                <tr>
-                                  <td>
-                                    <div className="book-image-wrapper">
-                                      <div className="book-list-image">
-                                        <img src={bookImage} className="img-fluid" />
-                                        <button
-                                          className="book-image-zoom"
-                                          onClick={() => this.singleBookHandler(index)}
-                                        >
-                                          <i className="fas fa-search" />
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <table className="book-details w-100">
-                                      <tr>
-                                        <td colSpan="2">
-                                          <span className="title">
-                                            {item.bookName}
-                                            {/* Amar Bangla Boi{' '}
+                    {this.props.loaderType === 'autoLoadOn' ? <div className='m-t-30'> {tableLoader()}</div> :
+
+                      booklist.length > 0 ? <div className="content-wrapper content-padding-sm">
+                        <div className="book-list-wrapper">
+                          <div className="table-responsive">
+                            <table className="book-list w-100">
+                              {
+                                booklist && booklist.map((item, index) => {
+                                  return (
+                                    <tr>
+                                      <td>
+                                        <div className="book-image-wrapper">
+                                          <div className="book-list-image">
+                                            <img src={bookImage} className="img-fluid" />
+                                            <button
+                                              className="book-image-zoom"
+                                              onClick={() => this.singleBookHandler(index)}
+                                            >
+                                              <i className="fas fa-search" />
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <table className="book-details w-100">
+                                          <tr>
+                                            <td colSpan="2">
+                                              <span className="title">
+                                                {item.bookName}
+                                                {/* Amar Bangla Boi{' '}
                                       <span>(আমার বাংলা বই)</span> */}
-                                          </span>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>Book Type</td>
-                                        <td>: {item.bookType}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Publisher</td>
-                                        <td>: {item.publicationName}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Published Year</td>
-                                        <td>: {item.publicationYear}</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Price (Approx)</td>
-                                        <td>: {item.bookPrice ? item.bookPrice : '00:00'} /-BDT</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Author</td>
-                                        <td>
-                                          : {item.authorName}
-                                          {/* <a href="#">more</a> */}
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                              )
-                            })}
-                          </table>
+                                              </span>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>Book Type</td>
+                                            <td>: {item.bookType}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Publisher</td>
+                                            <td>: {item.publicationName}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Published Year</td>
+                                            <td>: {item.publicationYear}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Price (Approx)</td>
+                                            <td>: {item.bookPrice ? item.bookPrice : '00:00'} /-BDT</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Author</td>
+                                            <td>
+                                              : {item.authorName}
+                                              {/* <a href="#">more</a> */}
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  )
+                                })}
+                            </table>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                      : <div className="content-wrapper content-padding-sm info-header-title">
-                        <div className="row">
-                          <h5 className="col-lg-12">
-                            <span className="text-orange">
-                              Select Class First
+                        : <div className="content-wrapper content-padding-sm info-header-title">
+                          <div className="row">
+                            <h5 className="col-lg-12">
+                              <span className="text-orange">
+                                Select Class First
                             </span>
-                          </h5>
-                        </div>
-                      </div>}
+                            </h5>
+                          </div>
+                        </div>}
 
                   </div>
+
                 </div>
               </div>
             </div>
@@ -191,8 +198,8 @@ export class BookList extends React.Component {
                 <div className="book-list-wrapper">
                   <div className="table-responsive">
                     <table className="book-list w-100">
-                      {singleBook && singleBook.map(item => {
 
+                      {singleBook && singleBook.map(item => {
                         return (
                           <tr>
                             <td>
@@ -272,6 +279,7 @@ const mapStateToProps = createStructuredSelector({
   modalVisibleStatus: makeSelectModalVisibleStatus(),
   onClickFetchBookList: makeSelectBookListByClassId(),
   allBookList: makeSelectAllBookList(),
+  loaderType: makeSelectBookListLoaderType(),
 });
 
 function mapDispatchToProps(dispatch) {

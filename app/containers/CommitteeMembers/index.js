@@ -45,7 +45,7 @@ export class CommitteeMembers extends React.PureComponent {
                   </div>
                 </div>
 
-                {this.props.loaderTYpe === 'autoLoadOn' ? centerTableLoader() :
+                {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
 
                   <div className="row">
                     {this.props.committeMembersList && this.props.committeMembersList.map((item, index) => (
@@ -106,7 +106,7 @@ CommitteeMembers.propTypes = {
 const mapStateToProps = createStructuredSelector({
   committeeMembers: makeSelectCommitteeMembers(),
   committeMembersList: makeSelectCommitteeMemberList(),
-  loaderTYpe: makeSelectCommitteeloaderType(),
+  loaderType: makeSelectCommitteeloaderType(),
 });
 
 function mapDispatchToProps(dispatch) {

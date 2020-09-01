@@ -4,7 +4,10 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_MODAL_STATUS, FETCH_CLASS_LIST, FETCH_BOOK_LIST_BY_CLASS_ID, FETCH_BOOK_LIST } from './constants';
+import {
+  DEFAULT_ACTION, SET_MODAL_STATUS, FETCH_CLASS_LIST, FETCH_BOOK_LIST_BY_CLASS_ID,
+  FETCH_BOOK_LIST, SET_LOADER
+} from './constants';
 
 export function defaultAction() {
   return {
@@ -17,7 +20,6 @@ export function setModalVisibleStatus() {
     type: SET_MODAL_STATUS,
   };
 }
-
 
 export function fetchClassList(allClassList) {
   return {
@@ -40,5 +42,6 @@ export function fetchBookList(allBookList) {
   };
 }
 
-
-
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
+}

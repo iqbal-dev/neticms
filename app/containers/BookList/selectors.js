@@ -19,9 +19,12 @@ const makeSelectBookListByClassId = () =>
 const makeSelectAllBookList = () =>
   createSelector(selectBookListDomain, substate => substate.get('allBookList'));
 
+const makeSelectBookListLoaderType = () =>
+  createSelector(selectBookListDomain, substate => substate.get('loaderType'));
+
 const makeSelectModalVisibleStatus = () =>
   createSelector(selectBookListDomain, substate =>
-    substate.get('modalVisible'),);
+    substate.get('modalVisible'));
 
 /**
  * Default selector used by BookList
@@ -36,5 +39,6 @@ export {
   makeSelectModalVisibleStatus,
   makeSelectAllClassList,
   makeSelectBookListByClassId,
-  makeSelectAllBookList
+  makeSelectAllBookList,
+  makeSelectBookListLoaderType,
 };
