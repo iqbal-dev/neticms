@@ -13,10 +13,10 @@ const selectSectionWiseResultDomain = state =>
  */
 
 const makeSelecAcademicYearList = () =>
-createSelector(selectSectionWiseResultDomain, substate => substate.get('academicYearList'));
+  createSelector(selectSectionWiseResultDomain, substate => substate.get('academicYearList'));
 
 const makeSelectSectionList = () =>
-createSelector(selectSectionWiseResultDomain, substate => substate.get('sectionList'));
+  createSelector(selectSectionWiseResultDomain, substate => substate.get('sectionList'));
 
 const makeSelectAcademicYear = () =>
   createSelector(selectSectionWiseResultDomain, substate => substate.get('academicYear'));
@@ -30,8 +30,11 @@ const makeSelectExamConfigId = () =>
 const makeSelectExamList = () =>
   createSelector(selectSectionWiseResultDomain, substate => substate.get('examList'));
 
-  const makeSelectSectionWiseResultListData = () =>
+const makeSelectSectionWiseResultListData = () =>
   createSelector(selectSectionWiseResultDomain, substate => substate.get('sectionWiseResultData'));
+
+const makeSelectSectionWiseResultLoaderType = () =>
+  createSelector(selectSectionWiseResultDomain, substate => substate.get('loaderType'));
 
 /**
  * Default selector used by SectionWiseResult
@@ -41,13 +44,14 @@ const makeSelectSectionWiseResult = () =>
   createSelector(selectSectionWiseResultDomain, substate => substate.toJS());
 
 export default makeSelectSectionWiseResult;
-export { selectSectionWiseResultDomain,
+export {
+  selectSectionWiseResultDomain,
   makeSelecAcademicYearList,
   makeSelectSectionList,
   makeSelectAcademicYear,
   makeSelectExamList,
   makeSelectClassConfigId,
   makeSelectExamConfigId,
-  makeSelectSectionWiseResultListData
-
+  makeSelectSectionWiseResultListData,
+  makeSelectSectionWiseResultLoaderType
 };

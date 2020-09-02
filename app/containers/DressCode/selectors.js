@@ -12,19 +12,22 @@ const selectDressCodeDomain = state => state.get('dressCode', initialState);
  */
 
 const makeSelectDressCodeList = () =>
-createSelector(selectDressCodeDomain, substate => substate.get('initDressCodeList'));
+  createSelector(selectDressCodeDomain, substate => substate.get('initDressCodeList'));
 
 const makeSelectMaleDressCodeList = () =>
-createSelector(selectDressCodeDomain, substate => substate.get('maleDressCodeList'));
+  createSelector(selectDressCodeDomain, substate => substate.get('maleDressCodeList'));
 
 const makeSelectFemaleDressCodeList = () =>
-createSelector(selectDressCodeDomain, substate => substate.get('femaleDressCodeList'));
+  createSelector(selectDressCodeDomain, substate => substate.get('femaleDressCodeList'));
 
 const makeSelectCombinedDressCodeList = () =>
-createSelector(selectDressCodeDomain, substate => substate.get('combinedDressCodeList'));
+  createSelector(selectDressCodeDomain, substate => substate.get('combinedDressCodeList'));
 
 const makeSelectTabPanelStatus = () =>
-createSelector(selectDressCodeDomain, substate => substate.get('activeTab'));
+  createSelector(selectDressCodeDomain, substate => substate.get('activeTab'));
+
+const makeSelectDressCodeLoaderType = () =>
+  createSelector(selectDressCodeDomain, substate => substate.get('loaderType'));
 
 /**
  * Default selector used by DressCode
@@ -34,10 +37,12 @@ const makeSelectDressCode = () =>
   createSelector(selectDressCodeDomain, substate => substate.toJS());
 
 export default makeSelectDressCode;
-export { selectDressCodeDomain,
+export {
+  selectDressCodeDomain,
   makeSelectDressCodeList,
   makeSelectTabPanelStatus,
   makeSelectMaleDressCodeList,
   makeSelectFemaleDressCodeList,
-  makeSelectCombinedDressCodeList
+  makeSelectCombinedDressCodeList,
+  makeSelectDressCodeLoaderType,
 };

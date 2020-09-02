@@ -8,7 +8,8 @@ import {
 import request from '../../utils/request';
 import {
   downloadLinksLists,
-  getDownloadFile
+  getDownloadFile,
+  setLoader
 } from './actions';
 import { SET_DOWNLOAD_ITEM } from './constants';
 import { makeSelectDownloadItem } from './selectors'
@@ -39,17 +40,17 @@ export function* fetch_downloadLinksList() {
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let cmsId = instituteUrlInfo[0].cmsId;
+  yield put(setLoader('autoLoadOn'));
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_downloadLinksBy_cmsId).concat('?cmsId=') + cmsId;
   const options = {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
   };
 
   try {
     const response = yield call(request, requestURL, options);
+    yield put(setLoader('autoLoadOff'));
     // console.log('response.item', response.item);
     yield put(downloadLinksLists(response.item));
 

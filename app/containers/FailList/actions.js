@@ -4,16 +4,17 @@
  *
  */
 
-import { 
-  DEFAULT_ACTION, 
+import {
+  DEFAULT_ACTION,
   SET_ACADEMIC_YEAR_LIST,
   SET_SECTION_LIST,
   SET_EXAM_LIST,
-  SET_ON_CHANGE_ACADEMIC_YEAR, 
+  SET_ON_CHANGE_ACADEMIC_YEAR,
   SET_ON_CHANGE_SECTION,
   SET_ON_CHANGE_EXAM_TYPE,
   SET_FAIL_LIST_DATA,
-  SUBMIT_SEARCH_BUTTON
+  SUBMIT_SEARCH_BUTTON,
+  SET_LOADER
 } from './constants';
 
 export function defaultAction() {
@@ -75,4 +76,8 @@ export function setFailListData(failListData) {
     type: SET_FAIL_LIST_DATA,
     failListData,
   };
+}
+
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
 }

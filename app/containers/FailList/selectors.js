@@ -39,6 +39,9 @@ const makeSelectExamConfigId = () =>
 const makeSelectFailListData = () =>
   createSelector(selectFailListDomain, substate => substate.get('failListData'));
 
+const makeSelectFailListLoaderType = () =>
+  createSelector(selectFailListDomain, substate => substate.get('loaderType'));
+
 export default makeSelectFailList;
 export {
   selectFailListDomain,
@@ -50,4 +53,5 @@ export {
   makeSelectClassConfigId,
   makeSelectExamConfigId,
   makeSelectFailListData,
+  makeSelectFailListLoaderType
 };

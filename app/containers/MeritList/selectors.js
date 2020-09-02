@@ -12,10 +12,10 @@ const selectMeritListDomain = state => state.get('meritList', initialState);
  */
 
 const makeSelecAcademicYearList = () =>
-createSelector(selectMeritListDomain, substate => substate.get('academicYearList'));
+  createSelector(selectMeritListDomain, substate => substate.get('academicYearList'));
 
 const makeSelectSectionList = () =>
-createSelector(selectMeritListDomain, substate => substate.get('sectionList'));
+  createSelector(selectMeritListDomain, substate => substate.get('sectionList'));
 
 const makeSelectAcademicYear = () =>
   createSelector(selectMeritListDomain, substate => substate.get('academicYear'));
@@ -29,9 +29,11 @@ const makeSelectExamConfigId = () =>
 const makeSelectExamList = () =>
   createSelector(selectMeritListDomain, substate => substate.get('examList'));
 
-  const makeSelectMeritListData = () =>
+const makeSelectMeritListData = () =>
   createSelector(selectMeritListDomain, substate => substate.get('meritListData'));
 
+const makeSelectMeritListLoaderType = () =>
+  createSelector(selectMeritListDomain, substate => substate.get('loaderType'));
 
 /**
  * Default selector used by MeritList
@@ -49,5 +51,6 @@ export {
   makeSelectExamList,
   makeSelectClassConfigId,
   makeSelectExamConfigId,
-  makeSelectMeritListData
- };
+  makeSelectMeritListData,
+  makeSelectMeritListLoaderType
+};

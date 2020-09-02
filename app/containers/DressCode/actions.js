@@ -4,7 +4,10 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_DRESS_CODE_LIST, SET_PANEL_TAB_STATUS, SET_PANEL_MALE_TAB_STATUS, SET_MALE_DRESS_CODE_LIST, SET_FEMALE_DRESS_CODE_LIST, SET_COMBINED_DRESS_CODE_LIST } from './constants';
+import {
+  DEFAULT_ACTION, SET_DRESS_CODE_LIST, SET_PANEL_TAB_STATUS, SET_PANEL_MALE_TAB_STATUS, SET_MALE_DRESS_CODE_LIST,
+  SET_FEMALE_DRESS_CODE_LIST, SET_COMBINED_DRESS_CODE_LIST, SET_LOADER
+} from './constants';
 
 export function defaultAction() {
   return {
@@ -19,7 +22,7 @@ export function setDressCodeList(dressCodeList) {
   };
 }
 
-export function setActivePanel(activeId) {  
+export function setActivePanel(activeId) {
   return {
     type: SET_PANEL_TAB_STATUS,
     activeId
@@ -51,4 +54,8 @@ export function setCombinedDressCodeList(combinedDressCodeList) {
     type: SET_COMBINED_DRESS_CODE_LIST,
     combinedDressCodeList
   };
+}
+
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
 }

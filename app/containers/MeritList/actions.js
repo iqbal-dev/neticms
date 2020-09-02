@@ -4,7 +4,10 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_ACADEMIC_YEAR, SUBMIT_SEARCH_BUTTON, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_ON_CHANGE_EXAM_TYPE, SET_ON_CHANGE_SECTION, SET_MERIT_LIST_DATA } from './constants';
+import {
+  DEFAULT_ACTION, SET_ACADEMIC_YEAR, SUBMIT_SEARCH_BUTTON, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST,
+  SET_ON_CHANGE_EXAM_TYPE, SET_ON_CHANGE_SECTION, SET_MERIT_LIST_DATA, SET_LOADER
+} from './constants';
 
 export function defaultAction() {
   return {
@@ -67,3 +70,6 @@ export function setMeritListData(meritListData) {
   };
 }
 
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
+}

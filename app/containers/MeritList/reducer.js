@@ -5,7 +5,10 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_MERIT_LIST_DATA, SET_ACADEMIC_YEAR, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_ON_CHANGE_EXAM_TYPE, SET_ON_CHANGE_SECTION } from './constants';
+import {
+  DEFAULT_ACTION, SET_MERIT_LIST_DATA, SET_ACADEMIC_YEAR, SET_EXAM_LIST, SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST,
+  SET_ON_CHANGE_EXAM_TYPE, SET_ON_CHANGE_SECTION, SET_LOADER
+} from './constants';
 
 export const initialState = fromJS({
   academicYear: '',
@@ -43,6 +46,9 @@ function meritListReducer(state = initialState, action) {
 
     case SET_MERIT_LIST_DATA:
       return state.set('meritListData', action.meritListData);
+
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
 
     default:
       return state;

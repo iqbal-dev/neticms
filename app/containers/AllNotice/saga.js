@@ -4,15 +4,14 @@ import { GET_NOTICE_FILE_CONTENT } from './constants';
 import { makeSelectNoticeRowdata } from './selectors';
 import { BASE_URL_NETI_CMS, fetch_notice_file_content } from '../../utils/serviceUrl';
 import request from '../../utils/request';
-import { setNoticeFileContent } from './actions';
-
+import { setNoticeFileContent, setLoader } from './actions';
 
 export function* fetchNoticeFile() {
 
   let noticeRowdata = yield select(makeSelectNoticeRowdata());
 
   yield put(setNoticeFileContent(''));
-
+  yield put(setLoader('loaderOn'));
   console.log('fetchNoticeFile saga', noticeRowdata);
 
   // let selectedRowdata = yield select(makeSelectSyllabusRowdata());
@@ -28,7 +27,9 @@ export function* fetchNoticeFile() {
 
   try {
     const response = yield call(request, requestURL, options);
-    Object.assign(response, {noticeFileName: noticeRowdata.noticeFileName})
+    yield put(setLoader('loaderOff'));
+
+    Object.assign(response, { noticeFileName: noticeRowdata.noticeFileName })
     // console.log('setNoticeFile-response', response);
     yield put(setNoticeFileContent(response));
 

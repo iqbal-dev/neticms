@@ -14,10 +14,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-// import makeSelectIndividualResult, { makeSelectAcademicYearList, makeSelectAcademicYear } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-// import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { Form, FormGroup, Input, Button, Table } from 'reactstrap';
 import donorImage from '../../assets/img/donor-image.png';
@@ -28,7 +26,9 @@ import makeSelectIndividualResult, {
   makeSelectAcademicYearList,
   makeSelectAcademicYear,
   makeSelectExamList,
-  makeSelectIndividualResultData
+  makeSelectIndividualResultData,
+  makeSelectExamConfigId,
+  makeSelectExamLoaderType
 } from './selectors';
 
 import {
@@ -42,6 +42,7 @@ import {
 import {
   makeSelectStudentID,
 } from './selectors';
+import { inputFieldLoaderLarge, centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class IndividualResult extends React.Component {
@@ -57,55 +58,64 @@ export class IndividualResult extends React.Component {
     }
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
+  onChangeStudentId = (e) => {
+    this.props.onChangeStudentID(e);
+    this.clearErrorMsg(e.target.name);
   }
 
-  onChangeInputField = (event) => {
-    let { errors } = this.state
-    // console.log('e', event.target.value);
-    errors[event.target.name] = ''
-    this.setState({
-      [event.target.name]: event.target.value, errors
-    });
+  onChangeAcYear = (e) => {
+    this.props.onChangeAcademicYear(e);
+    this.clearErrorMsg(e.target.name);
   }
 
-  handleError = () => {
-    let { errors } = this.state
-    let formIsValid = true;
-    if (!this.state.studentID) {
-      errors["studentID"] = "Student Id can't left empty"
-      formIsValid = false;
+  onChangeExam = (e) => {
+    this.props.onChangeExamType(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onSubmitSearchHandle = (e) => {
+    e.preventDefault();
+    if (!this.emptyFieldCheck()) {
+      console.log('submit cond true');
+      this.props.onSubmitSearch();
     }
 
-    if (!this.state.mobileNo) {
-      errors["mobileNo"] = "Mobile No. can't left empty"
-      formIsValid = false;
+  }
+
+  emptyFieldCheck = () => {
+
+    let fieldIsEmpty = false;
+    let { errors } = this.state;
+
+    if (this.props.studentID === '' || this.props.studentID === undefined) {
+      fieldIsEmpty = true;
+      errors["studentID"] = "Student ID can't left empty.";
     }
 
-    if (!this.state.year) {
-      errors["year"] = "Year can't left empty"
-      formIsValid = false;
+    if (this.props.academicYear === '' || this.props.academicYear === undefined) {
+      fieldIsEmpty = true;
+      errors["year"] = "Academic Year can't left empty.";
     }
 
-    if (!this.state.examType) {
-      errors["examType"] = "Exam type can't left empty"
-      formIsValid = false;
+    if (this.props.examConfigId === '' || this.props.examConfigId === undefined) {
+      fieldIsEmpty = true;
+      errors["examType"] = "Exam can't left empty.";
     }
 
+    this.setState({ errors });
+    return fieldIsEmpty;
+
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = ''
     this.setState({ errors })
-    return formIsValid;
-  }
-
-  onSearchStudentInfo = () => {
-    if (this.handleError()) {
-
-    }
   }
 
   render() {
 
-    let { errors } = this.state
+    let { errors } = this.state;
     let { academicYearList, academicYear, examList, resultData } = this.props
 
     let resultColumnName = []
@@ -121,7 +131,7 @@ export class IndividualResult extends React.Component {
     let column = resultColumnName.map((item, index) =>
       <th>{item}</th>
     )
-
+    console.log('stdId, acYr, examId', this.props.studentID, this.props.academicYear, this.props.examConfigId);
     return (
       <div>
         <AppLayout>
@@ -162,16 +172,16 @@ export class IndividualResult extends React.Component {
                                   type="text"
                                   placeholder="Enter Student Id"
                                   name="studentID"
-                                  onChange={this.props.onChangeStudentID}
+                                  onChange={(e) => this.onChangeStudentId(e)}
                                 />
                               </FormGroup>
                               <div className="error-message"> {errors['studentID']}</div>
-                              
+
                               <FormGroup className="custom-dropdown mt-2">
                                 <Input
                                   type="select"
                                   name="year"
-                                  onChange={this.props.onChangeAcademicYear}
+                                  onChange={(e) => this.onChangeAcYear(e)}
                                 // value={ this.props.academicYear}
                                 >
                                   <option value=''>Select Academic Year</option>
@@ -180,21 +190,20 @@ export class IndividualResult extends React.Component {
                               </FormGroup>
                               <div className="error-message"> {errors['year']}</div>
 
-                              
-                              
-
                             </div>
 
                             <div className="col-md-12 col-lg-6">
                               <FormGroup className="custom-dropdown mt-0">
-                                <Input
-                                  type="select"
-                                  name="examType"
-                                  onChange={this.props.onChangeExamType}
-                                >
-                                  <option value=''>Select Exam Type</option>
-                                  {examList && examList.map(item => (<option key={item.examObject.id} value={item.examObject.id}>{item.examObject.name}</option>))}
-                                </Input>
+                                {this.props.loaderType === 'dependendLoadOn' ? inputFieldLoaderLarge() :
+                                  <Input
+                                    type="select"
+                                    name="examType"
+                                    onChange={(e) => this.onChangeExam(e)}
+                                  >
+                                    <option value=''>Select Exam Type</option>
+                                    {examList && examList.map(item => (<option key={item.examObject.id} value={item.examObject.id}>{item.examObject.name}</option>))}
+                                  </Input>
+                                }
                               </FormGroup>
                               <div className="error-message"> {errors['examType']}</div>
 
@@ -211,16 +220,16 @@ export class IndividualResult extends React.Component {
                               <FormGroup>
                                 <Button
                                   className="btn explore-btn full-width all-border-radious"
-                                  onClick={this.props.onSubmitSearch}
+                                  onClick={this.onSubmitSearchHandle}
                                 >
                                   <i class="fas fa-chevron-circle-right mr-3"></i> Search
                               </Button>
                               </FormGroup>
-                              
+
                             </div>
 
                             <div className="col-md-12 col-lg-3">
-                              
+
                               {/* <FormGroup className="my-3">
                                 <span className="print text-orange"><i className="fas fa-print text-secondary"></i> Print Result</span>
                               </FormGroup> */}
@@ -247,7 +256,7 @@ export class IndividualResult extends React.Component {
                     <div className="page-inner-title with-print mb-4">
                       <h2>
                         <span className="font-20">
-                          Showing Result for Student ID. <span className="text-orange">{resultData && resultData.customStudentId}</span>, Reg. Mobile No. <span className="text-orange">{resultData.mobileNo}</span></span>
+                          Showing Result for Student ID. <span className="text-orange">{resultData && resultData.customStudentId}</span></span>
                         {/* <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span> */}
                       </h2>
                       <div className="custom-title-border-left my-4" />
@@ -256,52 +265,55 @@ export class IndividualResult extends React.Component {
                 </div>
               </div>
 
-              <div className="container">
-                <div className="row">
+              {this.props.loaderType === 'tableLoadOn' ? <div className='m-t-20'>{centerTableLoader()}</div> :
+                <div>
 
-                  <div class="col-md-12 studentlist-data-inside">
-                    <div class="description">
-                      <div class="col-md-12 description-inside py-4 mx-0">
-                        <div class="col-md-6 col-lg-2 roll-no">
-                          <span class="roll-no-title">Roll No.</span>
-                          <br />
-                          <label className="text-orange mb-0">{resultData && resultData.studentRoll}</label>
-                          <hr className="my-1" />
-                          <span class="roll-no-title">Student ID</span>
-                          <br />
-                          <label className="text-orange">{resultData && resultData.customStudentId}</label>
-                        </div>
+                  <div className="container">
+                    <div className="row">
 
-                        <div class="col-md-6 col-lg-2 student-img mx-0">
-                          <div class="img-div">
-                            <div class="img-div overlay">
-                              <i class="fas fa-search-plus"></i>
+                      <div class="col-md-12 studentlist-data-inside">
+                        <div class="description">
+                          <div class="col-md-12 description-inside py-4 mx-0">
+                            <div class="col-md-6 col-lg-2 roll-no">
+                              <span class="roll-no-title">Roll No.</span>
+                              <br />
+                              <label className="text-orange mb-0">{resultData && resultData.studentRoll}</label>
+                              <hr className="my-1" />
+                              <span class="roll-no-title">Student ID</span>
+                              <br />
+                              <label className="text-orange">{resultData && resultData.customStudentId}</label>
                             </div>
-                            <img src={staticImage} width="85px" height="85px" />
-                          </div>
-                        </div>
 
-                        <div class="col-md-6 col-lg-4">
-                          <div class="col-lg-12 student-details">
-                            <div className=""><label>Student Name</label>: {resultData && resultData.studentName}</div>
-                            <div className=""><label>Father's Name</label>: {resultData && resultData.fatherName}</div>
-                            <div className=""><label>Mother's Name</label>: {resultData && resultData.motherName}</div>
-                            <div className=""><label>Reg. Mobile No.</label>: {resultData && resultData.mobileNo}</div>
-                            <div className=""><label>Exam Name</label>: { /*resultData.studentName*/}</div>
-                          </div>
-                        </div>
-                        <div className="row vertical-border ml-md-1 px-0 d-sm-none d-md-block d-lg-block"></div>
-                        <div class="col-md-6 col-lg-4 ml-md-0">
-                          <div class="col-lg-12 student-details">
-                            <div className=""><label>Section</label>: {resultData && resultData.sectionName}</div>
-                            <div className=""><label>Total Marks</label>: {resultData && resultData.obtainedMarks}</div>
-                            <div className=""><label>GPA</label>: {resultData && resultData.gpa}</div>
-                            <div className=""><label>Grade</label>: {resultData && resultData.grade}</div>
-                            <div className=""><label>Academic Year</label>: {this.props.academicYear}</div>
-                          </div>
-                        </div>
+                            <div class="col-md-6 col-lg-2 student-img mx-0">
+                              <div class="img-div">
+                                <div class="img-div overlay">
+                                  <i class="fas fa-search-plus"></i>
+                                </div>
+                                <img src={staticImage} width="85px" height="85px" />
+                              </div>
+                            </div>
 
-                        {/* <div class="col-md-6 col-lg-1 student-gender">
+                            <div class="col-md-6 col-lg-4">
+                              <div class="col-lg-12 student-details">
+                                <div className=""><label>Student Name</label>: {resultData && resultData.studentName}</div>
+                                <div className=""><label>Father's Name</label>: {resultData && resultData.fatherName}</div>
+                                <div className=""><label>Mother's Name</label>: {resultData && resultData.motherName}</div>
+                                <div className=""><label>Reg. Mobile No.</label>: {resultData && resultData.mobileNo}</div>
+                                <div className=""><label>Exam Name</label>: { /*resultData.studentName*/}</div>
+                              </div>
+                            </div>
+                            <div className="row vertical-border ml-md-1 px-0 d-sm-none d-md-block d-lg-block"></div>
+                            <div class="col-md-6 col-lg-4 ml-md-0">
+                              <div class="col-lg-12 student-details">
+                                <div className=""><label>Section</label>: {resultData && resultData.sectionName}</div>
+                                <div className=""><label>Total Marks</label>: {resultData && resultData.obtainedMarks}</div>
+                                <div className=""><label>GPA</label>: {resultData && resultData.gpa}</div>
+                                <div className=""><label>Grade</label>: {resultData && resultData.grade}</div>
+                                <div className=""><label>Academic Year</label>: {this.props.academicYear}</div>
+                              </div>
+                            </div>
+
+                            {/* <div class="col-md-6 col-lg-1 student-gender">
                           <i class="fas fa-male" />
                         </div>
                         <div class="col-md-6 col-lg-2 student-custom-id">
@@ -310,71 +322,72 @@ export class IndividualResult extends React.Component {
                           <label className="text-orange">321256</label>
                         </div> */}
 
+                          </div>
+                        </div>
                       </div>
+
                     </div>
                   </div>
 
-                </div>
-              </div>
+                  <div className="container">
+                    <div className="row">
+                      <di className="col-md-12">
+                        <div className="table-responsive custom-table">
 
-              <div className="container">
-                <div className="row">
-                  <di className="col-md-12">
-                    <div className="table-responsive custom-table">
-                      <Table
-                        responsive
-                        className="section-wise-attendance-table attendance-symbol"
-                      >
-                        <thead>
-                          <tr>
-                            <th>Subject</th>
-                            <th>Total Marks</th>
-                            {column}
-                            {/* <th>CT</th>
+                          <Table
+                            responsive
+                            className="section-wise-attendance-table attendance-symbol"
+                          >
+                            <thead>
+                              <tr>
+                                <th>Subject</th>
+                                <th>Total Marks</th>
+                                {column}
+                                {/* <th>CT</th>
                             <th>CP</th>
                             <th>WR</th>
                             <th>PR</th> */}
-                            <th>Full Marks</th>
-                            <th>Obtained Marks</th>
-                            <th>GPA</th>
-                            <th>Grade</th>
-                            {/* <th className="text-center">Action</th> */}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {
-                            resultData ?
-                              resultData.examMarks && resultData.examMarks.map((item, index) =>
-                                <tr>
-                                  <td>{item.subjectName}</td>
-                                  <td>{item.fullMarks}</td>
+                                <th>Full Marks</th>
+                                <th>Obtained Marks</th>
+                                <th>GPA</th>
+                                <th>Grade</th>
+                                {/* <th className="text-center">Action</th> */}
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {
+                                resultData ?
+                                  resultData.examMarks && resultData.examMarks.map((item, index) =>
+                                    <tr>
+                                      <td>{item.subjectName}</td>
+                                      <td>{item.fullMarks}</td>
 
-                                  {
-                                    shortCodeTitle.map((item2, index) =>
-                                      <td>{
-                                        item[item2]
-                                      }</td>
-                                    )
-                                  }
-                                  {/* <td>{item.shortCode1}</td>
+                                      {
+                                        shortCodeTitle.map((item2, index) =>
+                                          <td>{
+                                            item[item2]
+                                          }</td>
+                                        )
+                                      }
+                                      {/* <td>{item.shortCode1}</td>
                                   <td>{item.shortCode2}</td>
                                   <td>{item.shortCode4}</td> */}
-                                  <td>{item.fullMarks}</td>
-                                  <td>{item.obtainedMarks}</td>
-                                  <td>{item.gpa}</td>
-                                  <td>{item.grade}</td>
+                                      <td>{item.fullMarks}</td>
+                                      <td>{item.obtainedMarks}</td>
+                                      <td>{item.gpa}</td>
+                                      <td>{item.grade}</td>
 
-                                </tr>
-                              )
-                              : <tr><td colSpan='9'>No Data Found</td></tr>
-                          }
+                                    </tr>
+                                  )
+                                  : <tr><td colSpan='9'>No Data Found</td></tr>
+                              }
 
-                        </tbody>
-                      </Table>
+                            </tbody>
+                          </Table>
+                        </div>
+                      </di>
                     </div>
-                  </di>
-                </div>
-                {/* <div className="row m-t-40">
+                    {/* <div className="row m-t-40">
                 <div className="col-md-12">
                   <div className="text-center m-t-40">
                     <button className="btn explore-btn-lg">
@@ -383,7 +396,9 @@ export class IndividualResult extends React.Component {
                   </div>
                 </div>
               </div> */}
-              </div>
+                  </div>
+
+                </div>}
             </div>
           </section>
 
@@ -413,8 +428,9 @@ const mapStateToProps = createStructuredSelector({
   academicYear: makeSelectAcademicYear(),
 
   examList: makeSelectExamList(),
-
+  examConfigId: makeSelectExamConfigId(),
   resultData: makeSelectIndividualResultData(),
+  loaderType: makeSelectExamLoaderType(),
 
 });
 

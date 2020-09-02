@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectMeritList, {
-  makeSelectMeritListData, makeSelectSectionList, makeSelectAcademicYear, makeSelecAcademicYearList, makeSelectExamConfigId, makeSelectClassConfigId, makeSelectExamList
+  makeSelectMeritListData, makeSelectSectionList, makeSelectAcademicYear, makeSelecAcademicYearList, makeSelectExamConfigId, makeSelectClassConfigId, makeSelectExamList, makeSelectMeritListLoaderType
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -26,6 +26,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { setAcademicYear, submitSearchButton, makeChangeSection, makeChangeExamType } from './actions';
 import { AppLayout } from '../AppLayout';
+import { centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class MeritList extends React.Component {
@@ -35,8 +36,60 @@ export class MeritList extends React.Component {
 
     this.state = {
       errors: {}
-
     }
+  }
+
+  onChangeAcYear = (e) => {
+    this.props.onChangeAcademicYear(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onChangeSection = (e) => {
+    this.props.onChangeSection(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onChangeExam = (e) => {
+    this.props.onChangeExamType(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onSubmitSearch = (e) => {
+
+    e.preventDefault();
+    if (!this.emptyFieldCheck()) {
+      this.props.submitSearch();
+    }
+  }
+
+  emptyFieldCheck() {
+
+    let fieldIsEmpty = false;
+    let { errors } = this.state;
+
+    if (this.props.academicYear === '' || this.props.academicYear === null) {
+      fieldIsEmpty = true;
+      errors["year"] = "Academic Year can't left empty.";
+    }
+
+    if (this.props.classConfigId === '' || this.props.classConfigId === null) {
+      fieldIsEmpty = true;
+      errors["section"] = "section can't left empty.";
+    }
+    if (this.props.examConfigId === '' || this.props.examConfigId === null) {
+      fieldIsEmpty = true;
+      errors["examType"] = "Exam can't left empty.";
+    }
+
+    this.setState({ errors });
+    return fieldIsEmpty;
+
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = ''
+    this.setState({ errors })
   }
 
   render() {
@@ -68,57 +121,69 @@ export class MeritList extends React.Component {
                     <div className="row attendance-body-header-inside">
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
-                          <div className="col-md-6 col-lg-3">
-                            <FormGroup className="custom-dropdown">
-                              <Input
-                                type="select"
-                                name="year"
-                                onChange={this.props.onChangeAcademicYear}
-                              >
-                                <option value=''>Select Academic Year</option>
-                                {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
 
-                              </Input>
-                            </FormGroup>
-                            <div className="error-message"> {errors['year']}</div>
+                          <div className="col-md-6 col-lg-3">
+                            {this.props.loaderType === 'autoLoadOn' ? inputFieldLoader() :
+                              <div>
+                                <FormGroup className="custom-dropdown">
+                                  <Input
+                                    type="select"
+                                    name="year"
+                                    onChange={(e) => this.onChangeAcYear(e)}
+                                  >
+                                    <option value=''>Select Academic Year</option>
+                                    {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
+
+                                  </Input>
+                                </FormGroup>
+                                <div className="error-message"> {errors['year']}</div>
+                              </div>
+                            }
 
                           </div>
 
                           <div className="col-md-6 col-lg-3">
-                            <FormGroup className="custom-dropdown">
-                              <Input type="select" name="section" onChange={this.props.onChangeSection}
-                              >
-                                <option value=''>Select a Section</option>
-                                {
-                                  sectionList && sectionList.map((item, index) =>
-                                    <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
-                                  )
-                                }
-                              </Input>
-                            </FormGroup>
-                            <div className="error-message"> {errors['section']}</div>
+
+                            {this.props.loaderType === 'autoLoadOn' ? inputFieldLoader() : <div>
+                              <FormGroup className="custom-dropdown">
+                                <Input type="select" name="section" onChange={this.onChangeSection}
+                                >
+                                  <option value=''>Select a Section</option>
+                                  {
+                                    sectionList && sectionList.map((item, index) =>
+                                      <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
+                                    )
+                                  }
+                                </Input>
+                              </FormGroup>
+                              <span className="error-message"> {errors['section']}</span>
+                            </div>
+                            }
                           </div>
 
                           <div className="col-md-6 col-lg-3">
-                            <FormGroup className="custom-dropdown">
-                              <Input type="select" name="examType" onChange={this.props.onChangeExamType}
-                              >
-                                <option value=''>Select Exam</option>
-                                {examList && examList.map(item => (
-                                  <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
-                                ))}
-                              </Input>
-                            </FormGroup>
-                            <div className="error-message"> {errors['examType']}</div>
+                            {this.props.loaderType === 'dependendLoadOn' ? inputFieldLoader() : <div>
+                              <FormGroup className="custom-dropdown">
+                                <Input type="select" name="examType" onChange={this.onChangeExam}
+                                >
+                                  <option value=''>Select Exam</option>
+                                  {examList && examList.map(item => (
+                                    <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
+                                  ))}
+                                </Input>
+                              </FormGroup>
+                              <span className="error-message"> {errors['examType']}</span>
+                            </div>
+                            }
 
                           </div>
 
                           <div className="col-md-6 col-lg-3">
                             <FormGroup>
-                              <Button 
-                                className="btn explore-btn all-border-radious" 
-                                onClick={this.props.submitSearch}>
-                                  <i class="fas fa-chevron-circle-right mr-3" ></i> Search
+                              <Button
+                                className="btn explore-btn all-border-radious"
+                                onClick={this.onSubmitSearch}>
+                                <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                               </Button>
                             </FormGroup>
                           </div>
@@ -146,47 +211,51 @@ export class MeritList extends React.Component {
               <div className="container">
                 <div className="row">
                   <di className="col-md-12">
-                    <div className="table-responsive custom-table">
-                      <Table
-                        responsive
-                        className="section-wise-attendance-table attendance-symbol"
-                      >
-                        <thead>
-                          <tr>
-                            <th>Merit Position</th>
-                            {/* <th>Photo</th> */}
-                            <th>Student ID</th>
-                            <th>Roll No.</th>
-                            <th>Student Name</th>
-                            <th>Total Marks</th>
-                            <th>GPA</th>
-                            <th>Grade</th>
 
-                          </tr>
-                        </thead>
-                        <tbody>
+                    {this.props.loaderType === 'tableLoadOn' ? centerTableLoader() :
 
-                          {
-                            meritList ?
-                              meritList.map((item, index) =>
-                                <tr>
-                                  <td style={{ textAlign: 'center' }}>{item.sectionPosition}</td>
-                                  {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
-                                  <td>{item.customStudentId}</td>
-                                  <td>{item.studentRoll}</td>
-                                  <td>{item.studentName}</td>
-                                  <td>{item.totalMarks}</td>
-                                  <td>{item.gradingPoint}</td>
-                                  <td>{item.letterGrade}</td>
-                                </tr>
-                              )
+                      <div className="table-responsive custom-table">
+                        <Table
+                          responsive
+                          className="section-wise-attendance-table attendance-symbol"
+                        >
+                          <thead>
+                            <tr>
+                              <th>Merit Position</th>
+                              {/* <th>Photo</th> */}
+                              <th>Student ID</th>
+                              <th>Roll No.</th>
+                              <th>Student Name</th>
+                              <th>Total Marks</th>
+                              <th>GPA</th>
+                              <th>Grade</th>
 
-                              : <tr><td colSpan='7'>No Data Found</td></tr>
-                          }
+                            </tr>
+                          </thead>
+                          <tbody>
 
-                        </tbody>
-                      </Table>
-                    </div>
+                            {
+                              meritList ?
+                                meritList.map((item, index) =>
+                                  <tr>
+                                    <td style={{ textAlign: 'center' }}>{item.sectionPosition}</td>
+                                    {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
+                                    <td>{item.customStudentId}</td>
+                                    <td>{item.studentRoll}</td>
+                                    <td>{item.studentName}</td>
+                                    <td>{item.totalMarks}</td>
+                                    <td>{item.gradingPoint}</td>
+                                    <td>{item.letterGrade}</td>
+                                  </tr>
+                                )
+
+                                : <tr><td colSpan='7'>No Data Found</td></tr>
+                            }
+
+                          </tbody>
+                        </Table>
+                      </div>
+                    }
                   </di>
                 </div>
                 {/* <div className="row m-t-40">
@@ -229,6 +298,7 @@ const mapStateToProps = createStructuredSelector({
   academicYear: makeSelectAcademicYear(),
   classConfigId: makeSelectClassConfigId(),
   examConfigId: makeSelectExamConfigId(),
+  loaderType: makeSelectMeritListLoaderType(),
 
 });
 

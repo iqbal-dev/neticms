@@ -15,7 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import classnames from 'classnames';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
-import makeSelectDressCode, { makeSelectMaleDressCodeList, makeSelectFemaleDressCodeList, makeSelectCombinedDressCodeList } from './selectors';
+import makeSelectDressCode, { makeSelectMaleDressCodeList, makeSelectFemaleDressCodeList, makeSelectCombinedDressCodeList, makeSelectDressCodeLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectDressCodeList, makeSelectTabPanelStatus } from './selectors';
@@ -28,6 +28,7 @@ import combineIcon from '../../assets/img/combine-icon.png';
 import dresscode from '../../assets/img/dresscode.png';
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
+import { tableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DressCode extends React.Component {
@@ -72,12 +73,8 @@ export class DressCode extends React.Component {
                       >
                         <NavItem>
                           <NavLink
-                            className={classnames({
-                              active: this.props.tabVisibleStatus === '1',
-                            })}
-                            onClick={e => {
-                              this.toggleTab('1');
-                            }}
+                            className={classnames({ active: this.props.tabVisibleStatus === '1', })}
+                            onClick={e => { this.toggleTab('1'); }}
                           >
                             <span>
                               <img src={maleIcon} />
@@ -87,12 +84,8 @@ export class DressCode extends React.Component {
                         </NavItem>
                         <NavItem>
                           <NavLink
-                            className={classnames({
-                              active: this.props.tabVisibleStatus === '2',
-                            })}
-                            onClick={() => {
-                              this.toggleTab('2');
-                            }}
+                            className={classnames({ active: this.props.tabVisibleStatus === '2', })}
+                            onClick={() => { this.toggleTab('2'); }}
                           >
                             <span>
                               <img src={feMaleIcon} />
@@ -121,34 +114,36 @@ export class DressCode extends React.Component {
                         <TabPane tabId="1">
                           <div className="tab-panel-wrapper">
                             <div className="row">
-                              {this.props.maleDressCodeList && this.props.maleDressCodeList.map((item, index) => (
+                              {this.props.loaderType === 'autoLoadOn' ? tableLoader() :
 
-                                <>
-                                  <div className="col-md-8">
-                                    <div className="page-inner-title">
-                                      <h2 className="text-orange">
-                                        {item.classRange}
-                                      </h2>
-                                      <div className="custom-title-border-left" />
-                                    </div>
-                                    <div className="content">
-                                      <p>
-                                        {item.dressDetails}
-                                      </p>
-                                    </div>
-                                  </div>
+                                this.props.maleDressCodeList && this.props.maleDressCodeList.map((item, index) => (
 
-                                  <div className="col-md-4">
-                                    <div className="panel-image text-center">
-                                      {
-                                        item.fileContent ?
-                                          <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
-                                          <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
-                                      }
+                                  <>
+                                    <div className="col-md-8">
+                                      <div className="page-inner-title">
+                                        <h2 className="text-orange">
+                                          {item.classRange}
+                                        </h2>
+                                        <div className="custom-title-border-left" />
+                                      </div>
+                                      <div className="content">
+                                        <p>
+                                          {item.dressDetails}
+                                        </p>
+                                      </div>
                                     </div>
-                                  </div>
-                                </>
-                              ))}
+
+                                    <div className="col-md-4">
+                                      <div className="panel-image text-center">
+                                        {
+                                          item.fileContent ?
+                                            <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
+                                            <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
+                                        }
+                                      </div>
+                                    </div>
+                                  </>
+                                ))}
                             </div>
                           </div>
                           {/* <div className="tab-panel-wrapper">
@@ -280,7 +275,7 @@ export class DressCode extends React.Component {
             </div>
           </section>
         </AppLayout>
-      </div>
+      </div >
     );
   }
 }
@@ -297,7 +292,7 @@ const mapStateToProps = createStructuredSelector({
   maleDressCodeList: makeSelectMaleDressCodeList(),
   femaleDressCodeList: makeSelectFemaleDressCodeList(),
   combineDressCodeList: makeSelectCombinedDressCodeList(),
-
+  loaderType: makeSelectDressCodeLoaderType(),
   tabVisibleStatus: makeSelectTabPanelStatus(), // /last day work
 });
 

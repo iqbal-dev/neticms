@@ -21,7 +21,10 @@ const makeSelectDownloadItem = () =>
 const makeSelectGetDownloadFile = () =>
   createSelector(selectDownloadCornerDomain, substate => substate.get('downloadFile'));
 
-  // 
+const makeSelectLoaderTypee = () =>
+  createSelector(selectDownloadCornerDomain, substate => substate.get('loaderType'));
+
+// 
 
 /**
  * Default selector used by DownloadCorner
@@ -31,9 +34,10 @@ const makeSelectDownloadCorner = () =>
   createSelector(selectDownloadCornerDomain, substate => substate.toJS());
 
 export default makeSelectDownloadCorner;
-export { 
-  selectDownloadCornerDomain, 
+export {
+  selectDownloadCornerDomain,
   makeSelectDownloadList,
   makeSelectDownloadItem,
-  makeSelectGetDownloadFile
+  makeSelectGetDownloadFile,
+  makeSelectLoaderTypee
 };

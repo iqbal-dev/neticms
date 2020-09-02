@@ -2,11 +2,9 @@ import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../utils/request';
 
 import { makeSelectStudentID, makeSelectAttendanceFromDate, makeSelectAttendancToeDate } from './selectors';
-import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
-import { postMethod, postMethodWithAuth } from '../../utils/baseMethod';
 import { BASE_URL_EM, FETCH_STUDENT_ID_WISE_ATTENDANCE } from '../../utils/serviceUrl';
 import { SUBMIT_SEARCH_BUTTON } from './constants';
-import { setAttendanceList } from './actions';
+import { setAttendanceList, setLoader } from './actions';
 var moment = require('moment/moment');
 
 export function* fetchStudentAttendanceByStudentId() {
@@ -18,8 +16,6 @@ export function* fetchStudentAttendanceByStudentId() {
 
   let toDate = yield select(makeSelectAttendancToeDate());
   let formatedToDate = moment(toDate).format('DD/MM/YYYY');
-
-  // console.log('toDate', toDate);
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let instituteId = '';
@@ -40,6 +36,7 @@ export function* fetchStudentAttendanceByStudentId() {
   //   "instituteId": "13348",
   //   "toDate": "17/08/2020"
   // }
+  yield put(setLoader('autoLoadOn'));
 
   const requestURL = BASE_URL_EM + FETCH_STUDENT_ID_WISE_ATTENDANCE;
   const options = {
@@ -52,17 +49,19 @@ export function* fetchStudentAttendanceByStudentId() {
   };
 
   try {
+
     const response = yield call(request, requestURL, options);
+    yield put(setLoader('autoLoadOff'));
     console.log('search-res', response);
+
     if (response.item) { yield put(setAttendanceList(response.item)) }
     else { yield put(setAttendanceList()) }
+
   } catch (error) { }
 
 }
 
 // Individual exports for testing
 export default function* studentWiseAttendanceSaga() {
-
   yield takeLatest(SUBMIT_SEARCH_BUTTON, fetchStudentAttendanceByStudentId);
-
 }

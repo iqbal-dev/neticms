@@ -9,7 +9,7 @@ import {
   fetch_individual_result_data
 } from '../../utils/serviceUrl';
 import request from '../../utils/request';
-import { setAcademicYearList, setExamList, setIndividualResultData } from './actions';
+import { setAcademicYearList, setExamList, setIndividualResultData, setLoader } from './actions';
 
 function emCommonRequestOptions() {
 
@@ -59,9 +59,12 @@ export function* fetch_examListBy_Type() {
 
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
-  const requestURL = BASE_URL_EM.concat(fetch_examListBy_studentID_and_year) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&instituteId=' + instituteId;
+  yield put(setLoader('dependendLoadOn'));
 
+  const requestURL = BASE_URL_EM.concat(fetch_examListBy_studentID_and_year) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&instituteId=' + instituteId;
   const response = yield call(request, requestURL, requestOptions.options);
+  yield put(setLoader('dependendLoadOff'));
+
   console.log('exam_list', response);
   yield put(setExamList(response.item));
 
@@ -80,10 +83,11 @@ export function* fetch_individual_result() {
   // console.log("CLICK stdID", stdID, stdMobile, academicYear, examConfigId);
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
+  yield put(setLoader('tableLoadOn'));
 
   const requestURL = BASE_URL_EM.concat(fetch_individual_result_data) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&examId=' + examConfigId + '&instituteId=' + instituteId
-
   const response = yield call(request, requestURL, requestOptions.options);
+  yield put(setLoader('tableLoadOff'));
   console.log('Result Response>>>>>>>>>>>>>>>>', response);
   try {
     yield put(setIndividualResultData(response));

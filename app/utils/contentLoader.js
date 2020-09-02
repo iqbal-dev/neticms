@@ -60,7 +60,20 @@ function inputFieldLoader() {
         secondaryColor="#ecebeb"
     >
         {/* <rect x="-1" y="15" rx="0" ry="0" width="99" height="20" /> */}
-        <rect x="-5" y="26" rx="0" ry="0" width="350" height="40" />
+        <rect x="-5" y="26" rx="0" ry="0" width="300" height="40" />
+    </ContentLoader>
+}
+
+function inputFieldLoaderLarge() {
+    return <ContentLoader
+        height={100}
+        width={600}
+        speed={2}
+        primaryColor="#f3f3f3"
+        secondaryColor="#ecebeb"
+    >
+        {/* <rect x="-1" y="15" rx="0" ry="0" width="99" height="20" /> */}
+        <rect x="-5" y="26" rx="0" ry="0" width="600" height="40" />
     </ContentLoader>
 }
 
@@ -181,6 +194,7 @@ export {
     normalFormInputField,
     inlineFormInputField,
     inputFieldLoader,
+    inputFieldLoaderLarge,
     tableLoader,
     centerTableLoader,
     smallTableLoader,
