@@ -8,7 +8,8 @@ import {
   DEFAULT_ACTION,
   DOWNLOAD_ALL_LINKS,
   SET_DOWNLOAD_ITEM,
-  GET_DOWNLOAD_ITEM
+  GET_DOWNLOAD_ITEM,
+  SET_LOADER
 } from './constants';
 
 export function defaultAction() {
@@ -39,3 +40,7 @@ export function getDownloadFile(downloadFile) {
 }
 
 // getDownloadFile
+
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
+}

@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_NOTICE_FILE_CONTENT } from './constants';
+import { DEFAULT_ACTION, SET_NOTICE_FILE_CONTENT, SET_LOADER } from './constants';
 import {
   GET_NOTICE_FILE_CONTENT,
   GET_DOWNLOAD_ITEM
@@ -35,6 +35,10 @@ export function reSetDownloadFile(resetFile) {
     type: GET_NOTICE_FILE_CONTENT,
     resetFile
   };
+}
+
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
 }
 
 // 

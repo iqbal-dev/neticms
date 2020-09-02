@@ -4,16 +4,17 @@
  *
  */
 
-import { 
-  DEFAULT_ACTION, 
-  SET_ON_CHANGE_STUDENT_ID, 
+import {
+  DEFAULT_ACTION,
+  SET_ON_CHANGE_STUDENT_ID,
   SET_ON_CHANGE_STUDENT_MOBILE,
-  SUBMIT_SEARCH_BUTTON, 
+  SUBMIT_SEARCH_BUTTON,
   SET_ACADEMIC_YEAR_LIST,
   SET_ON_CHANGE_ACADEMIC_YEAR,
   SET_EXAM_LIST,
   SET_ON_CHANGE_EXAM_TYPE,
-  SET_INDIVIDUAL_RESULT_DATA
+  SET_INDIVIDUAL_RESULT_DATA,
+  SET_LOADER
 } from './constants';
 
 export function defaultAction() {
@@ -78,4 +79,7 @@ export function setIndividualResultData(resultData) {
   };
 }
 
+export function setLoader(loaderType) {
+  return { type: SET_LOADER, loaderType, };
+}
 

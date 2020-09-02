@@ -14,11 +14,7 @@ export const SET_ON_CHANGE_STUDENT_ID = 'app/IndividualResult/SET_ON_CHANGE_STUD
 export const SET_ON_CHANGE_STUDENT_MOBILE = 'app/IndividualResult/SET_ON_CHANGE_STUDENT_MOBILE';
 export const SET_ON_CHANGE_EXAM_TYPE = 'app/IndividualResult/SET_ON_CHANGE_EXAM_TYPE';
 
-
 export const SET_EXAM_LIST = 'app/IndividualResult/SET_EXAM_LIST';
 export const SUBMIT_SEARCH_BUTTON = 'app/IndividualResult/SUBMIT_SEARCH_BUTTON';
 export const SET_INDIVIDUAL_RESULT_DATA = 'app/IndividualResult/SET_INDIVIDUAL_RESULT_DATA';
-
-
-
-
+export const SET_LOADER = 'app/IndividualResult/SET_LOADER';

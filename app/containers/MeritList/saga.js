@@ -101,7 +101,7 @@ export function* fetch_meritList() {
   let examConfigId = yield select(makeSelectExamConfigId());
 
   // console.log('acyear', acYear);
-  yield put(setLoader('autoLoadOn'));
+  yield put(setLoader('tableLoadOn'));
 
   const requestURL = BASE_URL_EM.concat(FETCH_SECTION_WISE_MERIT_LIST).concat('?classConfigId=').concat(classConfigId).concat('&examConfigId=').concat(examConfigId).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
@@ -114,7 +114,7 @@ export function* fetch_meritList() {
 
   try {
     const response = yield call(request, requestURL, options);
-    yield put(setLoader('autoLoadOff'));
+    yield put(setLoader('tableLoadOff'));
     console.log('merit lis Res', response);
     yield put(setMeritListData(response.item));
   } catch (error) { }

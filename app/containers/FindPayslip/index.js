@@ -73,12 +73,12 @@ export class FindPayslip extends React.PureComponent {
     let { errors } = this.state;
     let fieldIsEmpty = false;
 
-    if (this.props.academicYear === '') {
+    if (this.props.academicYear === '' || this.props.academicYear === undefined) {
       fieldIsEmpty = true;
       errors["year"] = "Year can't left empty.";
     }
 
-    if (this.props.studentID === '') {
+    if (this.props.studentID === '' || this.props.studentID === undefined) {
       fieldIsEmpty = true;
       errors["studentID"] = "Student ID can't left empty.";
     }

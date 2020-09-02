@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, DOWNLOAD_ALL_LINKS, SET_DOWNLOAD_ITEM, GET_DOWNLOAD_ITEM } from './constants';
+import { DEFAULT_ACTION, DOWNLOAD_ALL_LINKS, SET_DOWNLOAD_ITEM, GET_DOWNLOAD_ITEM, SET_LOADER } from './constants';
 
 export const initialState = fromJS({
   downloadLinks: [],
@@ -22,6 +22,8 @@ function downloadCornerReducer(state = initialState, action) {
       return state.set('downloadItem', action.downloadItem);
     case GET_DOWNLOAD_ITEM:
       return state.set('downloadFile', action.downloadFile);
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
     default:
       return state;
   }

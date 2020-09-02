@@ -5,20 +5,24 @@
  */
 
 import { fromJS } from 'immutable';
-import { 
-  DEFAULT_ACTION, 
-  SET_ON_CHANGE_STUDENT_ID, 
-  SET_ON_CHANGE_STUDENT_MOBILE, 
+import {
+  DEFAULT_ACTION,
+  SET_ON_CHANGE_STUDENT_ID,
+  SET_ON_CHANGE_STUDENT_MOBILE,
   SET_ACADEMIC_YEAR_LIST,
   SET_ON_CHANGE_ACADEMIC_YEAR,
   SET_ON_CHANGE_EXAM_TYPE,
   SET_EXAM_LIST,
-  SET_INDIVIDUAL_RESULT_DATA
+  SET_INDIVIDUAL_RESULT_DATA,
+  SET_LOADER
 } from './constants';
 
 export const initialState = fromJS({
   resultData: {
-    examMarks: []
+    examMarks: [],
+    stdID: '',
+    acYear: '',
+    examConfigId: '',
   }
 });
 
@@ -37,7 +41,7 @@ function individualResultReducer(state = initialState, action) {
       return state.set('acYear', action.acYear);
 
     case SET_ACADEMIC_YEAR_LIST:
-        return state.set('yearList', action.yearList);
+      return state.set('yearList', action.yearList);
 
     case SET_EXAM_LIST:
       return state.set('examList', action.examList);
@@ -47,7 +51,10 @@ function individualResultReducer(state = initialState, action) {
 
     case SET_INDIVIDUAL_RESULT_DATA:
       return state.set('resultData', action.resultData);
-      
+
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
+
     default:
       return state;
   }

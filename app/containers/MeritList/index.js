@@ -212,7 +212,7 @@ export class MeritList extends React.Component {
                 <div className="row">
                   <di className="col-md-12">
 
-                    {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
+                    {this.props.loaderType === 'tableLoadOn' ? centerTableLoader() :
 
                       <div className="table-responsive custom-table">
                         <Table

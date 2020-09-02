@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAllNotice, { makeSelectNoticeFileContent } from './selectors';
+import makeSelectAllNotice, { makeSelectNoticeFileContent, makeSelectAllNoticeLoaderType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
@@ -31,6 +31,7 @@ import Viewer from '@phuocng/react-pdf-viewer';
 // Import the CSS
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { centerTableLoader, smallTableLoader, tableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AllNotice extends React.Component {
@@ -274,13 +275,13 @@ export class AllNotice extends React.Component {
                 <div className="row m-t-40">
                   <div className="col-md-12">
                     <div className="text-center m-t-40">
-                      <button 
+                      <button
                         class="btn explore-btn-lg"
-                        onClick={ () => 
-                          this.state.noticeQty <= 5 ? 
-                            this.setState({ noticeQty: this.props.noticeList.length}) : 
-                            this.setState({ noticeQty: 5}) 
-                          }
+                        onClick={() =>
+                          this.state.noticeQty <= 5 ?
+                            this.setState({ noticeQty: this.props.noticeList.length }) :
+                            this.setState({ noticeQty: 5 })
+                        }
                       >
                         Explore all <i class="fas fa-angle-right"></i>
                       </button>
@@ -309,10 +310,10 @@ export class AllNotice extends React.Component {
                     this.state.pdfVisible ?
 
                       <div className="col-md-12">
-                        {
+                        {this.props.loaderType === 'loaderOn' ? tableLoader() :
                           this.props.noticeFileContent && this.props.noticeFileContent.file ?
                             <React.Fragment>
-                              <button className="btn btn-primary my-2" onClick={() => downloadPdf(this.props.noticeFileContent, 'single')}>Download PDF</button>
+                              <button className="btn btn-primary my-2" onClick={() => downloadPdf(this.props.noticeFileContent, 'single')}>Download</button>
                               <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
                                 <Viewer
                                   fileUrl={base64ToBufferAsync(this.props.noticeFileContent.file)}
@@ -350,6 +351,7 @@ const mapStateToProps = createStructuredSelector({
   allNotice: makeSelectAllNotice(),
   noticeList: makeSelectNoticeList(),
   noticeFileContent: makeSelectNoticeFileContent(),
+  loaderType: makeSelectAllNoticeLoaderType(),
 });
 
 function mapDispatchToProps(dispatch) {

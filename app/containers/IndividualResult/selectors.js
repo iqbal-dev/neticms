@@ -28,7 +28,6 @@ const makeSelectAcademicYearList = () =>
 const makeSelectAcademicYear = () =>
   createSelector(selectIndividualResultDomain, substate => substate.get('acYear'));
 
-
 const makeSelectStudentMobile = () =>
   createSelector(selectIndividualResultDomain, substate => substate.get('stdMobile'));
 
@@ -41,11 +40,11 @@ const makeSelectExamConfigId = () =>
 const makeSelectIndividualResultData = () =>
   createSelector(selectIndividualResultDomain, substate => substate.get('resultData'));
 
-
-
+const makeSelectExamLoaderType = () =>
+  createSelector(selectIndividualResultDomain, substate => substate.get('loaderType'));
 
 export default makeSelectIndividualResult;
-export { 
+export {
   selectIndividualResultDomain,
   makeSelectStudentID,
   makeSelectAcademicYearList,
@@ -53,5 +52,6 @@ export {
   makeSelectStudentMobile,
   makeSelectExamList,
   makeSelectExamConfigId,
-  makeSelectIndividualResultData
- };
+  makeSelectIndividualResultData,
+  makeSelectExamLoaderType
+};

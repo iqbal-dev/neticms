@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectDownloadCorner, { makeSelectDownloadList, makeSelectGetDownloadFile } from './selectors';
+import makeSelectDownloadCorner, { makeSelectDownloadList, makeSelectGetDownloadFile, makeSelectLoaderTypee } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -26,6 +26,7 @@ import {
   makeClickDownloadButton, getDownloadFile
 } from "./actions"
 import { getFileContentType } from '../../utils/FileHandler'
+import { centerTableLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -133,25 +134,26 @@ export class DownloadCorner extends React.PureComponent {
               <div className="container">
                 <div className="row">
                   <di className="col-md-12">
-                    <div className="table-responsive custom-table">
-                      <Table striped className="download-corner-table">
-                        <thead>
-                          <tr>
-                            <th>Sl No.</th>
-                            <th>Title</th>
-                            <th className="text-center">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+                    {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
+                      <div className="table-responsive custom-table">
+                        <Table striped className="download-corner-table">
+                          <thead>
+                            <tr>
+                              <th>Sl No.</th>
+                              <th>Title</th>
+                              <th className="text-center">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
 
-                          {this.state.exploreBtnShow ?
+                            {this.state.exploreBtnShow ?
 
-                            this.showTableColumnsFirstFive()
-                            :
-                            this.showTableColumnsAll()
-                          }
+                              this.showTableColumnsFirstFive()
+                              :
+                              this.showTableColumnsAll()
+                            }
 
-                          {/* {
+                            {/* {
                             downloadLists && downloadLists.map((item, index) => {
                               return (
                                 <tr>
@@ -172,10 +174,13 @@ export class DownloadCorner extends React.PureComponent {
                             )
                           } */}
 
-                        </tbody>
-                      </Table>
-                    </div>
+                          </tbody>
+                        </Table>
+                      </div>
+                    }
+
                   </di>
+
                 </div>
                 <div className="row m-t-40">
                   <div className="col-md-12">
@@ -220,6 +225,7 @@ const mapStateToProps = createStructuredSelector({
   downloadCorner: makeSelectDownloadCorner(),
   downloadList: makeSelectDownloadList(),
   getDownloadFile: makeSelectGetDownloadFile(),
+  loaderType: makeSelectLoaderTypee()
 });
 
 function mapDispatchToProps(dispatch) {

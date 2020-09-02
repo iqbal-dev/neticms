@@ -17,3 +17,4 @@ export const SET_ON_CHANGE_EXAM_TYPE = 'app/SectionWiseResult/SET_ON_CHANGE_EXAM
 export const SUBMIT_SEARCH_BUTTON = 'app/SectionWiseResult/SUBMIT_SEARCH_BUTTON';
 export const SET_SECTION_WISE_RESULT_DATA = 'app/SectionWiseResult/SET_SECTION_WISE_RESULT_DATA';
 export const SET_CHART_DATA = 'app/SectionWiseResult/SET_CHART_DATA';
+export const SET_LOADER = 'app/SectionWiseResult/SET_LOADER';
