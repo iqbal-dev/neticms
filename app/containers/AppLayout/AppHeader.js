@@ -24,7 +24,7 @@ export class AppHeader extends React.Component {
         let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ' ' + date.getDate() + ', ' + date.getFullYear();
 
         return (
-            <header className="header-wrapper pt-4 pb-4">
+            <header className="header-wrapper py-2">
                 <div className="container-fluid">
                     <div className="container"> {/*  container   */}
                         <div className="row">

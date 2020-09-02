@@ -131,7 +131,7 @@ export class Footer extends React.Component {
             <div className="container-fluid">
               <div className="container"> {/*  container   */}
                 <div className="row">
-                  <div className="col-md-5">
+                  <div className="col-md-4">
                     <div className="footer-logo-wrapper text-center">
                       <img src={logoContent ? "data:image/*;base64," + logoContent : logo} />
                       <div className="counter-wrapper">
@@ -146,8 +146,8 @@ export class Footer extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-2"></div>
-                  <div className="col-md-5">
+                  {/* <div className="col-md-2"></div> */}
+                  <div className="col-md-4">
                     <div className="footer-widget-wrapper">
                       <div className="widget-title">Pages</div>
                       <div className="row">
@@ -221,7 +221,7 @@ export class Footer extends React.Component {
                     </div>
                   </div>
                   <div className="col-md-4">
-                    {/* <div className="footer-widget-wrapper">
+                    <div className="footer-widget-wrapper">
                       <div className="widget-title">Contact Us</div>
                       <div className="footer-contact-form">
                         <div className="row">
@@ -277,7 +277,7 @@ export class Footer extends React.Component {
                           </div>
                         </div>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>

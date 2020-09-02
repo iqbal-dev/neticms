@@ -74,7 +74,7 @@ class Slider extends React.Component {
       <div className="home-slider-wrapper">
         <Container>   {/*  container   */}
           <Row>
-            <div className="col-md-8">
+            <div className="col-12 col-xl-8">
               {
                 this.props.loaderStatus && this.props.loaderStatus.homeSlider ? 
                   "loading":
@@ -82,7 +82,7 @@ class Slider extends React.Component {
               }
               
             </div>
-            <div className="col-md-4">
+            <div className="col-12 col-xl-4">
               <div className="notice-board-wrapper">
                 <div className="notice-board-title">
                   <i className="fas fa-comment-alt mr-1" /> Notice Board
