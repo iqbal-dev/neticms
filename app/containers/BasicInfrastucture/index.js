@@ -26,6 +26,13 @@ import { centerTableLoader } from '../../utils/contentLoader';
 /* eslint-disable react/prefer-stateless-function */
 export class BasicInfrastucture extends React.PureComponent {
 
+  getPlainTextToHtml = (html) => {
+
+    var temp = document.createElement("div");
+    temp.innerHTML = html;
+    return temp.textContent;
+  }
+
   render() {
 
     let { infrastructureList } = this.props
@@ -59,11 +66,11 @@ export class BasicInfrastucture extends React.PureComponent {
                             <div className="custom-title-border-left no-border"></div>
                           </div>
                           <div className="">
-                            <div className="content" style={{ height: '185px', overflowY: 'auto', textAlign: 'justify' }}>
+                            <div className="content" style={{ textAlign: 'justify' }}>
 
                               {item.aboutusDetails ?
 
-                                <ReadMoreReact text={item.aboutusDetails}
+                                <ReadMoreReact text={this.getPlainTextToHtml(item.aboutusDetails)}
                                   min={315}
                                   ideal={315}
                                   max={2000}
