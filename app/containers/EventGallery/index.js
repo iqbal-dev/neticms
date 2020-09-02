@@ -76,6 +76,23 @@ export class EventGallery extends React.PureComponent {
             menuStepThird="Photo Gallery"
           />
           <div className="container p-t-60 content-wrapper ">
+
+            {/* <div className="row image-section">
+              {galleryImageLists && galleryImageLists.slice(0, 5).map((item, index) => {
+                let image = ''
+                item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
+                return (
+                  <div className="col-sm-6 col-md-3 image-section-inside">
+                    <img id={"image_" + index} className="img-fluid event-gallery-image w-100" src={image} width="100%" />
+                  </div>
+                )
+
+              }
+
+              )}
+            </div>
+
+            <hr/> */}
             <div className="row">
               {
                 Object.keys(assigned).map((item, index) => 

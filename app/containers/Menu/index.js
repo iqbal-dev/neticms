@@ -119,7 +119,7 @@ export class Menu extends React.Component {
     const info = JSON.parse(getUrlInfoLocally());
 
     return (
-      <div>
+      <div className="header-menu">
         <section className="topmenu-wrapper">
           <div className="container-fluid">
             <div className="container"> {/*  container   */}
