@@ -66,7 +66,7 @@ export class BasicInfrastucture extends React.PureComponent {
                             <div className="custom-title-border-left no-border"></div>
                           </div>
                           <div className="">
-                            <div className="content" style={{ textAlign: 'justify' }}>
+                            <div className="content" style={{ height: '185px', overflowY: 'auto', textAlign: 'justify' }}>
 
                               {item.aboutusDetails ?
 
