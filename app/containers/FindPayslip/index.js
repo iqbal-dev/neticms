@@ -45,6 +45,8 @@ export class FindPayslip extends React.PureComponent {
     this.state = {
       errors: {},
     }
+    this.emptyFieldCheck = this.emptyFieldCheck.bind(this);
+
   }
 
   onChangeAcYear = (e) => {
@@ -68,7 +70,7 @@ export class FindPayslip extends React.PureComponent {
 
   }
 
-  emptyFieldCheck = () => {
+  emptyFieldCheck() {
 
     let { errors } = this.state;
     let fieldIsEmpty = false;
@@ -101,14 +103,15 @@ export class FindPayslip extends React.PureComponent {
 
   render() {
 
+    console.log("student & academic year", this.props.studentID, this.props.academicYear);
+
     let { academicYearList, makeSelectFindPayslipData, academicYear } = this.props;
-    let { errors } = this.state;
 
     let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
     let instituteId = '';
     { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
 
-    console.log("this.props.makeSelectFindPayslipData ::::::::::::::", makeSelectFindPayslipData);
+    // console.log("this.props.makeSelectFindPayslipData ::::::::::::::", makeSelectFindPayslipData);
 
     return (
       <div>
@@ -145,7 +148,7 @@ export class FindPayslip extends React.PureComponent {
                                 {academicYearList && academicYearList.map(item => (<option key={item.name} value={academicYear || item.name}>{item.name}</option>))}
                               </Input>
                             </FormGroup>
-                            <span className="error-message">{errors["year"]}</span>
+                            <span className="error-message">{this.state.errors["year"]}</span>
                           </div>
 
                           <div className="col-md-7">
@@ -164,7 +167,7 @@ export class FindPayslip extends React.PureComponent {
                                 <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                               </Button>
                             </FormGroup>
-                            <span className="error-message">{errors["studentID"]}</span>
+                            <span className="error-message">{this.state.errors["studentID"]}</span>
                           </div>
 
                           {/* </div> */}

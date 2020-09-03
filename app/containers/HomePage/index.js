@@ -49,7 +49,7 @@ import blank_image from '../../assets/img/blank-image-2.png';
 import { MyCalendar } from './AdminEventInfoCalendar'
 import ReadMoreReact from 'read-more-react';
 import { hideInstMappingDialog, setMappingInstitute, submitToMapInstitute } from './actions';
-
+import ReadMoreAndLess from 'react-read-more-less';
 //
 
 let speechIndex = 0;
@@ -233,19 +233,34 @@ export class HomePage extends React.Component {
       historyImageContent = this.props.instituteHistory.fileContent ? "data:image/*;base64," + this.props.instituteHistory.fileContent : blank_image;
     }
 
+    // welcomeSpeech read more btn
+
+    // let speechMoreBtn =
+    //   <button className="btn btn-orange" style={{ marginTop: '12px' }}>
+    //     Read More <i className="fas fa-angle-right" />
+    //   </button>
+
+    // let speechLessBtn = <button className="btn btn-orange" style={{ marginTop: '12px' }}>
+    //   Read Less <i className="fas fa-angle-left" />
+    // </button>
+
     // history read more btn
-    let historyMoreBtn = <div className="content-btn">
-      <button className="btn btn-orange" style={{ marginTop: '12px' }}>
-        Read More <i className="fas fa-angle-right" />
-      </button>
-    </div>
+    // let historyMoreBtn =
+    //   <button className="btn btn-orange" style={{ marginTop: '12px' }}>
+    //     Read More <i className="fas fa-angle-right" />
+    //   </button>
+
+    // // <div className="content-btn" style={{ width: '126px' }}>
+    // let historyLessBtn = <button className="btn btn-orange" style={{ marginTop: '12px' }}>
+    //   Read Less <i className="fas fa-angle-left" />
+    // </button>
 
     console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.loaderStatus);
 
     return (
       <div>
         <AppLayout>
-          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList} loaderStatus={ this.props.loaderStatus }/>
+          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList} loaderStatus={this.props.loaderStatus} />
           <section className="speech-wrapper section-space-60">
             <div className="container-fluid">
               <div className="container">
@@ -267,11 +282,21 @@ export class HomePage extends React.Component {
 
                             {this.props.welComeInfo ?
 
-                              <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
-                                min={235}
-                                ideal={236}
-                                max={2000}
-                                readMoreText={historyMoreBtn} />
+                              <ReadMoreAndLess
+                                ref={this.ReadMore}
+                                className="read-more-content"
+                                charLimit={490}
+                                readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
+                                readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
+                              >
+                                {this.getPlainTextToHtml(welComeSpeech)}
+                              </ReadMoreAndLess>
+
+                              // <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
+                              //   min={235}
+                              //   ideal={236}
+                              //   max={2000}
+                              //   readMoreText={historyMoreBtn} />
                               : ''
                             }
 
@@ -357,11 +382,22 @@ export class HomePage extends React.Component {
 
                           {this.props.instituteHistory ?
 
-                            < ReadMoreReact text={this.getPlainTextToHtml(instituteHistory)}
-                              min={200}
-                              ideal={201}
-                              max={1000}
-                              readMoreText={historyMoreBtn} />
+                            <ReadMoreAndLess
+                              ref={this.ReadMore}
+                              className="read-more-content"
+                              charLimit={480}
+                              readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
+                              readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
+                            >
+                              {this.getPlainTextToHtml(instituteHistory)}
+                            </ReadMoreAndLess>
+
+                            // < ReadMoreReact text={this.getPlainTextToHtml(instituteHistory)}
+                            //   min={200}
+                            //   ideal={201}
+                            //   max={1000}
+                            //   readMoreText={historyMoreBtn} />
+
                             : ''
                           }
 
