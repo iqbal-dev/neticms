@@ -1,112 +1,132 @@
-.header-wrapper{
-    background: $primaryColorDark;
-    .logo-wrapper{
-        height: 120px;
-        width: 120px;
-        background: #fff;
-        padding: 5px;
-        img{
-            height: 110px;
-            width: 110px;
-        }
+.header-wrapper {
+  background: $primaryColorDark;
+  .logo-wrapper {
+    height: 120px;
+    width: 120px;
+    background: #fff;
+    padding: 5px;
+    img {
+      height: 110px;
+      width: 110px;
     }
-    .inst-title-wrapper{
-        margin-top: 15px;
-        .ins-title{
-            font-size: $fontSizePrimary;
-            font-weight: 600;
-            color: $colorWhite;
-        }
-        address{
-            font-size: $fontSizeSecondary;
-            color: $colorWhite;
-            margin-bottom: 0;
-            font-weight: $fontWeightSecondary;
-        }
-        span{
-            font-size: $fontSizeSecondary;
-            color: $colorWhite;
-        }
+  }
+  .inst-title-wrapper {
+    margin-top: 15px;
+    .ins-title {
+      font-size: $fontSizePrimary;
+      font-weight: 600;
+      color: $colorWhite;
     }
-    .social-wrapper{
-        margin-top: 20px;
-        li{
-            list-style: none;
-            padding-right: 15px;
-            &:last-child{
-                padding-right: 0px;
-            }
-            &:first-child:hover{
-                a{
-                    color: #0084ff;
-                }
-            }
-            &:nth-child(n+2):hover{
-                a{
-                    color: #00acee;
-                }
-            }
-            &:nth-child(n+3):hover{
-                a{
-                    color: #FF0000;
-                }
-            }
-            &:last-child:hover{
-                a{
-                    color: #0077b5;
-                }
-            }
-        }
-        
-        a{
-            color: $colorWhite;
-        }
+    address {
+      font-size: $fontSizeSecondary;
+      color: $colorWhite;
+      margin-bottom: 0;
+      font-weight: $fontWeightSecondary;
     }
-    .calender-wrapper-top{
-        justify-content: flex-end !important;
+    span {
+      font-size: $fontSizeSecondary;
+      color: $colorWhite;
+    }
+  }
+  .social-wrapper {
+    margin-top: 20px;
+    li {
+      list-style: none;
+      padding-right: 15px;
+      &:last-child {
+        padding-right: 0px;
+      }
+      &:first-child:hover {
+        a {
+          color: #0084ff;
+        }
+      }
+      &:nth-child(n + 2):hover {
+        a {
+          color: #00acee;
+        }
+      }
+      &:nth-child(n + 3):hover {
+        a {
+          color: #ff0000;
+        }
+      }
+      &:last-child:hover {
+        a {
+          color: #0077b5;
+        }
+      }
+    }
 
-        .calender-icon{
-            padding-right: 15px;
-            margin: 0 5px 0px 0;
-
-            i{
-                font-size: 50px;
-                color: $colorWhite;
-            }
-            
-            
-        }
-        .calender-details{
-            text-align: left;
-            flex: 0 0 auto;
-            width: auto;
-
-            span{
-                color: $colorWhite;
-                font-size: $fontSizeSecondarySmall;
-                line-height: 1.8;
-                display: block;
-                font-weight: 300;
-                letter-spacing: .8px;
-            }
-        }
+    a {
+      color: $colorWhite;
     }
-    @media screen and (min-width:767px){
-        .inst-title-wrapper{
-            margin-left: 15px;
-            margin-top: 0px;
-        }
-        .social-wrapper{
-            margin-top: 0px;
-        }
-        .calender-details{
-            text-align: right !important;
-            width: 100%;
-        }
-        .calender-icon{
-            text-align: right;
-            border-right: 2px solid #4d6880;
-            margin-bottom: 0px;
-        }
+  }
+  .calender-wrapper-top {
+    justify-content: flex-end !important;
+
+    .calender-icon {
+      padding-right: 15px;
+      //   margin: 0 5px 0px 0;
+      margin: 0 -8px 0px 0;
+
+      i {
+        font-size: 50px;
+        color: $colorWhite;
+      }
     }
+    .calender-details {
+      text-align: left;
+      flex: 0 0 auto;
+      // width: auto;
+      width: 280px;
+
+      span {
+        color: $colorWhite;
+        font-size: $fontSizeSecondarySmall;
+        line-height: 1.8;
+        display: block;
+        font-weight: 300;
+        letter-spacing: 0.8px;
+      }
+
+      .local-location {
+        width: 135px;
+        float: left;
+        color: $colorWhite;
+        font-size: $fontSizeSecondarySmall;
+        line-height: 1.8;
+        font-weight: 300;
+        letter-spacing: 0.8px;
+      }
+
+      .local-time {
+        width: 144px;
+        float: right;
+        color: $colorWhite;
+        font-size: $fontSizeSecondarySmall;
+        line-height: 1.8;
+        font-weight: 300;
+        letter-spacing: 0.8px;
+      }
+    }
+  }
+  @media screen and (min-width: 767px) {
+    .inst-title-wrapper {
+      margin-left: 15px;
+      margin-top: 0px;
+    }
+    .social-wrapper {
+      margin-top: 0px;
+    }
+    .calender-details {
+      text-align: right !important;
+      width: 100%;
+    }
+    .calender-icon {
+      text-align: right;
+      border-right: 2px solid #4d6880;
+      margin-bottom: 0px;
+    }
+  }
 }

@@ -79,11 +79,11 @@ export class StudentWiseAttendance extends React.Component {
       errors["studentID"] = "Student ID can't left empty.";
     }
 
-    if (this.props.attendanceFromDate === '' || this.props.attendanceFromDate === null) {
+    if (this.props.attendanceFromDate === '' || this.props.attendanceFromDate === undefined) {
       fieldIsEmpty = true;
       errors["fromDate"] = "From Date can't left empty.";
     }
-    if (this.props.attendanceToDate === '' || this.props.attendanceToDate === null) {
+    if (this.props.attendanceToDate === '' || this.props.attendanceToDate === undefined) {
       fieldIsEmpty = true;
       errors["toDate"] = "To Date can't left empty.";
     }
@@ -165,6 +165,7 @@ export class StudentWiseAttendance extends React.Component {
                                 dropdownMode="select"
                                 isClearable
                                 fixedHeight
+                                maxDate={this.props.attendanceToDate}
                                 selected={this.props.attendanceFromDate}
                                 onChange={(e) => this.onChangeAttendanceFromDate(e, 'fromDate')}
                                 className="dayPicker-custom-input"
@@ -196,6 +197,7 @@ export class StudentWiseAttendance extends React.Component {
                               dropdownMode="select"
                               isClearable
                               fixedHeight
+                              minDate={this.props.attendanceFromDate}
                               selected={this.props.attendanceToDate}
                               onChange={(e) => this.onChangeAttendanceToDate(e, 'toDate')}
                               className="dayPicker-custom-input"

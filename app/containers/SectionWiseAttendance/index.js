@@ -68,7 +68,7 @@ export class SectionWiseAttendance extends React.Component {
     let fieldIsEmpty = false;
     let { errors } = this.state;
 
-    if (this.props.selectedDate === '' || this.props.selectedDate === null) {
+    if (this.props.selectedDate === '' || this.props.selectedDate === undefined) {
       fieldIsEmpty = true;
       errors["date"] = "Date can't left empty.";
     }

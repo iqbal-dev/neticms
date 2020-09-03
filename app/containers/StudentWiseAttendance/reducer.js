@@ -9,8 +9,8 @@ import { DEFAULT_ACTION, SET_STUDENT_ID, SET_ATTENDANCE_FROM_DATE, SET_ATTENDANC
 
 export const initialState = fromJS({
   studentID: '',
-  attendanceFromDate: '',
-  attendanceToDate: '',
+  // attendanceFromDate: '',
+  // attendanceToDate: '',
   attendanceList: [],
   loaderType: '',
 });
