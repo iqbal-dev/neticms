@@ -30,7 +30,6 @@ export default class LocalClockTime extends React.Component {
         return (
 
             <span className="d-inline-flex justify-content-center align-items-center">
-                <i className="fas fa-map-marker-alt pr-2" /> Bangladesh,
                 Time :<span style={{ width: "95px"}}>{this.state.time}</span>
             </span>
 
