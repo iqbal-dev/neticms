@@ -70,7 +70,7 @@
 .header-wrapper .calender-wrapper-top .calender-details {
   text-align: left;
   flex: 0 0 auto;
-  width: 270px;
+  width: 280px;
 }
 .header-wrapper .calender-wrapper-top .calender-details span {
   color: #fff;
@@ -90,7 +90,7 @@
   letter-spacing: 0.8px;
 }
 .header-wrapper .calender-wrapper-top .calender-details .local-time {
-  width: 135px;
+  width: 144px;
   float: right;
   color: #fff;
   font-size: 14px;
