@@ -31,13 +31,15 @@ let dialogImageContent = ''
 export class EventGallery extends React.PureComponent {
 
   state = {
-    imageCounter: 0
+    imageCounter: 0,
+    type: ''
   }
 
-  getAttr = (e, index) => {
+  getAttr = (e, index, type) => {
     console.log('e:::', e, index)
 
     this.state.imageCounter = index
+    this.state.type = type
 
     // let link = document.querySelector('#image_' + index);
     //     if (link) {
@@ -76,28 +78,41 @@ export class EventGallery extends React.PureComponent {
             menuStepThird="Photo Gallery"
           />
           <div className="container p-t-60 content-wrapper ">
+            <div className="row">
+              {
+                Object.keys(assigned).map((item, index) =>
 
-            {/* <div className="row image-section">
-              {galleryImageLists && galleryImageLists.slice(0, 5).map((item, index) => {
-                let image = ''
-                item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
-                return (
-                  <div className="col-sm-6 col-md-3 image-section-inside">
-                    <img id={"image_" + index} className="img-fluid event-gallery-image w-100" src={image} width="100%" />
+                  <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                    <h4>{item}</h4>
+                    <hr />
+                    <div className="image-section">
+                      {assigned && assigned[item].map((item1, index1) => {
+                        let image = ''
+                        item1.fileContent ? image = "data:image/*;base64," + item1.fileContent : image = staticImg
+                        return (
+                          <div className="image-section-inside" onClick={e => this.getAttr(e, index1, item)}>
+                            <img id={"image_" + index1} className="img-fluid event-gallery-image w-100" src={image} width="100%" />
+                            <Button
+                              className="book-image-zoom"
+                              onClick={this.props.onChangemodalVisiable}
+                            >
+                              <i className="fas fa-search" />
+                            </Button>
+                          </div>
+                        )
+
+                      })
+                      }
+                    </div>
                   </div>
-                )
 
-              }
-
-              )}
+                )}
             </div>
 
-            <hr/> */}
+            {/* <hr/>
             <div className="row">
               {
                 Object.keys(assigned).map((item, index) => 
-                  // let image = ''
-                  // item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
                   <div className="col-md-12">
                     <h4>{item}</h4>
                     <hr/>
@@ -107,17 +122,17 @@ export class EventGallery extends React.PureComponent {
                         let image = ''
                         item1.fileContent ? image = "data:image/*;base64," + item1.fileContent : image = staticImg
                         return(
-                          // <p>{item1.photoTitle}</p>
+                          
                           <div className="col-sm-6 col-md-3">
                             <div className="book-list-wrapper event-gallery-wrapper m-b-30">
                               <div className="book-list-image event-gallery-inside" onClick={e => this.getAttr(e, index)}>
                                 <img id={"image_" + index} className="img-fluid event-gallery-image" src={image} width="100%" />
-                                {/* <Button
+                                <Button
                                   className="book-image-zoom"
                                   onClick={this.props.onChangemodalVisiable}
                                 >
                                   <i className="fas fa-search" />
-                                </Button> */}
+                                </Button>
                               </div>
                             </div>
                           </div>
@@ -129,7 +144,7 @@ export class EventGallery extends React.PureComponent {
                   </div>
                 )
               }
-            </div>
+            </div> */}
 
             <br/>
             <br/>
@@ -146,7 +161,7 @@ export class EventGallery extends React.PureComponent {
                 return (
                   <div className="col-sm-6 col-md-3">
                     <div className="book-list-wrapper event-gallery-wrapper m-b-30">
-                      <div className="book-list-image event-gallery-inside" onClick={e => this.getAttr(e, index)}>
+                      <div className="book-list-image event-gallery-inside" onClick={e => this.getAttr(e, index, 'all')}>
                         <img id={"image_" + index} className="img-fluid event-gallery-image w-100" src={image} width="100%" />
                         <Button
                           className="book-image-zoom"
@@ -191,12 +206,22 @@ export class EventGallery extends React.PureComponent {
                   <div className="col-md-12">
                     <div className="no-thumble no-radius">
                       <Carousel selectedItem={this.state.imageCounter}>
-                        {galleryImageLists && galleryImageLists.map((item) =>
-                          <div>
-                            <img src={item.fileContent ? "data:image/*;base64," + item.fileContent : staticImg} alt="Event Gallery one" width="200px" />
-                          </div>
+                        {
+                          assigned && assigned[this.state.type] && assigned[this.state.type].length>0 ?
+                          assigned && assigned[this.state.type].map((item) =>
+                            <div>
+                              <img src={item.fileContent ? "data:image/*;base64," + item.fileContent : staticImg} alt="Event Gallery one" width="200px" />
+                            </div>
 
-                        )}
+                          )
+                          :
+                          galleryImageLists && galleryImageLists.map((item) =>
+                            <div>
+                              <img src={item.fileContent ? "data:image/*;base64," + item.fileContent : staticImg} alt="Event Gallery one" width="200px" />
+                            </div>
+
+                          )
+                        }
                         {/* <div>
                         <img src={image} alt="Event Gallery two" />
                       </div>
