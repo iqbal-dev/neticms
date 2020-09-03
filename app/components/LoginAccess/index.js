@@ -46,7 +46,7 @@ class LoginAccess extends React.PureComponent {
                           <img src={student} className="img-fluid w-100" />
                         </div>
                         <div className="login-btn text-center">
-                          <button className="btn" >Student login</button>
+                          <button className="btn" >Student Login</button>
                         </div>
                       </div>
                     </a>
@@ -59,7 +59,7 @@ class LoginAccess extends React.PureComponent {
                           <img src={guardian} className="img-fluid w-100" />
                         </div>
                         <div className="login-btn text-center">
-                          <button className="btn">Guardian login</button>
+                          <button className="btn">Guardian Login</button>
                         </div>
                       </div>
                     </a>
@@ -72,7 +72,7 @@ class LoginAccess extends React.PureComponent {
                           <img src={teacher} className="img-fluid w-100" />
                         </div>
                         <div className="login-btn text-center">
-                          <button className="btn">Teachers login</button>
+                          <button className="btn">Teachers Login</button>
                         </div>
                       </div>
                     </a>
