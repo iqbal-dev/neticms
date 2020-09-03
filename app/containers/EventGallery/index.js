@@ -83,8 +83,10 @@ export class EventGallery extends React.PureComponent {
                 Object.keys(assigned).map((item, index) =>
 
                   <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                    <h4>{item}</h4>
-                    <hr />
+                    <div className="page-inner-title mb-4">
+                      <h2 className="text-orange">{item}</h2>
+                      <div className="custom-title-border-left"></div>
+                    </div>
                     <div className="image-section">
                       {assigned && assigned[item].map((item1, index1) => {
                         let image = ''
@@ -149,8 +151,12 @@ export class EventGallery extends React.PureComponent {
             <br/>
             <br/>
 
-            <h4>All Gallery Images</h4>
-            <hr/>
+            {/* <h4>All Gallery Images</h4>
+            <hr/> */}
+            <div className="page-inner-title mb-4">
+              <h2 className="text-orange">All Gallery Images</h2>
+              <div className="custom-title-border-left"></div>
+            </div>
             <div className="row">
               
               {galleryImageLists && galleryImageLists.map((item, index) => {

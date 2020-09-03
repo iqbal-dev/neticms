@@ -2418,7 +2418,7 @@
 
 .image-section {
   position: relative;
-  height: 350px; }
+  height: 200px; }
   .image-section .image-section-inside {
     position: absolute;
     background-color: white;
@@ -2426,8 +2426,8 @@
     border: 2px solid #f1f1f1;
     border-radius: 15px;
     overflow: hidden;
-    width: auto;
-    height: 250px;
+    max-width: 230px;
+    height: 150px;
     transition: all 1s; }
     .image-section .image-section-inside:hover {
       position: relative;
