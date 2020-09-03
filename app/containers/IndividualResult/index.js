@@ -58,6 +58,10 @@ export class IndividualResult extends React.Component {
     }
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onChangeStudentId = (e) => {
     this.props.onChangeStudentID(e);
     this.clearErrorMsg(e.target.name);

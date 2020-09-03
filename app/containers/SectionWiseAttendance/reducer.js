@@ -9,7 +9,7 @@ import { DEFAULT_ACTION, SET_ON_CHANGE_DATE, SET_ATTENDANCE_LIST, SET_CHART_DATA
 
 export const initialState = fromJS({
   stdAttendanceList: [],
-  date: '',
+  // date: '',
   loaderStatus: '',
 });
 
@@ -26,7 +26,6 @@ function sectionWiseAttendanceReducer(state = initialState, action) {
 
     case SET_CHART_DATA:
       return state.set('chartDataArray', action.dataArray);
-
 
     case SET_LOADER:
       return state.set('loaderStatus', action.loaderStatus);

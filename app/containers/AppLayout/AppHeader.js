@@ -72,7 +72,7 @@ export class AppHeader extends React.Component {
                                     <div className="calender-details" style={{ marginTop: '0' }}>
                                         <span>{fullDateInEng}</span>
 
-                                        <LocalClockTime />
+                                        <div className='local-location'> <i className="fas fa-map-marker-alt pr-2" /> Bangladesh, </div> <div className='local-time'> <LocalClockTime /> </div>
 
                                         {/* <span>26th Boishakh, 1427 (Bangla)</span> */}
 
