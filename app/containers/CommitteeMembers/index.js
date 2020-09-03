@@ -32,7 +32,7 @@ export class CommitteeMembers extends React.PureComponent {
             <title>CommitteeMembers</title>
             <meta name="description" content="Description of CommitteeMembers" />
           </Helmet>
-          <BreadcrumComponent pageTitle="Committee Members" menuStepFirst="Institute Info" menuStepSenond="Administration" menuStepThird="Committee Members" />
+          <BreadcrumComponent pageTitle="Committee Members" menuStepFirst="Institute Info" menuStepSenond="Administration" menuStepThird="Committee" />
           <section>
             <div className="container-fluid">
               <div className="container p-t-60">

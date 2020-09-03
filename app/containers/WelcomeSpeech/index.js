@@ -45,7 +45,7 @@ export class WelcomeSpeech extends React.Component {
             pageTitle="Welcome Speech"
             menuStepFirst="Institute Info"
             menuStepSenond="Administration"
-            menuStepThird="Speech"
+            menuStepThird="Welcome Speech"
           />
 
           <section className="speech-wrapper welcome-speech my-3">
