@@ -9,7 +9,7 @@ import {
   DEFAULT_ACTION, SET_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE,
   SET_LOADER, SET_LATEST_NEWS, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_ACCESS_TOKEN,
   SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS, SET_HOME_SLIDER,
-  VISIBLE_INST_MAPPING_DIALOG, HIDE_INST_MAPPING_DIALOG, SET_MAPPING_INSTITUTE,
+  VISIBLE_INST_MAPPING_DIALOG, HIDE_INST_MAPPING_DIALOG, SET_MAPPING_INSTITUTE, SET_HOME_SLIDER_LOADER, SET_NOTICE_LOADER, SET_SPEECH_LOADER, SET_LINK_LOADER,
 } from './constants';
 
 export const initialState = fromJS({
@@ -37,6 +37,9 @@ export const initialState = fromJS({
   sectionList: '',
   instMappingDialog: false,
   mappingInstId: '',
+  homeSliderLoader: true,
+  noticeLoader: true,
+  speechLoader: true,
 });
 
 function homePageReducer(state = initialState, action) {
@@ -95,6 +98,18 @@ function homePageReducer(state = initialState, action) {
 
     case SET_HOME_SLIDER:
       return state.set('homeSliderList', action.homeSliderList);
+
+    case SET_HOME_SLIDER_LOADER:
+      return state.set('homeSliderLoader', action.homeSliderLoader);
+
+    case SET_NOTICE_LOADER:
+      return state.set('noticeLoader', action.noticeLoader);
+
+    case SET_SPEECH_LOADER:
+      return state.set('speechLoader', action.speechLoader);
+
+    case SET_LINK_LOADER:
+      return state.set('linkLoader', action.linkLoader);
 
     default:
       return state;

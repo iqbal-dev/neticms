@@ -1,15 +1,15 @@
 
 export function getFullDayName(index) {
     let fullDayNameList = [
+        'Sunday',
         'Monday',
         'Tuesday',
         'Wednesday',
         'Thursday',
         'Friday',
         'Saturday',
-        'Sunday',
     ];
-    return fullDayNameList[index - 1];
+    return fullDayNameList[index];
 }
 
 export function getFullMonthName(index) {

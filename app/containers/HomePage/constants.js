@@ -33,3 +33,9 @@ export const SET_LOADER = 'app/HomePage/SET_LOADER';
 export const SET_ACADEMIC_YEAR_LIST = 'app/HomePage/SET_ACADEMIC_YEAR_LIST';
 export const SET_SECTION_LIST = 'app/HomePage/SET_SECTION_LIST';
 export const SET_HOME_SLIDER = 'app/HomePage/SET_HOME_SLIDER';
+export const SET_HOME_SLIDER_LOADER = 'app/HomePage/SET_HOME_SLIDER_LOADER';
+export const SET_NOTICE_LOADER = 'app/HomePage/SET_NOTICE_LOADER';
+export const SET_SPEECH_LOADER = 'app/HomePage/SET_SPEECH_LOADER';
+export const SET_LINK_LOADER = 'app/HomePage/SET_LINK_LOADER';
+
+// SET_LINK_LOADER

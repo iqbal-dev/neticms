@@ -19,7 +19,7 @@ import staticImg from '../../assets/img/slider_bg.jpg';
 /* eslint-disable react/prefer-stateless-function */
 import { Link } from 'react-router-dom';
 import { getFullMonthName, get_YYMMDD_Format_WithHyphen, getHHMMSS } from '../../utils/dateFormat';
-import { listLoader } from '../../utils/contentLoader';
+import { listLoader, sliderLoader } from '../../utils/contentLoader';
 
 class Slider extends React.Component {
 
@@ -76,8 +76,8 @@ class Slider extends React.Component {
           <Row>
             <div className="col-12 col-xl-8">
               {
-                this.props.loaderStatus && this.props.loaderStatus.homeSlider ? 
-                  "loading":
+                this.props && this.props.homeSliderLoader ? 
+                  sliderLoader():
                   <UncontrolledCarousel items={items} />
               }
               
@@ -90,10 +90,25 @@ class Slider extends React.Component {
                 <div id="notice-list" className="notice-board">
                   <ul>
                     {
-                      this.props.loaderStatus && this.props.loaderStatus.noticeList ? 
-                      <li>
-                        {listLoader()}
-                      </li>
+                      this.props.noticeLoader ? 
+                      <React.Fragment>
+                          <li>
+                            {listLoader()}
+                          </li>
+                          <li>
+                            {listLoader()}
+                          </li>
+                          <li>
+                            {listLoader()}
+                          </li>
+                          <li>
+                            {listLoader()}
+                          </li>
+                          <li>
+                            {listLoader()}
+                          </li>
+                      </React.Fragment>
+                      
                       :
                       noticeArrayList.slice(0, 5).map(singleNotice => (
                         <li key={singleNotice.noticeID}>

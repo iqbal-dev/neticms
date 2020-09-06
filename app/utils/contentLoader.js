@@ -190,6 +190,68 @@ function listLoader() {
     </ContentLoader>
 
 }
+
+function sliderLoader() {
+    return <ContentLoader
+        speed={2}
+        width={1280}
+        height={471}
+        viewBox="0 0 1280 471"
+        backgroundColor="#f5f5f5"
+        foregroundColor="#dbdbdb"
+    >
+        <rect x="4" y="8" rx="3" ry="3" width="7" height="458" />
+        <rect x="6" y="460" rx="3" ry="3" width="825" height="8" />
+        <rect x="824" y="9" rx="3" ry="3" width="6" height="458" />
+        <rect x="55" y="42" rx="16" ry="16" width="474" height="380" />
+        <rect x="612" y="113" rx="3" ry="3" width="102" height="7" />
+        <rect x="602" y="91" rx="3" ry="3" width="178" height="6" />
+        <rect x="605" y="139" rx="3" ry="3" width="178" height="6" />
+        <rect x="616" y="162" rx="3" ry="3" width="102" height="7" />
+        <rect x="605" y="189" rx="3" ry="3" width="178" height="6" />
+
+        <rect x="616" y="215" rx="3" ry="3" width="102" height="7" />
+        <rect x="605" y="240" rx="3" ry="3" width="178" height="6" />
+
+        <rect x="616" y="265" rx="3" ry="3" width="102" height="7" />
+        <rect x="605" y="290" rx="3" ry="3" width="178" height="6" />
+
+        <rect x="616" y="315" rx="3" ry="3" width="102" height="7" />
+        <rect x="605" y="340" rx="3" ry="3" width="178" height="6" />
+        
+        <rect x="5" y="8" rx="3" ry="3" width="825" height="7" />
+        <rect x="606" y="380" rx="14" ry="14" width="72" height="32" />
+        <rect x="705" y="380" rx="14" ry="14" width="72" height="32" />
+        <rect x="576" y="41" rx="3" ry="3" width="231" height="29" />
+    </ContentLoader>
+
+}
+
+function speechLoader() {
+    return <ContentLoader
+        speed={2}
+        width={1280}
+        height={293}
+        viewBox="0 0 1280 293"
+        backgroundColor="#f5f5f5"
+        foregroundColor="#dbdbdb"
+    >
+        <rect x="20" y="8" rx="0" ry="0" width="150" height="150" />
+        <rect x="20" y="170" rx="0" ry="0" width="150" height="10" />
+        <rect x="190" y="8" rx="0" ry="0" width="100" height="15" />
+        <rect x="190" y="30" rx="0" ry="0" width="300" height="15" />
+        <rect x="190" y="80" rx="0" ry="0" width="600" height="15" />
+        <rect x="190" y="110" rx="0" ry="0" width="600" height="15" />
+        <rect x="190" y="140" rx="0" ry="0" width="600" height="15" />
+        <rect x="190" y="170" rx="0" ry="0" width="600" height="15" />
+        <rect x="20" y="200" rx="0" ry="0" width="770" height="15" />
+        <rect x="20" y="230" rx="0" ry="0" width="770" height="15" />
+        <rect x="20" y="260" rx="0" ry="0" width="770" height="15" />
+    </ContentLoader>
+
+}
+
+
 export {
     normalFormInputField,
     inlineFormInputField,
@@ -200,5 +262,7 @@ export {
     smallTableLoader,
     emptyTableMessage,
     emptyAutoLoadTableMsg,
-    listLoader
+    listLoader,
+    sliderLoader,
+    speechLoader
 };

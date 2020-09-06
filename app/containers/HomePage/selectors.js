@@ -59,6 +59,20 @@ const makeSelectInstMappingDialog = () =>
 const makeSelectMappingInstId = () =>
   createSelector(selectHomePageDomain, substate => substate.get('mappingInstId'));
 
+const makeSelectHomeSliderLoader = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('homeSliderLoader'));
+
+const makeSelectNoticeLoader = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('noticeLoader'));
+
+const makeSelectSpeechLoader = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('speechLoader'));
+
+const makeSelectLinkLoader = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('linkLoader'));
+
+  // 
+
 /**
  * Default selector used by HomePage
  */
@@ -84,5 +98,9 @@ export {
   makeSelectGlobalSectionList,
   makeSelectHomeSliderList,
   makeSelectInstMappingDialog,
-  makeSelectMappingInstId
+  makeSelectMappingInstId,
+  makeSelectHomeSliderLoader,
+  makeSelectNoticeLoader,
+  makeSelectSpeechLoader,
+  makeSelectLinkLoader
 };

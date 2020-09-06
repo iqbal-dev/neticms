@@ -21,6 +21,8 @@ export class AppHeader extends React.Component {
         let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
         const date = new Date();
 
+        // console.log("DATE", date, date.getDay());
+
         let fullDateInEng = getFullDayName(date.getDay()) + ', ' + getFullMonthName(date.getMonth()) + ' ' + date.getDate() + ', ' + date.getFullYear();
 
         return (
@@ -72,7 +74,7 @@ export class AppHeader extends React.Component {
                                     <div className="calender-details" style={{ marginTop: '0' }}>
                                         <span>{fullDateInEng}</span>
 
-                                        <div className='local-location'> <i className="fas fa-map-marker-alt pr-2" /> Bangladesh, </div> <div className='local-time'> <LocalClockTime /> </div>
+                                        <div className='local-location'> <i className="fas fa-map-marker-alt pr-2" /> Bangladesh, <span className='local-time'><LocalClockTime /></span></div>
 
                                         {/* <span>26th Boishakh, 1427 (Bangla)</span> */}
 

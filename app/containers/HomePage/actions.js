@@ -9,6 +9,7 @@ import {
   SET_LOADER, SET_LATEST_NEWS, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_ACCESS_TOKEN,
   SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS, SET_HOME_SLIDER,
   VISIBLE_INST_MAPPING_DIALOG, HIDE_INST_MAPPING_DIALOG, SET_MAPPING_INSTITUTE, SUBMIT_MAP,
+  SET_HOME_SLIDER_LOADER, SET_NOTICE_LOADER, SET_SPEECH_LOADER, SET_LINK_LOADER,
 } from './constants';
 
 export function defaultAction() {
@@ -153,4 +154,32 @@ export function setHomeSlider(homeSliderList) {
     homeSliderList,
   };
 }
-// setHomeSlider
+
+
+export function setHomeSliderLoader(homeSliderLoader) {
+  return {
+    type: SET_HOME_SLIDER_LOADER,
+    homeSliderLoader,
+  };
+}
+
+export function setNoticeLoader(noticeLoader) {
+  return {
+    type: SET_NOTICE_LOADER,
+    noticeLoader,
+  };
+}
+
+export function setSpeechLoader(speechLoader) {
+  return {
+    type: SET_SPEECH_LOADER,
+    speechLoader,
+  };
+}
+
+export function setLinkLoader(linkLoader) {
+  return {
+    type: SET_LINK_LOADER,
+    linkLoader,
+  };
+}

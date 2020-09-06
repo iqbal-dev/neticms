@@ -39,7 +39,11 @@ import {
   makeSelectLoaderStatus,
   makeSelectHomeSliderList,
   makeSelectInstMappingDialog,
-  makeSelectMappingInstId
+  makeSelectMappingInstId,
+  makeSelectHomeSliderLoader,
+  makeSelectNoticeLoader,
+  makeSelectSpeechLoader,
+  makeSelectLinkLoader
 } from './selectors';
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 import { AppLayout } from '../AppLayout';
@@ -50,6 +54,8 @@ import { MyCalendar } from './AdminEventInfoCalendar'
 import ReadMoreReact from 'read-more-react';
 import { hideInstMappingDialog, setMappingInstitute, submitToMapInstitute } from './actions';
 import ReadMoreAndLess from 'react-read-more-less';
+
+import { speechLoader, listLoader } from '../../utils/contentLoader';
 //
 
 let speechIndex = 0;
@@ -255,12 +261,18 @@ export class HomePage extends React.Component {
     //   Read Less <i className="fas fa-angle-left" />
     // </button>
 
-    console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.loaderStatus);
+    console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.linkLoader);// this.props.homeSliderLoader,
 
     return (
       <div>
         <AppLayout>
-          <Slider notice={this.props.noticeList} slider={this.props.homeSliderList} loaderStatus={this.props.loaderStatus} />
+          <Slider 
+            notice={this.props.noticeList} 
+            slider={this.props.homeSliderList} 
+            homeSliderLoader={this.props.homeSliderLoader} 
+            noticeLoader={this.props.noticeLoader} 
+          />
+
           <section className="speech-wrapper section-space-60">
             <div className="container-fluid">
               <div className="container">
@@ -270,37 +282,48 @@ export class HomePage extends React.Component {
                       <div className="slider-item">
                         <div className="slider-content">
 
-                          {this.props.welComeInfo ? <img id="speechImg" align="left" className="fileContent" src={imageContent} /> : ''}
+                          {
+                            this.props.speechLoader ?
+                              speechLoader():
+                              <React.Fragment>
+                                {
+                                  this.props.welComeInfo ?
+                                    <img id="speechImg" align="left" className="fileContent" src={imageContent} /> : ''
+                                }
 
-                          {/* <img
-                            src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
-                            align="left"
-                          /> */}
-                          <h4 className="designation">{speakerDesignation}</h4>
-                          <h1 className="employe-name">{speakerName}</h1>
-                          <p className='speechDetails'>
+                                {/* <img
+                                  src="https://www.evolutionsociety.org/userdata/news_picupload/pic_sid189-0-norm.jpg"
+                                  align="left"
+                                /> */}
+                                <h4 className="designation">{speakerDesignation}</h4>
+                                <h1 className="employe-name">{speakerName}</h1>
+                                <p className='speechDetails'>
 
-                            {this.props.welComeInfo ?
+                                  {this.props.welComeInfo ?
 
-                              <ReadMoreAndLess
-                                ref={this.ReadMore}
-                                className="read-more-content"
-                                charLimit={490}
-                                readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
-                                readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
-                              >
-                                {this.getPlainTextToHtml(welComeSpeech)}
-                              </ReadMoreAndLess>
+                                    <ReadMoreAndLess
+                                      ref={this.ReadMore}
+                                      className="read-more-content"
+                                      charLimit={490}
+                                      readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
+                                      readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
+                                    >
+                                      {this.getPlainTextToHtml(welComeSpeech)}
+                                    </ReadMoreAndLess>
 
-                              // <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
-                              //   min={235}
-                              //   ideal={236}
-                              //   max={2000}
-                              //   readMoreText={historyMoreBtn} />
-                              : ''
-                            }
+                                    // <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
+                                    //   min={235}
+                                    //   ideal={236}
+                                    //   max={2000}
+                                    //   readMoreText={historyMoreBtn} />
+                                    : ''
+                                  }
 
-                          </p>
+                                </p>
+                              </React.Fragment>
+                          }
+
+                          
                         </div>
                       </div>
                       <div className="slider-indecator">
@@ -323,12 +346,20 @@ export class HomePage extends React.Component {
                       </div>
                       <ul className="links-lists">
 
-                        {this.state.usefullExploreBtnShow ?
-
+                      {
+                      this.props.linkLoader ? 
+                      <React.Fragment>
+                          <li>
+                            {listLoader()}
+                          </li>
+                      </React.Fragment>
+                      
+                      :
+                        this.state.usefullExploreBtnShow ?
                           this.showUseFullLinksFirstFive()
                           :
                           this.showUseFullLinksAll()
-                        }
+                      }
 
                       </ul>
 
@@ -658,6 +689,10 @@ const mapStateToProps = createStructuredSelector({
   homeSliderList: makeSelectHomeSliderList(),
   instMappingDialogStatus: makeSelectInstMappingDialog(),
   mappingInstId: makeSelectMappingInstId(),
+  homeSliderLoader: makeSelectHomeSliderLoader(),
+  noticeLoader: makeSelectNoticeLoader(),
+  speechLoader: makeSelectSpeechLoader(),
+  linkLoader: makeSelectLinkLoader(),
 });
 
 function mapDispatchToProps(dispatch) {

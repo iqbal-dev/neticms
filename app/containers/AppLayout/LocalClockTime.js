@@ -29,9 +29,7 @@ export default class LocalClockTime extends React.Component {
     render() {
         return (
 
-            <span className="d-inline-flex justify-content-center align-items-center">
-                Time :<span style={{ width: "95px"}}>{this.state.time}</span>
-            </span>
+            <span className="d-inline-flex justify-content-center align-items-center">&nbsp;Time:&nbsp;<span>{this.state.time}</span></span>
 
         );
     }

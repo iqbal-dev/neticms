@@ -12,7 +12,7 @@ import {
 } from '../../utils/serviceUrl';
 
 import {
-  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider, visibleInstMappingDialog, hideInstMappingDialog, setMappingInstitute, setLoader
+  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider, visibleInstMappingDialog, hideInstMappingDialog, setMappingInstitute, setLoader, setHomeSliderLoader, setNoticeLoader, setSpeechLoader, setLinkLoader
 } from './actions';
 import { makeSelectEmAccessToken, makeSelectMappingInstId } from './selectors';
 import { setAcademicYearList } from '../FailList/actions';
@@ -106,7 +106,10 @@ export function* fetch_instituteUrlInfo_byUrlName() {
           eventList: true,
         }
 
-        // yield put(setLoader("homeSlider", true));
+        yield put(setHomeSliderLoader(true));
+        yield put(setNoticeLoader(true));
+        yield put(setSpeechLoader(true));
+        yield put(setLinkLoader(true));
         // yield put(setLoader("noticeList", true));
 
         yield put(hideInstMappingDialog());
@@ -198,6 +201,7 @@ export function* fetch_InstituteTopNotices_byUrlId(cmsId) {
 
   try {
     yield put(setNotice(response.item));
+    yield put(setNoticeLoader(false));
     sessionStorage.setItem('allNoticeList', JSON.stringify(response.item));
     // yield put(setLoader("noticeList", false));
   } catch (error) { }
@@ -219,7 +223,7 @@ export function* fetch_SliderImage_byUrlId(cmsId) {
 
   try {
     yield put(setHomeSlider(response.item));
-    // yield put(setLoader("homeSlider", false));
+    yield put(setHomeSliderLoader(false));
     // sessionStorage.setItem('allNoticeList', JSON.stringify(response.item));
   } catch (error) { }
 
@@ -239,6 +243,7 @@ export function* fetch_WelcomeSpeech_byUrlId(cmsId) {
 
   try {
     yield put(setWelcomeSpeech(response.item));
+    yield put(setSpeechLoader(false));
   } catch (error) { }
 
 }
@@ -255,6 +260,7 @@ export function* fetch_usefullLinks_byUrlId(cmsId) {
 
   try {
     yield put(setUseFullLinks(response.item));
+    yield put(setLinkLoader(false));
   } catch (error) { }
 
 }

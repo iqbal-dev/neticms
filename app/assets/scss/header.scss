@@ -86,28 +86,28 @@
         font-size: $fontSizeSecondarySmall;
         line-height: 1.8;
         display: block;
-        font-weight: 300;
-        letter-spacing: 0.8px;
+        letter-spacing: 1.6px;
+        font-family: sans-serif;
       }
 
       .local-location {
-        width: 135px;
-        float: left;
+        // width: 135px;
+        // float: left;
         color: $colorWhite;
         font-size: $fontSizeSecondarySmall;
         line-height: 1.8;
-        font-weight: 300;
-        letter-spacing: 0.8px;
+        letter-spacing: 1.6px;
+        font-family: sans-serif;
       }
 
       .local-time {
-        width: 144px;
+        // width: 144px;
         float: right;
         color: $colorWhite;
         font-size: $fontSizeSecondarySmall;
         line-height: 1.8;
         font-weight: 300;
-        letter-spacing: 0.8px;
+        letter-spacing: 1.6px;
       }
     }
   }

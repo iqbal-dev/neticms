@@ -57,24 +57,21 @@
         font-size: 14px;
         line-height: 1.8;
         display: block;
-        font-weight: 300;
-        letter-spacing: 0.8px; }
+        letter-spacing: 1.6px;
+        font-family: sans-serif; }
       .header-wrapper .calender-wrapper-top .calender-details .local-location {
-        width: 135px;
-        float: left;
         color: #fff;
         font-size: 14px;
         line-height: 1.8;
-        font-weight: 300;
-        letter-spacing: 0.8px; }
+        letter-spacing: 1.6px;
+        font-family: sans-serif; }
       .header-wrapper .calender-wrapper-top .calender-details .local-time {
-        width: 144px;
         float: right;
         color: #fff;
         font-size: 14px;
         line-height: 1.8;
         font-weight: 300;
-        letter-spacing: 0.8px; }
+        letter-spacing: 1.6px; }
   @media screen and (min-width: 767px) {
     .header-wrapper .inst-title-wrapper {
       margin-left: 15px;
