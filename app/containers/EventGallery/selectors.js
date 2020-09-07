@@ -22,6 +22,13 @@ const makeSelectGalleryImageList = () =>
     substate.get('galleryImageList'),
 );
 
+const makeSelectGalleryImageLoader = () =>
+  createSelector(selectEventGalleryDomain, substate =>
+    substate.get('galleryImageLoader'),
+);
+
+// makeSelectGalleryImageLoader
+
 /**
  * Default selector used by EventGallery
  */
@@ -30,4 +37,9 @@ const makeSelectEventGallery = () =>
   createSelector(selectEventGalleryDomain, substate => substate.toJS());
 
 export default makeSelectEventGallery;
-export { selectEventGalleryDomain, makeSelectModalVisiableStatus, makeSelectGalleryImageList };
+export { 
+  selectEventGalleryDomain, 
+  makeSelectModalVisiableStatus, 
+  makeSelectGalleryImageList,
+  makeSelectGalleryImageLoader
+};

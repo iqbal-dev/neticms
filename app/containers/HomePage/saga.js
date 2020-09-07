@@ -12,7 +12,7 @@ import {
 } from '../../utils/serviceUrl';
 
 import {
-  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider, visibleInstMappingDialog, hideInstMappingDialog, setMappingInstitute, setLoader, setHomeSliderLoader, setNoticeLoader, setSpeechLoader, setLinkLoader
+  setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider, visibleInstMappingDialog, hideInstMappingDialog, setMappingInstitute, setLoader, setHomeSliderLoader, setNoticeLoader, setSpeechLoader, setLinkLoader, setImageLoader, setEventLoader
 } from './actions';
 import { makeSelectEmAccessToken, makeSelectMappingInstId } from './selectors';
 import { setAcademicYearList } from '../FailList/actions';
@@ -110,6 +110,8 @@ export function* fetch_instituteUrlInfo_byUrlName() {
         yield put(setNoticeLoader(true));
         yield put(setSpeechLoader(true));
         yield put(setLinkLoader(true));
+        yield put(setImageLoader(true));
+        yield put(setEventLoader(true));
         // yield put(setLoader("noticeList", true));
 
         yield put(hideInstMappingDialog());
@@ -279,6 +281,7 @@ export function* fetch_instituteHistory_byUrlId(cmsId) {
 
   try {
     yield put(setHistoryDetails(response.item));
+    yield put(setImageLoader(false));
   } catch (error) { }
 
 }
@@ -297,6 +300,7 @@ export function* fetch_instituteTopEvent_byUrlId(cmsId) {
 
   try {
     yield put(setTopEvents(response.item));
+    yield put(setEventLoader(false));
   } catch (error) { }
 
 }

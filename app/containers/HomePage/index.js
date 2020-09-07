@@ -43,7 +43,9 @@ import {
   makeSelectHomeSliderLoader,
   makeSelectNoticeLoader,
   makeSelectSpeechLoader,
-  makeSelectLinkLoader
+  makeSelectLinkLoader,
+  makeSelectImageLoader,
+  makeSelectEventLoader
 } from './selectors';
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
 import { AppLayout } from '../AppLayout';
@@ -55,7 +57,7 @@ import ReadMoreReact from 'read-more-react';
 import { hideInstMappingDialog, setMappingInstitute, submitToMapInstitute } from './actions';
 import ReadMoreAndLess from 'react-read-more-less';
 
-import { speechLoader, listLoader } from '../../utils/contentLoader';
+import { speechLoader, listLoader, threeDotLoader } from '../../utils/contentLoader';
 //
 
 let speechIndex = 0;
@@ -261,7 +263,7 @@ export class HomePage extends React.Component {
     //   Read Less <i className="fas fa-angle-left" />
     // </button>
 
-    console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.linkLoader);// this.props.homeSliderLoader,
+    console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.eventLoader);// this.props.homeSliderLoader,
 
     return (
       <div>
@@ -346,20 +348,23 @@ export class HomePage extends React.Component {
                       </div>
                       <ul className="links-lists">
 
-                      {
-                      this.props.linkLoader ? 
-                      <React.Fragment>
-                          <li>
-                            {listLoader()}
-                          </li>
-                      </React.Fragment>
-                      
-                      :
-                        this.state.usefullExploreBtnShow ?
-                          this.showUseFullLinksFirstFive()
-                          :
-                          this.showUseFullLinksAll()
-                      }
+                        {
+                          this.props.linkLoader ?
+                            <React.Fragment>
+                              <li style={{ backgroundColor: "#ffffff"}}>
+                                {listLoader()}
+                              </li>
+                              <li style={{ backgroundColor: "#ffffff"}}>
+                                {listLoader()}
+                              </li>
+                            </React.Fragment>
+
+                            :
+                            this.state.usefullExploreBtnShow ?
+                              this.showUseFullLinksFirstFive()
+                              :
+                              this.showUseFullLinksAll()
+                        }
 
                       </ul>
 
@@ -439,8 +444,14 @@ export class HomePage extends React.Component {
                   </div>
                   <div className="col-md-6">
                     <div className="video-wrapper m-b-30">
-
-                      <img width="100%" height="380" src={historyImageContent} />
+                    {
+                      this.props.imageLoader ?
+                        <div className="loader-center">
+                          { threeDotLoader() }
+                        </div>
+                        :
+                        <img width="100%" height="380" src={historyImageContent} />
+                    }
 
                       {/* <iframe
                         width="100%"
@@ -586,30 +597,40 @@ export class HomePage extends React.Component {
                     <div className="event-list-wrapper p-b-100">
                       <ul className="event-list">
 
-                        {instituteTopEventList.slice(0, 6).map(event => (
-                          // console.log('singleNotice in ul', singleNotice);
-                          <li key={event.eventID}>
-                            <a className="event top" >
-                              <div className="date">
-                                <span>{event.totalDay}</span>
-                                <p>Days</p>
-                              </div>
-                              <div className="event-details">
-                                <div className="d-flex align-items-center">
-                                  <div className="event-name">{event.eventType}</div>
-                                  <div className="event-date">
-                                    on
-                                <i className="fas fa-calendar-alt" />
-                                    {this.formatEventStartDate(event)}
+                      {
+                        this.props.eventLoader ?
+                          <React.Fragment>
+                            <li><a className="event top">{listLoader()}</a></li>
+                            <li><a className="event top">{listLoader()}</a></li>
+                            <li><a className="event top">{listLoader()}</a></li>
+                            <li><a className="event top">{listLoader()}</a></li>
+                          </React.Fragment>
+                          
+                          :
+                            instituteTopEventList.slice(0, 6).map(event => (
+                              // console.log('singleNotice in ul', singleNotice);
+                              <li key={event.eventID}>
+                                <a className="event top" >
+                                  <div className="date">
+                                    <span>{event.totalDay}</span>
+                                    <p>Days</p>
                                   </div>
-                                </div>
-                                <div className="event-title">
-                                  <h2>{event.eventTitle}</h2>
-                                </div>
-                              </div>
-                            </a>
-                          </li>
-                        ))}
+                                  <div className="event-details">
+                                    <div className="d-flex align-items-center">
+                                      <div className="event-name">{event.eventType}</div>
+                                      <div className="event-date">
+                                        on
+                                <i className="fas fa-calendar-alt" />
+                                        {this.formatEventStartDate(event)}
+                                      </div>
+                                    </div>
+                                    <div className="event-title">
+                                      <h2>{event.eventTitle}</h2>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            ))}
 
                       </ul>
                     </div>
@@ -693,6 +714,8 @@ const mapStateToProps = createStructuredSelector({
   noticeLoader: makeSelectNoticeLoader(),
   speechLoader: makeSelectSpeechLoader(),
   linkLoader: makeSelectLinkLoader(),
+  imageLoader: makeSelectImageLoader(),
+  eventLoader: makeSelectEventLoader(),
 });
 
 function mapDispatchToProps(dispatch) {

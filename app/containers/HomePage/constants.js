@@ -37,5 +37,7 @@ export const SET_HOME_SLIDER_LOADER = 'app/HomePage/SET_HOME_SLIDER_LOADER';
 export const SET_NOTICE_LOADER = 'app/HomePage/SET_NOTICE_LOADER';
 export const SET_SPEECH_LOADER = 'app/HomePage/SET_SPEECH_LOADER';
 export const SET_LINK_LOADER = 'app/HomePage/SET_LINK_LOADER';
+export const SET_IMAGE_LOADER = 'app/HomePage/SET_IMAGE_LOADER';
+export const SET_EVENT_LOADER = 'app/HomePage/SET_EVENT_LOADER';
 
-// SET_LINK_LOADER
+// SET_EVENT_LOADER

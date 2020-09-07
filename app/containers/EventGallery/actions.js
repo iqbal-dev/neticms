@@ -4,7 +4,7 @@
  *
  */
 
-import { DEFAULT_ACTION, SET_MODAL_STATUS, EVENT_GALLERY_IMAGE_LIST } from './constants';
+import { DEFAULT_ACTION, SET_MODAL_STATUS, EVENT_GALLERY_IMAGE_LIST, SET_GALLERY_IMAGE_LOADER } from './constants';
 
 export function defaultAction() {
   return {
@@ -23,4 +23,11 @@ export function fetchGalleryImageList(galleryImageList){
     type: EVENT_GALLERY_IMAGE_LIST,
     galleryImageList
   }
+}
+
+export function setGalleryImageLoader(galleryImageLoader) {
+  return {
+    type: SET_GALLERY_IMAGE_LOADER,
+    galleryImageLoader,
+  };
 }

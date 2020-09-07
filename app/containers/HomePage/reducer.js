@@ -9,7 +9,7 @@ import {
   DEFAULT_ACTION, SET_URL_INFO, SET_URL_ID, SET_MENU, SET_WELCOME_SPEECH, SET_NOTICE,
   SET_LOADER, SET_LATEST_NEWS, SET_HISTORY_DETAILS, SET_TOP_EVENT, SET_ACCESS_TOKEN,
   SET_ACADEMIC_YEAR_LIST, SET_SECTION_LIST, SET_USEFULL_LINKS, SET_HOME_SLIDER,
-  VISIBLE_INST_MAPPING_DIALOG, HIDE_INST_MAPPING_DIALOG, SET_MAPPING_INSTITUTE, SET_HOME_SLIDER_LOADER, SET_NOTICE_LOADER, SET_SPEECH_LOADER, SET_LINK_LOADER,
+  VISIBLE_INST_MAPPING_DIALOG, HIDE_INST_MAPPING_DIALOG, SET_MAPPING_INSTITUTE, SET_HOME_SLIDER_LOADER, SET_NOTICE_LOADER, SET_SPEECH_LOADER, SET_LINK_LOADER, SET_IMAGE_LOADER, SET_EVENT_LOADER,
 } from './constants';
 
 export const initialState = fromJS({
@@ -40,6 +40,9 @@ export const initialState = fromJS({
   homeSliderLoader: true,
   noticeLoader: true,
   speechLoader: true,
+  linkLoader: true,
+  imageLoader: true,
+  eventLoader: true,
 });
 
 function homePageReducer(state = initialState, action) {
@@ -110,6 +113,12 @@ function homePageReducer(state = initialState, action) {
 
     case SET_LINK_LOADER:
       return state.set('linkLoader', action.linkLoader);
+
+    case SET_IMAGE_LOADER:
+      return state.set('imageLoader', action.imageLoader);
+
+    case SET_EVENT_LOADER:
+      return state.set('eventLoader', action.eventLoader);
 
     default:
       return state;

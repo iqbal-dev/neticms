@@ -71,7 +71,13 @@ const makeSelectSpeechLoader = () =>
 const makeSelectLinkLoader = () =>
   createSelector(selectHomePageDomain, substate => substate.get('linkLoader'));
 
-  // 
+const makeSelectImageLoader = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('imageLoader'));
+
+const makeSelectEventLoader = () =>
+  createSelector(selectHomePageDomain, substate => substate.get('eventLoader'));
+
+  // makeSelectEventLoader
 
 /**
  * Default selector used by HomePage
@@ -102,5 +108,7 @@ export {
   makeSelectHomeSliderLoader,
   makeSelectNoticeLoader,
   makeSelectSpeechLoader,
-  makeSelectLinkLoader
+  makeSelectLinkLoader,
+  makeSelectImageLoader,
+  makeSelectEventLoader
 };

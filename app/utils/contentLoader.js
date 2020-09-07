@@ -196,7 +196,7 @@ function sliderLoader() {
         speed={2}
         width={1280}
         height={471}
-        viewBox="0 0 1280 471"
+        // viewBox="0 0 1280 471"
         backgroundColor="#f5f5f5"
         foregroundColor="#dbdbdb"
     >
@@ -232,7 +232,7 @@ function speechLoader() {
         speed={2}
         width={1280}
         height={293}
-        viewBox="0 0 1280 293"
+        // viewBox="0 0 1280 293"
         backgroundColor="#f5f5f5"
         foregroundColor="#dbdbdb"
     >
@@ -251,6 +251,37 @@ function speechLoader() {
 
 }
 
+function threeDotLoader() {
+    return <ContentLoader
+        viewBox="0 0 400 160"
+        height={160}
+        width={400}
+        speed={2}
+        backgroundColor="transparent"
+    >
+        <circle cx="150" cy="86" r="8" />
+        <circle cx="194" cy="86" r="8" />
+        <circle cx="238" cy="86" r="8" />
+    </ContentLoader>
+
+}
+
+function galleryImageLoader() {
+    return <ContentLoader
+        // viewBox="0 0 1644 360"
+        height={360}
+        width={1280}
+        speed={2}
+    >
+        <rect x="300" y="30" rx="0" ry="0" width="650" height="300"/>
+        <rect x="150" y="53" rx="0" ry="0" width="550" height="254"/>
+        <rect x="0" y="76" rx="0" ry="0" width="550" height="208"/>
+        <rect x="550" y="53" rx="0" ry="0" width="550" height="254"/>
+        <rect x="700" y="76" rx="0" ry="0" width="550" height="208"/>
+    </ContentLoader>
+
+}
+
 
 export {
     normalFormInputField,
@@ -264,5 +295,7 @@ export {
     emptyAutoLoadTableMsg,
     listLoader,
     sliderLoader,
-    speechLoader
+    speechLoader,
+    threeDotLoader,
+    galleryImageLoader
 };

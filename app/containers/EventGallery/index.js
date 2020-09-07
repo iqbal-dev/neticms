@@ -16,7 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import { Button, Modal, ModalBody } from 'reactstrap';
 import { Carousel } from 'react-responsive-carousel';
 import makeSelectEventGallery, {
-  makeSelectModalVisiableStatus, makeSelectGalleryImageList,
+  makeSelectModalVisiableStatus, makeSelectGalleryImageList, makeSelectGalleryImageLoader
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,6 +25,7 @@ import staticImg from '../../assets/img/blank-image.png';
 import image from './slider-image.png';
 import { setModalVisiableStatus } from './actions';
 import { AppLayout } from '../AppLayout';
+import { galleryImageLoader } from '../../utils/contentLoader';
 
 let dialogImageContent = ''
 /* eslint-disable react/prefer-stateless-function */
@@ -62,6 +63,8 @@ export class EventGallery extends React.PureComponent {
     })
 
     console.log("assigned", assigned);
+    console.log("this.propsloaderStatus GALLERY.......>>>>>>>>>", this.props.galleryImageLoader);// this.props.homeSliderLoader,
+
     
 
     return (
@@ -80,6 +83,11 @@ export class EventGallery extends React.PureComponent {
           <div className="container p-t-60 content-wrapper ">
             <div className="row">
               {
+                this.props.galleryImageLoader ? 
+                <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                  { galleryImageLoader() }
+                </div>
+                :
                 Object.keys(assigned).map((item, index) =>
 
                   <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
@@ -159,7 +167,13 @@ export class EventGallery extends React.PureComponent {
             </div>
             <div className="row">
               
-              {galleryImageLists && galleryImageLists.map((item, index) => {
+              {
+                this.props.galleryImageLoader ? 
+                <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                  { galleryImageLoader() }
+                </div>
+                :
+                galleryImageLists && galleryImageLists.map((item, index) => {
 
                 let image = ''
                 item.fileContent ? image = "data:image/*;base64," + item.fileContent : image = staticImg
@@ -266,7 +280,8 @@ EventGallery.propTypes = {
 const mapStateToProps = createStructuredSelector({
   eventGallery: makeSelectEventGallery(),
   modalVisiable: makeSelectModalVisiableStatus(),
-  galleryImageList: makeSelectGalleryImageList()
+  galleryImageList: makeSelectGalleryImageList(),
+  galleryImageLoader: makeSelectGalleryImageLoader(),
 });
 
 function mapDispatchToProps(dispatch) {

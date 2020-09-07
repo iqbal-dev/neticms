@@ -114,7 +114,7 @@
         border: 2px solid #f1f1f1;
         border-radius: 15px;
         overflow: hidden;
-        max-width: 230px;
+        width: 230px;
         height: 150px;
         transition: all 1s;
 
@@ -123,6 +123,8 @@
             left: 0px !important;
             top: 0px !important;
             // width: 400px;
+            width: 260px;
+            height: 170px;
             transform: scale(1.2);
             z-index: 20 !important;
 
@@ -198,6 +200,21 @@
             top: 40px;
             z-index: 6;
         }
+
+        &:nth-child(n+6){
+            left: 40px;
+            top: 40px;
+            z-index: 5;
+            border: 1px solid red;
+        }
     }
+}
+
+.loader-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 300px;
 }
 
