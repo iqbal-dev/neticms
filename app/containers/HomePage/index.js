@@ -76,6 +76,8 @@ export class HomePage extends React.Component {
     this.state = {
       usefullExploreBtnShow: true,
       emptyErrors: {},
+      speechReadMore: false,
+      historyReadMore: false
     }
 
     this.showUseFullLinksFirstFive = this.showUseFullLinksFirstFive.bind(this);
@@ -196,21 +198,25 @@ export class HomePage extends React.Component {
 
   render() {
 
-    let { emptyErrors } = this.state;
+    let { emptyErrors, historyReadMore, speechReadMore } = this.state;
     let instituteName = '';
-    // console.log('index-urlInfo', this.props.urlInfo);
+    
     let urlInfoDetails = this.props.urlInfo;
 
     if (this.props.urlInfo) {
       instituteName = this.props.urlInfo.instituteName;
     }
 
-    if (!this.props.welComeInfo == '') {
+    if (!this.props.welComeInfo == "") {
 
       imageContent = this.props.welComeInfo[speechIndex].fileContent ? "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent : staticImg;
       speakerDesignation = this.props.welComeInfo[speechIndex].speakerDesignation;
       speakerName = this.props.welComeInfo[speechIndex].speakerName;
       welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
+
+      document.getElementById('welcome-speech')? document.getElementById('welcome-speech').innerHTML = welComeSpeech : ''
+
+      // console.log('this.props.welComeInfo[speechIndex].speechDetails', welComeSpeech);
 
     }
 
@@ -237,7 +243,9 @@ export class HomePage extends React.Component {
     let instituteHistory = '';
     let historyImageContent = '';
     if (this.props.instituteHistory && this.props.instituteHistory.aboutusDetails) {
-      instituteHistory = this.props.instituteHistory.aboutusDetails;
+      document.getElementById('institute-history')? document.getElementById('institute-history').innerHTML = this.props.instituteHistory.aboutusDetails : ''
+
+      // instituteHistory = this.props.instituteHistory.aboutusDetails;
       historyImageContent = this.props.instituteHistory.fileContent ? "data:image/*;base64," + this.props.instituteHistory.fileContent : blank_image;
     }
 
@@ -265,6 +273,27 @@ export class HomePage extends React.Component {
 
     console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.eventLoader);// this.props.homeSliderLoader,
 
+
+    let readMoreBtn = (id, stateVar) =>{
+      let speechDiv = document.getElementById(id);
+
+      if(stateVar){ 
+        speechDiv.style.webkitLineClamp = '5' 
+        speechDiv.style.display = '-webkit-box' 
+      } 
+      else{
+        speechDiv.style.webkitLineClamp = '50'
+        speechDiv.style.display = 'contents' 
+      }
+      
+
+      if( id == 'welcome-speech'){
+        this.setState({ speechReadMore: !stateVar})
+      }
+      else if( id == 'institute-history'){
+        this.setState({ historyReadMore: !stateVar})
+      }
+    }
     return (
       <div>
         <AppLayout>
@@ -303,15 +332,25 @@ export class HomePage extends React.Component {
 
                                   {this.props.welComeInfo ?
 
-                                    <ReadMoreAndLess
-                                      ref={this.ReadMore}
-                                      className="read-more-content"
-                                      charLimit={490}
-                                      readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
-                                      readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
-                                    >
-                                      {this.getPlainTextToHtml(welComeSpeech)}
-                                    </ReadMoreAndLess>
+                                    // <ReadMoreAndLess
+                                    //   ref={this.ReadMore}
+                                    //   className="read-more-content"
+                                    //   charLimit={490}
+                                    //   readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
+                                    //   readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
+                                    // >
+                                    <React.Fragment>
+                                      <div id="welcome-speech"></div>
+                                      <a className="read-more-less-button" onClick={() => readMoreBtn('welcome-speech', speechReadMore)}>
+                                        {
+                                          speechReadMore ?
+                                            'read less' : 'read more'
+                                        }
+                                      </a>
+                                    </React.Fragment>
+                                      
+                                      
+                                    // </ReadMoreAndLess>
 
                                     // <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
                                     //   min={235}
@@ -418,15 +457,24 @@ export class HomePage extends React.Component {
 
                           {this.props.instituteHistory ?
 
-                            <ReadMoreAndLess
-                              ref={this.ReadMore}
-                              className="read-more-content"
-                              charLimit={480}
-                              readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
-                              readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
-                            >
-                              {this.getPlainTextToHtml(instituteHistory)}
-                            </ReadMoreAndLess>
+                            // <ReadMoreAndLess
+                            //   ref={this.ReadMore}
+                            //   className="read-more-content"
+                            //   charLimit={480}
+                            //   readMoreText={<span style={{ color: '#ff4e31' }}> read more</span>}
+                            //   readLessText={<span style={{ color: '#ff4e31' }}> read less</span>}
+                            // >
+
+                            <React.Fragment>
+                              <div id="institute-history"></div>
+                              <a className="read-more-less-button" onClick={() => readMoreBtn('institute-history', historyReadMore)}>
+                                {
+                                  historyReadMore ?
+                                    'read less' : 'read more'
+                                }
+                              </a>
+                            </React.Fragment>
+                            // </ReadMoreAndLess>
 
                             // < ReadMoreReact text={this.getPlainTextToHtml(instituteHistory)}
                             //   min={200}

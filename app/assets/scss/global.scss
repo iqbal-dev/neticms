@@ -49,10 +49,19 @@
             outline: none;
         }
         .dayPicker-custom-input{
+
+            &::placeholder{
+                color: #818181;
+                opacity: unset;
+            }
             &:focus{
                 outline: 0;
                 box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
             }
+        }
+
+        .react-datepicker__close-icon{
+            background-color: unset !important;
         }
     }
 }

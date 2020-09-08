@@ -150,12 +150,13 @@ export class StudentWiseAttendance extends React.Component {
                                 placeholder="Enter Student ID "
                                 onChange={this.onChangeStudentId}
                               />
+                              <span className="error-message">{errors["studentID"]}</span>
                             </FormGroup>
-                            <span className="error-message">{errors["studentID"]}</span>
+                            
                           </div>
 
-                          <div className="col-md-5 col-lg-3" style={{ marginTop: '-8px' }}>
-                            <div>
+                          <div className="col-md-12 col-lg-3">
+                            <FormGroup className="custom-datepicker">
                               <DatePicker
                                 placeholderText='select from date'
                                 dateFormat="dd/MM/yyyy"
@@ -171,8 +172,9 @@ export class StudentWiseAttendance extends React.Component {
                                 className="dayPicker-custom-input"
                                 name='fromDate'
                               />
-                            </div>
-                            <span className='error-message'>{errors['fromDate']}</span>
+                              <span className='error-message'>{errors['fromDate']}</span>
+                            </FormGroup>
+                            
 
                             {/*                             
                             <FormGroup>
@@ -186,25 +188,27 @@ export class StudentWiseAttendance extends React.Component {
                             </FormGroup> */}
                           </div>
 
-                          <div className="col-md-7 col-lg-3" style={{ marginTop: '-8px' }}>
-
-                            <DatePicker
-                              placeholderText='select to date'
-                              dateFormat="dd/MM/yyyy"
-                              peekNextMonth
-                              showMonthDropdown
-                              showYearDropdown
-                              dropdownMode="select"
-                              isClearable
-                              fixedHeight
-                              minDate={this.props.attendanceFromDate}
-                              selected={this.props.attendanceToDate}
-                              onChange={(e) => this.onChangeAttendanceToDate(e, 'toDate')}
-                              className="dayPicker-custom-input"
-                              name='toDate'
-                              style={{ marginRight: '42px' }}
-                            />
-                            <span className='error-message'>{errors['toDate']}</span>
+                          <div className="col-md-12 col-lg-3">
+                            <FormGroup className="custom-datepicker">
+                              <DatePicker
+                                placeholderText='select to date'
+                                dateFormat="dd/MM/yyyy"
+                                peekNextMonth
+                                showMonthDropdown
+                                showYearDropdown
+                                dropdownMode="select"
+                                isClearable
+                                fixedHeight
+                                minDate={this.props.attendanceFromDate}
+                                selected={this.props.attendanceToDate}
+                                onChange={(e) => this.onChangeAttendanceToDate(e, 'toDate')}
+                                className="dayPicker-custom-input"
+                                name='toDate'
+                                // style={{ marginRight: '42px' }}
+                              />
+                              <span className='error-message'>{errors['toDate']}</span>
+                            </FormGroup>
+                            
 
                             {/* <FormGroup>
                               <Input
@@ -217,8 +221,10 @@ export class StudentWiseAttendance extends React.Component {
                               
                             </FormGroup> */}
                           </div>
-                          <div className="col-md-7 col-lg-3" style={{ marginTop: '-8px', marginLeft: '-75px' }}>
-                            <Button className="btn explore-btn" type='submit'>Search</Button>
+                          <div className="col-md-12 col-lg-3">
+                            <FormGroup className=" custom-input-text">
+                              <Button  className="btn explore-btn full-width all-border-radious" type='submit'><i class="fas fa-chevron-circle-right mr-3" ></i> Search</Button>
+                            </FormGroup>
                           </div>
 
                         </Form>
@@ -322,13 +328,13 @@ export class StudentWiseAttendance extends React.Component {
                         <div className="legend-with-percent absent">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Absent</span>
-                          <span className="percent">( {attendanceList ? attendanceList.absentPercent : 0}%} )</span>
+                          <span className="percent">( {attendanceList ? attendanceList.absentPercent : 0}% )</span>
                         </div>
 
                         <div className="legend-with-percent delay">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Leave</span>
-                          <span className="percent">( {attendanceList ? attendanceList.leavePercent : 0}%} )</span>
+                          <span className="percent">( {attendanceList ? attendanceList.leavePercent : 0}% )</span>
                         </div>
                       </div>
 

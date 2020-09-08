@@ -480,7 +480,7 @@
   .usefull-links-wrapper .explore-btn {
     background: #ff4e31;
     color: #fff;
-    margin-bottom: 23px; }
+    margin-bottom: 17px; }
     .usefull-links-wrapper .explore-btn i {
       margin-right: 5px; }
 
@@ -1409,6 +1409,9 @@
     margin: 16px 0 0 0;
     margin-bottom: 0 !important; }
 
+.custom-datepicker .react-datepicker-wrapper {
+  width: 100%; }
+
 .form .form-inline .form-group {
   position: relative;
   display: flex;
@@ -2057,6 +2060,22 @@
   justify-content: center;
   align-items: center; }
 
+#welcome-speech, #institute-history {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical; }
+
+.read-more-less-button {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  color: #ff4e31 !important; }
+  .read-more-less-button:hover {
+    font-weight: 600;
+    color: #ff4e31 !important; }
+
 .fees-info-main div.col-md-4 {
   padding-bottom: 30px; }
 .fees-info-main div.card-header {
@@ -2425,9 +2444,14 @@
 
 .react-datepicker-wrapper .react-datepicker__input-container:focus {
   outline: none; }
+.react-datepicker-wrapper .react-datepicker__input-container .dayPicker-custom-input::placeholder {
+  color: #818181;
+  opacity: unset; }
 .react-datepicker-wrapper .react-datepicker__input-container .dayPicker-custom-input:focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
+.react-datepicker-wrapper .react-datepicker__input-container .react-datepicker__close-icon {
+  background-color: unset !important; }
 
 .carousel.slide .carousel-inner .carousel-item {
   height: auto; }

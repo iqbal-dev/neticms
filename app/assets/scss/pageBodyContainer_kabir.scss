@@ -39,6 +39,12 @@
     }
 }
 
+.custom-datepicker{
+    .react-datepicker-wrapper{
+        width: 100%;
+    }
+}
+
 @mixin font-selector($fontName){
     font-family: $fontName, sans-serif !important;
 }
@@ -918,5 +924,26 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+#welcome-speech, #institute-history{
+    // min-height: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.read-more-less-button{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    color: #ff4e31 !important;
+
+    &:hover{
+        font-weight: 600;
+        color: #ff4e31 !important;
     }
 }
