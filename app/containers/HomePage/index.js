@@ -116,7 +116,7 @@ export class HomePage extends React.Component {
     document.getElementById('speechImg').src = this.props.welComeInfo[speechIndex].fileContent ? "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent : staticImg
     document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
-    document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
+    document.getElementById('welcome-speech').innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
     welComeSpeechObj = this.props.welComeInfo[speechIndex];
 
@@ -131,7 +131,7 @@ export class HomePage extends React.Component {
     document.getElementById('speechImg').src = this.props.welComeInfo[speechIndex].fileContent ? "data:image/*;base64," + this.props.welComeInfo[speechIndex].fileContent : staticImg
     document.getElementsByClassName('designation')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerDesignation;
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
-    document.getElementsByClassName('speechDetails')[0].innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
+    document.getElementById('welcome-speech').innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
   }
 
