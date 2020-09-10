@@ -33,6 +33,8 @@ import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { centerTableLoader, smallTableLoader, tableLoader } from '../../utils/contentLoader';
 
+let allNoticeDetails = '';
+let moreOrLessBtnVisibleOption = true;
 /* eslint-disable react/prefer-stateless-function */
 export class AllNotice extends React.Component {
   constructor(props) {
@@ -40,7 +42,8 @@ export class AllNotice extends React.Component {
 
     this.state = {
       pdfVisible: false,
-      noticeQty: 5
+      noticeQty: 5,
+      exploreBtnVisible: true,
     }
   }
 
@@ -78,81 +81,107 @@ export class AllNotice extends React.Component {
     }
   }
 
-  render() {
+  getNoticeView = (notice, type) => {
 
-    // console.log('noticeList-noticeFileContent ', this.props.noticeFileContent);
-    let allNoticeDetails = JSON.parse(sessionStorage.allNoticeList);
-
-    let filteredNoticeEle
+    { type === 'single' ? moreOrLessBtnVisibleOption = false : moreOrLessBtnVisibleOption = true }
+    // console.log("contentType......", contentType+this.props.noticeFileContent.file);
+    let viewerBase64File
     if (this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId) {
-      filteredNoticeEle = allNoticeDetails.filter(item => item.noticeId == this.props.location.singleNotice.noticeId)
-      // console.log('filteredEle', filteredNoticeEle);
+      if (this.props.noticeFileContent && this.props.noticeFileContent.file) {
+        let contentType = getFileContentType(this.props.noticeFileContent && this.props.noticeFileContent.noticeFileName);
+        viewerBase64File = contentType + this.props.noticeFileContent.file
+      }
     }
 
-    let downloadFileContent = this.props.noticeFileContent
+    console.log('noticeQty-', this.state.noticeQty, notice);
 
-    // console.log("Render downloadFileContent", downloadFileContent);
+    return (
+      notice.slice(0, this.state.noticeQty).map(notice => (
+        <div className='all-notice-wrapper m-b-20'>
+          <div className='notice-wrapper' style={{ backgroundColor: "#ffffff" }}>
+            <div className="row" >
+              <div className="col-md-12 mb-3 px-4">
+                <div className="event-date mt-3">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
+                <h2 className='p-t-20'>{notice.noticeTitle}</h2>
+                <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
+                {type == 'single' ?
+                  <React.Fragment>
 
-    let getNoticeView = (notice, type) => {
-      // console.log("contentType......", contentType+this.props.noticeFileContent.file);
-      let viewerBase64File
-      if (this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId) {
-        if (this.props.noticeFileContent && this.props.noticeFileContent.file) {
-          let contentType = getFileContentType(this.props.noticeFileContent && this.props.noticeFileContent.noticeFileName);
-          viewerBase64File = contentType + this.props.noticeFileContent.file
-          // console.log("contentType......", contentType + this.props.noticeFileContent.file);
-        }
-      }
+                    {/* <button className="btn btn-secondary mr-2" onClick={(e) => this.viewPdf(e, notice) }>pdf</button> */}
+                    {this.props.noticeFileContent && this.props.noticeFileContent.file ?
+                      <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'single')}>Download</button>
+                      : ""
+                    }
+                  </React.Fragment>
+                  :
+                  <React.Fragment>
+                    <button className="btn btn-secondary mr-2 d-flex ml-auto" onClick={(e) => this.viewPdf(e, notice)}><i className="fa fa-eye m-1 "></i> PDF</button>
 
-      return (
-        notice.slice(0, this.state.noticeQty).map(notice => (
-          <div className='all-notice-wrapper m-b-20'>
-            <div className='notice-wrapper' style={{ backgroundColor: "#ffffff" }}>
-              <div className="row" >
-                <div className="col-md-12 mb-3 px-4">
-                  <div className="event-date mt-3">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
-                  <h2 className='p-t-20'>{notice.noticeTitle}</h2>
-                  <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
-                  {type == 'single' ?
-                    <React.Fragment>
-                      {/* <button className="btn btn-secondary mr-2" onClick={(e) => this.viewPdf(e, notice) }>pdf</button> */}
-                      {this.props.noticeFileContent && this.props.noticeFileContent.file ?
-                        <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'single')}>Download</button>
-                        : ""
-                      }
-                    </React.Fragment>
-                    :
-                    <React.Fragment>
-                      <button className="btn btn-secondary mr-2 d-flex ml-auto" onClick={(e) => viewPdf(e, notice)}><i className="fa fa-eye m-1 "></i> PDF</button>
+                    {/* <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'all')}>Download PDF</button> */}
 
-                      {/* <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'all')}>Download PDF</button> */}
-
-                    </React.Fragment>
-                  }
-                </div>
-                {
-                  type == 'single' ?
-                    <div className="col-md-12">
-                      {
-                        this.props.noticeFileContent && this.props.noticeFileContent.file ?
-                          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                            <Viewer
-                              fileUrl={base64ToBufferAsync(this.props.noticeFileContent.file)}
-                            />
-                          </Worker>
-                          : ''
-                      }
-                    </div>
-                    :
-                    <div className="col-md-12">
-                    </div>
+                  </React.Fragment>
                 }
               </div>
+              {
+                type == 'single' ?
+                  <div className="col-md-12">
+                    {
+                      this.props.noticeFileContent && this.props.noticeFileContent.file ?
+                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                          <Viewer
+                            fileUrl={base64ToBufferAsync(this.props.noticeFileContent.file)}
+                          />
+                        </Worker>
+                        : ''
+                    }
+                  </div>
+                  :
+                  <div className="col-md-12">
+                  </div>
+              }
             </div>
           </div>
-        ))
-      )
+        </div>
+      ))
+    )
+  }
+
+  viewPdf = (e, notice) => {
+    this.props.getNoticeFileContent(notice)
+
+    this.setState({ pdfVisible: true })
+    // let getContent = await this.props.getNoticeFileContent(notice)
+    // let {pdfVisible} = this.state
+    // pdfVisible[notice.noticeId.toString()] = true
+    // this.setState({ pdfVisible })
+  }
+
+  exploreAllBtnClick = () => {
+    this.setState({ exploreBtnVisible: false });
+    this.setState({ noticeQty: allNoticeDetails.length });
+    this.getNoticeView(allNoticeDetails);
+  }
+
+  exploreLessBtnClick = () => {
+    this.setState({ exploreBtnVisible: true });
+    this.setState({ noticeQty: 5 });
+    this.getNoticeView(allNoticeDetails);
+  }
+
+  render() {
+
+    console.log('this.props.location', this.props.location);
+    // console.log('noticeList-noticeFileContent ', this.props.noticeFileContent);
+
+    allNoticeDetails = JSON.parse(sessionStorage.allNoticeList);
+    console.log('allNoticeDetails', allNoticeDetails);
+
+    let filteredNoticeEle;
+    if (this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId) {
+      filteredNoticeEle = allNoticeDetails.filter(item => item.noticeId == this.props.location.singleNotice.noticeId)
     }
+
+    let downloadFileContent = this.props.noticeFileContent;
 
     let base64ToBufferAsync = (base64) => {
       var binary_string = window.atob(base64);
@@ -167,9 +196,8 @@ export class AllNotice extends React.Component {
     let downloadPdf = (notice, type) => {
 
       if (type == "single") {
-        // let downloadFileContent = this.props.noticeFileContent;
 
-        console.log("........if", downloadFileContent);
+        // console.log("........if", downloadFileContent);
         if (downloadFileContent && downloadFileContent.file) {
           let contentType = getFileContentType(downloadFileContent.noticeFileName);
           let a = document.createElement("a");
@@ -227,16 +255,6 @@ export class AllNotice extends React.Component {
       // }
     }
 
-    const viewPdf = (e, notice) => {
-      this.props.getNoticeFileContent(notice)
-
-      this.setState({ pdfVisible: true })
-      // let getContent = await this.props.getNoticeFileContent(notice)
-      // let {pdfVisible} = this.state
-      // pdfVisible[notice.noticeId.toString()] = true
-      // this.setState({ pdfVisible })
-    }
-
     const toggle = () => { this.setState({ pdfVisible: !this.state.pdfVisible }) };
 
     return (
@@ -257,15 +275,11 @@ export class AllNotice extends React.Component {
 
                 <div className="row" >
                   <div className="col-md-12 all-notice-bg">
-                    {/* <div className="col-md-12"> */}
-
-                    {/* </div> */}
 
                     {
                       filteredNoticeEle ?
-                        getNoticeView(filteredNoticeEle, 'single')
-                        : getNoticeView(allNoticeDetails, 'all')
-
+                        this.getNoticeView(filteredNoticeEle, 'single')
+                        : this.getNoticeView(allNoticeDetails, 'all')
                     }
 
                   </div>
@@ -274,18 +288,29 @@ export class AllNotice extends React.Component {
 
                 <div className="row m-t-40">
                   <div className="col-md-12">
-                    <div className="text-center m-t-40">
-                      <button
-                        class="btn explore-btn-lg"
-                        onClick={() =>
-                          this.state.noticeQty <= 5 ?
-                            this.setState({ noticeQty: this.props.noticeList.length }) :
-                            this.setState({ noticeQty: 5 })
+                    {allNoticeDetails && allNoticeDetails.length && moreOrLessBtnVisibleOption ?
+
+                      <div className="text-center m-t-40">
+                        {this.state.exploreBtnVisible ?
+                          <button
+                            class="btn explore-btn-lg"
+                            onClick={this.exploreAllBtnClick}
+                          >
+                            Explore all <i class="fas fa-angle-right"></i>
+                          </button>
+
+                          :
+                          <button
+                            class="btn explore-btn-lg"
+                            onClick={this.exploreLessBtnClick}
+                          >
+                            Explore less <i class="fas fa-angle-right"></i>
+                          </button>
                         }
-                      >
-                        Explore all <i class="fas fa-angle-right"></i>
-                      </button>
-                    </div>
+
+                      </div>
+                      : ''
+                    }
                   </div>
                 </div>
 

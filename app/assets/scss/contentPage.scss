@@ -497,7 +497,7 @@
   position: relative;
   text-align: center;
 
-  &::after{
+  &::after {
     position: absolute;
     content: '';
     height: 56px;
@@ -507,15 +507,15 @@
     margin: 0px 0px 0 -9px;
   }
 
-  &.guardian::after{
+  &.guardian::after {
     content: unset;
     @media screen and (max-width: 767px) {
       content: '';
     }
   }
 
-  &.teacher{
-    &::before{
+  &.teacher {
+    &::before {
       @media screen and (max-width: 767px) {
         content: '';
         left: 15%;
@@ -528,7 +528,7 @@
       }
     }
 
-    &::after{
+    &::after {
       @media screen and (max-width: 767px) {
         content: '';
         right: 12%;
@@ -576,13 +576,12 @@
     }
   }
 
-  &.main{
+  &.main {
     box-shadow: unset;
     display: flex;
     justify-content: center;
-    
 
-    &::before{
+    &::before {
       position: absolute;
       content: '';
       height: 20px;
@@ -591,7 +590,7 @@
       top: -40px;
     }
 
-    &::after{
+    &::after {
       position: absolute;
       content: '';
       height: 76px;
@@ -600,16 +599,14 @@
       top: -76px;
     }
 
-    .login-btn{
+    .login-btn {
       background: $primaryColorLight;
       width: 200px;
       height: 80px;
       border-radius: 10px;
       position: relative;
 
-      
-
-      .btn{
+      .btn {
         width: 160px;
         height: 40px;
         padding: unset;
@@ -622,7 +619,6 @@
         }
       }
     }
-    
   }
 }
 
@@ -1330,9 +1326,9 @@
   }
 
   &:hover {
-    -webkit-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
-    -moz-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
-    box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
+    // -webkit-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
+    // -moz-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
+    // box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
   }
 }
 .custom-table {
