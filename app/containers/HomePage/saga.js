@@ -38,7 +38,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('url-mapping-response', response);
+  // console.log('url-mapping-response', response);
   try {
 
     if (response) {
@@ -95,10 +95,10 @@ export function* fetch_instituteUrlInfo_byUrlName() {
       let urlDetails = JSON.parse(localStorage.instituteInfo);
       if (urlDetails[0].cmsId && urlDetails[0].emInstituteList.length > 1 && instMappingCheck) {
         yield put(visibleInstMappingDialog());
-        console.log('inst home not found');
+        // console.log('inst home not found');
       } else {
 
-        let loadingStatus= {
+        let loadingStatus = {
           homeSlider: true,
           noticeList: true,
           welcomeSpeech: true,
@@ -214,14 +214,14 @@ export function* fetch_SliderImage_byUrlId(cmsId) {
   // console.log('SliderImage', cmsId);
 
   const requestURL = BASE_URL_NETI_CMS.concat(fetch_sliderImage_cmsId).concat('?photoType=Home%20Slider').concat('&cmsId=').concat(cmsId);
-  console.log('requestURL SliderImage', requestURL);
+  // console.log('requestURL SliderImage', requestURL);
 
   const options = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   };
   const response = yield call(request, requestURL, options);
-  console.log('SliderImage_Res...........', response);
+  // console.log('SliderImage_Res...........', response);
 
   try {
     yield put(setHomeSlider(response.item));
@@ -277,7 +277,7 @@ export function* fetch_instituteHistory_byUrlId(cmsId) {
     },
   };
   const response = yield call(request, requestURL, options);
-  console.log('history-Res', response);
+  // console.log('history-Res', response);
 
   try {
     yield put(setHistoryDetails(response.item));
@@ -344,7 +344,7 @@ export function* emInstituteIdMapping() {
 
   let selectedInstituteId = yield select(makeSelectMappingInstId());
   let urlDetails = JSON.parse(localStorage.instituteInfo);
-  console.log('map func', selectedInstituteId, urlDetails);
+  // console.log('map func', selectedInstituteId, urlDetails);
 
   let mappinginstitute = [];
 

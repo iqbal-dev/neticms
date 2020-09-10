@@ -125,7 +125,6 @@ export class HomePage extends React.Component {
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementById('welcome-speech').innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
-
     let phoneValue = document.getElementById('phone')
     let emailValue = document.getElementById('email')
     let facebookValue = document.getElementById('facebook')
@@ -151,7 +150,6 @@ export class HomePage extends React.Component {
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementById('welcome-speech').innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
-
     let phoneValue = document.getElementById('phone')
     let emailValue = document.getElementById('email')
     let facebookValue = document.getElementById('facebook')
@@ -163,12 +161,12 @@ export class HomePage extends React.Component {
     this.addOrRemoveDomAttr(linkedinValue, 'linkedin', this.props.welComeInfo[speechIndex].speakerLinkedinLinke);
   }
 
-  addOrRemoveDomAttr = (dom, attrVal, data) =>{
-    if(data){
+  addOrRemoveDomAttr = (dom, attrVal, data) => {
+    if (data) {
       dom.classList.add(attrVal);
       dom.setAttribute(attrVal, data);
     }
-    else{
+    else {
       dom.classList.remove(attrVal)
     }
   }
@@ -238,7 +236,7 @@ export class HomePage extends React.Component {
 
     let { emptyErrors, historyReadMore, speechReadMore } = this.state;
     let instituteName = '';
-    
+
     let urlInfoDetails = this.props.urlInfo;
 
     if (this.props.urlInfo) {
@@ -256,7 +254,7 @@ export class HomePage extends React.Component {
       speakerFacebook = this.props.welComeInfo[speechIndex].speakerFacebookLinke;
       speakerLinkedin = this.props.welComeInfo[speechIndex].speakerLinkedinLinke;
 
-      document.getElementById('welcome-speech')? document.getElementById('welcome-speech').innerHTML = welComeSpeech : ''
+      document.getElementById('welcome-speech') ? document.getElementById('welcome-speech').innerHTML = welComeSpeech : ''
 
       // console.log('this.props.welComeInfo[speechIndex].speechDetails', welComeSpeech);
 
@@ -285,7 +283,7 @@ export class HomePage extends React.Component {
     let instituteHistory = '';
     let historyImageContent = '';
     if (this.props.instituteHistory && this.props.instituteHistory.aboutusDetails) {
-      document.getElementById('institute-history')? document.getElementById('institute-history').innerHTML = this.props.instituteHistory.aboutusDetails : ''
+      document.getElementById('institute-history') ? document.getElementById('institute-history').innerHTML = this.props.instituteHistory.aboutusDetails : ''
 
       // instituteHistory = this.props.instituteHistory.aboutusDetails;
       historyImageContent = this.props.instituteHistory.fileContent ? "data:image/*;base64," + this.props.instituteHistory.fileContent : blank_image;
@@ -313,43 +311,41 @@ export class HomePage extends React.Component {
     //   Read Less <i className="fas fa-angle-left" />
     // </button>
 
-    console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.eventLoader);// this.props.homeSliderLoader,
+    // console.log("this.propsloaderStatus HOME.......>>>>>>>>>", this.props.eventLoader);// this.props.homeSliderLoader,
 
-
-    let readMoreBtn = (id, stateVar) =>{
+    let readMoreBtn = (id, stateVar) => {
       let speechDiv = document.getElementById(id);
 
-      if(stateVar){ 
-        if( id == 'welcome-speech'){
+      if (stateVar) {
+        if (id == 'welcome-speech') {
           speechDiv.style.webkitLineClamp = '5'
         }
-        else if( id == 'institute-history'){
+        else if (id == 'institute-history') {
           speechDiv.style.webkitLineClamp = '9'
         }
-         
-        speechDiv.style.display = '-webkit-box' 
-      } 
-      else{
-        speechDiv.style.webkitLineClamp = '50'
-        speechDiv.style.display = 'contents' 
-      }
-      
 
-      if( id == 'welcome-speech'){
-        this.setState({ speechReadMore: !stateVar})
+        speechDiv.style.display = '-webkit-box'
       }
-      else if( id == 'institute-history'){
-        this.setState({ historyReadMore: !stateVar})
+      else {
+        speechDiv.style.webkitLineClamp = '50'
+        speechDiv.style.display = 'contents'
+      }
+
+      if (id == 'welcome-speech') {
+        this.setState({ speechReadMore: !stateVar })
+      }
+      else if (id == 'institute-history') {
+        this.setState({ historyReadMore: !stateVar })
       }
     }
     return (
       <div>
         <AppLayout>
-          <Slider 
-            notice={this.props.noticeList} 
-            slider={this.props.homeSliderList} 
-            homeSliderLoader={this.props.homeSliderLoader} 
-            noticeLoader={this.props.noticeLoader} 
+          <Slider
+            notice={this.props.noticeList}
+            slider={this.props.homeSliderList}
+            homeSliderLoader={this.props.homeSliderLoader}
+            noticeLoader={this.props.noticeLoader}
           />
 
           <section className="speech-wrapper section-space-60">
@@ -363,11 +359,11 @@ export class HomePage extends React.Component {
 
                           {
                             this.props.speechLoader ?
-                              speechLoader():
+                              speechLoader() :
                               <React.Fragment>
                                 {
                                   this.props.welComeInfo ?
-                                     
+
                                     <div className="grid-image">
                                       <img id="speechImg" align="left" className="fileContent" src={imageContent} />
                                       <div className="grid-social">
@@ -412,8 +408,7 @@ export class HomePage extends React.Component {
                                         }
                                       </a>
                                     </React.Fragment>
-                                      
-                                      
+
                                     // </ReadMoreAndLess>
 
                                     // <ReadMoreReact text={this.getPlainTextToHtml(welComeSpeech)}
@@ -428,7 +423,6 @@ export class HomePage extends React.Component {
                               </React.Fragment>
                           }
 
-                          
                         </div>
                       </div>
                       <div className="slider-indecator">
@@ -454,10 +448,10 @@ export class HomePage extends React.Component {
                         {
                           this.props.linkLoader ?
                             <React.Fragment>
-                              <li style={{ backgroundColor: "#ffffff"}}>
+                              <li style={{ backgroundColor: "#ffffff" }}>
                                 {listLoader()}
                               </li>
-                              <li style={{ backgroundColor: "#ffffff"}}>
+                              <li style={{ backgroundColor: "#ffffff" }}>
                                 {listLoader()}
                               </li>
                             </React.Fragment>
@@ -474,7 +468,7 @@ export class HomePage extends React.Component {
                       <div className="text-center">
 
                         {this.state.usefullExploreBtnShow ?
-                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)} disabled={this.props.useFullLinks.length < 6 ? true: false}>
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)} disabled={this.props.useFullLinks.length < 6 ? true : false}>
                             Explore all <i className="fas fa-angle-right" />
                           </button>
                           :
@@ -538,7 +532,7 @@ export class HomePage extends React.Component {
                                   </button>
                                 </div>
                               </div>
-                              
+
                             </React.Fragment>
                             // </ReadMoreAndLess>
 
@@ -558,14 +552,14 @@ export class HomePage extends React.Component {
                   </div>
                   <div className="col-md-6">
                     <div className="video-wrapper m-b-30">
-                    {
-                      this.props.imageLoader ?
-                        <div className="loader-center">
-                          { threeDotLoader() }
-                        </div>
-                        :
-                        <img style={{ objectFit: 'cover'}} width="100%" height="380" src={historyImageContent} />
-                    }
+                      {
+                        this.props.imageLoader ?
+                          <div className="loader-center">
+                            {threeDotLoader()}
+                          </div>
+                          :
+                          <img style={{ objectFit: 'cover' }} width="100%" height="380" src={historyImageContent} />
+                      }
 
                       {/* <iframe
                         width="100%"
@@ -711,16 +705,16 @@ export class HomePage extends React.Component {
                     <div className="event-list-wrapper p-b-100">
                       <ul className="event-list">
 
-                      {
-                        this.props.eventLoader ?
-                          <React.Fragment>
-                            <li><a className="event top">{listLoader()}</a></li>
-                            <li><a className="event top">{listLoader()}</a></li>
-                            <li><a className="event top">{listLoader()}</a></li>
-                            <li><a className="event top">{listLoader()}</a></li>
-                          </React.Fragment>
-                          
-                          :
+                        {
+                          this.props.eventLoader ?
+                            <React.Fragment>
+                              <li><a className="event top">{listLoader()}</a></li>
+                              <li><a className="event top">{listLoader()}</a></li>
+                              <li><a className="event top">{listLoader()}</a></li>
+                              <li><a className="event top">{listLoader()}</a></li>
+                            </React.Fragment>
+
+                            :
                             instituteTopEventList.slice(0, 6).map(event => (
                               // console.log('singleNotice in ul', singleNotice);
                               <li key={event.eventID}>
