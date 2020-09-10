@@ -75,7 +75,7 @@ export const MyCalendar = props => {
                 } 
                 return  null
             }}
-            style={{ height: 435 }}
+            style={{ height: 475 }}
             components={{
                 // timeSlotWrapper: ColoredDateCellWrapper,
                 // event: MyEvent, // used by each view (Month, Day, Week)

@@ -22,6 +22,9 @@ import messages from './messages';
 import icon1 from './crown-icon-1.png';
 import icon2 from './crown-icon-2.png';
 import icon3 from './crown-icon-3.png';
+import crownIconExam from './crown-icon-exam.png';
+import crownIconRoutine from './crown-icon-routine.png';
+import crownIconSyllabus from './crown-icon-syllabus.png';
 import emergancyImage from './emegancy.png';
 import { Link } from 'react-router-dom';
 
@@ -67,6 +70,10 @@ let speakerDesignation = '';
 let speakerName = '';
 let welComeSpeech = '';
 let imageContent = '';
+let speakerMobile = '';
+let speakerEmail = '';
+let speakerFacebook = '';
+let speakerLinkedin = '';
 
 export class HomePage extends React.Component {
 
@@ -118,6 +125,17 @@ export class HomePage extends React.Component {
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementById('welcome-speech').innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
+
+    let phoneValue = document.getElementById('phone')
+    let emailValue = document.getElementById('email')
+    let facebookValue = document.getElementById('facebook')
+    let linkedinValue = document.getElementById('linkedin')
+
+    this.addOrRemoveDomAttr(phoneValue, 'phone', this.props.welComeInfo[speechIndex].speakerMobile);
+    this.addOrRemoveDomAttr(emailValue, 'email', this.props.welComeInfo[speechIndex].speakerEmail);
+    this.addOrRemoveDomAttr(facebookValue, 'facebook', this.props.welComeInfo[speechIndex].speakerFacebookLinke);
+    this.addOrRemoveDomAttr(linkedinValue, 'linkedin', this.props.welComeInfo[speechIndex].speakerLinkedinLinke);
+
     welComeSpeechObj = this.props.welComeInfo[speechIndex];
 
   }
@@ -133,6 +151,26 @@ export class HomePage extends React.Component {
     document.getElementsByClassName('employe-name')[0].innerHTML = this.props.welComeInfo[speechIndex].speakerName;
     document.getElementById('welcome-speech').innerHTML = this.props.welComeInfo[speechIndex].speechDetails;
 
+
+    let phoneValue = document.getElementById('phone')
+    let emailValue = document.getElementById('email')
+    let facebookValue = document.getElementById('facebook')
+    let linkedinValue = document.getElementById('linkedin')
+
+    this.addOrRemoveDomAttr(phoneValue, 'phone', this.props.welComeInfo[speechIndex].speakerMobile);
+    this.addOrRemoveDomAttr(emailValue, 'email', this.props.welComeInfo[speechIndex].speakerEmail);
+    this.addOrRemoveDomAttr(facebookValue, 'facebook', this.props.welComeInfo[speechIndex].speakerFacebookLinke);
+    this.addOrRemoveDomAttr(linkedinValue, 'linkedin', this.props.welComeInfo[speechIndex].speakerLinkedinLinke);
+  }
+
+  addOrRemoveDomAttr = (dom, attrVal, data) =>{
+    if(data){
+      dom.classList.add(attrVal);
+      dom.setAttribute(attrVal, data);
+    }
+    else{
+      dom.classList.remove(attrVal)
+    }
   }
 
   getPlainTextToHtml = (html) => {
@@ -213,6 +251,10 @@ export class HomePage extends React.Component {
       speakerDesignation = this.props.welComeInfo[speechIndex].speakerDesignation;
       speakerName = this.props.welComeInfo[speechIndex].speakerName;
       welComeSpeech = this.props.welComeInfo[speechIndex].speechDetails;
+      speakerMobile = this.props.welComeInfo[speechIndex].speakerMobile;
+      speakerEmail = this.props.welComeInfo[speechIndex].speakerEmail;
+      speakerFacebook = this.props.welComeInfo[speechIndex].speakerFacebookLinke;
+      speakerLinkedin = this.props.welComeInfo[speechIndex].speakerLinkedinLinke;
 
       document.getElementById('welcome-speech')? document.getElementById('welcome-speech').innerHTML = welComeSpeech : ''
 
@@ -278,7 +320,13 @@ export class HomePage extends React.Component {
       let speechDiv = document.getElementById(id);
 
       if(stateVar){ 
-        speechDiv.style.webkitLineClamp = '5' 
+        if( id == 'welcome-speech'){
+          speechDiv.style.webkitLineClamp = '5'
+        }
+        else if( id == 'institute-history'){
+          speechDiv.style.webkitLineClamp = '9'
+        }
+         
         speechDiv.style.display = '-webkit-box' 
       } 
       else{
@@ -311,7 +359,7 @@ export class HomePage extends React.Component {
                   <div className="col-md-8">
                     <div className="speech-slider-wrapper">
                       <div className="slider-item">
-                        <div className="slider-content">
+                        <div className="slider-content grid-list-wrapper welcome-speech">
 
                           {
                             this.props.speechLoader ?
@@ -319,7 +367,23 @@ export class HomePage extends React.Component {
                               <React.Fragment>
                                 {
                                   this.props.welComeInfo ?
-                                    <img id="speechImg" align="left" className="fileContent" src={imageContent} /> : ''
+                                     
+                                    <div className="grid-image">
+                                      <img id="speechImg" align="left" className="fileContent" src={imageContent} />
+                                      <div className="grid-social">
+                                        <ul className="d-flex justify-content-center w-100 nav">
+                                          <li><a id='phone' className={!speakerMobile ? '' : "phone"} phone={speakerMobile}><i class="fas fa-phone"></i></a></li>
+                                          <li><a id='email' className={!speakerEmail ? '' : "email"} email={speakerEmail}><i class="fas fa-envelope"></i></a></li>
+                                          <li><a id='facebook' className={!speakerFacebook ? '' : "facebook"} facebook={speakerFacebook}><i class="fab fa-facebook-f"></i></a></li>
+                                          <li><a id='linkedin' className={!speakerLinkedin ? '' : "linkedin"} linkedin={speakerLinkedin}><i class="fab fa-linkedin-in"></i></a></li>
+                                          {/* <li><a className={!item.speakerMobile ? '' : "phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
+                                          <li><a className={!item.speakerEmail ? '' : "email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
+                                          <li><a className={!item.speakerFacebookLinke ? '' : "facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
+                                          <li><a className={!item.speakerLinkedinLinke ? '' : "linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li> */}
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    : ''
                                 }
 
                                 {/* <img
@@ -328,7 +392,7 @@ export class HomePage extends React.Component {
                                 /> */}
                                 <h4 className="designation">{speakerDesignation}</h4>
                                 <h1 className="employe-name">{speakerName}</h1>
-                                <p className='speechDetails'>
+                                <p className='speechDetails m-0'>
 
                                   {this.props.welComeInfo ?
 
@@ -341,10 +405,10 @@ export class HomePage extends React.Component {
                                     // >
                                     <React.Fragment>
                                       <div id="welcome-speech"></div>
-                                      <a className="read-more-less-button" onClick={() => readMoreBtn('welcome-speech', speechReadMore)}>
+                                      <a className="read-more-less-button mt-3" onClick={() => readMoreBtn('welcome-speech', speechReadMore)}>
                                         {
                                           speechReadMore ?
-                                            'read less' : 'read more'
+                                            'Read Less' : 'Read More'
                                         }
                                       </a>
                                     </React.Fragment>
@@ -410,7 +474,7 @@ export class HomePage extends React.Component {
                       <div className="text-center">
 
                         {this.state.usefullExploreBtnShow ?
-                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)} disabled={this.props.useFullLinks.length < 6 ? true: false}>
                             Explore all <i className="fas fa-angle-right" />
                           </button>
                           :
@@ -434,13 +498,10 @@ export class HomePage extends React.Component {
                       <h1>Welcome To</h1>
                     </div>
                   </div>
-                  <div className="offset-md-1 col-md-10 p-b-100">
+                  <div className="offset-md-1 col-md-10 pb-5">
                     <div className="section-sub-title text-center">
                       <p style={{ textAlign: 'center' }}>
-                        {instituteName}.
-                        {/* You will find here */}
-                        {/* all information and updates about our
-                        institute */}
+                        {instituteName}
                       </p>
                     </div>
                   </div>
@@ -467,12 +528,17 @@ export class HomePage extends React.Component {
 
                             <React.Fragment>
                               <div id="institute-history"></div>
-                              <a className="read-more-less-button" onClick={() => readMoreBtn('institute-history', historyReadMore)}>
-                                {
-                                  historyReadMore ?
-                                    'read less' : 'read more'
-                                }
-                              </a>
+                              <div className="row">
+                                <div className="col-12 mt-3">
+                                  <button className="btn explore-btn" onClick={() => readMoreBtn('institute-history', historyReadMore)}>
+                                    {
+                                      historyReadMore ?
+                                        'Read Less ' : 'Read More '
+                                    }<i className="fas fa-angle-right" />
+                                  </button>
+                                </div>
+                              </div>
+                              
                             </React.Fragment>
                             // </ReadMoreAndLess>
 
@@ -498,7 +564,7 @@ export class HomePage extends React.Component {
                           { threeDotLoader() }
                         </div>
                         :
-                        <img width="100%" height="380" src={historyImageContent} />
+                        <img style={{ objectFit: 'cover'}} width="100%" height="380" src={historyImageContent} />
                     }
 
                       {/* <iframe
@@ -563,7 +629,7 @@ export class HomePage extends React.Component {
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
                               <Link to={{ pathname: '/institute/syllabus_info' }} >
-                                <img src={icon1} />
+                                <img src={crownIconSyllabus} />
                               </Link>
                             </div>
                             <div className="icon-title">
@@ -576,7 +642,7 @@ export class HomePage extends React.Component {
                         <div className="icon-box-border">
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
-                              <img src={icon1} />
+                              <img src={crownIconRoutine} />
                             </div>
                             <div className="icon-title">
                               <h5>Class Routine</h5>
@@ -591,7 +657,7 @@ export class HomePage extends React.Component {
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
                               <Link to={{ pathname: '/institute/individual_result' }} >
-                                <img src={icon1} />
+                                <img src={crownIconExam} />
                               </Link>
                             </div>
                             <div className="icon-title">
@@ -604,7 +670,7 @@ export class HomePage extends React.Component {
                         <div className="icon-box-border">
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
-                              <img src={icon1} />
+                              <img src={crownIconSyllabus} />
                             </div>
                             <div className="icon-title">
                               <h5>Exam Routine</h5>
@@ -630,7 +696,7 @@ export class HomePage extends React.Component {
                       <h1>Events</h1>
                     </div>
                   </div>
-                  <div className="offset-md-1 col-md-10 p-b-100">
+                  <div className="offset-md-1 col-md-10 pb-5">
                     <div className="section-sub-title text-center">
                       <p>
                         Keep eyes on all events and try to join those what related
@@ -685,7 +751,7 @@ export class HomePage extends React.Component {
                   </div>
                   <div className="col-md-6 p-b-100">
                     <div className="bg-white calender-wrapper">
-                      <div className="calender-title">
+                      <div className="calender-title mb-4">
                         <h3>Event Calender</h3>
                       </div>
                       <div className="calender">

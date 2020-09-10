@@ -231,7 +231,7 @@ function speechLoader() {
     return <ContentLoader
         speed={2}
         width={1280}
-        height={293}
+        height={290}
         // viewBox="0 0 1280 293"
         backgroundColor="#f5f5f5"
         foregroundColor="#dbdbdb"
@@ -246,7 +246,7 @@ function speechLoader() {
         <rect x="190" y="170" rx="0" ry="0" width="600" height="15" />
         <rect x="20" y="200" rx="0" ry="0" width="770" height="15" />
         <rect x="20" y="230" rx="0" ry="0" width="770" height="15" />
-        <rect x="20" y="260" rx="0" ry="0" width="770" height="15" />
+        {/* <rect x="20" y="260" rx="0" ry="0" width="770" height="15" /> */}
     </ContentLoader>
 
 }

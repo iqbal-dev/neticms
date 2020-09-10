@@ -165,9 +165,6 @@ export class Footer extends React.Component {
                             <li>
                               <a href="#">স্কুল প্রশাসন</a>
                             </li>
-                            <li>
-                              <a href="#">স্কুল প্রশাসন</a>
-                            </li>
                           </ul>
                         </div>
                         <div className="col-md-6">
@@ -180,9 +177,6 @@ export class Footer extends React.Component {
                             </li>
                             <li>
                               <a href="#">রেজাল্ট অনুসন্ধান</a>
-                            </li>
-                            <li>
-                              <a href="#">স্কুল প্রশাসন</a>
                             </li>
                             <li>
                               <a href="#">স্কুল প্রশাসন</a>

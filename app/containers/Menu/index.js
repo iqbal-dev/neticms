@@ -38,9 +38,11 @@ export class Menu extends React.Component {
 
     this.state = {
       noticeList: [],
+      toggle: false
     }
   }
-  toggle = () => { };
+
+  toggle = () => this.setState({ toggle: !this.state.toggle})
 
   componentDidMount() {
 
@@ -127,8 +129,8 @@ export class Menu extends React.Component {
                 <div className="col-12">
 
                   <Navbar expand="lg">
-                    <NavbarToggler onClick={this.toggle()} />
-                    <Collapse navbar>
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.toggle} navbar>
                       <Nav className="mr-auto" navbar>
                         <NavItem><Link to='/institute/home' className='nav-link'>Home</Link></NavItem>
 

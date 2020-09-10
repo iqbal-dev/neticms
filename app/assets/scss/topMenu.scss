@@ -2,6 +2,24 @@
     background: $primaryColorLight;
     .navbar{
         padding: 0px;
+
+        .navbar-toggler{
+            margin: 2px;
+            border: 1px solid #ffffff;
+            position: relative;
+            width: 52px;
+
+            &::before{
+                position: absolute;
+                // right: 12px;
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+                content: "\f0c9";
+                border: unset;
+                color: #ffffff;
+                font-size: 30px;
+            }
+        }
     }
     .dropdown-menu{
         border-radius: 0px;
@@ -19,11 +37,12 @@
                 padding-right: 2em !important;
                 position: relative;
                 width: max-content;
+
                 &.dropdown-toggle::after{
                     margin-left: 1.255em;
                     position: absolute;
                     right: 12px;
-                    top: 20px !important;
+                    // top: 20px !important;
                     transform: rotate(270deg);
                 }
             }
@@ -33,6 +52,18 @@
         right: auto;
         left: auto;
         top: 100%;
+        @media screen and (max-width: 991px) {
+            width: 100%;
+            padding: 0 0 0 15px;
+
+            .nav-item {
+                &:last-child{
+                    border-bottom: unset;
+                }
+            }
+        }
+        
+
         .nav-item{
             a{
                 padding: 0.5em !important;
@@ -48,7 +79,7 @@
         a{
             color: $colorWhite;
             font-size: $fontSizeSecondary;
-            padding: 1em !important;
+            padding: 10px 25px 10px 15px !important;
             font-weight: $fontWeightSecondary;
 
             &:hover{
@@ -65,14 +96,19 @@
                     margin-left: 1.255em;
                     position: absolute;
                     right: 12px;
-                    top: 25px;
+                    // top: 25px;
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    content: "\f078";
+                    border: unset;
                 }
             }
         }
     }
 }
 .notice-wrapper{
-    background: $orangeColor;
+    background: #002749;
+    box-shadow: .8px .65px 3px #00000070;
     
     .notice-title{
         background: $orangeColorDark;

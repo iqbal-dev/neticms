@@ -57,7 +57,7 @@ export class WelcomeSpeech extends React.Component {
                   <div className="row">
                     {this.props.welcomeSpeechList && this.props.welcomeSpeechList.map((item, index) => (
                       <div className="col-lg-12">
-                        <div className="speech-slider-wrapper">
+                        <div className="speech-slider-wrapper mb-4">
                           <div className="slider-item">
                             <div className="slider-content grid-list-wrapper">
                               <div className="grid-image">

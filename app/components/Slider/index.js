@@ -71,7 +71,7 @@ class Slider extends React.Component {
     if (!this.props.notice == '') { noticeArrayList = this.props.notice; }
 
     return (
-      <div className="home-slider-wrapper">
+      <div className="home-slider-wrapper my-4">
         <Container>   {/*  container   */}
           <Row>
             <div className="col-12 col-xl-8">

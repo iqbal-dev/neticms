@@ -152,10 +152,10 @@
                     .form-control{
                         background: $primaryColorDark;
                         border-color: $primaryColorDark;
-                        color: $primaryColorLight;
+                        color: $colorWhite;
                         font-size: 16px;
                         &::placeholder{
-                            color: $primaryColorLight;
+                            color: $grayColor.25;
                         }
                     }
                 }

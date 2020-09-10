@@ -27,7 +27,7 @@ class LoginAccess extends React.PureComponent {
         <div className="container-fluid">
           <div className="container">
             <div className="row">
-              <div className="col-lg-9 p-t-60">
+              <div className="col-lg-12 p-t-60">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="section-title text-center">
@@ -40,46 +40,51 @@ class LoginAccess extends React.PureComponent {
                 </div>
                 <div className="row">
                   <div className="col-md-4 p-b-60">
-                    <a href="https://www.netiworld.com" target='_blank'>
-                      <div className="login-form-wrapper">
+                      <div className="login-form-wrapper student">
                         <div className="login-image">
                           <img src={student} className="img-fluid w-100" />
                         </div>
                         <div className="login-btn text-center">
-                          <button className="btn" >Student Login</button>
+                          Student Portal
                         </div>
                       </div>
-                    </a>
-
                   </div>
                   <div className="col-md-4 p-b-60">
-                    <a href="https://www.netiworld.com" target='_blank'>
-                      <div className="login-form-wrapper">
+                      <div className="login-form-wrapper guardian">
                         <div className="login-image">
                           <img src={guardian} className="img-fluid w-100" />
                         </div>
                         <div className="login-btn text-center">
-                          <button className="btn">Guardian Login</button>
+                          Guardian Portal
                         </div>
                       </div>
-                    </a>
                   </div>
 
                   <div className="col-md-4 p-b-60">
-                    <a href="https://www.netiworld.com" target='_blank'>
-                      <div className="login-form-wrapper">
+                    {/* <a href="https://www.netiworld.com" target='_blank'> */}
+                      <div className="login-form-wrapper teacher">
                         <div className="login-image">
                           <img src={teacher} className="img-fluid w-100" />
                         </div>
                         <div className="login-btn text-center">
-                          <button className="btn">Teachers Login</button>
+                          Teacher Portal
                         </div>
                       </div>
-                    </a>
+                    {/* </a> */}
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-xl-12 mt-3 login-form-wrapper main text-center">
+                    <div className="login-btn ">
+                      <a href="https://www.netiworld.com/" target='_blank'>
+                        <button className="btn">Login <i class="fas fa-angle-right"></i></button>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-3">
+              {/* <div className="col-lg-3">
                 <div className="box-shadow">
                   <div className="admission-wrapper">
                     <div className="icon">
@@ -93,7 +98,7 @@ class LoginAccess extends React.PureComponent {
                     <button class="btn explore-btn mb-0">Get Admission <i class="fas fa-angle-right"></i></button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

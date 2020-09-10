@@ -81,6 +81,7 @@
     background: $primaryColorLight;
   }
   .speech-slider-wrapper {
+    min-height: 340px;
     background: $colorWhite;
     @extend .box-shadow;
   }
@@ -92,7 +93,7 @@
       // width: 210px;
       height: 210px;
       width: 180px;
-      border: 2px solid $orangeColor;
+      // border: 2px solid $orangeColor;
       border-radius: 5px;
       float: none;
     }
@@ -134,7 +135,7 @@
   p {
     font-size: $fontSizeSecondarySmall;
     color: $colorBlack;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: $fontWeightSecondary;
     text-align: justify;
@@ -171,8 +172,10 @@
 }
 
 .usefull-links-wrapper {
+  min-height: 340px;
   background: $colorWhite;
   @extend .box-shadow;
+
   .usefull-links-title {
     background: $orangeColor;
     display: inline-flex;
@@ -488,30 +491,77 @@
   }
 }
 .login-form-wrapper {
-  cursor: pointer;
+  // cursor: pointer;
   transition: all 0.5s;
+  box-shadow: 0px 3px 6px #00000020;
+  position: relative;
+  text-align: center;
+
+  &::after{
+    position: absolute;
+    content: '';
+    height: 56px;
+    width: 20px;
+    background-color: #ff4e31;
+    bottom: -56px;
+    margin: 0px 0px 0 -9px;
+  }
+
+  &.guardian::after{
+    content: unset;
+    @media screen and (max-width: 767px) {
+      content: '';
+    }
+  }
+
+  &.teacher{
+    &::before{
+      @media screen and (max-width: 767px) {
+        content: '';
+        left: 15%;
+        position: absolute;
+        height: 55px;
+        width: 20px;
+        background-color: #ff4e31;
+        bottom: -55px;
+        margin: 0px 0px 0 -9px;
+      }
+    }
+
+    &::after{
+      @media screen and (max-width: 767px) {
+        content: '';
+        right: 12%;
+      }
+    }
+  }
 
   .login-image {
     text-align: center;
+    // box-shadow: 2px -2px 7px #00000040;
 
     img {
       width: 75% !important;
     }
   }
 
-  &:hover {
-    background-color: #00000015;
-    box-shadow: 2px -2px 7px #00000040;
-  }
+  // &:hover {
+  //   background-color: #00000015;
+  //   box-shadow: 2px -2px 7px #00000040;
+  // }
 
-  &:hover .login-btn > button {
-    background: $colorWhite;
-    color: $orangeColor;
-  }
+  // &:hover .login-btn > button {
+  //   background: $colorWhite;
+  //   color: $orangeColor;
+  // }
 
   .login-btn {
-    padding: 32px 15px;
+    padding: 20px 15px;
     background: $orangeColor;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+
     button {
       background: $primaryColorLight;
       color: $colorWhite;
@@ -525,7 +575,57 @@
       }
     }
   }
+
+  &.main{
+    box-shadow: unset;
+    display: flex;
+    justify-content: center;
+    
+
+    &::before{
+      position: absolute;
+      content: '';
+      height: 20px;
+      width: 68%;
+      background-color: $orangeColor;
+      top: -40px;
+    }
+
+    &::after{
+      position: absolute;
+      content: '';
+      height: 76px;
+      width: 20px;
+      background-color: $orangeColor;
+      top: -76px;
+    }
+
+    .login-btn{
+      background: $primaryColorLight;
+      width: 200px;
+      height: 80px;
+      border-radius: 10px;
+      position: relative;
+
+      
+
+      .btn{
+        width: 160px;
+        height: 40px;
+        padding: unset;
+        border-radius: 5px;
+        background: $orangeColor;
+
+        &:hover {
+          background: $colorWhite;
+          color: $orangeColor;
+        }
+      }
+    }
+    
+  }
 }
+
 .admission-wrapper {
   padding: 30px;
   background: $primaryColorDark;
