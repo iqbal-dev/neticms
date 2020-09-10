@@ -59,7 +59,7 @@ class Slider extends React.Component {
           src: "data:image/*;base64," + item.fileContent,
           altText: item.fileName,
           caption: '',
-          header: item.photoTitle,
+          header: '',
           key: index + 1,
         }
         items.push(sliderItem)
