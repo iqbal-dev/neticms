@@ -1,139 +1,138 @@
-.topmenu-wrapper{
-    background: $primaryColorLight;
-    .navbar{
-        padding: 0px;
+.topmenu-wrapper {
+  background: $primaryColorLight;
+  .navbar {
+    padding: 0px;
 
-        .navbar-toggler{
-            margin: 2px;
-            border: 1px solid #ffffff;
-            position: relative;
-            width: 52px;
+    .navbar-toggler {
+      margin: 2px;
+      border: 1px solid #ffffff;
+      position: relative;
+      width: 52px;
 
-            &::before{
-                position: absolute;
-                // right: 12px;
-                font-family: "Font Awesome 5 Free";
-                font-weight: 900;
-                content: "\f0c9";
-                border: unset;
-                color: #ffffff;
-                font-size: 30px;
-            }
-        }
+      &::before {
+        position: absolute;
+        // right: 12px;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        content: '\f0c9';
+        border: unset;
+        color: #ffffff;
+        font-size: 30px;
+      }
     }
-    .dropdown-menu{
-        border-radius: 0px;
-        border:none;
-        padding: 0em;
-        margin-top: 2px;
-        background: $primaryColorLight;
+  }
+  .dropdown-menu {
+    border-radius: 0px;
+    border: none;
+    padding: 0em;
+    margin-top: 2px;
+    background: $primaryColorLight;
+    width: max-content;
+    .nav-item {
+      background: $primaryColorLight;
+      border-bottom: 2px solid $colorWhite;
+    }
+    .dropdown {
+      a {
+        padding-right: 2em !important;
+        position: relative;
         width: max-content;
-        .nav-item{
-            background: $primaryColorLight;
-            border-bottom: 2px solid $colorWhite;
-        }
-        .dropdown{
-            a{
-                padding-right: 2em !important;
-                position: relative;
-                width: max-content;
 
-                &.dropdown-toggle::after{
-                    margin-left: 1.255em;
-                    position: absolute;
-                    right: 12px;
-                    // top: 20px !important;
-                    transform: rotate(270deg);
-                }
-            }
+        &.dropdown-toggle::after {
+          margin-left: 1.255em;
+          position: absolute;
+          right: 12px;
+          top: 18px !important;
+          transform: rotate(270deg);
         }
+      }
+    }
+  }
+  .dropdown-menu-right {
+    right: auto;
+    left: auto;
+    top: 100%;
+    @media screen and (max-width: 991px) {
+      width: 100%;
+      padding: 0 0 0 15px;
+
+      .nav-item {
+        &:last-child {
+          border-bottom: unset;
+        }
+      }
+    }
+
+    .nav-item {
+      a {
+        padding: 0.5em !important;
+      }
     }
     .dropdown-menu-right {
-        right: auto;
-        left: auto;
-        top: 100%;
-        @media screen and (max-width: 991px) {
-            width: 100%;
-            padding: 0 0 0 15px;
-
-            .nav-item {
-                &:last-child{
-                    border-bottom: unset;
-                }
-            }
-        }
-        
-
-        .nav-item{
-            a{
-                padding: 0.5em !important;
-            }
-        }
-        .dropdown-menu-right {
-            right: auto;
-            left: 101.5%;
-            top: -2px;
-        }
+      right: auto;
+      left: 101.5%;
+      top: -2px;
     }
-    .nav-item{
-        a{
-            color: $colorWhite;
-            font-size: $fontSizeSecondary;
-            padding: 10px 25px 10px 15px !important;
-            font-weight: $fontWeightSecondary;
+  }
+  .nav-item {
+    a {
+      color: $colorWhite;
+      font-size: $fontSizeSecondary;
+      padding: 10px 25px 10px 15px !important;
+      font-weight: $fontWeightSecondary;
 
-            &:hover{
-                background: $orangeColor;
-            }
-        }
-        
-        &.dropdown{
-            a{
-                padding-right: 2em !important;
-                position: relative;
-                width: 100%;
-                &.dropdown-toggle::after{
-                    margin-left: 1.255em;
-                    position: absolute;
-                    right: 12px;
-                    // top: 25px;
-                    font-family: "Font Awesome 5 Free";
-                    font-weight: 900;
-                    content: "\f078";
-                    border: unset;
-                }
-            }
-        }
+      &:hover {
+        background: $orangeColor;
+      }
     }
+
+    &.dropdown {
+      a {
+        padding-right: 2em !important;
+        position: relative;
+        width: 100%;
+        &.dropdown-toggle::after {
+          // margin-left: 1.255em;
+          // position: absolute;
+          // right: 12px;
+          // // top: 25px;
+          // font-family: "Font Awesome 5 Free";
+          // font-weight: 900;
+          // content: "\f078";
+          // border: unset;
+        }
+      }
+    }
+  }
 }
-.notice-wrapper{
-    background: #002749;
-    box-shadow: .8px .65px 3px #00000070;
-    
-    .notice-title{
-        background: $orangeColorDark;
-        font-size: $fontSizeSecondary;
-        font-weight: $fontWeightPrimary;
-        font-family: 'Montserrat', sans-serif;
-        color: $colorWhite;
-        padding: 5px 15px;
-        width: auto;
-        display: flex;
-        align-items: center;
+.notice-wrapper {
+  background: #002749;
+  box-shadow: 0.8px 0.65px 3px #00000070;
+
+  .notice-title {
+    background: $orangeColorDark;
+    font-size: $fontSizeSecondary;
+    font-weight: $fontWeightPrimary;
+    font-family: 'Montserrat', sans-serif;
+    color: $colorWhite;
+    padding: 5px 15px;
+    width: auto;
+    display: flex;
+    align-items: center;
+  }
+  .notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+    color: $colorWhite;
+    p {
+      padding: 5px 10px;
+      margin-bottom: 0;
+      color: $colorWhite;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      margin-left: 2px;
     }
-    .notice{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: 15px;
-        color: $colorWhite;
-        p{
-            padding:5px 10px;
-            margin-bottom: 0;
-            color: $colorWhite;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            margin-left: 2px;
-        }
-    }
+  }
 }
