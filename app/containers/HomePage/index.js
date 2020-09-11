@@ -61,6 +61,7 @@ import { hideInstMappingDialog, setMappingInstitute, submitToMapInstitute } from
 import ReadMoreAndLess from 'react-read-more-less';
 
 import { speechLoader, listLoader, threeDotLoader } from '../../utils/contentLoader';
+import { unset } from 'lodash';
 //
 
 let speechIndex = 0;
@@ -285,7 +286,7 @@ export class HomePage extends React.Component {
     if (this.props.instituteHistory && this.props.instituteHistory.aboutusDetails) {
       document.getElementById('institute-history') ? document.getElementById('institute-history').innerHTML = this.props.instituteHistory.aboutusDetails : ''
 
-      // instituteHistory = this.props.instituteHistory.aboutusDetails;
+      instituteHistory = this.props.instituteHistory.aboutusDetails;
       historyImageContent = this.props.instituteHistory.fileContent ? "data:image/*;base64," + this.props.instituteHistory.fileContent : blank_image;
     }
 
@@ -508,7 +509,7 @@ export class HomePage extends React.Component {
                       </div>
                       <div className="content">
 
-                        <p>
+                        <p style={{ overflow: 'unset'}}>
 
                           {this.props.instituteHistory ?
 
@@ -541,6 +542,7 @@ export class HomePage extends React.Component {
                             //   ideal={201}
                             //   max={1000}
                             //   readMoreText={historyMoreBtn} />
+                            // <div id="institute-history"></div>
 
                             : ''
                           }

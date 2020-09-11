@@ -385,7 +385,7 @@
     width: 100%;
     background: #033b6d; }
   .speech-wrapper .speech-slider-wrapper {
-    min-height: 340px;
+    min-height: 370px;
     background: #fff; }
   .speech-wrapper .slider-content {
     padding: 25px; }
@@ -449,7 +449,7 @@
       float: none; } }
 
 .usefull-links-wrapper {
-  min-height: 340px;
+  min-height: 370px;
   background: #fff; }
   .usefull-links-wrapper .usefull-links-title {
     background: #ff4e31;
@@ -529,7 +529,6 @@
   display: block;
   /* max-width: 200px; */
   -webkit-box-orient: vertical;
-  overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500; }
 

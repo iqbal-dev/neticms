@@ -81,7 +81,7 @@
     background: $primaryColorLight;
   }
   .speech-slider-wrapper {
-    min-height: 340px;
+    min-height: 370px;
     background: $colorWhite;
     @extend .box-shadow;
   }
@@ -172,7 +172,7 @@
 }
 
 .usefull-links-wrapper {
-  min-height: 340px;
+  min-height: 370px;
   background: $colorWhite;
   @extend .box-shadow;
 
@@ -278,7 +278,7 @@
       /* max-width: 200px; */
       // -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
-      overflow: hidden;
+      // overflow: hidden;
       text-overflow: ellipsis;
       font-weight: $fontWeightSecondary;
     }
