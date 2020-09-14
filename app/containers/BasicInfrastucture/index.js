@@ -40,7 +40,7 @@ export class BasicInfrastucture extends React.PureComponent {
       <div>
         <AppLayout>
           <Helmet>
-            <title>BasicInfrastucture</title>
+            <title>Basic Infrastucture</title>
             <meta
               name="description"
               content="Description of BasicInfrastucture"
@@ -53,7 +53,7 @@ export class BasicInfrastucture extends React.PureComponent {
             menuStepThird="Institute Details"
           />
           <section>
-            <div className="container p-t-60 content-wrapper">
+            <div className="container m-t-40 content-wrapper infrastructure-main">
               {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
                 infrastructureList && infrastructureList.map((item) =>
                   <React.Fragment>
@@ -66,17 +66,20 @@ export class BasicInfrastucture extends React.PureComponent {
                             <div className="custom-title-border-left no-border"></div>
                           </div>
                           <div className="">
-                            <div className="content" style={{ height: '185px', overflowY: 'auto', textAlign: 'justify' }}>
+                            <div className="content">
 
                               {item.aboutusDetails ?
 
                                 <ReadMoreReact text={this.getPlainTextToHtml(item.aboutusDetails)}
-                                  min={315}
-                                  ideal={315}
-                                  max={2000}
-                                  readMoreText={<button className="btn explore-btn m-t-20">
-                                    Read More <i className="fas fa-angle-right" />
-                                  </button>} />
+                                  min={250}
+                                  ideal={250}
+                                  max={5000}
+                                  readMoreText={
+                                    <button className="btn explore-btn m-t-20">
+                                      Read More <i className="fas fa-angle-right" />
+                                    </button>
+                                  } 
+                                />
                                 : ''
                               }
 

@@ -75,7 +75,7 @@ export class BookList extends React.Component {
           />
           <section>
             <div className="container-fluid">
-              <div className="container">
+              <div className="container m-t-40 mb-3">
                 <div className="row">
                   <div className="col-md-4">
                     <div className="sidebar-menu-wrapper">
@@ -101,7 +101,9 @@ export class BookList extends React.Component {
                   <div className="col-md-8">
                     {this.props.loaderType === 'autoLoadOn' ? <div className='m-t-30'> {tableLoader()}</div> :
 
-                      booklist.length > 0 ? <div className="content-wrapper content-padding-sm">
+                      booklist.length > 0 ? 
+                      // content-padding-sm
+                      <div className="content-wrapper">
                         <div className="book-list-wrapper">
                           <div className="table-responsive">
                             <table className="book-list w-100">
@@ -255,7 +257,7 @@ export class BookList extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

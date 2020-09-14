@@ -63,7 +63,7 @@ export class DressCode extends React.Component {
                 </div>
               </div>
             </div> */}
-              <div className="container p-t-60">
+              <div className="container m-t-30">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="dress-code-tab-wrapper">
@@ -118,7 +118,7 @@ export class DressCode extends React.Component {
 
                                 this.props.maleDressCodeList && this.props.maleDressCodeList.map((item, index) => (
 
-                                  <>
+                                  <div className="col-12 row dress-code-inside">
                                     <div className="col-md-8">
                                       <div className="page-inner-title">
                                         <h2 className="text-orange">
@@ -133,16 +133,16 @@ export class DressCode extends React.Component {
                                       </div>
                                     </div>
 
-                                    <div className="col-md-4">
+                                    <div className="col-md-4 px-0">
                                       <div className="panel-image text-center">
                                         {
                                           item.fileContent ?
-                                            <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
-                                            <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
+                                            <img src={"data:image/*;base64," + item.fileContent} /> :
+                                            <img src={staticImg} />
                                         }
                                       </div>
                                     </div>
-                                  </>
+                                  </div>
                                 ))}
                             </div>
                           </div>
@@ -191,7 +191,7 @@ export class DressCode extends React.Component {
                           <div className="tab-panel-wrapper">
                             <div className="row">
                               {this.props.femaleDressCodeList && this.props.femaleDressCodeList.map((item, index) => (
-                                <>
+                                <div className="col-12 row dress-code-inside">
                                   <div className="col-md-8">
                                     <div className="page-inner-title">
                                       <h2 className="text-orange">
@@ -206,17 +206,17 @@ export class DressCode extends React.Component {
                                     </div>
                                   </div>
 
-                                  <div className="col-md-4">
+                                  <div className="col-md-4 px-0">
                                     <div className="panel-image text-center">
                                       {
                                         item.fileContent ?
                                           // <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
-                                          <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
-                                          <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
+                                          <img src={"data:image/*;base64," + item.fileContent}/> :
+                                          <img src={staticImg}/>
                                       }
                                     </div>
                                   </div>
-                                </>
+                                </div>
                               ))}
                             </div>
 
@@ -227,7 +227,7 @@ export class DressCode extends React.Component {
                           <div className="tab-panel-wrapper">
                             <div className="row">
                               {this.props.combineDressCodeList && this.props.combineDressCodeList.map((item, index) => (
-                                <>
+                                <div className="col-12 row dress-code-inside">
                                   <div className="col-md-8">
                                     <div className="page-inner-title">
                                       <h2 className="text-orange">
@@ -242,17 +242,17 @@ export class DressCode extends React.Component {
                                     </div>
                                   </div>
 
-                                  <div className="col-md-4">
+                                  <div className="col-md-4 px-0">
                                     <div className="panel-image text-center">
                                       {
                                         item.fileContent ?
-                                          <img src={"data:image/*;base64," + item.fileContent} align="left" height='300px' width='300px' style={{ marginBottom: '10px' }} /> :
-                                          <img src={staticImg} height='300px' width='300px' style={{ marginBottom: '10px' }} />
+                                          <img src={"data:image/*;base64," + item.fileContent}/> :
+                                          <img src={staticImg}/>
                                       }
 
                                     </div>
                                   </div>
-                                </>
+                                </div>
                               ))}
                             </div>
 
