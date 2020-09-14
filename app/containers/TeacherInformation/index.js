@@ -41,11 +41,11 @@ export class TeacherInformation extends React.PureComponent {
               content="Description of TeacherInformation"
             />
           </Helmet>
-          <BreadcrumComponent pageTitle="Teacher's Information" menuStepFirst="Institute Info" menuStepSenond="List of" menuStepThird="Teacher's Information" />
+          <BreadcrumComponent pageTitle="Teacher's Information" menuStepFirst="Institute Info" menuStepSenond="List of" menuStepThird="Teacher" />
 
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title">
@@ -61,13 +61,21 @@ export class TeacherInformation extends React.PureComponent {
                     {
                       teachers.map((item) => {
                         return (
-                          <div className="col-md-4">
+                          <div className="col-md-6 col-lg-4">
                             <div className="grid-list-wrapper">
                               {
-                                item.gender == "Male" ? <div className="grid-image teachers">
-                                  {item.image ? <img src={item.imageName} className="mx-auto d-block" /> : <img src={demoImageMale} className="mx-auto d-block" />}
-                                </div> : <div className="grid-image teachers">
-                                    {item.image ? <img src={item.imageName} className="mx-auto d-block" /> : <img src={demoImageFemale} className="mx-auto d-block" />}
+                                item.gender == "Male" ? 
+                                  <div className="grid-image teachers">
+                                    { item.image ? 
+                                      <img src={item.imageName} className="mx-auto d-block" /> 
+                                      : <img src={demoImageMale} className="mx-auto d-block" />
+                                    }
+                                </div> 
+                                : <div className="grid-image teachers">
+                                    { item.image ? 
+                                      <img src={item.imageName} className="mx-auto d-block" /> 
+                                      : <img src={demoImageFemale} className="mx-auto d-block" />
+                                    }
                                   </div>
                               }
                               <div className="grid-content text-center">
@@ -99,7 +107,7 @@ export class TeacherInformation extends React.PureComponent {
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center"></div>
+                    <div className="custom-title-border-center mb-2"></div>
                   </div>
                 </div>
               </div>

@@ -858,6 +858,18 @@
         background-color: #f2f2f2;
         box-shadow: unset;
 
+        &.speech-all{
+            background-color: unset;
+            min-height: 320px;
+            box-shadow: 2px 2px 5px #00000024;
+
+            .slider-item{
+                .slider-content{
+                    min-height: 320px;
+                }
+            }
+        }
+
         .slider-item{
             .grid-list-wrapper{
                 .grid-image{

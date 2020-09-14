@@ -25,6 +25,8 @@ import { Button } from 'reactstrap';
 import { onSubmitStuffInfoSearchBtn, onSubmitStuffInfoSetRowData } from './actions';
 import { AppLayout } from '../AppLayout';
 import { centerTableLoader } from '../../utils/contentLoader';
+import demoImageMale from '../../assets/img/demo-image.jpg';
+import demoImageFemale from '../../assets/img/demo-image-female.jpg';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StuffInformation extends React.Component {
@@ -40,11 +42,11 @@ export class StuffInformation extends React.Component {
             pageTitle="Staff's Information"
             menuStepFirst="Institute Info"
             menuStepSenond="List of"
-            menuStepThird="Staff's Information"
+            menuStepThird="Staff"
           />
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
 
                   <div className="col-md-12">
@@ -59,11 +61,28 @@ export class StuffInformation extends React.Component {
 
                   <div className="row">
                     {this.props.staffInfoList.map((item, index) =>
-                      <div className="col-md-4">
+                      <div className="col-md-6 col-lg-4">
                         <div className="grid-list-wrapper">
-                          <div className="grid-image">
+                          {/* <div className="grid-image">
                             {item.image ? <img src={"data:image/*;base64," + item.image} className="mx-auto d-block" /> : <img src={donorImage} className="mx-auto d-block" />}
-                          </div>
+                          </div> */}
+
+                            {
+                              item.gender == "Male" ? 
+                                <div className="grid-image teachers">
+                                  { item.image ? 
+                                    <img src={item.imageName} className="mx-auto d-block" /> 
+                                    : <img src={demoImageMale} className="mx-auto d-block" />
+                                  }
+                              </div> 
+                              : <div className="grid-image teachers">
+                                  { item.image ? 
+                                    <img src={item.imageName} className="mx-auto d-block" /> 
+                                    : <img src={demoImageFemale} className="mx-auto d-block" />
+                                  }
+                                </div>
+                            }
+
                           <div className="grid-content text-center">
                             <div className="grid-title">
                               <h3>{item.staffName}</h3>
@@ -92,7 +111,7 @@ export class StuffInformation extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center"></div>
+                    <div className="custom-title-border-center mb-2"></div>
                   </div>
                 </div>
               </div>

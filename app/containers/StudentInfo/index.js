@@ -23,8 +23,9 @@ import donorImage from '../../assets/img/donor-image.png';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 import { classNameListDropDown, classNameSelectedMethod, classGroupListDropDown, submitSearchButton, groupNameSelectedMethod } from './actions';
-import demoImageMale from '../../assets/img/demo-image.jpg';
 import { inputFieldLoader, tableLoader, centerTableLoader } from '../../utils/contentLoader';
+import demoImageMale from '../../assets/img/demo-image.jpg';
+import demoImageFemale from '../../assets/img/demo-image-female.jpg';
 
 export class StudentInfo extends React.Component {
 
@@ -108,12 +109,12 @@ export class StudentInfo extends React.Component {
             pageTitle="Student's Info"
             menuStepFirst="Institute Info"
             menuStepSenond="List of"
-            menuStepThird="Student's Info"
+            menuStepThird="Student"
           />
 
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
                     <div className="row attendance-body-header-inside">
@@ -123,28 +124,30 @@ export class StudentInfo extends React.Component {
                           {/* <div className="row"> */}
                           <div className="col-md-12 col-lg-4">
 
-                            {this.props.loaderStatus === "autoLoadOn" ? inputFieldLoader() : <div>
-                              <FormGroup className="custom-dropdown">
-                                <Input
-                                  type="select"
-                                  name="class"
-                                  onChange={(e) => this.onChangeClass(e, 'class')}
-                                >
-                                  <option value="">Choose a class</option>
-                                  {
-                                    classNameDropDown && classNameDropDown.map(item => {
-                                      return (<option value={item.classConfigId}>{item.classShiftSection}</option>)
-                                    })
-                                  }
-                                </Input>
-                              </FormGroup>
-                              <span className="error-message">{this.state.errors["class"]}</span>
+                            {this.props.loaderStatus === "autoLoadOn" ? 
+                              inputFieldLoader() : 
+                              <div>
+                                <FormGroup className="custom-dropdown">
+                                  <Input
+                                    type="select"
+                                    name="class"
+                                    onChange={(e) => this.onChangeClass(e, 'class')}
+                                  >
+                                    <option value="">Choose a class</option>
+                                    {
+                                      classNameDropDown && classNameDropDown.map(item => {
+                                        return (<option value={item.classConfigId}>{item.classShiftSection}</option>)
+                                      })
+                                    }
+                                  </Input>
+                                </FormGroup>
+                                <span className="error-message">{this.state.errors["class"]}</span>
                             </div>
                             }
 
                           </div>
 
-                          <div className="col-md-12 col-lg-5">
+                          <div className="col-md-12 col-lg-4">
 
                             {this.props.loaderStatus === "groupLoadOn" ? inputFieldLoader() : <div>
                               <FormGroup className="custom-dropdown with-search-btn">
@@ -161,17 +164,23 @@ export class StudentInfo extends React.Component {
                                   }
                                 </Input>
 
-                                <Button
-                                  className="btn explore-btn"
-                                  onClick={this.handleSubmitSearch}
-                                >
-                                  <i className="fas fa-chevron-circle-right" />{' '}
-                                  Search
-                              </Button>
+                                
                               </FormGroup>
                               <span className="error-message">{this.state.errors["group"]}</span>
                             </div>
                             }
+                          </div>
+
+                          <div className="col-md-12 col-lg-4">
+                            <FormGroup className="">
+                              <Button
+                                className="btn explore-btn full-width all-border-radious"
+                                onClick={this.handleSubmitSearch}
+                              >
+                                <i className="fas fa-chevron-circle-right" />{' '}
+                                  Search
+                              </Button>
+                            </FormGroup>
                           </div>
 
                           {/* <div className="col-md-12 col-lg-1 d-sm-none d-md-none d-lg-block">
@@ -236,7 +245,7 @@ export class StudentInfo extends React.Component {
                                     <div className="img-div overlay">
                                       <i className="fas fa-search-plus" />
                                     </div>
-                                    {item.imageName !== '' ? <img src={item.imageName} width="85px" height="85px" /> : <img src={demoImageMale} width="85px" height="85px" />}
+                                    {item.image ? <img src={item.imageName} width="85px" height="85px" /> : <img src={ item.studentGender == 'Male' ? demoImageMale : demoImageFemale} width="85px" height="85px" />}
                                   </div>
                                 </div>
 
@@ -289,7 +298,7 @@ export class StudentInfo extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

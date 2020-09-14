@@ -48,46 +48,49 @@ export class WelcomeSpeech extends React.Component {
             menuStepThird="Welcome Speech"
           />
 
-          <section className="speech-wrapper welcome-speech my-3">
+          <section className="speech-wrapper welcome-speech">
             <div className="container-fluid">
-              <div className="container">
+              <div className="container m-t-40">
 
                 {this.props.loaderStatus === 'autoLoadOn' ? centerTableLoader() :
 
                   <div className="row">
-                    {this.props.welcomeSpeechList && this.props.welcomeSpeechList.map((item, index) => (
-                      <div className="col-lg-12">
-                        <div className="speech-slider-wrapper mb-4">
-                          <div className="slider-item">
-                            <div className="slider-content grid-list-wrapper">
-                              <div className="grid-image">
-                                {
-                                  item.fileContent ?
-                                    <img src={"data:image/*;base64," + item.fileContent} align="left" className="mx-auto d-block" /> :
-                                    <img src={staticImg} width="100%" />
-                                }
-                                <div className="grid-social">
-                                  <ul className="d-flex justify-content-center w-100 nav">
-                                    <li><a className={!item.speakerMobile ? '' : "phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
-                                    <li><a className={!item.speakerEmail ? '' : "email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
-                                    <li><a className={!item.speakerFacebookLinke ? '' : "facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a className={!item.speakerLinkedinLinke ? '' : "linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
-                                  </ul>
+                    <div className="col-lg-12 mt-2 px-0">
+                      {this.props.welcomeSpeechList && this.props.welcomeSpeechList.map((item, index) => (
+                        <div className="col-lg-12">
+                          <div className="speech-slider-wrapper speech-all mb-4">
+                            <div className="slider-item">
+                              <div className="slider-content grid-list-wrapper">
+                                <div className="grid-image">
+                                  {
+                                    item.fileContent ?
+                                      <img src={"data:image/*;base64," + item.fileContent} align="left" className="mx-auto d-block" /> :
+                                      <img src={staticImg} width="100%" />
+                                  }
+                                  <div className="grid-social">
+                                    <ul className="d-flex justify-content-center w-100 nav">
+                                      <li><a className={!item.speakerMobile ? '' : "phone"} phone={item.speakerMobile}><i class="fas fa-phone"></i></a></li>
+                                      <li><a className={!item.speakerEmail ? '' : "email"} email={item.speakerEmail}><i class="fas fa-envelope"></i></a></li>
+                                      <li><a className={!item.speakerFacebookLinke ? '' : "facebook"} facebook={item.speakerFacebookLinke}><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a className={!item.speakerLinkedinLinke ? '' : "linkedin"} linkedin={item.speakerLinkedinLinke}><i class="fab fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+
+                                <h4 className="designation">{item.speakerDesignation}</h4>
+                                <h1 className="employe-name">{item.speakerName}</h1>
+                                {/* <p>{ this.getPlainTextToHtml(item.speechDetails) }</p> */}
+                                <div className='speechDetails'>
+                                  {this.getPlainTextToHtml(index, item.speechDetails)}
                                 </div>
                               </div>
-
-                              <h4 className="designation">{item.speakerDesignation}</h4>
-                              <h1 className="employe-name">{item.speakerName}</h1>
-                              {/* <p>{ this.getPlainTextToHtml(item.speechDetails) }</p> */}
-                              <div className='speechDetails'>
-                                {this.getPlainTextToHtml(index, item.speechDetails)}
-                              </div>
                             </div>
-                          </div>
 
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                    
                   </div>
                 }
               </div>
@@ -97,7 +100,7 @@ export class WelcomeSpeech extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

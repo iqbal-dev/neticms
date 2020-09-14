@@ -35,7 +35,7 @@ export class CommitteeMembers extends React.PureComponent {
           <BreadcrumComponent pageTitle="Committee Members" menuStepFirst="Institute Info" menuStepSenond="Administration" menuStepThird="Committee" />
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title">
@@ -49,7 +49,7 @@ export class CommitteeMembers extends React.PureComponent {
 
                   <div className="row">
                     {this.props.committeMembersList && this.props.committeMembersList.map((item, index) => (
-                      <div className="col-md-4">
+                      <div className="col-md-6 col-lg-5">
                         <div className="grid-list-wrapper">
                           <div className="grid-image">
                             {
@@ -86,7 +86,7 @@ export class CommitteeMembers extends React.PureComponent {
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center"></div>
+                    <div className="custom-title-border-center mb-2"></div>
                   </div>
                 </div>
               </div>

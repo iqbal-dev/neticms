@@ -36,10 +36,10 @@ export class DonorMembers extends React.PureComponent {
             <title>DonorMembers</title>
             <meta name="description" content="Description of DonorMembers" />
           </Helmet>
-          <BreadcrumComponent pageTitle="Donor Members" menuStepFirst="Institute Info" menuStepSenond="Administration" menuStepThird="Donor Members" />
+          <BreadcrumComponent pageTitle="Donor Members" menuStepFirst="Institute Info" menuStepSenond="Administration" menuStepThird="Donor Member" />
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title">
@@ -53,9 +53,9 @@ export class DonorMembers extends React.PureComponent {
 
                   <div className="row">
                     {this.props.donorMembersList && this.props.donorMembersList.map((item, index) => (
-                      <div className="col-md-4">
+                      <div className="col-md-6 col-lg-4">
                         <div className="grid-list-wrapper">
-                          <div className="grid-image">
+                          <div className="grid-image text-center">
                             {
                               item.memberImg ?
                                 <img src={"data:image/*;base64," + item.memberImg} className="rounded mx-auto d-block" /> :
@@ -87,7 +87,7 @@ export class DonorMembers extends React.PureComponent {
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center"></div>
+                    <div className="custom-title-border-center mb-2"></div>
                   </div>
                 </div>
               </div>

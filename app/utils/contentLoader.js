@@ -53,14 +53,14 @@ function inlineFormInputField() {
 
 function inputFieldLoader() {
     return <ContentLoader
-        height={100}
-        width={500}
+        height={40}
+        width={350}
         speed={2}
         primaryColor="#f3f3f3"
         secondaryColor="#ecebeb"
     >
         {/* <rect x="-1" y="15" rx="0" ry="0" width="99" height="20" /> */}
-        <rect x="-5" y="26" rx="0" ry="0" width="300" height="40" />
+        <rect x="-5" y="0" rx="0" ry="0" width="350" height="32" />
     </ContentLoader>
 }
 

@@ -1085,7 +1085,7 @@
   .booklist-popup-wrapper, .event-gallery-modal {
     max-width: 700px !important; } }
 .page-inner-title {
-  margin-bottom: 60px; }
+  margin-bottom: 30px; }
   .page-inner-title h2 {
     font-size: 25px;
     font-weight: 600;
@@ -1169,9 +1169,11 @@
   padding: 40px 15px 30px;
   margin-bottom: 20px; }
   .grid-list-wrapper .grid-image img {
-    height: 270px;
-    width: 270px;
-    border-radius: 5px; }
+    border-radius: 5px;
+    max-height: 270px;
+    max-width: 270px;
+    /* object-fit: cover; */
+    width: 100%; }
   .grid-list-wrapper .grid-image .rounded {
     border-radius: 50% !important; }
   .grid-list-wrapper .grid-image.teachers img {
@@ -1181,7 +1183,14 @@
     .grid-list-wrapper .grid-content .grid-title h3 {
       font-size: 25px;
       font-weight: 600;
-      color: #ff4e31; }
+      color: #ff4e31;
+      display: block;
+      display: -webkit-box;
+      /* max-width: 200px; */
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis; }
     .grid-list-wrapper .grid-content .grid-subtitle-title h4 {
       font-size: 16px;
       font-weight: 500;
@@ -1714,6 +1723,12 @@
 .welcome-speech .speech-slider-wrapper {
   background-color: #f2f2f2;
   box-shadow: unset; }
+  .welcome-speech .speech-slider-wrapper.speech-all {
+    background-color: unset;
+    min-height: 320px;
+    box-shadow: 2px 2px 5px #00000024; }
+    .welcome-speech .speech-slider-wrapper.speech-all .slider-item .slider-content {
+      min-height: 320px; }
   .welcome-speech .speech-slider-wrapper .slider-item .grid-list-wrapper .grid-image {
     float: left;
     margin-right: 30px;
