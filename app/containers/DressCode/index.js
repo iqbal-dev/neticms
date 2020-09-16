@@ -268,7 +268,7 @@ export class DressCode extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center" />
+                    <div className="custom-title-border-center mb-2" />
                   </div>
                 </div>
               </div>

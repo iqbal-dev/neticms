@@ -118,10 +118,10 @@ export class SectionWiseResult extends React.Component {
 
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 result-body-header">
-                    <div className="row result-body-header-inside">
+                    <div className="row result-body-header-inside py-4">
                       <div className="col-md-6 col-lg-3">
                         {sectionWiseResultList ?
                           <Chart
@@ -158,7 +158,7 @@ export class SectionWiseResult extends React.Component {
                         <div className="legend-with-percent present">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Passed</span>
-                          <span className="percent">{sectionWiseResultList && sectionWiseResultList.length ? `(${+((sectionWiseResultList.filter(b => b.passFailStatus === "Passed").length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0}
+                          <span className="percent">{sectionWiseResultList && sectionWiseResultList.length ? `(${+((sectionWiseResultList.filter(b => b.passFailStatus === "Passed").length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0 + '%'}
                           </span>
 
                         </div>
@@ -166,60 +166,65 @@ export class SectionWiseResult extends React.Component {
                         <div className="legend-with-percent absent">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Failed</span>
-                          <span className="percent">{sectionWiseResultList && sectionWiseResultList.length ? `(${+((sectionWiseResultList.filter(b => b.passFailStatus === "Failed").length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0}</span>
+                          <span className="percent">{sectionWiseResultList && sectionWiseResultList.length ? `(${+((sectionWiseResultList.filter(b => b.passFailStatus === "Failed").length / sectionWiseResultList.length) * 100).toFixed(2)} %)` : 0 + '%'}</span>
                         </div>
                       </div>
-                      <div className="col-md-12 col-lg-6 form">
+                      <div className="row col-md-12 col-lg-6 form">
                         <Form inline>
-
-                          <FormGroup className="custom-dropdown">
+                          <div className="col-12 ">
                             {this.props.loaderType === 'autoLoadOn' ? inputFieldLoaderLarge() :
-
-                              <Input
-                                type="select"
-                                name="year"
-                                onChange={this.onChangeAcYear}
-                              >
-                                <option value=''>Select Academic Year</option>
-                                {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
-                              </Input>
-
+                              <FormGroup className="custom-dropdown">
+                                  <Input
+                                    type="select"
+                                    name="year"
+                                    onChange={this.onChangeAcYear}
+                                  >
+                                    <option value=''>Select Academic Year</option>
+                                    {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
+                                  </Input>
+                              <div className="error-message"> {errors['year']}</div>
+                              </FormGroup>
                             }
-                          </FormGroup>
-                          <div className="error-message"> {errors['year']}</div>
+                          </div>
 
-                          <FormGroup className="custom-dropdown">
+                          <div className="col-12 ">
                             {this.props.loaderType === 'autoLoadOn' ? inputFieldLoaderLarge() :
-
-                              <Input type="select" name="section" onChange={this.onChangeSection}
-                              >
-                                <option value=''>Select a Section</option>
-                                {
-                                  sectionList && sectionList.map((item, index) =>
-                                    <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
-                                  )
-                                }
-                              </Input>
+                              <FormGroup className="custom-dropdown">
+                                <Input type="select" name="section" onChange={this.onChangeSection}
+                                >
+                                  <option value=''>Select a Section</option>
+                                  {
+                                    sectionList && sectionList.map((item, index) =>
+                                      <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
+                                    )
+                                  }
+                                </Input>
+                                <div className="error-message"> {errors['section']}</div>
+                              </FormGroup>
                             }
-                          </FormGroup>
-                          <div className="error-message"> {errors['section']}</div>
+                          </div>
 
-                          <FormGroup className="custom-dropdown">
+                          <div className="col-12 ">
                             {this.props.loaderType === 'dependendLoadOn' ? inputFieldLoaderLarge() :
-                              <Input type="select" name="examType" onChange={this.onChangeExam}
-                              >
-                                <option value=''>Select Exam</option>
-                                {examList && examList.map(item => (
-                                  <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
-                                ))}
-                              </Input>
+                              <FormGroup className="custom-dropdown">
+                                <Input type="select" name="examType" onChange={this.onChangeExam}
+                                >
+                                  <option value=''>Select Exam</option>
+                                  {examList && examList.map(item => (
+                                    <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
+                                  ))}
+                                </Input>
+                                <div className="error-message"> {errors['examType']}</div>
+                              </FormGroup>
                             }
-                          </FormGroup>
-                          <div className="error-message"> {errors['examType']}</div>
+                          </div>
+                          
 
-                          <Button className="btn explore-btn full-width all-border-radious" onClick={this.onSubmitSearch}>
-                            <i class="fas fa-chevron-circle-right mr-3" ></i> Search
-                        </Button>
+                          <div className="col-12 ">
+                            <Button className="btn explore-btn full-width all-border-radious" onClick={this.onSubmitSearch}>
+                              <i class="fas fa-chevron-circle-right mr-3" ></i> Search
+                            </Button>
+                          </div>
                         </Form>
                       </div>
                     </div>
@@ -227,7 +232,7 @@ export class SectionWiseResult extends React.Component {
                 </div>
               </div>
 
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title with-print">
@@ -255,7 +260,7 @@ export class SectionWiseResult extends React.Component {
                           <thead>
                             <tr>
                               {/* <th>Photo</th> */}
-                              <th>Student's ID.</th>
+                              <th>Student ID</th>
                               <th>Roll No.</th>
                               <th>Student's Name</th>
                               <th>Total Marks</th>
@@ -270,7 +275,7 @@ export class SectionWiseResult extends React.Component {
                                 sectionWiseResultList.map((item, index) =>
                                   <tr>
                                     {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
-                                    <td>{item.customStudentId}</td>
+                                    <td className="text-center">{item.customStudentId}</td>
                                     <td>{item.studentRoll}</td>
                                     <td>{item.studentName}</td>
                                     <td>{item.totalMarks}</td>
@@ -304,7 +309,7 @@ export class SectionWiseResult extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

@@ -134,10 +134,10 @@ export class FailList extends React.Component {
           <section>
             <div className="container-fluid">
 
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
-                    <div className="row attendance-body-header-inside">
+                    <div className="row attendance-body-header-inside py-4">
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
                           <div className="col-md-6 col-lg-3">
@@ -152,8 +152,8 @@ export class FailList extends React.Component {
                                   <option value=''>Select Academic Year</option>
                                   {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
                                 </Input>
+                                <span className="error-message"> {errors['year']}</span>
                               </FormGroup>
-                              <span className="error-message"> {errors['year']}</span>
                             </div>
                             }
                           </div>
@@ -174,8 +174,8 @@ export class FailList extends React.Component {
                                     )
                                   }
                                 </Input>
+                                <span className="error-message"> {errors['section']}</span>
                               </FormGroup>
-                              <span className="error-message"> {errors['section']}</span>
                             </div>
                             }
                           </div>
@@ -194,8 +194,8 @@ export class FailList extends React.Component {
                                     <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
                                   ))}
                                 </Input>
+                                <span className="error-message"> {errors['examType']}</span>
                               </FormGroup>
-                              <span className="error-message"> {errors['examType']}</span>
 
                             </div>
                             }
@@ -219,7 +219,7 @@ export class FailList extends React.Component {
                 </div>
               </div>
 
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title with-print">
@@ -260,7 +260,7 @@ export class FailList extends React.Component {
                                 failList.map((item, index) =>
                                   <tr>
                                     {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
-                                    <td>{item.customStudentId}</td>
+                                    <td className="text-center">{item.customStudentId}</td>
                                     <td>{item.studentRoll}</td>
                                     <td>{item.studentName}</td>
                                     <td>{item.totalMarks}</td>
@@ -293,7 +293,7 @@ export class FailList extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

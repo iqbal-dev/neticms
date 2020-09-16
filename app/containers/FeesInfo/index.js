@@ -84,33 +84,61 @@ export class FeesInfo extends React.Component {
           <section>
             <div className="fees-info-main">
               <div className="container-fluid">
-                <div className="container p-t-60">
-                  <Row>
-                    <div className="fees-info-subheader m-b-30">
-                      <Col sm="12" lg="6">
-                        {' '}
+                <div className="container m-t-40">
+                  <Row className="fees-info-subheader">
+                      <Col className="col-12 col-md-12 col-lg-6 col-xl-8 py-2 align-items-center" >
                         Showing result for class <span> {selectedClassName}</span>
                       </Col>
-                      <Col sm="12" lg="6" className="search-dropdown">
-                        {this.props.loaderStatus === "autoLoadOn" ? inputFieldLoader() : <div>
+                      <Col className="col-12 col-md-12 col-lg-6 col-xl-4 pr-0 pl-4 search-dropdown">
+                        {this.props.loaderStatus === "autoLoadOn" ? inputFieldLoader() : 
+                          <div className="row col-md-12 col-lg-12 form px-0">
+                            
+                            {/* <div className="col-12">  */}
+                            <Form inline className="col-12 px-0">
+                              <FormGroup className="custom-dropdown mb-0">
+                                <Input
+                                  type="select"
+                                  name="class"
+                                  onChange={this.props.onChangeClass}
+                                  value={this.props.classValue}
 
-                          <Input
-                            type="select"
-                            name="class"
-                            onChange={this.props.onChangeClass}
-                            value={this.props.classValue}
+                                  id="class-search-dropdown"
+                                >
+                                  <option value=''>Select Class</option>
+                                  {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
+                                </Input>
 
-                            id="class-search-dropdown"
-                          >
-                            <option value=''>Select Class</option>
-                            {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
-                          </Input>
-                        </div>
+                                <Button
+                                  className="btn explore-btn mb-0"
+                                  onClick={this.props.submitSearch}
+                                >
+                                  <i class="fas fa-chevron-circle-right mr-3" ></i> Search
+                                  </Button>
+                              </FormGroup>
+                              {/* <span className="error-message">{this.state.errors["studentID"]}</span> */}
+                            </Form>
+                            {/* </div> */}
+                            
+                          </div>
+                          
+                          // <div>
+
+                          //   <Input
+                          //     type="select"
+                          //     name="class"
+                          //     onChange={this.props.onChangeClass}
+                          //     value={this.props.classValue}
+
+                          //     id="class-search-dropdown"
+                          //   >
+                          //     <option value=''>Select Class</option>
+                          //     {this.props.classList && this.props.classList.map(item => (<option key={item.classId} value={item.classId}>{item.className}</option>))}
+                          //   </Input>
+                          // </div>
                         }
-                        <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button>
+                        {/* <Button className="btn explore-btn" onClick={this.props.submitSearch}>Search</Button> */}
 
                       </Col>
-                    </div>
                   </Row>
                   <Row>
                     {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
@@ -121,7 +149,7 @@ export class FeesInfo extends React.Component {
                           <Card border="primary">
                             <CardHeader>
                               {item.feeName}
-                              <span>
+                              <span >  {/* className="custom-tooltip" details={item.feeDetails}*/}
                                 <i className="fas fa-info pr-2" />
                               </span>
                             </CardHeader>
@@ -171,6 +199,15 @@ export class FeesInfo extends React.Component {
 
                 </div>
               </div>
+
+              <div className="container">
+                <div className="row">
+                  <div className="offset-md-1 col-md-10">
+                    <div className="custom-title-border-center mb-2" />
+                  </div>
+                </div>
+              </div>
+              
             </div>
           </section>
         </AppLayout>

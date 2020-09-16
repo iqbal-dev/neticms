@@ -53,8 +53,9 @@ function inlineFormInputField() {
 
 function inputFieldLoader() {
     return <ContentLoader
+        // viewBox="0 0 40 100%"
         height={40}
-        width={350}
+        // width={350}
         speed={2}
         primaryColor="#f3f3f3"
         secondaryColor="#ecebeb"
@@ -66,14 +67,15 @@ function inputFieldLoader() {
 
 function inputFieldLoaderLarge() {
     return <ContentLoader
-        height={100}
-        width={600}
+        viewBox="0 0 100% 40"
+        height={40}
+        width={570}
         speed={2}
         primaryColor="#f3f3f3"
         secondaryColor="#ecebeb"
     >
         {/* <rect x="-1" y="15" rx="0" ry="0" width="99" height="20" /> */}
-        <rect x="-5" y="26" rx="0" ry="0" width="600" height="40" />
+        <rect x="-5" y="0" rx="0" ry="0" width="570" height="32" />
     </ContentLoader>
 }
 

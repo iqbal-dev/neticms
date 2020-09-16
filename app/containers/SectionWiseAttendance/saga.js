@@ -56,14 +56,18 @@ export function* fetchDataByDate() {
           totalLeaveStd += attendanceDetails.totalLeaveStds;
         });
 
+        let presentPercent = ((totalPresentStd * 100) / totalStd).toFixed(1) == "NaN" ? 0 : ((totalPresentStd * 100) / totalStd).toFixed(1)
+        let absentPercent = ((totalAbsentStd * 100) / totalStd).toFixed(1) == "NaN" ? 0 : ((totalAbsentStd * 100) / totalStd).toFixed(1)
+        let leavePercent = ((totalLeaveStd * 100) / totalStd).toFixed(1) == "NaN" ? 0 : ((totalLeaveStd * 100) / totalStd).toFixed(1)
+
         chartObj = {
           totalStdData: totalStd,
           presentData: totalPresentStd,
           absentData: totalAbsentStd,
           leaveData: totalLeaveStd,
-          presentPercent: ((totalPresentStd * 100) / totalStd).toFixed(1),
-          absentPercent: ((totalAbsentStd * 100) / totalStd).toFixed(1),
-          leavePercent: ((totalLeaveStd * 100) / totalStd).toFixed(1),
+          presentPercent: presentPercent,
+          absentPercent: absentPercent,
+          leavePercent: leavePercent,
         }
 
         yield put(setChartDataArray(chartObj));

@@ -129,14 +129,14 @@ export class FindPayslip extends React.PureComponent {
 
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
                     <div className="row attendance-body-header-inside">
 
-                      <div className="col-md-12 col-lg-12 form">
+                      <div className="col-md-12 col-lg-12 form py-5">
                         <Form inline>
-                          <div className="col-md-5">
+                          <div className="col-12 col-xl-4">
                             <FormGroup className="custom-dropdown">
                               <Input
                                 type="select"
@@ -147,11 +147,12 @@ export class FindPayslip extends React.PureComponent {
                                 <option value=''>Select Academic Year</option>
                                 {academicYearList && academicYearList.map(item => (<option key={item.name} value={academicYear || item.name}>{item.name}</option>))}
                               </Input>
+                              <span className="error-message">{this.state.errors["year"]}</span>
                             </FormGroup>
-                            <span className="error-message">{this.state.errors["year"]}</span>
+                            
                           </div>
 
-                          <div className="col-md-7">
+                          <div className="col-12 col-xl-4">
                             <FormGroup className="mb-0">
                               <Input
                                 type="text"
@@ -159,15 +160,20 @@ export class FindPayslip extends React.PureComponent {
                                 placeholder="Enter Student ID Number"
                                 onChange={(e) => this.onChangeStudentId(e)}
                               />
+                              <span className="error-message">{this.state.errors["studentID"]}</span>
+                            </FormGroup>
+                            
+                          </div>
 
+                          <div className="col-12 col-xl-4">
+                            <FormGroup className="mb-0">
                               <Button
-                                className="btn explore-btn mb-0"
+                                className="btn explore-btn mb-0 all-border-radious"
                                 onClick={this.handleSubmitSearch}
                               >
                                 <i class="fas fa-chevron-circle-right mr-3" ></i> Search
                               </Button>
                             </FormGroup>
-                            <span className="error-message">{this.state.errors["studentID"]}</span>
                           </div>
 
                           {/* </div> */}
@@ -188,7 +194,7 @@ export class FindPayslip extends React.PureComponent {
               <div className="container">
                 <div className="row">
                   <div className="col-md-12">
-                    <div className="row find-pay-slip-info-wrapper">
+                    <div className="row find-pay-slip-info-wrapper py-4">
                       <div className="col-lg-6 col-md-12">
                         <div className="student-info d-md-flex align-items-lg-center justify-content-md-center">
                           <div className="student-image">
@@ -213,7 +219,7 @@ export class FindPayslip extends React.PureComponent {
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-12">
-                        <div className="d-md-flex align-items-md-center justify-content-md-center">
+                        <div className="d-md-flex align-items-md-center justify-content-md-center py-3">
                           <div className="roll-no-box">
                             <div className="text-center">
                               <span>Roll No.</span>
@@ -333,7 +339,7 @@ export class FindPayslip extends React.PureComponent {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

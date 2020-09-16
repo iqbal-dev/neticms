@@ -126,7 +126,7 @@ export class SyllabusInfo extends React.Component {
             pageTitle="Syllabus Info"
             menuStepFirst="Academic Info"
             menuStepSenond="Details Info"
-            menuStepThird="Syllabus Info"
+            menuStepThird="Syllabus"
           />
 
           <section>
@@ -171,23 +171,27 @@ export class SyllabusInfo extends React.Component {
                     </div>
                   </di>
                 </div>
-                <div className="row m-t-40">
-                  <div className="col-md-12">
-                    <div className="text-center m-t-40">
 
-                      {this.state.exploreBtnShow ?
-                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
-                          Load More <i className="fas fa-angle-right" />
-                        </button>
-                        :
-                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
-                          Load Less <i className="fas fa-angle-right" />
-                        </button>
-                      }
+                {this.props.allSyllabusList && this.props.allSyllabusList.length > 5? 
+                  <div className="row m-t-30">
+                    <div className="col-md-12">
+                      <div className="text-center">
 
+                        {this.state.exploreBtnShow ?
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                            Load More <i className="fas fa-angle-right" />
+                          </button>
+                          :
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
+                            Load Less <i className="fas fa-angle-right" />
+                          </button>
+                        }
+
+                      </div>
                     </div>
                   </div>
-                </div>
+                  : ''
+                }
               </div>
             </div>
           </section>
@@ -195,7 +199,7 @@ export class SyllabusInfo extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

@@ -42,7 +42,7 @@ import {
 import {
   makeSelectStudentID,
 } from './selectors';
-import { inputFieldLoaderLarge, centerTableLoader } from '../../utils/contentLoader';
+import { inputFieldLoaderLarge, centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 
 /* eslint-disable react/prefer-stateless-function */
 export class IndividualResult extends React.Component {
@@ -54,7 +54,7 @@ export class IndividualResult extends React.Component {
       mobileNo: "",
       year: "",
       examType: "",
-      errors: {}
+      errors: {},
     }
   }
 
@@ -73,6 +73,8 @@ export class IndividualResult extends React.Component {
   }
 
   onChangeExam = (e) => {
+    console.log(e.target);
+    this.setState({ examType: e})
     this.props.onChangeExamType(e);
     this.clearErrorMsg(e.target.name);
   }
@@ -154,10 +156,10 @@ export class IndividualResult extends React.Component {
 
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 result-body-header">
-                    <div className="row result-body-header-inside">
+                    <div className="row result-body-header-inside py-4">
                       <div className="col-md-6 col-lg-3 top-position">
                         <img src={positionIcon} />
                         <div>
@@ -169,47 +171,53 @@ export class IndividualResult extends React.Component {
                       <div className="col-md-6 col-lg-9 mt-sm-5 mt-md-1 mt-lg-0 mt-5">
                         <div className="row form">
                           <Form inline className="col-lg-12">
-                            <div className="col-md-12 col-lg-6">
+                            <div className="row col-md-12 col-lg-6">
+                              <div className="col-12">
+                                <FormGroup className=" custom-input-text">
+                                  <Input
+                                    type="text"
+                                    placeholder="Enter Student Id"
+                                    name="studentID"
+                                    onChange={(e) => this.onChangeStudentId(e)}
+                                  />
+                                  <div className="error-message"> {errors['studentID']}</div>
+                                </FormGroup>
+                              </div>
 
-                              <FormGroup className=" custom-input-text">
-                                <Input
-                                  type="text"
-                                  placeholder="Enter Student Id"
-                                  name="studentID"
-                                  onChange={(e) => this.onChangeStudentId(e)}
-                                />
-                              </FormGroup>
-                              <div className="error-message"> {errors['studentID']}</div>
-
-                              <FormGroup className="custom-dropdown mt-2">
-                                <Input
-                                  type="select"
-                                  name="year"
-                                  onChange={(e) => this.onChangeAcYear(e)}
-                                // value={ this.props.academicYear}
-                                >
-                                  <option value=''>Select Academic Year</option>
-                                  {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
-                                </Input>
-                              </FormGroup>
-                              <div className="error-message"> {errors['year']}</div>
+                              <div className="col-12">
+                                <FormGroup className="custom-dropdown mt-2">
+                                  <Input
+                                    type="select"
+                                    name="year"
+                                    onChange={(e) => this.onChangeAcYear(e)}
+                                  // value={ this.props.academicYear}
+                                  >
+                                    <option value=''>Select Academic Year</option>
+                                    {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
+                                  </Input>
+                                  <div className="error-message"> {errors['year']}</div>
+                                </FormGroup>
+                              </div>
 
                             </div>
 
-                            <div className="col-md-12 col-lg-6">
-                              <FormGroup className="custom-dropdown mt-0">
-                                {this.props.loaderType === 'dependendLoadOn' ? inputFieldLoaderLarge() :
-                                  <Input
-                                    type="select"
-                                    name="examType"
-                                    onChange={(e) => this.onChangeExam(e)}
-                                  >
-                                    <option value=''>Select Exam Type</option>
-                                    {examList && examList.map(item => (<option key={item.examObject.id} value={item.examObject.id}>{item.examObject.name}</option>))}
-                                  </Input>
+                            <div className="row col-md-12 col-lg-6">
+                              <div className="col-12">
+                                {this.props.loaderType === 'dependendLoadOn' ? inputFieldLoader() :
+                                  <FormGroup className="custom-dropdown">
+                                    <Input
+                                      type="select"
+                                      name="examType"
+                                      onChange={(e) => this.onChangeExam(e)}
+                                    >
+                                      <option value=''>Select Exam Type</option>
+                                      {examList && examList.map(item => (<option key={item.examObject.id} value={item.examObject.id}>{item.examObject.name}</option>))}
+                                    </Input>
+                                    <div className="error-message"> {errors['examType']}</div>
+                                  </FormGroup>
                                 }
-                              </FormGroup>
-                              <div className="error-message"> {errors['examType']}</div>
+                              </div>
+                              
 
                               {/* <FormGroup className="custom-input-text">
                                 <Input
@@ -221,14 +229,17 @@ export class IndividualResult extends React.Component {
                               </FormGroup>
                               <div className="error-message"> {errors['mobileNo']}</div> */}
 
-                              <FormGroup>
-                                <Button
-                                  className="btn explore-btn full-width all-border-radious"
-                                  onClick={this.onSubmitSearchHandle}
-                                >
-                                  <i class="fas fa-chevron-circle-right mr-3"></i> Search
-                              </Button>
-                              </FormGroup>
+                              <div className="col-12">
+                                <FormGroup className="mt-2">
+                                  <Button
+                                    className={ errors['examType']? "btn explore-btn full-width all-border-radious mb-3" : 'btn explore-btn full-width all-border-radious'}
+                                    onClick={this.onSubmitSearchHandle}
+                                  >
+                                    <i class="fas fa-chevron-circle-right mr-3"></i> Search
+                                  </Button>
+                                  
+                                </FormGroup>
+                              </div>
 
                             </div>
 
@@ -254,7 +265,7 @@ export class IndividualResult extends React.Component {
                 </div>
               </div>
 
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title with-print mb-4">
@@ -409,7 +420,7 @@ export class IndividualResult extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

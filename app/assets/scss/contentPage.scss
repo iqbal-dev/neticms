@@ -541,7 +541,7 @@
     // box-shadow: 2px -2px 7px #00000040;
 
     img {
-      width: 75% !important;
+      width: 60% !important;
     }
   }
 
@@ -1350,9 +1350,10 @@
       tr {
         background: $tableHeaderTransparent;
         border: none;
+
         th {
           border: none;
-          color: $colorBlack;
+          color: $colorWhite;
           font-size: $fontSizeSecondary;
           font-weight: $fontWeightPrimary;
         }
@@ -1361,18 +1362,21 @@
     }
     tbody {
       tr {
+        background: transparent;
         border-bottom: 2px solid #fff;
+
         &:nth-of-type(odd) {
           background-color: rgba(0, 0, 0, 0.05);
         }
         &:nth-of-type(even) {
-          background-color: $tableHeaderTransparent;
+          background-color: rgba($tableHeaderTransparent, .1);
         }
         td {
           border-top: none;
           color: $colorBlack;
           font-size: $fontSizeSecondarySmall;
           font-weight: $fontWeightSecondary;
+          vertical-align: middle;
         }
       }
     }
@@ -1585,13 +1589,17 @@
   -webkit-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
   -moz-box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
   box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
-  padding-top: 20px;
-  padding-bottom: 20px;
+  // padding-top: 20px;
+  // padding-bottom: 20px;
   margin-left: 0px !important;
   margin-right: 0px !important;
+  display: flex;
+  align-items: center;
+
   .student-info-table {
-    margin-left: 25px;
-    margin-top: 20px;
+    margin: auto 0 auto 25px;
+    // margin-left: 25px;
+    // margin-top: 20px;
     .table {
       margin-bottom: 0px;
       tr {
@@ -1628,7 +1636,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    // margin-top: 20px;
+
     span {
       padding-bottom: 20px;
       display: block;
@@ -1659,7 +1668,7 @@
           color: $colorWhite;
           font-weight: 600;
           margin-bottom: 0px;
-          font-size: 24px;
+          font-size: $fontSizeSecondary;
           text-align: center;
         }
       }
