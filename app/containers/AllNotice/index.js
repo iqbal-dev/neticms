@@ -23,7 +23,7 @@ import { AppLayout } from '../AppLayout';
 import { get_YYMMDD_Format_WithHyphen, getFullMonthName } from '../../utils/dateFormat';
 import PDFViewer from 'pdf-viewer-reactjs'
 import { getNoticeFileContent, reSetDownloadFile } from './actions';
-import { getFileContentType } from '../../utils/FileHandler'
+import { getFileContentType, getFileTypeOnly } from '../../utils/FileHandler'
 
 import { Worker } from '@phuocng/react-pdf-viewer';
 import Viewer from '@phuocng/react-pdf-viewer';
@@ -36,8 +36,8 @@ import { centerTableLoader, smallTableLoader, tableLoader } from '../../utils/co
 let allNoticeDetails = '';
 let moreOrLessBtnVisibleOption = true;
 let downloadFileContent = '';
+let viewFileType = '';
 
-/* eslint-disable react/prefer-stateless-function */
 export class AllNotice extends React.Component {
 
   constructor(props) {
@@ -90,9 +90,11 @@ export class AllNotice extends React.Component {
     if (this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId) {
       if (this.props.noticeFileContent && this.props.noticeFileContent.file) {
         let contentType = getFileContentType(this.props.noticeFileContent && this.props.noticeFileContent.noticeFileName);
+        console.log('contentType', contentType);
         viewerBase64File = contentType + this.props.noticeFileContent.file
       }
     }
+    console.log('notice-file-content', this.props.noticeFileContent);
 
     return (
       notice.slice(0, this.state.noticeQty).map(notice => (
@@ -245,7 +247,10 @@ export class AllNotice extends React.Component {
     //   this.props.reSetDownloadFile();
     // }
     // }
-
+    if (this.props.noticeFileContent) {
+      console.log('getFileTypeOnly', getFileTypeOnly(this.props.noticeFileContent.noticeFileName));
+      viewFileType = getFileTypeOnly(this.props.noticeFileContent.noticeFileName);
+    }
     const toggle = () => { this.setState({ pdfVisible: !this.state.pdfVisible }) };
 
     return (
@@ -330,11 +335,15 @@ export class AllNotice extends React.Component {
                           this.props.noticeFileContent && this.props.noticeFileContent.file ?
                             <React.Fragment>
                               <button className="btn btn-primary my-2" onClick={() => this.downloadPdf(this.props.noticeFileContent, 'single')}>Download</button>
-                              <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                                <Viewer
-                                  fileUrl={this.base64ToBufferAsync(this.props.noticeFileContent.file)}
-                                />
-                              </Worker>
+                              {viewFileType === 'image' ?
+                                <div className='notice-img-view'> <img src={"data:image/*;base64," + this.props.noticeFileContent.file} /></div>
+                                :
+                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                                  <Viewer
+                                    fileUrl={this.base64ToBufferAsync(this.props.noticeFileContent.file)}
+                                  />
+                                </Worker>
+                              }
                             </React.Fragment>
                             : ''
                         }

@@ -19,8 +19,6 @@
   background-color: $grayColorLight;
 }
 
-
-
 #scrollTopBtn {
   height: 56px;
   width: 56px;
@@ -64,3 +62,15 @@
 // #scrollTopBtn:hover {
 //   background-color: #555;
 // }
+
+// for notice image view
+.notice-img-view {
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: none;
+    display: block;
+  }
+}
