@@ -9,6 +9,27 @@
         font-weight: 700;
         color: $orangeColor;
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        span{
+            // position: absolute;
+            // right: 5px;
+            // top: 17px;
+            position: relative;
+            width: 25px;
+            height: 25px;
+            padding: 0 0 0 5px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 50%;
+
+            i.fas.fa-info.pr-2 {
+                font-size: 14px;
+                font-style: italic;
+            }
+        }
 
     }
 
@@ -20,11 +41,7 @@
         }
     }
 
-    i.fas.fa-info.pr-2 {
-       position: absolute;
-       right: 5px;
-       top: 17px;
-    }
+    
 
     i.fas.fa-info.pr-2::before {
         background: #fff;

@@ -121,7 +121,7 @@ export class SeatInfo extends React.Component {
 
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60 p-b-60">
+              <div className="container m-t-30">
                 <div className="row">
                   {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
 
@@ -133,29 +133,33 @@ export class SeatInfo extends React.Component {
 
                   }
                 </div>
-                <div className="row m-t-40">
-                  <div className="col-md-12">
-                    <div className="text-center m-t-40">
+                {this.props.seatInfoList && this.props.seatInfoList.length > 6? 
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="text-center">
 
-                      {this.state.exploreBtnShow ?
-                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
-                          Explore all <i className="fas fa-angle-right" />
-                        </button>
-                        :
-                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
-                          Explore less <i className="fas fa-angle-right" />
-                        </button>
-                      }
 
-                      {/* <button class="btn explore-btn-lg">Explore all <i class="fas fa-angle-right"></i></button> */}
+                        {this.state.exploreBtnShow ?
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                            Explore all <i className="fas fa-angle-right" />
+                          </button>
+                          :
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
+                            Explore less <i className="fas fa-angle-right" />
+                          </button>
+
+                        }
+                      </div>
                     </div>
                   </div>
-                </div>
+                  : ''
+                }
+                
               </div>
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center"></div>
+                    <div className="custom-title-border-center mb-2"></div>
                   </div>
                 </div>
               </div>

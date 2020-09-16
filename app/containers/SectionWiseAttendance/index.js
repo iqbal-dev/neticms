@@ -79,10 +79,8 @@ export class SectionWiseAttendance extends React.Component {
   }
 
   render() {
-
-    // console.log("data list - index", this.props.attendanceListData);
     let { attendanceListData, chartDataArray } = this.props;
-    console.log("chartDataArray list - index", chartDataArray);
+    // console.log("chartDataArray list - index", chartDataArray);
 
     return (
       <div>
@@ -97,7 +95,7 @@ export class SectionWiseAttendance extends React.Component {
           {/* <FormattedMessage {...messages.header} /> */}
 
           <BreadcrumComponent
-            pageTitle="Section Wise Attendance"
+            pageTitle="Section Attendance"
             menuStepFirst="Academic Info"
             menuStepSenond="Student Attendance"
             menuStepThird="Section Wise"
@@ -105,10 +103,10 @@ export class SectionWiseAttendance extends React.Component {
 
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
-                    <div className="row attendance-body-header-inside">
+                    <div className="row attendance-body-header-inside py-4">
                       <div className="col-lg-3">
                         {chartDataArray ?
                           <Chart
@@ -144,7 +142,7 @@ export class SectionWiseAttendance extends React.Component {
                         }
                       </div>
 
-                      <div className="col-lg-3 m-t-30 m-b-30 ">
+                      <div className="col-lg-3 my-3">
                         <div className="legend-with-percent present">
                           {/* <span className="symbol-squire"></span> */}
                           <span className="title">Present</span>
@@ -164,35 +162,39 @@ export class SectionWiseAttendance extends React.Component {
                         </div>
                       </div>
 
-                      <div className="col-lg-6 form">
-                        <Form inline method='POST' onSubmit={(e) => this.onSubmitSearch(e)}>
-                          <DatePicker
-                            placeholderText='select date'
-                            dateFormat="dd/MM/yyyy"
-                            peekNextMonth
-                            showMonthDropdown
-                            showYearDropdown
-                            dropdownMode="select"
-                            isClearable
-                            fixedHeight
-                            selected={this.props.selectedDate}
-                            onChange={this.handleDateChange}
-                            className="dayPicker-custom-input"
-                            name='date'
-                          />
-                          {/*                             
-                            <Input
-                              type="date"
-                              name="date"
-                              id="exampleDate"
-                              placeholder="date placeholder"
-                              value={this.props.selectedDate}
-                              onChange={(e) => this.props.onChangeDate(e)}
-                            /> */}
-                          <Button className="btn explore-btn">Search</Button>
-                        </Form>
-                        <span className='error-message'>{this.state.errors['date']}</span>
+                      <div className="row col-lg-6 form">
 
+                        <div className="col-12 col-xl-8 my-2">
+                          <FormGroup className="custom-dropdown">
+                            <DatePicker
+                              placeholderText='select date'
+                              dateFormat="dd/MM/yyyy"
+                              peekNextMonth
+                              showMonthDropdown
+                              showYearDropdown
+                              dropdownMode="select"
+                              isClearable
+                              fixedHeight
+                              selected={this.props.selectedDate}
+                              onChange={this.handleDateChange}
+                              className="dayPicker-custom-input group-btn"
+                              name='date'
+                            />
+                          </FormGroup>
+                          <span className="error-message">{this.state.errors["date"]}</span>
+                        </div>
+
+                        <div className="col-12 col-xl-4 my-2">
+                          <FormGroup className="custom-dropdown">
+                            <Button
+                              className="btn explore-btn mb-0"
+                              onClick={(e) => this.onSubmitSearch(e)}
+                            >
+                              <i class="fas fa-chevron-circle-right mr-3" ></i> Search
+                            </Button>
+                          </FormGroup>
+                          <span className="error-message">{this.state.errors["year"]}</span>
+                        </div>
                       </div>
 
                     </div>
@@ -200,7 +202,7 @@ export class SectionWiseAttendance extends React.Component {
                 </div>
               </div>
 
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title">
@@ -287,7 +289,7 @@ export class SectionWiseAttendance extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

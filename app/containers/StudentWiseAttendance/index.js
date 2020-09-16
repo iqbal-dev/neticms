@@ -127,7 +127,7 @@ export class StudentWiseAttendance extends React.Component {
           </Helmet>
 
           <BreadcrumComponent
-            pageTitle="Student Wise Attendance"
+            pageTitle="Student Attendance"
             menuStepFirst="Academic Info"
             menuStepSenond="Student Attendance"
             menuStepThird="Student Wise"
@@ -136,10 +136,10 @@ export class StudentWiseAttendance extends React.Component {
           <section>
             <div className="container-fluid">
 
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
-                    <div className="row attendance-body-header-inside">
+                    <div className="row attendance-body-header-inside py-4">
                       <div className="col-md-12 col-lg-12 form">
                         <Form method='POST' onSubmit={(e) => this.onSubmitSearch(e)} inline>
                           <div className="col-md-12 col-lg-3">
@@ -253,7 +253,7 @@ export class StudentWiseAttendance extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
-                    <div className="row attendance-body-header-inside justify-content-md-center">
+                    <div className="row attendance-body-header-inside justify-content-md-center py-4">
                       <div className="col-md-6 col-lg-2 img">
                         <div className="attendance present"><img src={donorImage} /></div>
                       </div>
@@ -449,7 +449,7 @@ export class StudentWiseAttendance extends React.Component {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>

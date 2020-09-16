@@ -12,8 +12,8 @@
         text-decoration: none;
 
         .number {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50% !important;
             display: flex;
             flex-direction: column;
@@ -22,9 +22,12 @@
             background: $orangeColor;
             z-index: 100;
             color: $colorWhite;
+            font-size: 25px; 
+            // padding: 15px 50px;
+
             span {
                 font-weight: 700 !important;
-                font-size: 35px;
+                // font-size: 35px;
             }
             p {
                 font-size: 16px;
@@ -33,7 +36,7 @@
 
         .seat-details {
             width: 300px;
-            padding: 10px 20px;
+            padding: 15px 40px;
             background: $grayColorLight;
             margin-left: -15px;
             flex-direction: column;
