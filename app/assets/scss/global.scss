@@ -40,7 +40,7 @@
 *::-webkit-scrollbar-thumb,
 .nw-layout-content::-webkit-scrollbar-thumb {
   // background-color: #AEDBFF;
-  box-shadow: inset 0 0 14px 14px color.scale($orangeColor, $lightness: 50%);
+  box-shadow: inset 0 0 14px 14px $scrollBarColor; //color.scale($orangeColor, $lightness: 50%);
   border: solid 4px transparent;
   border-radius: 14px;
   //   outline: 1px solid #ef5350;
