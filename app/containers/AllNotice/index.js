@@ -22,7 +22,7 @@ import { makeSelectNoticeList } from '../HomePage/selectors';
 import { AppLayout } from '../AppLayout';
 import { get_YYMMDD_Format_WithHyphen, getFullMonthName } from '../../utils/dateFormat';
 import PDFViewer from 'pdf-viewer-reactjs'
-import { getNoticeFileContent, reSetDownloadFile } from './actions';
+import { getNoticeFileContent, reSetDownloadFile, setNoticeFileContent } from './actions';
 import { getFileContentType, getFileTypeOnly } from '../../utils/FileHandler'
 
 import { Worker } from '@phuocng/react-pdf-viewer';
@@ -32,6 +32,7 @@ import Viewer from '@phuocng/react-pdf-viewer';
 import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { centerTableLoader, smallTableLoader, tableLoader } from '../../utils/contentLoader';
+import { BASE_URL_NETI_CMS, fetch_notice_file_content } from '../../utils/serviceUrl';
 
 let allNoticeDetails = '';
 let moreOrLessBtnVisibleOption = true;
@@ -52,7 +53,6 @@ export class AllNotice extends React.Component {
 
   componentDidMount() {
     if (this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId) {
-      // console.log('this.props.location.singleNotice', this.props.location.singleNotice);
       this.props.getNoticeFileContent(this.props.location.singleNotice)
     }
   }
@@ -86,18 +86,17 @@ export class AllNotice extends React.Component {
   getNoticeView = (notice, type) => {
 
     { type === 'single' ? moreOrLessBtnVisibleOption = false : moreOrLessBtnVisibleOption = true }
-    let viewerBase64File;
+
     if (this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId) {
       if (this.props.noticeFileContent && this.props.noticeFileContent.file) {
         let contentType = getFileContentType(this.props.noticeFileContent && this.props.noticeFileContent.noticeFileName);
-        console.log('contentType', contentType);
-        viewerBase64File = contentType + this.props.noticeFileContent.file
+        let viewerBase64File = contentType + this.props.noticeFileContent.file
       }
     }
-    console.log('notice-file-content', this.props.noticeFileContent);
 
     return (
       notice.slice(0, this.state.noticeQty).map(notice => (
+
         <div className='all-notice-wrapper m-b-20'>
           <div className='notice-wrapper' style={{ backgroundColor: "#ffffff" }}>
             <div className="row" >
@@ -105,41 +104,46 @@ export class AllNotice extends React.Component {
                 <div className="event-date mt-3">Published on  <i className="fas fa-calendar-alt" /> {this.formatDate(notice.noticeIssueDate)} </div>
                 <h2 className='p-t-20'>{notice.noticeTitle}</h2>
                 <p>{this.getPlainTextFromHtml(notice.noticeDetails)}</p>
+
                 {type == 'single' ?
                   <React.Fragment>
+                    {this.props.loaderType === 'loaderOn' ? centerTableLoader() :
 
-                    {/* <button className="btn btn-secondary mr-2" onClick={(e) => this.viewPdf(e, notice) }>pdf</button> */}
-                    {this.props.noticeFileContent && this.props.noticeFileContent.file ?
-                      <button className="btn btn-primary mr-2" onClick={() => this.downloadPdf(notice, 'single')}>Download</button>
-                      : ""
+                      <div>
+                        {this.props.noticeFileContent && this.props.noticeFileContent.file ?
+
+                          viewFileType === 'image' ?
+                            <div className='notice-img-view'>
+                              <button className="btn btn-primary mr-2 m-b-20 d-flex ml-auto" onClick={() => this.downloadPdf(notice, 'single')}><i className="fas fa-download m-1 "></i>Download</button>
+                              <img src={"data:image/*;base64," + this.props.noticeFileContent.file} />
+                            </div>
+                            : viewFileType === 'pdf' ?
+                              <div>
+                                <button className="btn btn-primary mr-2 m-b-20 d-flex ml-auto" onClick={() => this.downloadPdf(notice, 'single')}><i className="fas fa-download m-1 "></i>Download</button>
+                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                                  <Viewer
+                                    fileUrl={this.base64ToBufferAsync(this.props.noticeFileContent.file)}
+                                  />
+                                </Worker>
+                              </div>
+
+                              : <button className="btn btn-primary  mr-2 d-flex ml-auto m-b-20" onClick={() => this.downloadPdf(notice, 'single')}><i className="fas fa-download m-1 "></i>Download</button>
+
+                          : 'file content not found'
+                        }
+                      </div>
+
                     }
                   </React.Fragment>
                   :
                   <React.Fragment>
-                    <button className="btn btn-secondary mr-2 d-flex ml-auto" onClick={(e) => this.viewPdf(e, notice)}><i className="fa fa-eye m-1 "></i> PDF</button>
-
-                    {/* <button className="btn btn-primary mr-2" onClick={() => downloadPdf(notice, 'all')}>Download PDF</button> */}
-
+                    {getFileTypeOnly(notice.noticeFileName) === 'pdf' || getFileTypeOnly(notice.noticeFileName) === 'image' ?
+                      <button className="btn btn-secondary mr-2 d-flex ml-auto" onClick={(e) => this.viewPdf(e, notice)}><i className="fa fa-eye m-1 "></i> View</button>
+                      : <button className="btn btn-primary  mr-2 d-flex ml-auto m-b-20" onClick={() => this.downloadDocFromALlNotice(notice)}><i className="fas fa-download m-1 "></i>Download</button>}
                   </React.Fragment>
                 }
               </div>
-              {
-                type == 'single' ?
-                  <div className="col-md-12">
-                    {
-                      this.props.noticeFileContent && this.props.noticeFileContent.file ?
-                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                          <Viewer
-                            fileUrl={this.base64ToBufferAsync(this.props.noticeFileContent.file)}
-                          />
-                        </Worker>
-                        : ''
-                    }
-                  </div>
-                  :
-                  <div className="col-md-12">
-                  </div>
-              }
+
             </div>
           </div>
         </div>
@@ -150,10 +154,6 @@ export class AllNotice extends React.Component {
   viewPdf = (e, notice) => {
     this.props.getNoticeFileContent(notice)
     this.setState({ pdfVisible: true })
-    // let getContent = await this.props.getNoticeFileContent(notice)
-    // let {pdfVisible} = this.state
-    // pdfVisible[notice.noticeId.toString()] = true
-    // this.setState({ pdfVisible })
   }
 
   base64ToBufferAsync = (base64) => {
@@ -164,6 +164,37 @@ export class AllNotice extends React.Component {
       bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes.buffer;
+  }
+
+  downloadDocFromALlNotice = (notice) => {
+
+    fetch(BASE_URL_NETI_CMS.concat(fetch_notice_file_content).concat('?noticeId=').concat(notice.noticeId), {
+      method: 'GET',
+      headers: { "Content-type": "application/json; charset=UTF-8" }
+    }).then(res => {
+
+      console.log('fetch', res);
+      if (res.status === 302) {
+
+        return res.json().then(body => {
+
+          let contentType = getFileContentType(notice.noticeFileName);
+          let a = document.createElement("a");
+
+          a.href = contentType + body.file;
+          a.download = notice.noticeFileName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+
+        })
+
+      }
+
+    }).catch(error => {
+      console.log('file content not fetch', error);
+    });
+
   }
 
   downloadPdf = (notice, type) => {
@@ -180,13 +211,11 @@ export class AllNotice extends React.Component {
         a.click();
         a.remove();
 
-        // this.props.reSetDownloadFile();
       }
     }
     else {
 
-      // this.props.reSetDownloadFile();
-      this.props.getNoticeFileContent(notice)
+      this.props.getNoticeFileContent(notice);
 
       if (downloadFileContent && downloadFileContent.file) {
         let contentType = getFileContentType(downloadFileContent.noticeFileName);
@@ -198,7 +227,6 @@ export class AllNotice extends React.Component {
         a.click();
         a.remove();
 
-        // this.props.reSetDownloadFile();
       }
 
     }
@@ -218,9 +246,7 @@ export class AllNotice extends React.Component {
 
   render() {
 
-    // console.log('this.props.location', this.props.location);
     allNoticeDetails = JSON.parse(sessionStorage.allNoticeList);
-    // console.log('allNoticeDetails', allNoticeDetails);
 
     let filteredNoticeEle;
     if (this.props.location && this.props.location.singleNotice && this.props.location.singleNotice.noticeId) {
@@ -229,29 +255,15 @@ export class AllNotice extends React.Component {
 
     downloadFileContent = this.props.noticeFileContent;
 
-    // const getDownloadExecute = async (notice) => {
-    // console.log("........else notice", notice);
-    // this.props.reSetDownloadFile();
-    // this.props.getNoticeFileContent(notice)
-
-    // if (downloadFileContent && downloadFileContent.file) {
-    //   let contentType = getFileContentType(downloadFileContent.noticeFileName);
-    //   let a = document.createElement("a");
-
-    //   a.href = contentType + downloadFileContent.file;
-    //   a.download = downloadFileContent.noticeFileName;
-    //   document.body.appendChild(a);
-    //   a.click();
-    //   a.remove();
-
-    //   this.props.reSetDownloadFile();
-    // }
-    // }
     if (this.props.noticeFileContent) {
-      console.log('getFileTypeOnly', getFileTypeOnly(this.props.noticeFileContent.noticeFileName));
       viewFileType = getFileTypeOnly(this.props.noticeFileContent.noticeFileName);
     }
-    const toggle = () => { this.setState({ pdfVisible: !this.state.pdfVisible }) };
+    const toggle = () => {
+
+      this.setState({ pdfVisible: !this.state.pdfVisible });
+      this.props.reSetDownloadFileContent();
+
+    };
 
     return (
       <AppLayout>
@@ -267,7 +279,7 @@ export class AllNotice extends React.Component {
           <section>
             <div className="container-fluid">
 
-              <div className="container p-t-10">
+              <div className="container m-t-40">
 
                 <div className="row" >
                   <div className="col-md-12 all-notice-bg">
@@ -284,12 +296,12 @@ export class AllNotice extends React.Component {
 
                 <div className="row m-t-40">
                   <div className="col-md-12">
-                    {allNoticeDetails && allNoticeDetails.length && moreOrLessBtnVisibleOption ?
+                    {allNoticeDetails && allNoticeDetails.length > 5 && moreOrLessBtnVisibleOption ?
 
                       <div className="text-center m-t-40">
                         {this.state.exploreBtnVisible ?
                           <button
-                            class="btn explore-btn-lg"
+                            class="btn explore-btn"
                             onClick={this.exploreAllBtnClick}
                           >
                             Explore all <i class="fas fa-angle-right"></i>
@@ -297,7 +309,7 @@ export class AllNotice extends React.Component {
 
                           :
                           <button
-                            class="btn explore-btn-lg"
+                            class="btn explore-btn"
                             onClick={this.exploreLessBtnClick}
                           >
                             Explore less <i class="fas fa-angle-right"></i>
@@ -315,7 +327,7 @@ export class AllNotice extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center"></div>
+                    <div className="custom-title-border-center mb-2"></div>
                   </div>
                 </div>
               </div>
@@ -323,9 +335,9 @@ export class AllNotice extends React.Component {
             </div>
 
             <div>
-              {/* <Button color="danger" onClick={toggle}>check</Button> */}
+
               <Modal isOpen={this.state.pdfVisible} toggle={toggle} style={{ width: "90%" }}>
-                <ModalHeader toggle={toggle}>PDF Viewer</ModalHeader>
+                <ModalHeader toggle={toggle}>PDF/Image Viewer</ModalHeader>
                 <ModalBody>
                   {
                     this.state.pdfVisible ?
@@ -334,18 +346,19 @@ export class AllNotice extends React.Component {
                         {this.props.loaderType === 'loaderOn' ? tableLoader() :
                           this.props.noticeFileContent && this.props.noticeFileContent.file ?
                             <React.Fragment>
-                              <button className="btn btn-primary my-2" onClick={() => this.downloadPdf(this.props.noticeFileContent, 'single')}>Download</button>
+                              <button className="btn btn-primary d-flex ml-auto my-2" onClick={() => this.downloadPdf(this.props.noticeFileContent, 'single')}><i className="fas fa-download m-1 "></i>Download</button>
                               {viewFileType === 'image' ?
                                 <div className='notice-img-view'> <img src={"data:image/*;base64," + this.props.noticeFileContent.file} /></div>
-                                :
-                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
-                                  <Viewer
-                                    fileUrl={this.base64ToBufferAsync(this.props.noticeFileContent.file)}
-                                  />
-                                </Worker>
+                                : viewFileType === 'pdf' ?
+                                  <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.4.456/build/pdf.worker.min.js">
+                                    <Viewer
+                                      fileUrl={this.base64ToBufferAsync(this.props.noticeFileContent.file)}
+                                    />
+                                  </Worker>
+                                  : ''
                               }
                             </React.Fragment>
-                            : ''
+                            : 'file content not found'
                         }
                       </div>
 
@@ -354,7 +367,6 @@ export class AllNotice extends React.Component {
                   }
                 </ModalBody>
                 <ModalFooter>
-                  {/* <Button color="primary" onClick={toggle}>Do Something</Button>{' '} */}
                   <Button color="secondary" onClick={toggle}>Cancel</Button>
                 </ModalFooter>
               </Modal>
@@ -383,7 +395,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     getNoticeFileContent: e => dispatch(getNoticeFileContent(e)),
-    reSetDownloadFile: () => { dispatch(reSetDownloadFile('')) }
+    reSetDownloadFileContent: () => { dispatch(setNoticeFileContent('')) }
   };
 }
 
