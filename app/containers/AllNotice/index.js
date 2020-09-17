@@ -358,7 +358,7 @@ export class AllNotice extends React.Component {
                                   : ''
                               }
                             </React.Fragment>
-                            : 'file content not found'
+                            : 'no file content available'
                         }
                       </div>
 
