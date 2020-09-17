@@ -80,7 +80,7 @@ export class EventGallery extends React.PureComponent {
             menuStepSenond="Gallery"
             menuStepThird="Photo Gallery"
           />
-          <div className="container p-t-60 content-wrapper ">
+          <div className="container m-t-40 content-wrapper ">
             <div className="row">
               {
                 this.props.galleryImageLoader ? 
@@ -90,7 +90,7 @@ export class EventGallery extends React.PureComponent {
                 :
                 Object.keys(assigned).map((item, index) =>
 
-                  <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                  <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                     <div className="page-inner-title mb-4">
                       <h2 className="text-orange">{item}</h2>
                       <div className="custom-title-border-left"></div>
@@ -261,7 +261,7 @@ export class EventGallery extends React.PureComponent {
           <div className="container">
             <div className="row">
               <div className="offset-md-1 col-md-10">
-                <div className="custom-title-border-center" />
+                <div className="custom-title-border-center mb-2" />
               </div>
             </div>
           </div>
