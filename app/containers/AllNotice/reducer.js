@@ -7,7 +7,9 @@
 import { fromJS } from 'immutable';
 import { DEFAULT_ACTION, GET_NOTICE_FILE_CONTENT, SET_NOTICE_FILE_CONTENT, GET_DOWNLOAD_ITEM, SET_LOADER } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  singleFileContent: '',
+});
 
 function allNoticeReducer(state = initialState, action) {
   switch (action.type) {
