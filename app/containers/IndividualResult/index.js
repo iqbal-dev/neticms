@@ -73,8 +73,7 @@ export class IndividualResult extends React.Component {
   }
 
   onChangeExam = (e) => {
-    console.log(e.target);
-    this.setState({ examType: e})
+    this.setState({ examType: e.target.options[e.target.selectedIndex].text})
     this.props.onChangeExamType(e);
     this.clearErrorMsg(e.target.name);
   }
@@ -208,7 +207,8 @@ export class IndividualResult extends React.Component {
                                     <Input
                                       type="select"
                                       name="examType"
-                                      onChange={(e) => this.onChangeExam(e)}
+                                      onChange={this.onChangeExam}
+                                      // value={this.state.examType}
                                     >
                                       <option value=''>Select Exam Type</option>
                                       {examList && examList.map(item => (<option key={item.examObject.id} value={item.examObject.id}>{item.examObject.name}</option>))}
@@ -304,7 +304,11 @@ export class IndividualResult extends React.Component {
                                 <div class="img-div overlay">
                                   <i class="fas fa-search-plus"></i>
                                 </div>
-                                <img src={staticImage} width="85px" height="85px" />
+                                { resultData && resultData.pureByteImage ?
+                                <img src={"data:image/*;base64," + resultData && resultData.pureByteImage} width="85px" height="85px" />
+                                :<img src={staticImage} width="85px" height="85px" />
+                                }
+                                
                               </div>
                             </div>
 
@@ -314,7 +318,7 @@ export class IndividualResult extends React.Component {
                                 <div className=""><label>Father's Name</label>: {resultData && resultData.fatherName}</div>
                                 <div className=""><label>Mother's Name</label>: {resultData && resultData.motherName}</div>
                                 <div className=""><label>Reg. Mobile No.</label>: {resultData && resultData.mobileNo}</div>
-                                <div className=""><label>Exam Name</label>: { /*resultData.studentName*/}</div>
+                                <div className=""><label>Exam Name</label>: {this.state.examType}{ /*resultData.studentName*/}</div>
                               </div>
                             </div>
                             <div className="row vertical-border ml-md-1 px-0 d-sm-none d-md-block d-lg-block"></div>

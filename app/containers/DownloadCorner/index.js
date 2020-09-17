@@ -121,7 +121,7 @@ export class DownloadCorner extends React.PureComponent {
           <BreadcrumComponent pageTitle="Download Corner" menuStepFirst="More" menuStepSenond="More" menuStepThird="Download Corner" />
           <section>
             <div className="container-fluid">
-              <div className="container p-t-60">
+              <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title">
@@ -182,29 +182,31 @@ export class DownloadCorner extends React.PureComponent {
                   </di>
 
                 </div>
-                <div className="row m-t-40">
-                  <div className="col-md-12">
-                    <div className="text-center m-t-40">
+                {downloadLists.length > 5 ?
+                  <div className="row m-t-40">
+                    <div className="col-md-12">
+                      <div className="text-center">
+                        {this.state.exploreBtnShow ?
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
+                            Load More <i className="fas fa-angle-right" />
+                          </button>
+                          :
+                          <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
+                            Load Less <i className="fas fa-angle-right" />
+                          </button>
+                        }
 
-                      {this.state.exploreBtnShow ?
-                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(false)}>
-                          Load More <i className="fas fa-angle-right" />
-                        </button>
-                        :
-                        <button className="btn explore-btn" onClick={() => this.setBtnVisibleStatus(true)}>
-                          Load Less <i className="fas fa-angle-right" />
-                        </button>
-                      }
-
+                      </div>
                     </div>
                   </div>
-                </div>
+                  : null
+                }
               </div>
 
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
-                    <div className="custom-title-border-center"></div>
+                    <div className="custom-title-border-center mb-2"></div>
                   </div>
                 </div>
               </div>
