@@ -134,7 +134,7 @@ export class FindPayslip extends React.PureComponent {
                   <div className="col-md-12 attendance-body-header">
                     <div className="row attendance-body-header-inside">
 
-                      <div className="col-md-12 col-lg-12 form py-5">
+                      <div className="col-md-12 col-lg-12 form py-4">
                         <Form inline>
                           <div className="col-12 col-xl-4">
                             <FormGroup className="custom-dropdown">

@@ -117,7 +117,7 @@ export class StudentInfo extends React.Component {
               <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12 attendance-body-header">
-                    <div className="row attendance-body-header-inside">
+                    <div className="row attendance-body-header-inside py-4">
                       {/* <div className="row"> */}
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
