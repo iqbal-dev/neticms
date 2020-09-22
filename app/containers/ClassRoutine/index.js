@@ -62,7 +62,7 @@ export class ClassRoutine extends React.Component {
   }
 
   getPeriodWiseResult = (period) =>{
-    let periodValue = period.map((item1, index1) => <td>{ item1.subjectName }</td>)
+    let periodValue = period.map((item1, index1) => <td>{ item1.subjectName }<br/><u>{ item1.teacherName }</u></td>)
     // console.log("period['firstPeriod']...........", periodValue);
     if(periodValue.length > 0){
       return periodValue
