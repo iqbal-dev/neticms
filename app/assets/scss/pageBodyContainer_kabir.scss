@@ -1,3 +1,20 @@
+.font-12{
+    font-size: 12px !important;
+}
+
+.font-14{
+    font-size: 14px !important;
+}
+
+.font-16{
+    font-size: 16px !important;
+}
+
+.font-18{
+    font-size: 18px !important;
+}
+
+
 .font-20{
     font-size: 20px !important;
 }
@@ -989,5 +1006,195 @@
     &:hover{
         font-weight: 600;
         color: #ff4e31 !important;
+    }
+}
+
+// Custom Table
+.custom-table {
+    .class-routine-table {
+        thead {
+            tr {
+                background: $tableHeaderTransparent;
+                color: $colorWhite;
+            
+                th {
+                    border: 1px solid #D5D5D5;
+                    // font-size: $fontSizeSecondary;
+                    font-weight: $fontWeightSecondary;
+                    letter-spacing: .25px;
+                    text-align: center;
+                }
+
+                &:nth-child(1){
+                    text-align: left;
+                }
+
+                &:nth-child(2){
+                    background-color: white;
+                    color: black !important;
+                    font-size: $fontSizeSecondary;
+                }
+
+                &:nth-child(3){
+                    font-size: $fontSizeSecondary12;
+                    th{
+                        padding: 5px;
+                    }
+                    
+                }
+            }
+        }
+        tbody {
+            tr {
+                background: transparent;
+    
+                &:nth-of-type(even) {
+                    // background-color: rgba(0, 0, 0, 0.05);
+                }
+                &:nth-of-type(odd) {
+                    background-color: rgba($tableHeaderTransparent, .1);
+                }
+
+                td {
+                    border: 1px solid #D5D5D5;
+                    color: $colorBlack;
+                    font-size: $fontSizeSecondary12;
+                    font-weight: $fontWeightSecondary;
+                    vertical-align: middle;
+
+                    &:nth-child(1){
+                        font-weight: $fontWeightPrimary
+                    }
+                }
+            }
+        }
+
+        &.online{
+            tbody{
+                tr{
+                    // border-bottom: 2px solid #fff;
+
+                    &:hover td{
+                        // color: $orangeColor;
+                    }
+
+                    td{
+                        transition: all .3s ease-in-out;
+                        border-top: none;
+                        color: $colorBlack;
+                        font-size: $fontSizeSecondarySmall;
+                        font-weight: $fontWeightSecondary;
+                        position: relative;
+                        text-align: center;
+
+                        &:nth-child(even){
+                            // text-align: center;
+                        }
+
+                        &:nth-child(odd){
+                            background-color: #ffffff;
+                            // text-align: center;
+                        }
+
+                        &:first-child{
+                            background-color: #ffffff;
+                            // text-align: left;
+                        }
+
+                        &:nth-child(2){
+                            background-color: rgba($tableHeaderTransparent, .1);
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.exam{
+            thead {
+                border: 1px solid #D5D5D5;
+
+                tr {
+                    background: $orangeColor;
+                    color: $colorWhite;
+                
+                    th {
+                        border: unset;
+                        // font-size: $fontSizeSecondary;
+                        font-weight: $fontWeightSecondary;
+                        letter-spacing: .25px;
+                        text-align: center;
+                        vertical-align: middle;
+
+                        &:nth-child(even){
+                            background-color: rgba($tableHeaderTransparent, .05);
+                            // text-align: left;
+                        }
+                    }
+    
+                    // &:nth-child(1){
+                    //     text-align: left;
+                    // }
+    
+                    // &:nth-child(2){
+                    //     background-color: white;
+                    //     color: black !important;
+                    //     font-size: $fontSizeSecondary;
+                    // }
+    
+                    // &:nth-child(3){
+                    //     font-size: $fontSizeSecondary12;
+                    //     th{
+                    //         padding: 5px;
+                    //     }
+                        
+                    // }
+                }
+            }
+
+            tbody{
+                border: 1px solid #D5D5D5;
+
+                tr{
+                    background-color: white;
+                    text-align: center;
+                    vertical-align: middle;
+
+                    &:hover td{
+                        // color: $orangeColor;
+                    }
+
+                    td{
+                        border: unset;
+                        border-bottom: 1px solid #D5D5D5;
+                        padding: 15px;
+                        font-weight: $fontWeightSecondarySmall;
+
+                        &:nth-child(1){
+                            font-weight: $fontWeightSecondarySmall;
+                        }
+
+                        &:nth-child(even){
+                            // text-align: center;
+                        }
+
+                        &:nth-child(odd){
+                            // background-color: #ffffff;
+                            // text-align: center;
+                        }
+
+                        &:first-child{
+                            // background-color: #ffffff;
+                            // text-align: left;
+                        }
+
+                        &:nth-child(even){
+                            background-color: rgba($tableHeaderTransparent, .05);
+                            // text-align: left;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

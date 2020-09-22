@@ -133,7 +133,7 @@ export class DownloadCorner extends React.PureComponent {
               </div>
               <div className="container">
                 <div className="row">
-                  <di className="col-md-12">
+                  <div className="col-md-12">
                     {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
                       <div className="table-responsive custom-table">
                         <Table striped className="download-corner-table">
@@ -179,7 +179,7 @@ export class DownloadCorner extends React.PureComponent {
                       </div>
                     }
 
-                  </di>
+                  </div>
 
                 </div>
                 {downloadLists.length > 5 ?

@@ -46,6 +46,30 @@
   //   outline: 1px solid #ef5350;
 }
 
+.no-box-shadow{
+  box-shadow: unset !important;
+}
+
+.bg-gray-light{
+  background-color: #F0F0F0 !important;
+}
+
+.bg-orange{
+  background-color: $orangeColorDark !important;
+}
+
+.bg-primary-color-light{
+  background-color: $primaryColorLight !important;
+}
+
+.bg-primary-color-dark{
+  background-color: $primaryColorDark !important;
+}
+
+.border-b-0{
+  border-bottom: 0 !important;
+}
+
 @media (min-width: 1200px) {
   .container,
   .container-lg,

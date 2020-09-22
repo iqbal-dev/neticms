@@ -289,6 +289,16 @@ export class Menu extends React.Component {
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
+                            {/* Routine Menu */}
+                            <UncontrolledDropdown nav inNavbar>
+                              <DropdownToggle nav caret>Routine</DropdownToggle>
+                              <DropdownMenu right>
+                                <NavItem><Link to='/institute/class_routine' className='nav-link'>Class Routine</Link> </NavItem>
+                                {/* <NavItem><Link to='/institute/online_class_routine' className='nav-link'>Online Class Routine</Link> </NavItem>
+                                <NavItem><Link to='/institute/exam_routine' className='nav-link'>Exam Routine</Link> </NavItem> */}
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+
                             {/* <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Login</DropdownToggle>
 

@@ -635,16 +635,18 @@ export class HomePage extends React.Component {
                         </div>
                       </div>
                       <div className="col-md-6">
-                        <div className="icon-box-border">
-                          <div className="icon-wrapper">
-                            <div className="icon box-shadow">
-                              <img src={crownIconRoutine} />
-                            </div>
-                            <div className="icon-title">
-                              <h5>Class Routine</h5>
+                        
+                          <div className="icon-box-border">
+                            <div className="icon-wrapper">
+                              <div className="icon box-shadow">
+                                <img src={crownIconRoutine} />
+                              </div>
+                              <div className="icon-title">
+                              <Link to={{ pathname: "/institute/class_routine"}}><h5>Class Routine</h5></Link>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        
                       </div>
                     </div>
                     <div className="row">

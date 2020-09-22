@@ -119,7 +119,7 @@ export function* fetch_failList() {
 export default function* failListSaga() {
 
   yield fetch_AcademicYearList();
-  yield fetch_classShiftSectionBy_instituteId(),
+  yield fetch_classShiftSectionBy_instituteId()
     yield takeLatest(SET_ON_CHANGE_SECTION, fetch_examListBy_sectionId);
   yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_failList)
 

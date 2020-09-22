@@ -46,6 +46,9 @@ import AdminHomepage from 'containers/admin/AdminHomepage';
 import AdminSyllabus from 'containers/admin/AdminSyllabus';
 import PrivateRoute from '../../components/PrivateRoute';
 import { getAuthenticatedStatus } from '../../utils/localStorageMethod';
+import ClassRoutine from 'containers/ClassRoutine';
+import OnlineClassRoutine from 'containers/OnlineClassRoutine';
+import ExamRoutine from 'containers/ExamRoutine';
 
 export default function AppRoute() {
 
@@ -93,6 +96,11 @@ export default function AppRoute() {
       <Route exact path="/institute/photo_gallery" component={EventGallery} />
       <Route exact path="/institute/infrastructure" component={BasicInfrastucture} />
       <Route exact path="/institute/find_paySlip" component={FindPayslip} />
+
+      {/* Routine Route*/}
+      <Route exact path="/institute/class_routine" component={ClassRoutine} />
+      <Route exact path="/institute/online_class_routine" component={OnlineClassRoutine} />
+      <Route exact path="/institute/exam_routine" component={ExamRoutine} />
 
       {/* <Route exact path="/admin/login" component={AdminLogin} /> */}
 

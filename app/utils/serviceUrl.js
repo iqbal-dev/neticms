@@ -86,4 +86,8 @@ export const fetch_sliderImage_cmsId = '/public/typeWise/photoGallerys';
 export const fetch_infrastructureListBy_cmsId = '/public/aboutus';
 
 export const fetch_notice_file_content = '/public/notice/file/find';
+
+// routine
+export const fetch_classRoutineList = '/nw/sa-point/class-routine';
 // https://api.netizendev.com:2096/public/notice/file/find?noticeId=2236
+// fetch_classRoutineList
