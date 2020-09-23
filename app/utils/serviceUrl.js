@@ -99,3 +99,5 @@ export const fetch_examSessionList = '/routine/exam-session/list';
 // fetch_sessionList
 // https://api.netizendev.com:2096/public/notice/file/find?noticeId=2236
 // fetch_classRoutineList
+
+export const FETCH_ONLINE_CLASS_ROUTINE = "/nw/sa-point/online-routine/by/section/group/date";

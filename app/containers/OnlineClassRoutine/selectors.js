@@ -16,8 +16,34 @@ const selectOnlineClassRoutineDomain = state =>
  * Default selector used by OnlineClassRoutine
  */
 
-const makeSelectOnlineClassRoutine = () =>
-  createSelector(selectOnlineClassRoutineDomain, substate => substate.toJS());
+const makeSelectClassList = () =>
+  createSelector(selectOnlineClassRoutineDomain, substate => substate.get('classConfigList'));
 
-export default makeSelectOnlineClassRoutine;
-export { selectOnlineClassRoutineDomain };
+const makeSelectClassId = () =>
+  createSelector(selectOnlineClassRoutineDomain, substate => substate.get('classConfigId'));
+
+const makeSelectGroupList = () =>
+  createSelector(selectOnlineClassRoutineDomain, substate => substate.get('groupList'));
+
+const makeSelectGroupId = () =>
+  createSelector(selectOnlineClassRoutineDomain, substate => substate.get('groupId'));
+
+const makeSelectDate = () =>
+  createSelector(selectOnlineClassRoutineDomain, substate => substate.get('date'));
+
+const makeSelectOnlineClassRoutineList = () =>
+  createSelector(selectOnlineClassRoutineDomain, substate => substate.get('onlineClassRoutineList'));
+
+const makeSelectLoader = () =>
+  createSelector(selectOnlineClassRoutineDomain, substate => substate.get('loader'));
+
+export {
+  selectOnlineClassRoutineDomain,
+  makeSelectClassList,
+  makeSelectClassId,
+  makeSelectGroupList,
+  makeSelectGroupId,
+  makeSelectDate,
+  makeSelectOnlineClassRoutineList,
+  makeSelectLoader,
+};

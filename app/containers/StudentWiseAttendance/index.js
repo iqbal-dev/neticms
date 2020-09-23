@@ -152,7 +152,7 @@ export class StudentWiseAttendance extends React.Component {
                               />
                               <span className="error-message">{errors["studentID"]}</span>
                             </FormGroup>
-                            
+
                           </div>
 
                           <div className="col-md-12 col-lg-3">
@@ -174,7 +174,6 @@ export class StudentWiseAttendance extends React.Component {
                               />
                               <span className='error-message'>{errors['fromDate']}</span>
                             </FormGroup>
-                            
 
                             {/*                             
                             <FormGroup>
@@ -204,11 +203,10 @@ export class StudentWiseAttendance extends React.Component {
                                 onChange={(e) => this.onChangeAttendanceToDate(e, 'toDate')}
                                 className="dayPicker-custom-input"
                                 name='toDate'
-                                // style={{ marginRight: '42px' }}
+                              // style={{ marginRight: '42px' }}
                               />
                               <span className='error-message'>{errors['toDate']}</span>
                             </FormGroup>
-                            
 
                             {/* <FormGroup>
                               <Input
@@ -223,7 +221,7 @@ export class StudentWiseAttendance extends React.Component {
                           </div>
                           <div className="col-md-12 col-lg-3">
                             <FormGroup className=" custom-input-text">
-                              <Button  className="btn explore-btn full-width all-border-radious" type='submit'><i class="fas fa-chevron-circle-right mr-3" ></i> Search</Button>
+                              <Button className="btn explore-btn full-width all-border-radious" type='submit'><i class="fas fa-chevron-circle-right mr-3" ></i> Search</Button>
                             </FormGroup>
                           </div>
 
