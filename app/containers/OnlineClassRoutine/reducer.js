@@ -14,7 +14,6 @@ export const initialState = fromJS({
   classConfigId: '',
   groupList: [],
   groupId: '',
-  date: '',
   onlineClassRoutineList: [],
   loader: '',
 });

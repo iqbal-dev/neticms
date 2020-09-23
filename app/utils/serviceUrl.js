@@ -91,3 +91,5 @@ export const fetch_notice_file_content = '/public/notice/file/find';
 export const fetch_classRoutineList = '/nw/sa-point/class-routine';
 // https://api.netizendev.com:2096/public/notice/file/find?noticeId=2236
 // fetch_classRoutineList
+
+export const FETCH_ONLINE_CLASS_ROUTINE = "/nw/sa-point/online-routine/by/section/group/date";
