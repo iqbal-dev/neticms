@@ -2275,6 +2275,10 @@
       vertical-align: middle; }
       .custom-table .class-routine-table.exam thead tr th:nth-child(even) {
         background-color: rgba(0, 39, 73, 0.05); }
+      .custom-table .class-routine-table.exam thead tr th .filter-datatable {
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center; }
 .custom-table .class-routine-table.exam tbody {
   border: 1px solid #D5D5D5; }
   .custom-table .class-routine-table.exam tbody tr {

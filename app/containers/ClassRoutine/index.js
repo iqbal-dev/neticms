@@ -198,7 +198,12 @@ export class ClassRoutine extends React.Component {
                                     className=" bg-white" 
                                     type="select" 
                                     name="examType" 
-                                    onChange={e => this.props.onChangeSection(e)}
+                                    onChange={
+                                      e => {
+                                        this.props.onChangeSection(e)
+                                        this.setState({ selectedClass: e.target.options[e.target.selectedIndex].text})
+                                      }
+                                    }
                                   >
                                     <option value=''>Select Class</option>
                                     {
@@ -237,7 +242,7 @@ export class ClassRoutine extends React.Component {
                     <div className="page-inner-title with-print mb-4">
                       <h2 className="bg-gray-light px-4 py-2">
                         <span className="font-18">
-                          Showing Result of <span className="text-orange ml-1"> Three-HQ-Day-A</span></span>
+                          Showing Result of <span className="text-orange ml-1"> { this.state.selectedClass }</span></span>
                           <Button className="btn btn-success bg-primary-color-dark"><i className="fas fa-download"></i> Download</Button>
                       </h2>
                       {/* <div className="custom-title-border-left my-4" /> */}

@@ -87,7 +87,15 @@ export const fetch_infrastructureListBy_cmsId = '/public/aboutus';
 
 export const fetch_notice_file_content = '/public/notice/file/find';
 
-// routine
+// class routine
 export const fetch_classRoutineList = '/nw/sa-point/class-routine';
+export const fetch_examRoutineList = '/nw/sa-point/exam-routine/by/exam-config-id';
+
+// Exam Routine
+export const fetch_examTypeByClassId = '/exam/configuration/list/by/class-id';
+
+export const fetch_examSessionList = '/routine/exam-session/list';
+
+// fetch_sessionList
 // https://api.netizendev.com:2096/public/notice/file/find?noticeId=2236
 // fetch_classRoutineList
