@@ -14,7 +14,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectOnlineClassRoutine from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -26,17 +25,90 @@ import { Form, FormGroup, Input, Button, Table } from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-/* eslint-disable react/prefer-stateless-function */
+import {
+  makeSelectClassList,
+  makeSelectClassId,
+  makeSelectGroupList,
+  makeSelectGroupId,
+  makeSelectDate,
+  makeSelectOnlineClassRoutineList,
+  makeSelectLoader
+} from './selectors';
+import { setClassConfigId, setGroupId, setDate } from './actions';
+
 export class OnlineClassRoutine extends React.Component {
+
   constructor(props) {
     super(props);
+
     this.state = {
-      errors: {},
+      errors: {}
     }
   }
 
-  render() {
+  onChangeSection = (e) => {
+    this.props.onChangeSection(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onChangeGroup = (e) => {
+    this.props.onChangeGroup(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onChangeDate = (e) => {
+    this.props.onChangeDate(e);
+    this.clearErrorMsg(e.target.name);
+  }
+
+  onSubmitSearch = (e) => {
+
+    e.preventDefault();
+    if (!this.emptyFieldCheck()) {
+      this.props.submitSearch();
+    }
+  }
+
+  emptyFieldCheck() {
+
+    let fieldIsEmpty = false;
     let { errors } = this.state;
+
+    if (this.props.academicYear === '' || this.props.academicYear === null) {
+      fieldIsEmpty = true;
+      errors["year"] = "Academic Year can't left empty.";
+    }
+
+    if (this.props.classConfigId === '' || this.props.classConfigId === null) {
+      fieldIsEmpty = true;
+      errors["section"] = "section can't left empty.";
+    }
+    if (this.props.examConfigId === '' || this.props.examConfigId === null) {
+      fieldIsEmpty = true;
+      errors["examType"] = "Exam can't left empty.";
+    }
+
+    this.setState({ errors });
+    return fieldIsEmpty;
+
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = ''
+    this.setState({ errors })
+  }
+
+  render() {
+
+    let { errors } = this.state;
+    let { classConfigList, groupList } = this.props;
+
+    console.log('classConfig List', this.props.classConfigList);
+    console.log('classConfig Id', this.props.classConfigId);
+    console.log('group List', this.props.groupList);
+    console.log('group Id', this.props.groupId);
+
     return (
       <div>
         <AppLayout>
@@ -67,23 +139,25 @@ export class OnlineClassRoutine extends React.Component {
                         <Form inline>
                           <div className="col-md-6 col-lg-3">
                             <FormGroup className="custom-dropdown">
-                              <Input className=" bg-white" type="select" name="examType" onChange={this.onChangeExam}>
+                              <Input className=" bg-white" type="select" name="section" onChange={this.onChangeSection}>
                                 <option value=''>Select Class</option>
-                                {/* {examList && examList.map(item => (
-                                    <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
-                                  ))} */}
+                                {
+                                  classConfigList && classConfigList.map((item, index) =>
+                                    <option key={item.classConfigId} value={item.classConfigId}>{item.classShiftSection}</option>
+                                  )
+                                }
                               </Input>
-                              <span className="error-message"> {errors['examType']}</span>
+                              <div className="error-message"> {errors['section']}</div>
                             </FormGroup>
                           </div>
 
                           <div className="col-md-6 col-lg-3">
                             <FormGroup className="custom-dropdown">
-                              <Input className=" bg-white" type="select" name="examType" onChange={this.onChangeExam}>
+                              <Input className=" bg-white" type="select" name="examType" onChange={this.onChangeGroup}>
                                 <option value=''>Select Group</option>
-                                {/* {examList && examList.map(item => (
-                                    <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
-                                  ))} */}
+                                {groupList && groupList.map(item => (
+                                  <option key={item.groupObject.id} value={item.groupObject.id}>{item.groupObject.name}</option>
+                                ))}
                               </Input>
                               <span className="error-message"> {errors['examType']}</span>
                             </FormGroup>
@@ -105,7 +179,7 @@ export class OnlineClassRoutine extends React.Component {
                                 // onChange={(e) => this.onChangeAttendanceToDate(e, 'toDate')}
                                 className="dayPicker-custom-input bg-white"
                                 name='toDate'
-                                // style={{ marginRight: '42px' }}
+                              // style={{ marginRight: '42px' }}
                               />
                               <span className='error-message'>{errors['toDate']}</span>
                             </FormGroup>
@@ -136,10 +210,10 @@ export class OnlineClassRoutine extends React.Component {
                         <span className="font-18">
                           Showing Result of <span className="text-orange">Three-HQ-Day-A</span>
                         </span>
-                          <span>
-                            <span className="font-18">Total found:<span className="text-orange mx-2">(5)</span> </span>
-                            <Button className="btn btn-success bg-primary-color-dark"><i className="fas fa-download"></i> Download</Button>
-                          </span>
+                        <span>
+                          <span className="font-18">Total found:<span className="text-orange mx-2">(5)</span> </span>
+                          <Button className="btn btn-success bg-primary-color-dark"><i className="fas fa-download"></i> Download</Button>
+                        </span>
                       </h2>
                       {/* <div className="custom-title-border-left my-4" /> */}
                     </div>
@@ -150,45 +224,45 @@ export class OnlineClassRoutine extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-12">
-                      <div className="table-responsive custom-table">
-                        <Table striped className="class-routine-table online">
-                          <thead>
-                            <tr>
-                              <th colSpan="3" className="text-left">Online Class Routine Details</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td><b>9.00 AM - 10.00 AM</b></td>
-                              <td className="pl-5">
-                                <span className="font-16"><b>English 1st Part</b></span>
-                                <br/>
-                                MD. Alamin Hossain
+                    <div className="table-responsive custom-table">
+                      <Table striped className="class-routine-table online">
+                        <thead>
+                          <tr>
+                            <th colSpan="3" className="text-left">Online Class Routine Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><b>9.00 AM - 10.00 AM</b></td>
+                            <td className="pl-5">
+                              <span className="font-16"><b>English 1st Part</b></span>
+                              <br />
+                              MD. Alamin Hossain
                               </td>
-                              <td>
-                                <b>Google Meet</b>
-                                  <br/>
-                                <u><a href="#">Class Link</a></u>
-                              </td>
-                            </tr>
+                            <td>
+                              <b>Google Meet</b>
+                              <br />
+                              <u><a href="#">Class Link</a></u>
+                            </td>
+                          </tr>
 
-                            <tr>
-                              <td><b>9.00 AM - 10.00 AM</b></td>
-                              <td className="pl-5">
-                                <span className="font-16"><b>English 1st Part</b></span>
-                                <br/>
-                                MD. Alamin Hossain
+                          <tr>
+                            <td><b>9.00 AM - 10.00 AM</b></td>
+                            <td className="pl-5">
+                              <span className="font-16"><b>English 1st Part</b></span>
+                              <br />
+                              MD. Alamin Hossain
                               </td>
-                              <td>
-                                <b>Google Meet</b>
-                                  <br/>
-                                <u><a href="#">Class Link</a></u>
-                              </td>
-                            </tr>
+                            <td>
+                              <b>Google Meet</b>
+                              <br />
+                              <u><a href="#">Class Link</a></u>
+                            </td>
+                          </tr>
 
-                          </tbody>
-                        </Table>
-                      </div>
+                        </tbody>
+                      </Table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -215,12 +289,23 @@ OnlineClassRoutine.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  onlineClassRoutine: makeSelectOnlineClassRoutine(),
+  classConfigList: makeSelectClassList(),
+  classConfigId: makeSelectClassId(),
+  groupList: makeSelectGroupList(),
+  groupId: makeSelectGroupId(),
+  date: makeSelectDate(),
+  onlineClassRoutineList: makeSelectOnlineClassRoutineList(),
+  loaderType: makeSelectLoader()
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeSection: (evt) => { dispatch(setClassConfigId(evt.target.value)) },
+    onChangeGroup: (evt) => { dispatch(setGroupId(evt.target.value)) },
+    onChangeDate: (evt) => { dispatch(setDate(evt.target.value)) },
+
+    submitSearch: () => { dispatch(submitSearchButton()) },
   };
 }
 
