@@ -295,7 +295,7 @@ export class ExamRoutine extends React.Component {
                           </thead>
                           <tbody>
                             {
-                              examRoutineListData.map((item, index) =>
+                              examRoutineListData && examRoutineListData.length ? examRoutineListData.map((item, index) =>
                                 <tr>
                                   <td>{item.examDate}</td>
                                   <td>{item.examDay}</td>
@@ -303,7 +303,9 @@ export class ExamRoutine extends React.Component {
                                   <td>{item.roomNo}</td>
                                   <td>{item.subjectName}</td>
                                 </tr>
-                              )}
+                              )
+                                : <tr><td colSpan='5'>No Data Found</td></tr>
+                            }
 
                             {/* <tr>
                               <td>05/09/2020</td>

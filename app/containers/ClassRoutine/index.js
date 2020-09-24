@@ -310,7 +310,7 @@ export class ClassRoutine extends React.Component {
                           <tbody>
 
                             {
-                              classRoutineListData.map((item, index) => {
+                              classRoutineListData && classRoutineListData.length ? classRoutineListData.map((item, index) => {
                                 let periodCellViewer = Object.keys(item.periodCellViewer)
 
                                 // console.log("item.periodCellViewer", periodCellViewer);
@@ -339,6 +339,8 @@ export class ClassRoutine extends React.Component {
                                 </>
 
                               })
+
+                                : ''
                             }
 
                           </tbody>
