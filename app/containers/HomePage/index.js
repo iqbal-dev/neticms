@@ -583,30 +583,42 @@ export class HomePage extends React.Component {
                   <div className="col-md-4">
                     <div className="icon-wrapper">
                       <div className="icon box-shadow">
-                        <img src={icon1} />
+                        <Link to={{ pathname: '/institute/awards' }} >
+                          <img src={icon1} />
+                        </Link>
                       </div>
                       <div className="icon-title">
-                        <h5>Awards</h5>
+                        <Link to={{ pathname: '/institute/awards' }} >
+                          <h5>Awards</h5>
+                        </Link>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="icon-wrapper">
                       <div className="icon box-shadow">
-                        <img src={icon2} />
+                        <Link to={{ pathname: '/institute/top_students' }} >
+                          <img src={icon2} />
+                        </Link>
                       </div>
                       <div className="icon-title">
-                        <h5>Top students</h5>
+                        <Link to={{ pathname: '/institute/top_students' }} >
+                          <h5>Top students</h5>
+                        </Link>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="icon-wrapper">
                       <div className="icon box-shadow">
-                        <img src={icon3} />
+                        <Link to={{ pathname: '/institute/alumnus' }} >
+                          <img src={icon3} />
+                        </Link>
                       </div>
                       <div className="icon-title">
-                        <h5>Alumnus</h5>
+                        <Link to={{ pathname: '/institute/alumnus' }} >
+                          <h5>Alumnus</h5>
+                        </Link>
                       </div>
                     </div>
                   </div>
