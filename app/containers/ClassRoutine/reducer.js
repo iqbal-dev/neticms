@@ -35,9 +35,6 @@ function classRoutineReducer(state = initialState, action) {
     case SET_CLASS_ROUTINE_LIST_DATA:
       return state.set('classRoutineListData', action.classRoutineListData);
 
-    case SET_CLASS_ROUTINE_LIST_DATA:
-      return state.set('classRoutineListData', action.classRoutineListData);
-
     case SET_DATA_TABLE_LOADER:
       return state.set('dataTableLoader', action.dataTableLoader);
 

@@ -1,7 +1,16 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../utils/request';
-import { BASE_URL_EM, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_classRoutineList } from '../../utils/serviceUrl';
-import { setSectionList, setClassRoutineListData, setDataTableLoader, setClassLoader } from './actions';
+import {
+  BASE_URL_EM,
+  fetch_coreSettingsClassConfigurationListBy_instituteId,
+  fetch_classRoutineList
+} from '../../utils/serviceUrl';
+import {
+  setSectionList,
+  setClassRoutineListData,
+  setDataTableLoader,
+  setClassLoader
+} from './actions';
 import { SUBMIT_SEARCH_BUTTON } from './constants';
 import { makeSelectClassConfigId } from './selectors';
 

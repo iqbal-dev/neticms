@@ -1130,6 +1130,12 @@
                             background-color: rgba($tableHeaderTransparent, .05);
                             // text-align: left;
                         }
+
+                        .filter-datatable{
+                            font-size: $fontSizeSecondarySmall;
+                            font-weight: $fontWeightSecondary;
+                            text-align: center;
+                        }
                     }
     
                     // &:nth-child(1){
