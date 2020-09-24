@@ -1,19 +1,19 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import request from '../../utils/request';
-import { 
-  BASE_URL_EM, 
-  fetch_coreSettingsListBy_typeId, 
-  fetch_examRoutineList, 
+import {
+  BASE_URL_EM,
+  fetch_coreSettingsListBy_typeId,
+  fetch_examRoutineList,
   fetch_examTypeByClassId,
   fetch_examSessionList
 } from '../../utils/serviceUrl';
-import { 
-  setClassList, 
+import {
+  setClassList,
   setExamTypeList,
   setExamSessionList,
-  setExamRoutineListData, 
-  setDataTableLoader, 
+  setExamRoutineListData,
+  setDataTableLoader,
   setClassLoader,
   setExamTypeLoader,
   setExamSessionLoader
@@ -38,7 +38,7 @@ export function* fetch_classListBy_typeId() {
   };
   const response = yield call(request, requestURL, options);
   // console.log('Class routine-saga-sec', response);
-  
+
   try {
     yield put(setClassList(response.item));
     yield put(setClassLoader(false));
@@ -46,8 +46,8 @@ export function* fetch_classListBy_typeId() {
 }
 
 export function* fetch_examType() {
+
   let classId = yield select(makeSelectClassId());
-  // console.log("class ID...", classId);
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let instituteId = '';
@@ -64,8 +64,8 @@ export function* fetch_examType() {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('Class routine-saga-sec', response);
-  
+  // console.log('exam-res', response);
+
   try {
     yield put(setExamTypeList(response.item));
     yield put(setExamTypeLoader(false));
@@ -74,6 +74,7 @@ export function* fetch_examType() {
 }
 
 export function* fetch_examSessionListData() {
+
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let instituteId = '';
   instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId
@@ -89,8 +90,8 @@ export function* fetch_examSessionListData() {
     },
   };
   const response = yield call(request, requestURL, options);
-  // console.log('Class routine-saga-sec', response);
-  
+  // console.log('session-sec', response);
+
   try {
     yield put(setExamSessionList(response.item));
     yield put(setExamSessionLoader(false));
@@ -109,10 +110,10 @@ export function* fetch_examRoutine() {
   let examTypeId = yield select(makeSelectExamTypeId());
   let examSessionId = yield select(makeSelectExamSessionId());
 
-  console.log('classId', classId, 'examTypeId', examTypeId, 'examSessionId', examSessionId);
+  // console.log('classId', classId, 'examTypeId', examTypeId, 'examSessionId', examSessionId);
   yield put(setDataTableLoader(true));
 
-  const requestURL = BASE_URL_EM.concat(fetch_examRoutineList).concat('?examConfigId=').concat(examTypeId/*exam-config-id*/).concat('&sessionId=').concat(examSessionId/*instituteId*/).concat('&instituteId=').concat(instituteId/*instituteId*/);
+  const requestURL = BASE_URL_EM.concat(fetch_examRoutineList).concat('?examConfigId=').concat(examTypeId).concat('&sessionId=').concat(examSessionId);
   const options = {
     method: 'GET',
     headers: {
@@ -123,6 +124,7 @@ export function* fetch_examRoutine() {
 
   const response = yield call(request, requestURL, options);
   try {
+    // console.log('exam-routine-res', response);
     yield put(setExamRoutineListData(response));
     yield put(setDataTableLoader(false));
   } catch (error) { }

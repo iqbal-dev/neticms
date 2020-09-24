@@ -14,9 +14,9 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectClassRoutine, { 
-  makeSelectClassConfigId, 
-  makeSelectClassRoutineListData, 
+import makeSelectClassRoutine, {
+  makeSelectClassConfigId,
+  makeSelectClassRoutineListData,
   makeSelectSectionList,
   makeSelectDataTableLoader,
   makeSelectClassLoader
@@ -30,7 +30,8 @@ import { Form, FormGroup, Input, Button, Table } from 'reactstrap';
 import { makeChangeSection, submitSearchHandle } from './actions';
 import { centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 
-/* eslint-disable react/prefer-stateless-function */
+let sectionName = '';
+
 export class ClassRoutine extends React.Component {
   constructor(props) {
     super(props);
@@ -57,19 +58,28 @@ export class ClassRoutine extends React.Component {
   onSearch = (e) => {
     e.preventDefault();
     if (!this.emptyFieldCheck()) {
+      this.getSectionName();
       this.props.onSubmitSearch();
     }
   }
 
-  getPeriodWiseResult = (period) =>{
-    let periodValue = period.map((item1, index1) => <td>{ item1.subjectName }<br/><u>{ item1.teacherName }</u></td>)
-    // console.log("period['firstPeriod']...........", periodValue);
-    if(periodValue.length > 0){
+  getSectionName = () => {
+
+    if (this.props.sectionList && this.props.sectionList.length) {
+      this.props.sectionList.filter(item => {
+        if (item.classConfigId == this.props.classConfigId) { sectionName = item.classShiftSection }
+      })
+    }
+  }
+
+  getPeriodWiseResult = (period) => {
+    let periodValue = period.map((item1, index1) => <td>{item1.subjectName}<br /><u>{item1.teacherName}</u></td>)
+    if (periodValue.length > 0) {
       return periodValue
     }
-    else{
+    else {
       return <td>---</td>
-    } 
+    }
   }
 
   parseTime = (cTime) => {
@@ -82,27 +92,26 @@ export class ClassRoutine extends React.Component {
     return d;
   }
 
-  getPeriodTime = (period) =>{
+  getPeriodTime = (period) => {
     // let periodTime = period.map((item, index) => {
-      var res = period.split(" - ");
-      // console.log("RES", res);
+    var res = period.split(" - ");
 
-      let difference = ""
-      if (res[0] != "" && res[1] != "") {
-        var tStart = this.parseTime(res[0]);
-        var tStop = this.parseTime(res[1]);
+    let difference = ""
+    if (res[0] != "" && res[1] != "") {
+      var tStart = this.parseTime(res[0]);
+      var tStop = this.parseTime(res[1]);
 
-        difference = (tStop - tStart) / (1000 * 60);
-      }
-      else {
-        difference = "";
-      }
+      difference = (tStop - tStart) / (1000 * 60);
+    }
+    else {
+      difference = "";
+    }
 
-        return <th>
-          { period }<br/>
-          (Duration: { difference } min)
+    return <th>
+      {period}<br />
+      (Duration: {difference} min)
         </th>
-      // })
+    // })
 
     // console.log("periodTime...........", periodTime);
     // if(periodTime.length > 0){
@@ -114,57 +123,49 @@ export class ClassRoutine extends React.Component {
   }
 
   render() {
-    let { errors } = this.state;
-    let { sectionList, classRoutineListData,classLoader } = this.props;
 
-    console.log("classRoutineListData", classRoutineListData);
-    console.log("classLoader", classLoader);
+    let { errors } = this.state;
+    let { sectionList, classRoutineListData, classLoader } = this.props;
 
     let dayList = []
     let periodList = []
     let periodOriginalList = []
     let timeList = []
-    if(classRoutineListData){
-      dayList = classRoutineListData.map((item, index)=>
+    if (classRoutineListData) {
+      dayList = classRoutineListData.map((item, index) =>
         item.dayName
       )
 
-    classRoutineListData.map((item, index)=>{
-        if(index == 0) {
-          Object.keys(item.periodCellViewer).map((item2, index2)=>{
+      classRoutineListData.map((item, index) => {
+        if (index == 0) {
+          Object.keys(item.periodCellViewer).map((item2, index2) => {
 
             let setPeriod = ""
-            item2 == "firstPeriod" ? setPeriod = "1st Period" : 
-            item2 == "secondPeriod" ? setPeriod = "2nd Period" : 
-            item2 == "thirdPeriod" ? setPeriod = "3rd Period" : 
-            item2 == "fourthPeriod" ? setPeriod = "4th Period" : 
-            item2 == "fifthPeriod" ? setPeriod = "5th Period" : 
-            item2 == "sixthPeriod" ? setPeriod = "6th Period" : 
-            item2 == "seventhPeriod" ? setPeriod = "7th Period" : 
-            item2 == "eighthPeriod" ? setPeriod = "8th Period" : 
-            item2 == "ninethPeriod" ? setPeriod = "9th Period" : 
-            ""
-            
+            item2 == "firstPeriod" ? setPeriod = "1st Period" :
+              item2 == "secondPeriod" ? setPeriod = "2nd Period" :
+                item2 == "thirdPeriod" ? setPeriod = "3rd Period" :
+                  item2 == "fourthPeriod" ? setPeriod = "4th Period" :
+                    item2 == "fifthPeriod" ? setPeriod = "5th Period" :
+                      item2 == "sixthPeriod" ? setPeriod = "6th Period" :
+                        item2 == "seventhPeriod" ? setPeriod = "7th Period" :
+                          item2 == "eighthPeriod" ? setPeriod = "8th Period" :
+                            item2 == "ninethPeriod" ? setPeriod = "9th Period" :
+                              ""
+
             periodOriginalList.push(item2)
             periodList.push(setPeriod)
             periodList.sort();
           })
 
-          // console.log("item.......", periodOriginalList, item.periodCellViewer);
-
           periodOriginalList.map((item3, index) => {
-            // console.log("ITEM...........//", item.periodCellViewer[item3][0].periodTime);
             timeList.push(item.periodCellViewer[item3][0].periodTime)
             timeList.sort()
           })
 
-          console.log("TimeList...........//", timeList);
+          // console.log("TimeList...........//", timeList);
         }
       })
     }
-
-    // console.log("dayList", dayList);
-    // console.log("periodList", periodList);
 
     return (
       <div>
@@ -187,23 +188,18 @@ export class ClassRoutine extends React.Component {
                 <div className="row">
                   <div className="col-md-12 result-body-header">
                     <div className="row result-body-header-inside py-4 no-box-shadow bg-gray-light">
-                      
+
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
                           <div className="col-md-6 col-lg-4">
-                            {this.props.classLoader ? inputFieldLoader() : 
+                            {this.props.classLoader ? inputFieldLoader() :
                               <div>
                                 <FormGroup className="custom-dropdown">
-                                  <Input 
-                                    className=" bg-white" 
-                                    type="select" 
-                                    name="examType" 
-                                    onChange={
-                                      e => {
-                                        this.props.onChangeSection(e)
-                                        this.setState({ selectedClass: e.target.options[e.target.selectedIndex].text})
-                                      }
-                                    }
+                                  <Input
+                                    className=" bg-white"
+                                    type="select"
+                                    name="examType"
+                                    onChange={e => this.props.onChangeSection(e)}
                                   >
                                     <option value=''>Select Class</option>
                                     {
@@ -212,10 +208,10 @@ export class ClassRoutine extends React.Component {
                                       )
                                     }
                                   </Input>
-                                <span className="error-message"> {errors['examType']}</span>
+                                  <span className="error-message"> {errors['examType']}</span>
                                 </FormGroup>
                               </div>
-                            } 
+                            }
 
                           </div>
 
@@ -242,8 +238,8 @@ export class ClassRoutine extends React.Component {
                     <div className="page-inner-title with-print mb-4">
                       <h2 className="bg-gray-light px-4 py-2">
                         <span className="font-18">
-                          Showing Result of <span className="text-orange ml-1"> { this.state.selectedClass }</span></span>
-                          <Button className="btn btn-success bg-primary-color-dark"><i className="fas fa-download"></i> Download</Button>
+                          Showing Result of <span className="text-orange ml-1"> {sectionName}</span></span>
+                        {/* <Button className="btn btn-success bg-primary-color-dark"><i className="fas fa-download"></i> Download</Button> */}
                       </h2>
                       {/* <div className="custom-title-border-left my-4" /> */}
                     </div>
@@ -254,7 +250,7 @@ export class ClassRoutine extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-12">
-                    { this.props.dataTableLoader ? centerTableLoader() :
+                    {this.props.dataTableLoader ? centerTableLoader() :
                       <div className="table-responsive custom-table">
                         <Table striped className="class-routine-table">
                           <thead>
@@ -262,55 +258,54 @@ export class ClassRoutine extends React.Component {
                               <th colSpan="10" className="text-left">Class Routine</th>
                             </tr>
                             {
-                              classRoutineListData.size == 0 ?
-                              <tr>
-                                <th colSpan="10" className="">No Data Found</th>
-                              </tr>
-                              :
-                              <>
-                                <tr className="">
-                                  <th className="bg-orange text-white" rowSpan="2">
-                                    Day<br />&<br />Time
+                              classRoutineListData && !classRoutineListData.length > 0 ?
+                                <tr>
+                                  <th colSpan="10" className="">No Data Found</th>
+                                </tr>
+                                :
+                                <>
+                                  <tr className="">
+                                    <th className="bg-orange text-white" rowSpan="2">
+                                      Day<br />&<br />Time
                                   </th>
-                                  {periodList.map((item2, index2) => <th>{item2}</th>)}
-                                </tr>
+                                    {periodList.map((item2, index2) => <th>{item2}</th>)}
+                                  </tr>
 
-                                <tr className="bg-orange border-b-0">
-                                  {
-                                    timeList.map((item, index) =>
-                                      this.getPeriodTime(item)
-                                    )
-                                  }
-                                  {
-                                    // classRoutineListData.map((item, index) => {
-                                    //   let countPeriod = Object.keys(item.periodCellViewer).length
-                                    //   let setPeriod = ""
+                                  <tr className="bg-orange border-b-0">
+                                    {
+                                      timeList.map((item, index) =>
+                                        this.getPeriodTime(item)
+                                      )
+                                    }
+                                    {
+                                      // classRoutineListData.map((item, index) => {
+                                      //   let countPeriod = Object.keys(item.periodCellViewer).length
+                                      //   let setPeriod = ""
 
-                                    //   // console.log("item.periodCellViewer.firstPeriod", item.periodCellViewer.firstPeriod);
-                                    //   index == 0 ? setPeriod = "firstPeriod" :
-                                    //   index == 1 ? setPeriod = "secondPeriod" :
-                                    //   index == 2 ? setPeriod = "thirdPeriod" :
-                                    //   index == 3 ? setPeriod = "fourthPeriod" :
-                                    //   index == 4 ? setPeriod = "fifthPeriod" :
-                                    //   index == 5 ? setPeriod = "sixthPeriod" :
-                                    //   // index == 6 ? setPeriod = "seventhPeriod" :
-                                    //   // index == 7 ? setPeriod = "eighthPeriod" :
-                                    //   // index == 8 ? setPeriod = "ninethPeriod" :
-                                    //   ""
+                                      //   // console.log("item.periodCellViewer.firstPeriod", item.periodCellViewer.firstPeriod);
+                                      //   index == 0 ? setPeriod = "firstPeriod" :
+                                      //   index == 1 ? setPeriod = "secondPeriod" :
+                                      //   index == 2 ? setPeriod = "thirdPeriod" :
+                                      //   index == 3 ? setPeriod = "fourthPeriod" :
+                                      //   index == 4 ? setPeriod = "fifthPeriod" :
+                                      //   index == 5 ? setPeriod = "sixthPeriod" :
+                                      //   // index == 6 ? setPeriod = "seventhPeriod" :
+                                      //   // index == 7 ? setPeriod = "eighthPeriod" :
+                                      //   // index == 8 ? setPeriod = "ninethPeriod" :
+                                      //   ""
 
-                                    //   // console.log("index", index, setPeriod);
-                                    //   return <>
-                                    //       { setPeriod ? this.getPeriodTime(item.periodCellViewer[setPeriod]) : null }
-                                    //   </>
+                                      //   // console.log("index", index, setPeriod);
+                                      //   return <>
+                                      //       { setPeriod ? this.getPeriodTime(item.periodCellViewer[setPeriod]) : null }
+                                      //   </>
 
-                                    // })
-                                  }
+                                      // })
+                                    }
 
-
-                                </tr>
-                              </>
+                                  </tr>
+                                </>
                             }
-                            
+
                           </thead>
                           <tbody>
 
@@ -322,30 +317,30 @@ export class ClassRoutine extends React.Component {
                                 return <>
                                   <tr>
                                     <td>{item.dayName}</td>
-                                    { this.getPeriodWiseResult(item.periodCellViewer.firstPeriod) }
-                                    { this.getPeriodWiseResult(item.periodCellViewer.secondPeriod) }
-                                    { this.getPeriodWiseResult(item.periodCellViewer.thirdPeriod) }
-                                    { this.getPeriodWiseResult(item.periodCellViewer.fourthPeriod) }
-                                    { this.getPeriodWiseResult(item.periodCellViewer.fifthPeriod) }
-                                    { this.getPeriodWiseResult(item.periodCellViewer.sixthPeriod) }
+                                    {this.getPeriodWiseResult(item.periodCellViewer.firstPeriod)}
+                                    {this.getPeriodWiseResult(item.periodCellViewer.secondPeriod)}
+                                    {this.getPeriodWiseResult(item.periodCellViewer.thirdPeriod)}
+                                    {this.getPeriodWiseResult(item.periodCellViewer.fourthPeriod)}
+                                    {this.getPeriodWiseResult(item.periodCellViewer.fifthPeriod)}
+                                    {this.getPeriodWiseResult(item.periodCellViewer.sixthPeriod)}
                                     {/* { this.getPeriodWiseResult(item.periodCellViewer && item.periodCellViewer.seventhPeriod) } */}
                                     {/* { this.getPeriodWiseResult(item.periodCellViewer.eighthPeriod) } */}
                                     {/* { this.getPeriodWiseResult(item.periodCellViewer.ninethPeriod) } */}
-                                    
-                                      {/* {
+
+                                    {/* {
                                         item.periodCellViewer.map((item2, index2) => {
                                           console.log("item2",item2); */}
-                                          {/* <td>{ item.periodCellViewer.firstPeriod && item.periodCellViewer.firstPeriod[0].subjectName}<br/>{ item.periodCellViewer.firstPeriod && item.periodCellViewer.firstPeriod[0].teacherName}</td> */}
-                                        {/* })
+                                    {/* <td>{ item.periodCellViewer.firstPeriod && item.periodCellViewer.firstPeriod[0].subjectName}<br/>{ item.periodCellViewer.firstPeriod && item.periodCellViewer.firstPeriod[0].teacherName}</td> */}
+                                    {/* })
                                       } */}
-                                    
+
                                   </tr>
-                                  
+
                                 </>
-                               
+
                               })
                             }
-                            
+
                           </tbody>
                         </Table>
                       </div>
@@ -353,8 +348,6 @@ export class ClassRoutine extends React.Component {
                   </div>
                 </div>
               </div>
-
-
 
               {/* <div className="container">
                 <div className="row">
@@ -564,7 +557,6 @@ export class ClassRoutine extends React.Component {
 
             </div>
           </section>
-            
 
           <div className="container">
             <div className="row">
@@ -586,14 +578,14 @@ ClassRoutine.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   classRoutine: makeSelectClassRoutine(),
-  
+
   sectionList: makeSelectSectionList(),
   classConfigId: makeSelectClassConfigId(),
   classRoutineListData: makeSelectClassRoutineListData(),
 
   dataTableLoader: makeSelectDataTableLoader(),
   classLoader: makeSelectClassLoader(),
-  
+
   // loaderType: makeSelectFailListLoaderType(),
 });
 

@@ -1,19 +1,18 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from '../../utils/request';
-import { 
-  BASE_URL_EM, 
-  fetch_coreSettingsClassConfigurationListBy_instituteId, 
-  fetch_classRoutineList 
+import {
+  BASE_URL_EM,
+  fetch_coreSettingsClassConfigurationListBy_instituteId,
+  fetch_classRoutineList
 } from '../../utils/serviceUrl';
-import { 
-  setSectionList, 
-  setClassRoutineListData, 
-  setDataTableLoader, 
-  setClassLoader 
+import {
+  setSectionList,
+  setClassRoutineListData,
+  setDataTableLoader,
+  setClassLoader
 } from './actions';
 import { SUBMIT_SEARCH_BUTTON } from './constants';
 import { makeSelectClassConfigId } from './selectors';
-
 
 export function* fetch_classShiftSectionBy_instituteId() {
 
@@ -34,7 +33,7 @@ export function* fetch_classShiftSectionBy_instituteId() {
   };
   const response = yield call(request, requestURL, options);
   // console.log('Class routine-saga-sec', response);
-  
+
   try {
     yield put(setSectionList(response.item));
     yield put(setClassLoader(false));
@@ -51,10 +50,10 @@ export function* fetch_classRoutine() {
   let emToken = JSON.parse(localStorage.getItem('emToken'));
   let classConfigId = yield select(makeSelectClassConfigId());
 
-  // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
+  // console.log('classConfigId', classConfigId, 'instituteId', instituteId);
   yield put(setDataTableLoader(true));
-
-  const requestURL = BASE_URL_EM.concat(fetch_classRoutineList).concat('?classConfigId=').concat(classConfigId/*classConfigId*/).concat('&instituteId=').concat(instituteId/*instituteId*/);
+  // classConfigId=165480 instId=15051
+  const requestURL = BASE_URL_EM.concat(fetch_classRoutineList).concat('?classConfigId=').concat(classConfigId).concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
@@ -65,9 +64,10 @@ export function* fetch_classRoutine() {
 
   const response = yield call(request, requestURL, options);
   try {
+    // console.log('routine-res', response);
     yield put(setClassRoutineListData(response));
     yield put(setDataTableLoader(false));
-  } catch (error) { }
+  } catch (error) { console.log('routine not fetch'); }
 
 }
 

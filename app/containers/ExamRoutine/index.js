@@ -14,12 +14,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectExamRoutine, { 
-  makeSelectClassId, 
-  makeSelectExamRoutineListData, 
+import makeSelectExamRoutine, {
+  makeSelectClassId,
+  makeSelectExamRoutineListData,
   makeSelectClassList,
   makeSelectDataTableLoader,
-  makeSelectClassLoader, makeSelectExamTypeLoader, makeSelectExamSessionLoader, makeSelectExamSessionList
+  makeSelectClassLoader, makeSelectExamTypeLoader, makeSelectExamSessionLoader, makeSelectExamSessionList, makeSelectExamTypeList, makeSelectExamTypeId, makeSelectExamSessionId
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -34,7 +34,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { submitSearchHandle, setClassId, setExamTypeId, setExamSessionId } from './actions';
 import { centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 
-/* eslint-disable react/prefer-stateless-function */
+let showingResultValue = '';
+
 export class ExamRoutine extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +66,7 @@ export class ExamRoutine extends React.Component {
   }
 
   emptyFieldCheck() {
+
     let fieldIsEmpty = false;
     let { errors } = this.state;
 
@@ -80,40 +82,74 @@ export class ExamRoutine extends React.Component {
   onSearch = (e) => {
     e.preventDefault();
     if (true) {
+      this.getClassName();
       this.props.onSubmitSearch();
     }
   }
 
+  getClassName = () => {
+
+    let className = '';
+    let examName = '';
+    let sessionName = '';
+
+    if (this.props.classList && this.props.classList.length) {
+      this.props.classList.filter(item => {
+        if (item.id == this.props.classId) { className = item.name }
+      })
+    }
+
+    if (this.props.examTypeList && this.props.examTypeList.length) {
+      this.props.examTypeList.filter(item => {
+        if (item.examConfigId == this.props.examConfigId) { examName = item.examObject.name }
+      })
+    }
+
+    if (this.props.examSessionList && this.props.examSessionList.length) {
+      this.props.examSessionList.filter(item => {
+        if (item.sessionId == this.props.examSessionId) { sessionName = item.sessionName }
+      })
+    }
+
+    // console.log('className', className, 'examName', examName, 'sessionName', sessionName);
+
+    showingResultValue = className.concat(" - ").concat(examName).concat(" - ").concat(sessionName);
+
+    return showingResultValue;
+
+  }
+
   render() {
+
     let { errors } = this.state;
     let { classList, examTypeList, examSessionList, examRoutineListData, classLoader, examSessionLoader } = this.props;
 
     // console.log("classList", classList);
-    // console.log("examRoutineListData", examRoutineListData);
-    console.log("examSessionLoader", examSessionLoader);
+    // console.log("examTypeList-index", examTypeList);
+    // console.log("examSessionLoader", examSessionLoader);
 
     let filterTable = (event, index) => {
       var filter = event.target.value.toUpperCase();
       var rows = document.querySelector("#myTable tbody").rows;
       for (var i = 0; i < rows.length; i++) {
-          var firstCol = rows[i].cells[1].textContent.toUpperCase();
-          var secondCol = rows[i].cells[3].textContent.toUpperCase();
-          var thirdCol = rows[i].cells[4].textContent.toUpperCase();
-          if ((firstCol.indexOf(filter) > -1 && index == 0) 
-              || (secondCol.indexOf(filter) > -1 && index == 1) 
-              || (thirdCol.indexOf(filter) > -1 && index == 2)) {
-              rows[i].style.display = "";
-          } else {
-              rows[i].style.display = "none";
-          }
+        var firstCol = rows[i].cells[1].textContent.toUpperCase();
+        var secondCol = rows[i].cells[3].textContent.toUpperCase();
+        var thirdCol = rows[i].cells[4].textContent.toUpperCase();
+        if ((firstCol.indexOf(filter) > -1 && index == 0)
+          || (secondCol.indexOf(filter) > -1 && index == 1)
+          || (thirdCol.indexOf(filter) > -1 && index == 2)) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
       }
-  }
+    }
 
-  document.querySelectorAll('input.filter-datatable').forEach((el, idx) => {
+    document.querySelectorAll('input.filter-datatable').forEach((el, idx) => {
       el.addEventListener('keyup', (e) => {
-          filterTable(e, idx);
+        filterTable(e, idx);
       }, false);
-  });
+    });
 
     return (
       <div>
@@ -141,13 +177,13 @@ export class ExamRoutine extends React.Component {
                       <div className="col-md-12 col-lg-12 form">
                         <Form inline>
                           <div className="col-md-6 col-lg-3">
-                            {this.props.classLoader ? inputFieldLoader() : 
+                            {this.props.classLoader ? inputFieldLoader() :
                               <FormGroup className="custom-dropdown">
                                 <Input className=" bg-white" type="select" name="examType" onChange={this.onChangeClass}>
                                   <option value=''>Select Class</option>
                                   {classList && classList.map(item => (
-                                      <option key={item.defaultId} value={item.defaultId}>{item.name}</option>
-                                    ))}
+                                    <option key={item.id} value={item.id}>{item.name}</option>
+                                  ))}
                                 </Input>
                                 <span className="error-message"> {errors['class']}</span>
                               </FormGroup>
@@ -174,8 +210,8 @@ export class ExamRoutine extends React.Component {
                                 <Input className=" bg-white" type="select" name="examType" onChange={this.onChangeExamSession}>
                                   <option value=''>Select Session</option>
                                   {examSessionList && examSessionList.map(item => (
-                                      <option key={item.sessionId} value={item.sessionId}>{item.sessionName}</option>
-                                    ))}
+                                    <option key={item.sessionId} value={item.sessionId}>{item.sessionName}</option>
+                                  ))}
                                 </Input>
                                 <span className="error-message"> {errors['examType']}</span>
                               </FormGroup>
@@ -205,12 +241,12 @@ export class ExamRoutine extends React.Component {
                     <div className="page-inner-title with-print mb-4">
                       <h2 className="bg-gray-light px-4 py-2">
                         <span className="font-18">
-                          Showing Result of <span className="ml-1 text-orange">Three Day-A Annual Exam 1st Session</span>
+                          Showing Result of <span className="ml-1 text-orange">{showingResultValue}</span>
                         </span>
-                          <span>
-                            <span className="font-18">Total found:<span className="text-orange mx-2">(5)</span> </span>
-                            <Button className="btn btn-success bg-primary-color-dark"><i className="fas fa-download"></i> Download</Button>
-                          </span>
+                        <span>
+                          <span className="font-18">Total found:<span className="text-orange mx-2">({examRoutineListData && examRoutineListData.length ? examRoutineListData.length : 0})</span> </span>
+                          {/* <Button className="btn btn-success bg-primary-color-dark"><i className="fas fa-download"></i> Download</Button> */}
+                        </span>
                       </h2>
                       {/* <div className="custom-title-border-left my-4" /> */}
                     </div>
@@ -221,7 +257,7 @@ export class ExamRoutine extends React.Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-12">
-                    { this.props.dataTableLoader ? centerTableLoader() :
+                    {this.props.dataTableLoader ? centerTableLoader() :
                       <div className="table-responsive custom-table">
                         <Table striped className="class-routine-table exam" id="myTable">
                           <thead>
@@ -233,7 +269,7 @@ export class ExamRoutine extends React.Component {
                                   name="studentID"
                                   placeholder="Write a day"
                                   className="filter-datatable"
-                                  // onChange={this.onChangeStudentId}
+                                // onChange={this.onChangeStudentId}
                                 />
                               </th>
                               <th className="">Time</th>
@@ -243,7 +279,7 @@ export class ExamRoutine extends React.Component {
                                   name="studentID"
                                   placeholder="Write a room no."
                                   className="filter-datatable"
-                                  // onChange={this.onChangeStudentId}
+                                // onChange={this.onChangeStudentId}
                                 />
                               </th>
                               <th className="">Subject
@@ -252,14 +288,14 @@ export class ExamRoutine extends React.Component {
                                   name="studentID"
                                   placeholder="Write a subject name"
                                   className="filter-datatable"
-                                  // onChange={this.onChangeStudentId}
+                                // onChange={this.onChangeStudentId}
                                 />
                               </th>
                             </tr>
                           </thead>
                           <tbody>
                             {
-                              examRoutineListData.map((item, index) => 
+                              examRoutineListData.map((item, index) =>
                                 <tr>
                                   <td>{item.examDate}</td>
                                   <td>{item.examDay}</td>
@@ -267,7 +303,7 @@ export class ExamRoutine extends React.Component {
                                   <td>{item.roomNo}</td>
                                   <td>{item.subjectName}</td>
                                 </tr>
-                            )}
+                              )}
 
                             {/* <tr>
                               <td>05/09/2020</td>
@@ -313,7 +349,7 @@ export class ExamRoutine extends React.Component {
           </div>
 
         </AppLayout>
-        
+
       </div>
     );
   }
@@ -327,8 +363,14 @@ const mapStateToProps = createStructuredSelector({
   examRoutine: makeSelectExamRoutine(),
 
   classList: makeSelectClassList(),
-  examSessionList: makeSelectExamSessionList(),
   classId: makeSelectClassId(),
+
+  examTypeList: makeSelectExamTypeList(),
+  examConfigId: makeSelectExamTypeId(),
+
+  examSessionList: makeSelectExamSessionList(),
+  examSessionId: makeSelectExamSessionId(),
+
   examRoutineListData: makeSelectExamRoutineListData(),
 
   dataTableLoader: makeSelectDataTableLoader(),
