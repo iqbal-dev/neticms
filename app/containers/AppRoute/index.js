@@ -49,6 +49,9 @@ import { getAuthenticatedStatus } from '../../utils/localStorageMethod';
 import ClassRoutine from 'containers/ClassRoutine';
 import OnlineClassRoutine from 'containers/OnlineClassRoutine';
 import ExamRoutine from 'containers/ExamRoutine';
+import Awards from 'containers/Awards';
+import TopStudents from 'containers/TopStudents';
+import Alumnus from 'containers/Alumnus';
 
 export default function AppRoute() {
 
@@ -101,6 +104,10 @@ export default function AppRoute() {
       <Route exact path="/institute/class_routine" component={ClassRoutine} />
       <Route exact path="/institute/online_class_routine" component={OnlineClassRoutine} />
       <Route exact path="/institute/exam_routine" component={ExamRoutine} />
+
+      <Route exact path="/institute/awards" component={Awards} />
+      <Route exact path="/institute/top_students" component={TopStudents} />
+      <Route exact path="/institute/alumnus" component={Alumnus} />
 
       {/* <Route exact path="/admin/login" component={AdminLogin} /> */}
 
