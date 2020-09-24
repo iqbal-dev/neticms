@@ -113,7 +113,7 @@ export function* fetch_examRoutine() {
   // console.log('classId', classId, 'examTypeId', examTypeId, 'examSessionId', examSessionId);
   yield put(setDataTableLoader(true));
 
-  const requestURL = BASE_URL_EM.concat(fetch_examRoutineList).concat('?examConfigId=').concat(examTypeId).concat('&sessionId=').concat(examSessionId);
+  const requestURL = BASE_URL_EM.concat(fetch_examRoutineList).concat('?examConfigId=').concat(examTypeId).concat('&sessionId=').concat(examSessionId).concat('&instituteId=').concat(instituteId);
   const options = {
     method: 'GET',
     headers: {
