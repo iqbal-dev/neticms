@@ -1514,6 +1514,9 @@
   letter-spacing: .70px;
   color: red; }
 
+.link-decoration-none:hover {
+  text-decoration: none; }
+
 .vertical-border {
   background-color: #e5e5e5;
   height: 60px;

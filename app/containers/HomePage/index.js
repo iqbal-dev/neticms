@@ -588,7 +588,7 @@ export class HomePage extends React.Component {
                         </Link>
                       </div>
                       <div className="icon-title">
-                        <Link to={{ pathname: '/institute/awards' }} >
+                        <Link className="link-decoration-none" to={{ pathname: '/institute/awards' }} >
                           <h5>Awards</h5>
                         </Link>
                       </div>
@@ -602,7 +602,7 @@ export class HomePage extends React.Component {
                         </Link>
                       </div>
                       <div className="icon-title">
-                        <Link to={{ pathname: '/institute/top_students' }} >
+                        <Link className="link-decoration-none" to={{ pathname: '/institute/top_students' }} >
                           <h5>Top students</h5>
                         </Link>
                       </div>
@@ -616,7 +616,7 @@ export class HomePage extends React.Component {
                         </Link>
                       </div>
                       <div className="icon-title">
-                        <Link to={{ pathname: '/institute/alumnus' }} >
+                        <Link className="link-decoration-none" to={{ pathname: '/institute/alumnus' }} >
                           <h5>Alumnus</h5>
                         </Link>
                       </div>
