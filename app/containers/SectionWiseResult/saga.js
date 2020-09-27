@@ -112,7 +112,7 @@ export function* fetch_sectionWiseResultList() {
   };
 
   const response = yield call(request, requestURL, options);
-  console.log('section wise result Res', response);
+  // console.log('section wise result Res', response);
   yield put(setLoader('tableLoadOff'));
 
   try {

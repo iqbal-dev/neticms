@@ -124,8 +124,8 @@ export class StudentInfo extends React.Component {
                           {/* <div className="row"> */}
                           <div className="col-md-12 col-lg-4">
 
-                            {this.props.loaderStatus === "autoLoadOn" ? 
-                              inputFieldLoader() : 
+                            {this.props.loaderStatus === "autoLoadOn" ?
+                              inputFieldLoader() :
                               <div>
                                 <FormGroup className="custom-dropdown">
                                   <Input
@@ -142,7 +142,7 @@ export class StudentInfo extends React.Component {
                                   </Input>
                                 </FormGroup>
                                 <span className="error-message">{this.state.errors["class"]}</span>
-                            </div>
+                              </div>
                             }
 
                           </div>
@@ -164,7 +164,6 @@ export class StudentInfo extends React.Component {
                                   }
                                 </Input>
 
-                                
                               </FormGroup>
                               <span className="error-message">{this.state.errors["group"]}</span>
                             </div>
@@ -178,7 +177,7 @@ export class StudentInfo extends React.Component {
                                 onClick={this.handleSubmitSearch}
                               >
                                 <i className="fas fa-chevron-circle-right" />{' '}
-                                  Search
+                                Search
                               </Button>
                             </FormGroup>
                           </div>
@@ -245,7 +244,7 @@ export class StudentInfo extends React.Component {
                                     <div className="img-div overlay">
                                       <i className="fas fa-search-plus" />
                                     </div>
-                                    {item.image ? <img src={item.imageName} width="85px" height="85px" /> : <img src={ item.studentGender == 'Male' ? demoImageMale : demoImageFemale} width="85px" height="85px" />}
+                                    {item.imageName ? <img src={"data:image/*;base64," + item.photo} width="85px" height="85px" /> : <img src={item.studentGender == 'Male' ? demoImageMale : demoImageFemale} width="85px" height="85px" />}
                                   </div>
                                 </div>
 

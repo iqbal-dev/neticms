@@ -24,7 +24,7 @@ export function* fetch_stuffsInfoList() {
   yield put(setLoader('autoLoadOff'));
 
   try {
-    console.log('staff-information-response', response);
+    // console.log('staff-information-response', response);
     yield put(setStaffInfoList(response.item));
   } catch (error) { console.log('error-res', error); }
 

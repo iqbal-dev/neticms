@@ -61,7 +61,7 @@ export class FindPayslip extends React.PureComponent {
 
   handleSubmitSearch = (e) => {
 
-    console.log('handleSubmitSearch', !this.emptyFieldCheck());
+    // console.log('handleSubmitSearch', !this.emptyFieldCheck());
     e.preventDefault();
 
     if (!this.emptyFieldCheck()) {
@@ -103,7 +103,7 @@ export class FindPayslip extends React.PureComponent {
 
   render() {
 
-    console.log("student & academic year", this.props.studentID, this.props.academicYear);
+    // console.log("student & academic year", this.props.studentID, this.props.academicYear);
 
     let { academicYearList, makeSelectFindPayslipData, academicYear } = this.props;
 
@@ -149,7 +149,7 @@ export class FindPayslip extends React.PureComponent {
                               </Input>
                               <span className="error-message">{this.state.errors["year"]}</span>
                             </FormGroup>
-                            
+
                           </div>
 
                           <div className="col-12 col-xl-4">
@@ -162,7 +162,7 @@ export class FindPayslip extends React.PureComponent {
                               />
                               <span className="error-message">{this.state.errors["studentID"]}</span>
                             </FormGroup>
-                            
+
                           </div>
 
                           <div className="col-12 col-xl-4">
@@ -198,7 +198,9 @@ export class FindPayslip extends React.PureComponent {
                       <div className="col-lg-6 col-md-12">
                         <div className="student-info d-md-flex align-items-lg-center justify-content-md-center">
                           <div className="student-image">
-                            <img src={staticImage} className="img-fluid rounded-circle" width="140" />
+                            {makeSelectFindPayslipData && makeSelectFindPayslipData[0] && makeSelectFindPayslipData[0].byteImage ? <img src={"data:image/*; base64," + makeSelectFindPayslipData[0].byteImage} className="img-fluid rounded-circle" width="140" />
+                              : <img src={staticImage} className="img-fluid rounded-circle" width="140" />}
+
                           </div>
                           <div className="student-info-table">
                             <Table>

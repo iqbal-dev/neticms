@@ -28,7 +28,7 @@ export function* fetchStudentAttendanceByStudentId() {
     "instituteId": instituteId,
     "toDate": formatedToDate,
   }
-  console.log('requestedBody-saga', requestedBody);
+  // console.log('requestedBody-saga', requestedBody);
 
   // let requestedBody = {
   //   "customStudentId": "1890102",

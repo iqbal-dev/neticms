@@ -174,15 +174,15 @@ export class SectionWiseResult extends React.Component {
                           <div className="col-12 ">
                             {this.props.loaderType === 'autoLoadOn' ? inputFieldLoaderLarge() :
                               <FormGroup className="custom-dropdown">
-                                  <Input
-                                    type="select"
-                                    name="year"
-                                    onChange={this.onChangeAcYear}
-                                  >
-                                    <option value=''>Select Academic Year</option>
-                                    {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
-                                  </Input>
-                              <div className="error-message"> {errors['year']}</div>
+                                <Input
+                                  type="select"
+                                  name="year"
+                                  onChange={this.onChangeAcYear}
+                                >
+                                  <option value=''>Select Academic Year</option>
+                                  {academicYearList && academicYearList.map(item => (<option key={item.name} value={item.name}>{item.name}</option>))}
+                                </Input>
+                                <div className="error-message"> {errors['year']}</div>
                               </FormGroup>
                             }
                           </div>
@@ -218,7 +218,6 @@ export class SectionWiseResult extends React.Component {
                               </FormGroup>
                             }
                           </div>
-                          
 
                           <div className="col-12 ">
                             <Button className="btn explore-btn full-width all-border-radious" onClick={this.onSubmitSearch}>
@@ -259,7 +258,7 @@ export class SectionWiseResult extends React.Component {
                         >
                           <thead>
                             <tr>
-                              {/* <th>Photo</th> */}
+                              <th>Photo</th>
                               <th>Student ID</th>
                               <th>Roll No.</th>
                               <th>Student's Name</th>
@@ -274,7 +273,7 @@ export class SectionWiseResult extends React.Component {
                               sectionWiseResultList ?
                                 sectionWiseResultList.map((item, index) =>
                                   <tr>
-                                    {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
+                                    <td><center className="attendance failed">{item.photo ? <img src={"data:image/*;base64," + item.photo} /> : <img src={donorImage} />}</center></td>
                                     <td className="text-center">{item.customStudentId}</td>
                                     <td>{item.studentRoll}</td>
                                     <td>{item.studentName}</td>

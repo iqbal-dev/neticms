@@ -33,7 +33,7 @@ export class StuffInformation extends React.Component {
 
   render() {
 
-    console.log('info-list', this.props.staffInfoList);
+    // console.log('info-list', this.props.staffInfoList);
 
     return (
       <div>
@@ -67,21 +67,14 @@ export class StuffInformation extends React.Component {
                             {item.image ? <img src={"data:image/*;base64," + item.image} className="mx-auto d-block" /> : <img src={donorImage} className="mx-auto d-block" />}
                           </div> */}
 
-                            {
-                              item.gender == "Male" ? 
-                                <div className="grid-image teachers">
-                                  { item.image ? 
-                                    <img src={item.imageName} className="mx-auto d-block" /> 
-                                    : <img src={demoImageMale} className="mx-auto d-block" />
-                                  }
-                              </div> 
-                              : <div className="grid-image teachers">
-                                  { item.image ? 
-                                    <img src={item.imageName} className="mx-auto d-block" /> 
-                                    : <img src={demoImageFemale} className="mx-auto d-block" />
-                                  }
-                                </div>
-                            }
+                          {item.image ?
+                            <div className="grid-image teachers">
+                              <img src={"data:image/*;base64," + item.imageName} className="mx-auto d-block" />
+                            </div>
+                            : item.gender == "Male" ?
+                              <div className="grid-image teachers"><img src={demoImageMale} className="mx-auto d-block" /></div>
+                              : <div className="grid-image teachers"><img src={demoImageFemale} className="mx-auto d-block" /></div>
+                          }
 
                           <div className="grid-content text-center">
                             <div className="grid-title">

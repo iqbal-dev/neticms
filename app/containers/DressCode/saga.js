@@ -19,7 +19,7 @@ export function* fetch_maleDressCode_List() {
   yield put(setLoader('maleAutoLoadOff'));
 
   try {
-    console.log('male dresscode response', response);
+    // console.log('male dresscode response', response);
     yield put(setMaleDressCodeList(response.item));
   } catch (error) { }
 
@@ -40,7 +40,7 @@ export function* fetch_femaleDressCode_List() {
   };
   const response = yield call(request, requestURL, options);
   try {
-    console.log('female dresscode response', response);
+    // console.log('female dresscode response', response);
     yield put(setFemaleDressCodeList(response.item));
 
   } catch (error) { }
@@ -61,7 +61,7 @@ export function* fetch_combineDressCode_List() {
   };
   const response = yield call(request, requestURL, options);
   try {
-    console.log('female dresscode response', response);
+    // console.log('female dresscode response', response);
     yield put(setCombinedDressCodeList(response.item));
 
   } catch (error) { }

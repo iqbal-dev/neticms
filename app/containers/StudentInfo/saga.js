@@ -28,7 +28,7 @@ export function* fetch_className() {
     const response = yield call(request, requestURL, options);
     yield put(setLoader('autoLoadOff'));
     yield put(classNameListDropDown(response.item));
-    console.log('response.item', response.item);
+    // console.log('response.item', response.item);
 
   } catch (error) { }
 
@@ -60,7 +60,7 @@ export function* fetch_studentGroupNames() {
 
     yield put(setLoader('groupLoadOff'));
     yield put(classGroupListDropDown(response.item));
-    console.log('Class Group response.item', response.item);
+    // console.log('Class Group response.item', response.item);
 
   } catch (error) { }
 
@@ -72,7 +72,7 @@ export function* fetch_studentInfo() {
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let groupConfigId = yield select(makeSelectGroupNameSelected());
   let classConfigId = yield select(makeSelectClassNameSelected());
-  console.log('groupConfigId', groupConfigId);
+  // console.log('groupConfigId', groupConfigId);
 
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
@@ -92,7 +92,7 @@ export function* fetch_studentInfo() {
     const response = yield call(request, requestURL, options);
     yield put(setLoader('tableLoadOff'));
     yield put(studentSearchResult(response.item));
-    console.log('std-list-res', response);
+    // console.log('std-list-res', response);
 
   } catch (error) { }
 
