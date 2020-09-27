@@ -651,7 +651,9 @@ export class HomePage extends React.Component {
                           <div className="icon-box-border">
                             <div className="icon-wrapper">
                               <div className="icon box-shadow">
-                                <img src={crownIconRoutine} />
+                                <Link to={{ pathname: "/institute/class_routine"}}>
+                                  <img src={crownIconRoutine} />
+                                </Link>
                               </div>
                               <div className="icon-title">
                               <Link to={{ pathname: "/institute/class_routine"}}><h5>Class Routine</h5></Link>
@@ -680,10 +682,14 @@ export class HomePage extends React.Component {
                         <div className="icon-box-border">
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
-                              <img src={crownIconSyllabus} />
+                              <Link to={{ pathname: "/institute/exam_routine"}}>
+                                <img src={crownIconSyllabus} />
+                              </Link>
                             </div>
                             <div className="icon-title">
-                              <h5>Exam Routine</h5>
+                                <Link to={{ pathname: "/institute/exam_routine"}}>
+                                  <h5>Exam Routine</h5>
+                                </Link>
                             </div>
                           </div>
                         </div>
