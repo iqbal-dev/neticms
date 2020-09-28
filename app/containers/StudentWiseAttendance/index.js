@@ -253,7 +253,7 @@ export class StudentWiseAttendance extends React.Component {
                   <div className="col-md-12 attendance-body-header">
                     <div className="row attendance-body-header-inside justify-content-md-center py-4">
                       <div className="col-md-6 col-lg-2 img">
-                        <div className="attendance present"><img src={donorImage} /></div>
+                        <div className="attendance present">{attendanceList && attendanceList.photo ? <img src={"data:image/*;base64," + attendanceList.photo} /> : <img src={donorImage} />}</div>
                       </div>
 
                       <div className="col-md-6 col-lg-4 info">
