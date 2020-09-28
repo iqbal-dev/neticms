@@ -246,7 +246,7 @@ export class FailList extends React.Component {
                         >
                           <thead>
                             <tr>
-                              {/* <th>Photo</th> */}
+                              <th>Photo</th>
                               <th>Student ID</th>
                               <th>Roll No</th>
                               <th>Student Name</th>
@@ -259,7 +259,7 @@ export class FailList extends React.Component {
                               failList ?
                                 failList.map((item, index) =>
                                   <tr>
-                                    {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
+                                    <td><center className="attendance failed">{item.photo ? <img src={"data:image/*;base64," + item.photo} /> : <img src={donorImage} />}</center></td>
                                     <td className="text-center">{item.customStudentId}</td>
                                     <td>{item.studentRoll}</td>
                                     <td>{item.studentName}</td>

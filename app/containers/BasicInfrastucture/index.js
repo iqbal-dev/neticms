@@ -35,7 +35,7 @@ export class BasicInfrastucture extends React.PureComponent {
 
   render() {
 
-    let { infrastructureList } = this.props
+    let { infrastructureList } = this.props;
     return (
       <div>
         <AppLayout>
@@ -78,7 +78,7 @@ export class BasicInfrastucture extends React.PureComponent {
                                     <button className="btn explore-btn m-t-20">
                                       Read More <i className="fas fa-angle-right" />
                                     </button>
-                                  } 
+                                  }
                                 />
                                 : ''
                               }

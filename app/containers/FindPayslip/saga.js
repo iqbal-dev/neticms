@@ -33,8 +33,6 @@ export function* fetch_AcademicYearList() {
   };
   try {
     const response = yield call(request, requestURL, options);
-    console.log('ac-year', response);
-
     yield put(setAcademicYearList(response.item));
   } catch (error) { }
 
@@ -42,21 +40,14 @@ export function* fetch_AcademicYearList() {
 
 export function* fetch_PaySlipList() {
 
-  console.log("CLICK");
-
   let emToken = JSON.parse(localStorage.getItem('emToken'));
   let acYear = yield select(makeSelectAcademicYear());
   let stdID = yield select(makeSelectStudentID());
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  console.log('meritlist-instituteUrlInfo', instituteUrlInfo);
 
   let instituteId = '';
   { instituteUrlInfo && instituteUrlInfo.length ? instituteId = instituteUrlInfo[0].emInstituteList[0].edumanInstituteId : instituteId }
-
-  console.log("CLICK", acYear, stdID);
-
-  // console.log('acyear', acYear, 'classConfigId', classConfigId, 'examConfigId', examConfigId);
 
   const requestURL = BASE_URL_EM.concat(fetch_student_paySlipList).concat('?customStudentId=').concat(stdID).concat('&academicYear=').concat(acYear).concat('&instituteId=').concat(instituteId);
   const options = {
@@ -68,7 +59,7 @@ export function* fetch_PaySlipList() {
   };
 
   const response = yield call(request, requestURL, options);
-  console.log('PAY SLIP LIST Response>>>>>>>>>>>>>>>>', response.item);
+  // console.log('PAY SLIP LIST Response>>>>>>>>>>>>>>>>', response.item);
   try {
     yield put(setPaySlipListData(response.item));
   } catch (error) { }

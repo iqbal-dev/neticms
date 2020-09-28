@@ -65,7 +65,7 @@ export function* fetch_examListBy_Type() {
   const response = yield call(request, requestURL, requestOptions.options);
   yield put(setLoader('dependendLoadOff'));
 
-  console.log('exam_list', response);
+  // console.log('exam_list', response);
   yield put(setExamList(response.item));
 
 }
@@ -88,7 +88,7 @@ export function* fetch_individual_result() {
   const requestURL = BASE_URL_EM.concat(fetch_individual_result_data) + '?customStudentId=' + stdID + '&academicYear=' + academicYear + '&examId=' + examConfigId + '&instituteId=' + instituteId
   const response = yield call(request, requestURL, requestOptions.options);
   yield put(setLoader('tableLoadOff'));
-  console.log('Result Response>>>>>>>>>>>>>>>>', response);
+  // console.log('Result Response>>>>>>>>>>>>>>>>', response);
   try {
     yield put(setIndividualResultData(response));
   } catch (error) { }
@@ -97,7 +97,6 @@ export function* fetch_individual_result() {
 
 // Individual exports for testing
 export default function* individualResultSaga() {
-  // See example in containers/HomePage/saga.js
   yield fetch_AcademicYearList();
   yield takeLatest(SET_ON_CHANGE_ACADEMIC_YEAR, fetch_examListBy_Type);
   yield takeLatest(SUBMIT_SEARCH_BUTTON, fetch_individual_result)

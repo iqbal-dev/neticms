@@ -24,7 +24,7 @@ export function* fetch_class_List() {
   };
   const response = yield call(request, requestURL, options);
   try {
-    console.log('class response', response);
+    // console.log('class response', response);
     yield put(setLoader('autoLoadOff'));
     yield put(setClassList(response.item));
   } catch (error) { }
@@ -48,7 +48,7 @@ export function* fetch_classWiseFeesInfo() {
   };
 
   const response = yield call(request, requestURL, options);
-  console.log('section wise result Res', response);
+  // console.log('section wise result Res', response);
   try {
     yield put(setLoader('tableLoadOff'));
     yield put(setFeesInfoList(response.item));

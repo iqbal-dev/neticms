@@ -1,7 +1,4 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import {
-  TEACHER_INFORMATON_LIST,
-} from './constants';
 import { BASE_URL, BASE_URL_EM, FETCH_STAFF_INFORMATION } from '../../utils/serviceUrl';
 import request from '../../utils/request';
 import { teacherInformationList, setLoader } from './actions';
@@ -29,7 +26,7 @@ export function* teacherInformationSaga() {
 
   try {
     yield put(teacherInformationList(response.item));
-    console.log('response.item', response.item);
+    // console.log('response.item', response.item);
   } catch (error) { }
 
 }

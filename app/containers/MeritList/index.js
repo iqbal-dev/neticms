@@ -171,7 +171,7 @@ export class MeritList extends React.Component {
                                     <option key={item.examConfigId} value={item.examConfigId}>{item.examObject.name}</option>
                                   ))}
                                 </Input>
-                              <span className="error-message"> {errors['examType']}</span>
+                                <span className="error-message"> {errors['examType']}</span>
                               </FormGroup>
                             </div>
                             }
@@ -222,7 +222,7 @@ export class MeritList extends React.Component {
                           <thead>
                             <tr>
                               <th>Merit Position</th>
-                              {/* <th>Photo</th> */}
+                              <th>Photo</th>
                               <th>Student ID</th>
                               <th>Roll No.</th>
                               <th>Student Name</th>
@@ -239,7 +239,7 @@ export class MeritList extends React.Component {
                                 meritList.map((item, index) =>
                                   <tr>
                                     <td style={{ textAlign: 'center' }}>{item.sectionPosition}</td>
-                                    {/* <td><center className="attendance failed"><img src={donorImage} /></center></td> */}
+                                    <td><center className="attendance failed">{item.photo ? <img src={"data:image/*;base64," + item.photo} /> : <img src={donorImage} />}</center></td>
                                     <td>{item.customStudentId}</td>
                                     <td>{item.studentRoll}</td>
                                     <td>{item.studentName}</td>

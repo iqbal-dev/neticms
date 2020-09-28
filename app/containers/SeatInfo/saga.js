@@ -3,7 +3,6 @@ import request from '../../utils/request';
 
 import {
   BASE_URL_NETI_CMS, fetch_seats_details
-
 } from '../../utils/serviceUrl';
 import { setSeatInfoList, setLoader } from './actions';
 

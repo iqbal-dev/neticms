@@ -30,7 +30,9 @@ import { centerTableLoader } from '../../utils/contentLoader';
 export class TeacherInformation extends React.PureComponent {
 
   render() {
+
     let teachers = this.props.teacherList;
+
     return (
       <div>
         <AppLayout>
@@ -64,16 +66,16 @@ export class TeacherInformation extends React.PureComponent {
                           <div className="col-md-6 col-lg-4">
                             <div className="grid-list-wrapper">
                               {
-                                item.gender == "Male" ? 
+                                item.gender == "Male" ?
                                   <div className="grid-image teachers">
-                                    { item.image ? 
-                                      <img src={item.imageName} className="mx-auto d-block" /> 
+                                    {item.image ?
+                                      <img src={"data:image/*;base64," + item.imageName} className="mx-auto d-block" />
                                       : <img src={demoImageMale} className="mx-auto d-block" />
                                     }
-                                </div> 
-                                : <div className="grid-image teachers">
-                                    { item.image ? 
-                                      <img src={item.imageName} className="mx-auto d-block" /> 
+                                  </div>
+                                  : <div className="grid-image teachers">
+                                    {item.image ?
+                                      <img src={"data:image/*;base64," + item.imageName} className="mx-auto d-block" />
                                       : <img src={demoImageFemale} className="mx-auto d-block" />
                                     }
                                   </div>

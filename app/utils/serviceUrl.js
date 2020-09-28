@@ -1,8 +1,12 @@
 
-//for production only
+//for PRODUCTION only
 // export const BASE_URL = 'http://34.202.31.220:9001';
 
-//for Development only
+// export const BASE_URL_NETI_CMS = 'https://api.neticms.com';
+// export const BASE_URL_EM = 'https://api.edumanbd.com';
+// export const BASE_URL_NW = 'https://api.netiworld.com';
+
+//for DEVELOPMENT only
 
 export const BASE_URL_NETI_CMS = 'https://api.neticms.com'; //https://api.netizendev.com:2096 https://api.neticms.com
 export const BASE_URL_EM = 'https://api.edumanbd.com';  //https://api.netizendev.com:2083

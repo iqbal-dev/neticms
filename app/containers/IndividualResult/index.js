@@ -73,7 +73,7 @@ export class IndividualResult extends React.Component {
   }
 
   onChangeExam = (e) => {
-    this.setState({ examType: e.target.options[e.target.selectedIndex].text})
+    this.setState({ examType: e.target.options[e.target.selectedIndex].text })
     this.props.onChangeExamType(e);
     this.clearErrorMsg(e.target.name);
   }
@@ -81,7 +81,7 @@ export class IndividualResult extends React.Component {
   onSubmitSearchHandle = (e) => {
     e.preventDefault();
     if (!this.emptyFieldCheck()) {
-      console.log('submit cond true');
+      // console.log('submit cond true');
       this.props.onSubmitSearch();
     }
 
@@ -136,7 +136,7 @@ export class IndividualResult extends React.Component {
     let column = resultColumnName.map((item, index) =>
       <th>{item}</th>
     )
-    console.log('stdId, acYr, examId', this.props.studentID, this.props.academicYear, this.props.examConfigId);
+    // console.log('stdId, acYr, examId', this.props.studentID, this.props.academicYear, this.props.examConfigId);
     return (
       <div>
         <AppLayout>
@@ -208,7 +208,7 @@ export class IndividualResult extends React.Component {
                                       type="select"
                                       name="examType"
                                       onChange={this.onChangeExam}
-                                      // value={this.state.examType}
+                                    // value={this.state.examType}
                                     >
                                       <option value=''>Select Exam Type</option>
                                       {examList && examList.map(item => (<option key={item.examObject.id} value={item.examObject.id}>{item.examObject.name}</option>))}
@@ -217,7 +217,6 @@ export class IndividualResult extends React.Component {
                                   </FormGroup>
                                 }
                               </div>
-                              
 
                               {/* <FormGroup className="custom-input-text">
                                 <Input
@@ -232,12 +231,12 @@ export class IndividualResult extends React.Component {
                               <div className="col-12">
                                 <FormGroup className="mt-2">
                                   <Button
-                                    className={ errors['examType']? "btn explore-btn full-width all-border-radious mb-3" : 'btn explore-btn full-width all-border-radious'}
+                                    className={errors['examType'] ? "btn explore-btn full-width all-border-radious mb-3" : 'btn explore-btn full-width all-border-radious'}
                                     onClick={this.onSubmitSearchHandle}
                                   >
                                     <i class="fas fa-chevron-circle-right mr-3"></i> Search
                                   </Button>
-                                  
+
                                 </FormGroup>
                               </div>
 
@@ -304,11 +303,11 @@ export class IndividualResult extends React.Component {
                                 <div class="img-div overlay">
                                   <i class="fas fa-search-plus"></i>
                                 </div>
-                                { resultData && resultData.pureByteImage ?
-                                <img src={"data:image/*;base64," + resultData && resultData.pureByteImage} width="85px" height="85px" />
-                                :<img src={staticImage} width="85px" height="85px" />
+                                {resultData && resultData.photo ?
+                                  <img src={"data:image/*;base64," + resultData.photo} width="85px" height="85px" />
+                                  : <img src={staticImage} width="85px" height="85px" />
                                 }
-                                
+
                               </div>
                             </div>
 
