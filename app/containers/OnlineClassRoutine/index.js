@@ -113,6 +113,47 @@ export class OnlineClassRoutine extends React.Component {
     this.setState({ errors })
   }
 
+  parseTime = (cTime) => {
+    if (cTime == '') return null;
+    var d = new Date();
+    var time = cTime.match(/(\d+)(:(\d\d))?\s*(p?)/);
+    d.setHours(parseInt(time[1]) + ((parseInt(time[1]) < 12 && time[4]) ? 12 : 0));
+    d.setMinutes(parseInt(time[3]) || 0);
+    d.setSeconds(0, 0);
+    return d;
+  }
+
+  getPeriodTime = (start, end) => {
+    // let periodTime = period.map((item, index) => {
+    // var res = period.split(" - ");
+
+    let difference = ""
+    let difference12 = ""
+    if (start != "" && end != "") {
+      var tStart = this.parseTime(start);
+      var tStop = this.parseTime(end);
+
+      console.log("START........", tStart);
+      console.log("tStop........", tStop);
+
+      difference = (tStop - tStart) / (1000 * 60);
+
+      if( difference < 0){
+        difference12 = Math.ceil((12 - (( tStart - tStop ) / (1000 * 60)) / 60 )*60);
+
+        console.log("difference12", difference12);
+      }
+      else{
+        difference12 = ""
+      }
+    }
+    else {
+      difference = "";
+    }
+
+    return <>(Duration: { difference12 || difference} min)</>
+  }
+
   render() {
 
     let { errors } = this.state;
@@ -257,7 +298,10 @@ export class OnlineClassRoutine extends React.Component {
                                 onlineClassRoutineList.map((item) =>
 
                                   <tr>
-                                    <td><b>{item.startTime + " - " + item.endTime}</b></td>
+                                    <td>
+                                      <b>{item.startTime + " - " + item.endTime}</b><br/>
+                                      { this.getPeriodTime(item.startTime, item.endTime) }
+                                    </td>
                                     <td className="pl-5">
                                       <span className="font-16"><b>{item.subjectName}</b></span>
                                       <br />

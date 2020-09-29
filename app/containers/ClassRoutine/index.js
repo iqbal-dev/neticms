@@ -109,7 +109,7 @@ export class ClassRoutine extends React.Component {
 
       if( difference < 0){
         // difference12 = ( tStart - tStop ) / (1000 * 60);
-        difference12 = (12 - (( tStart - tStop ) / (1000 * 60)) / 60 )*60;
+        difference12 = Math.ceil((12 - (( tStart - tStop ) / (1000 * 60)) / 60 )*60);
 
         console.log("difference12", difference12);
       }

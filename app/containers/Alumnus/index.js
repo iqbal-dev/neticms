@@ -44,10 +44,39 @@ export class Alumnus extends React.Component {
             <div className="container-fluid">
               <div className="container m-t-40">
                 <div className="row">
-                  <div className="col-md-12 result-body-header">
-                    <h1>Under Construction...</h1>
+                  <div className="col-md-12">
+                    <div className="page-inner-title">
+                      <h2 className="text-orange">List of Successful Alumnus Members</h2>
+                      <div className="custom-title-border-left"></div>
+                    </div>
                   </div>
                 </div>
+
+                <div className="row">
+                  <div className="col-12 alumnus-member">
+                    <div className="alumnus-member-inside">
+                      <img src=""/>
+                      <div className="info-right">
+                        <header>
+                          <div className="left">Shahrear Kabir</div>
+                          <div className="right">
+                            <div className="grid-social">
+                              <ul className="d-flex justify-content-center w-100 nav">
+
+                                <li><a ><i class="fas fa-phone"></i></a></li>
+                                <li><a ><i class="fas fa-envelope"></i></a></li>
+                                <li><a><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a><i class="fab fa-linkedin-in"></i></a></li>
+
+                              </ul>
+                            </div>
+                          </div>
+                        </header>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </section>
