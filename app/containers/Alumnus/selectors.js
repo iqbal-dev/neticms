@@ -18,5 +18,11 @@ const selectAlumnusDomain = state => state.get('alumnus', initialState);
 const makeSelectAlumnus = () =>
   createSelector(selectAlumnusDomain, substate => substate.toJS());
 
+const makeSelectAlumnusList = () =>
+  createSelector(selectAlumnusDomain, substate => substate.get('alumnusList'));
+
 export default makeSelectAlumnus;
-export { selectAlumnusDomain };
+export {
+  selectAlumnusDomain,
+  makeSelectAlumnusList
+};

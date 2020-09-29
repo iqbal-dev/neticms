@@ -105,3 +105,5 @@ export const fetch_examSessionList = '/routine/exam-session/list';
 // fetch_classRoutineList
 
 export const FETCH_ONLINE_CLASS_ROUTINE = "/nw/sa-point/online-routine/by/section/group/date";
+
+export const FETCH_ALUMNUS_LIST = "/public/alumonus/mmembers";

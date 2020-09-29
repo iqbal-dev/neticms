@@ -14,16 +14,19 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectAlumnus from './selectors';
+import makeSelectAlumnus, { makeSelectAlumnusList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 
-/* eslint-disable react/prefer-stateless-function */
 export class Alumnus extends React.Component {
+
   render() {
+
+    console.log('alumnusList', this.props.alumnusList);
+
     return (
       <div>
         <AppLayout>
@@ -36,8 +39,8 @@ export class Alumnus extends React.Component {
           <BreadcrumComponent
             pageTitle="Alumnus"
             menuStepFirst="Alumnus"
-            // menuStepSenond="Routine"
-            // menuStepThird="Exam Routine"
+          // menuStepSenond="Routine"
+          // menuStepThird="Exam Routine"
           />
 
           <section>
@@ -55,7 +58,7 @@ export class Alumnus extends React.Component {
                 <div className="row">
                   <div className="col-12 alumnus-member">
                     <div className="alumnus-member-inside">
-                      <img src=""/>
+                      <img src="" />
                       <div className="info-right">
                         <header>
                           <div className="left">Shahrear Kabir</div>
@@ -88,9 +91,9 @@ export class Alumnus extends React.Component {
               </div>
             </div>
           </div>
-          
+
         </AppLayout>
-        
+
       </div>
     );
   }
@@ -102,6 +105,7 @@ Alumnus.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   alumnus: makeSelectAlumnus(),
+  alumnusList: makeSelectAlumnusList(),
 });
 
 function mapDispatchToProps(dispatch) {
