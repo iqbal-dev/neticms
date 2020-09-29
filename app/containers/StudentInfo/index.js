@@ -26,6 +26,7 @@ import { classNameListDropDown, classNameSelectedMethod, classGroupListDropDown,
 import { inputFieldLoader, tableLoader, centerTableLoader } from '../../utils/contentLoader';
 import demoImageMale from '../../assets/img/demo-image.jpg';
 import demoImageFemale from '../../assets/img/demo-image-female.jpg';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
 
 export class StudentInfo extends React.Component {
 
@@ -40,11 +41,15 @@ export class StudentInfo extends React.Component {
   onChangeClass = (e) => {
     this.props.onChangeClassName(e);
     this.clearErrorMsg(e.target.name);
+    // console.log("e.options[e.selectedIndex].text", e.target.options[e.target.selectedIndex].text);
+    this.setState({ classNameTitle: e.target.options[e.target.selectedIndex].text })
   }
 
   onChangeGroup = (e) => {
     this.props.onChangeGroupName(e);
     this.clearErrorMsg(e.target.name);
+
+    this.setState({ groupNameTitle: e.target.options[e.target.selectedIndex].text })
   }
 
   handleSubmitSearch = () => {
@@ -79,6 +84,20 @@ export class StudentInfo extends React.Component {
     this.setState({ errors });
     return fieldIsEmpty;
 
+  }
+
+  onDownloadPdf = () => {
+    let pdfColumns = [
+      { title: "Roll No.", dataKey: "studentRoll" },
+      { title: "Name", dataKey: "studentName" },
+      { title: "Father's Name", dataKey: "fatherName" },
+      { title: "Mother's Name", dataKey: "motherName" },
+      { title: "Mobile No.", dataKey: "mobileNo" },
+      // { title: "Email", dataKey: "staffEmail" },
+      { title: "Gender", dataKey: "studentGender" },
+    ]
+    // console.log("this.props.searchResult", this.props.searchResult);
+    getDownloadTablePDF( "Student's List of " + this.state.classNameTitle + " " + this.state.groupNameTitle, pdfColumns, this.props.searchResult)
   }
 
   render() {
@@ -217,8 +236,16 @@ export class StudentInfo extends React.Component {
 
                 <div className="container info-header-title">
                   <div className="row">
-                    <h5 className="col-lg-12">
-                      Showing result for <span className="text-orange"> Class {classNameFind ? classNameFind : ''} ({studentInfiList ? studentInfiList.length + ' Students' : ''})</span>
+                    <h5 className="col-lg-12 d-flex justify-content-between align-items-center">
+                      <span>Showing result for <span className="text-orange"> Class {classNameFind ? classNameFind : ''} ({studentInfiList ? studentInfiList.length + ' Students' : ''})</span></span>
+                      <FormGroup className="mb-0">
+                        <Button
+                          className="btn all-border-radious no-border"
+                          onClick={this.onDownloadPdf}
+                        >
+                          <i class="fas fa-file-pdf" ></i> Download
+                        </Button>
+                      </FormGroup>
                     </h5>
                   </div>
                 </div>

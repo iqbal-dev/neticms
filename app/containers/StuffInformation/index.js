@@ -27,9 +27,23 @@ import { AppLayout } from '../AppLayout';
 import { centerTableLoader } from '../../utils/contentLoader';
 import demoImageMale from '../../assets/img/demo-image.jpg';
 import demoImageFemale from '../../assets/img/demo-image-female.jpg';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
+import { FormGroup } from 'reactstrap';
 
 /* eslint-disable react/prefer-stateless-function */
 export class StuffInformation extends React.Component {
+
+  onDownloadPdf = () => {
+    let pdfColumns = [
+      { title: "ID", dataKey: "customStaffId" },
+      { title: "Name", dataKey: "staffName" },
+      { title: "Designation", dataKey: "designationName" },
+      { title: "Mobile No.", dataKey: "staffMobile1" },
+      // { title: "Email", dataKey: "staffEmail" },
+      { title: "Gender", dataKey: "gender" },
+    ]
+    getDownloadTablePDF( "Stuff's List", pdfColumns, this.props.staffInfoList)
+  }
 
   render() {
 
@@ -51,7 +65,16 @@ export class StuffInformation extends React.Component {
 
                   <div className="col-md-12">
                     <div className="page-inner-title">
-                      <h2 className="text-orange">List of Staff's</h2>
+                      <h2 className="text-orange d-flex justify-content-between align-items-center">List of Staff's
+                        <FormGroup className="mb-0">
+                          <Button
+                            className="btn all-border-radious no-border"
+                            onClick={this.onDownloadPdf}
+                          >
+                            <i class="fas fa-file-pdf" ></i> Download
+                          </Button>
+                        </FormGroup>
+                      </h2>
                       <div className="custom-title-border-left" />
                     </div>
                   </div>

@@ -25,9 +25,32 @@ import demoImageFemale from '../../assets/img/demo-image-female.jpg';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 import { centerTableLoader } from '../../utils/contentLoader';
+import { FormGroup, Button } from 'reactstrap';
+
+import { getDownloadTablePDF } from '../../utils/generatePdf';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TeacherInformation extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: {},
+    }
+
+    
+  }
+
+  onDownloadPdf = () => {
+    let pdfColumns = [
+      { title: "ID", dataKey: "customStaffId" },
+      { title: "Name", dataKey: "staffName" },
+      { title: "Designation", dataKey: "designationName" },
+      { title: "Mobile No.", dataKey: "staffMobile1" },
+      { title: "Email", dataKey: "staffEmail" },
+      { title: "Gender", dataKey: "gender" },
+    ]
+    getDownloadTablePDF( "Teacher's List", pdfColumns, this.props.teacherList)
+  }
 
   render() {
 
@@ -51,7 +74,16 @@ export class TeacherInformation extends React.PureComponent {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title">
-                      <h2 className="text-orange">Teacher's Information</h2>
+                      <h2 className="text-orange d-flex justify-content-between align-items-center">Teacher's Information 
+                      <FormGroup className="mb-0">
+                        <Button
+                          className="btn all-border-radious no-border"
+                          onClick={this.onDownloadPdf}
+                        >
+                          <i class="fas fa-file-pdf" ></i> Download
+                        </Button>
+                      </FormGroup>
+                      </h2>
                       <div className="custom-title-border-left"></div>
                     </div>
                   </div>
@@ -59,7 +91,7 @@ export class TeacherInformation extends React.PureComponent {
 
                 {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
 
-                  <div className="row">
+                  <div className="row" id='pdf-download-section'>
                     {
                       teachers.map((item) => {
                         return (
