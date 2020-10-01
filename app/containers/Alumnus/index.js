@@ -21,11 +21,15 @@ import messages from './messages';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import { AppLayout } from '../AppLayout';
 
+import donorImage from '../../assets/img/donor-image.png';
+
 export class Alumnus extends React.Component {
 
   render() {
 
-    console.log('alumnusList', this.props.alumnusList);
+    let { alumnusList } = this.props;
+
+    // console.log('alumnusList', this.props.alumnusList);
 
     return (
       <div>
@@ -55,29 +59,63 @@ export class Alumnus extends React.Component {
                   </div>
                 </div>
 
-                <div className="row">
+                <div className="row m-t-28">
                   <div className="col-12 alumnus-member">
-                    <div className="alumnus-member-inside">
-                      <img src="" />
-                      <div className="info-right">
-                        <header>
-                          <div className="left">Shahrear Kabir</div>
-                          <div className="right">
-                            <div className="grid-social">
-                              <ul className="d-flex justify-content-center w-100 nav">
 
-                                <li><a ><i class="fas fa-phone"></i></a></li>
-                                <li><a ><i class="fas fa-envelope"></i></a></li>
-                                <li><a><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a><i class="fab fa-linkedin-in"></i></a></li>
+                    {alumnusList && alumnusList.length ?
+                      alumnusList.map((item, index) => (
 
-                              </ul>
-                            </div>
+                        <div className="alumnus-member-inside align-items-center">
+                          {item.imgContent ? <img src={"data:image/*; base64," + item.imgContent} /> : <img src={donorImage} />}
+                          <div className="info-right">
+                            <header>
+                              <div className="row align-items-center">
+                                <div className="col-12 col-xl-6 my-3">
+                                  <div className="left text-orange name">{item.name}</div>
+                                </div>
+                                <div className="col-12 col-xl-6 mb-3">
+
+                                  {/* <div className="grid-social">
+                                    <ul className="d-flex justify-content-xl-end w-100 nav">
+
+                                      <li><a ><i class="fas fa-phone"></i></a></li>
+                                      <li><a ><i class="fas fa-envelope"></i></a></li>
+                                      <li><a><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a><i class="fab fa-linkedin-in"></i></a></li>
+
+                                    </ul>
+                                  </div> */}
+
+                                  <div className="grid-social">
+                                    <ul className="d-flex justify-content-center w-100 nav">
+                                      <li><a className={!item.contactNo ? '' : "phone"} phone={item.contactNo}><i class="fas fa-phone"></i></a></li>
+                                      <li><a className={!item.email ? '' : "email"} email={item.email}><i class="fas fa-envelope"></i></a></li>
+                                      <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
+                                      <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                  </div>
+
+                                </div>
+                              </div>
+
+                              <div className="row my-3 alumnus-job-details">
+                                <div className="col-12 col-xl-4 pl-5">{item.designation}</div>
+                                <div className="col-12 col-xl-4 pl-5">{item.organization}</div>
+                                <div className="col-12 col-xl-4 pl-5 text-xl-right">Batch Year <br />{item.batch}</div>
+                              </div>
+
+                              <div className="row alumnus-details">
+                                <div className="col-12"><i>{item.details}"</i></div>
+                              </div>
+                            </header>
                           </div>
-                        </header>
-                      </div>
-                    </div>
+                        </div>
+
+                      ))
+                      : ''}
+
                   </div>
+
                 </div>
 
               </div>
