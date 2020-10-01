@@ -2742,6 +2742,9 @@
     .alumnus-member .alumnus-member-inside .info-right header .grid-social ul li .linkedin:after {
       content: attr(linkedin); }
 
+.cursor-pointer {
+  cursor: pointer; }
+
 .rbc-calendar .rbc-toolbar .rbc-btn-group button {
   font-size: 12px; }
 .rbc-calendar .rbc-toolbar .rbc-toolbar-label {

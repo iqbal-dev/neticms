@@ -29,8 +29,11 @@ import donorImage from '../../assets/img/donor-image.png';
 import { AppLayout } from '../AppLayout';
 import { setAcademicYear, submitSearchButton, makeChangeSection, makeChangeExamType } from './actions';
 import { centerTableLoader, inputFieldLoaderLarge } from '../../utils/contentLoader';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
 
 let sectionWiseResultChart = [];
+let sectionName = '';
+let examName = '';
 
 export class SectionWiseResult extends React.Component {
 
@@ -95,10 +98,37 @@ export class SectionWiseResult extends React.Component {
     this.setState({ errors })
   }
 
+  onDownloadPdf = () => {
+
+    let pdfColumns = [
+      { title: "Photo", dataKey: "photo" },
+      { title: "Name", dataKey: "studentName" },
+      { title: "Roll No.", dataKey: "studentRoll" },
+      { title: "Student ID", dataKey: "customStudentId" },
+      { title: "Total Marks", dataKey: "totalMarks" },
+      { title: "GPA", dataKey: "gradingPoint" },
+      { title: "Grade", dataKey: "letterGrade" },
+    ]
+    getDownloadTablePDF("Section Wise Result of  " + sectionName + '  ' + examName + ' ' + this.props.academicYear, pdfColumns, this.props.sectionWiseResultList);
+
+  }
+
   render() {
 
     let { errors } = this.state
-    let { academicYearList, sectionList, examList, classList, sectionWiseResultList } = this.props;
+    let { academicYearList, sectionList, examList, sectionWiseResultList } = this.props;
+
+    if (sectionList && sectionList.length) {
+      sectionList.filter(item => {
+        if (item.classConfigId == this.props.classConfigId) { sectionName = item.classShiftSection }
+      })
+    }
+
+    if (examList && examList.length) {
+      examList.filter(item => {
+        if (item.examConfigId == this.props.examConfigId) { examName = item.examObject.name }
+      })
+    }
 
     return (
       <div>
@@ -237,7 +267,7 @@ export class SectionWiseResult extends React.Component {
                     <div className="page-inner-title with-print">
                       <h2>
                         <span>Total Student Found <span className="text-orange">({sectionWiseResultList && sectionWiseResultList.length ? sectionWiseResultList.length : 0})</span></span>
-                        {/* <span className="print text-orange"><i className="fas fa-print text-secondary"></i> Print Result</span> */}
+                        <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>

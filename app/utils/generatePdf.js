@@ -52,18 +52,18 @@ export const getDownloadTablePDF = (headerString, tableColumnList, tableBodyList
             textColor: [60, 60, 60],
             fillStyle: "F"
         },
-        columnStyles: { 
-            halign: "right", 
-            fontSize: 8, 
-            fontStyle: "bold", 
-            overflow: "linebreak" 
+        columnStyles: {
+            halign: "right",
+            fontSize: 8,
+            fontStyle: "bold",
+            overflow: "linebreak"
         },
         didParseCell: function (data) {
-              console.log("data", data);
+            console.log("data", data);
             // if (typeof data.cell.raw == "number") { data.cell.text = formatToCurrency(data.cell.raw); }
             if (data.section === 'body' && data.column.index === 0) {
                 data.cell.text = ""
-                data.cell.styles.fillColor = [240,240,240];
+                data.cell.styles.fillColor = [240, 240, 240];
                 data.cell.styles.minCellHeight = 12;
                 data.cell.styles.cellWidth = 12;
             }
@@ -72,13 +72,13 @@ export const getDownloadTablePDF = (headerString, tableColumnList, tableBodyList
         didDrawPage: pageContent,
         didDrawCell: (data) => {
             if (data.section === 'body' && data.column.index === 0) {
-              var base64Img = 'data:image/*;base64,' + data.cell.raw
-              doc.addImage(base64Img, 'JPEG', data.cell.x + 1, data.cell.y + 1, 10, 10)
+                var base64Img = 'data:image/*;base64,' + data.cell.raw
+                doc.addImage(base64Img, 'JPEG', data.cell.x + 1, data.cell.y + 1, 10, 10)
             }
         },
 
         margin: { bottom: 15 }
     });
 
-    doc.save(moment().format('YYYY-MM-DD') + headerString + ".pdf");
+    doc.save(moment().format('YYYY-MM-DD ') + headerString + ".pdf");
 }
