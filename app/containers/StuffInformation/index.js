@@ -35,6 +35,7 @@ export class StuffInformation extends React.Component {
 
   onDownloadPdf = () => {
     let pdfColumns = [
+      { title: "Photo", dataKey: "imageName" },
       { title: "ID", dataKey: "customStaffId" },
       { title: "Name", dataKey: "staffName" },
       { title: "Designation", dataKey: "designationName" },
@@ -66,6 +67,8 @@ export class StuffInformation extends React.Component {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2 className="text-orange d-flex justify-content-between align-items-center">List of Staff's
+                      {
+                        this.props.staffInfoList.length > 0? 
                         <FormGroup className="mb-0">
                           <Button
                             className="btn all-border-radious no-border"
@@ -74,6 +77,8 @@ export class StuffInformation extends React.Component {
                             <i class="fas fa-file-pdf" ></i> Download
                           </Button>
                         </FormGroup>
+                        :''
+                      }
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>

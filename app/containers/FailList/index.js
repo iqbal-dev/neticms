@@ -24,6 +24,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BreadcrumComponent from '../../components/BreadcrumComponent';
 import donorImage from '../../assets/img/donor-image.png';
 import { AppLayout } from '../AppLayout';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
 
 import {
   makeChangeAcademicYear,
@@ -108,6 +109,21 @@ export class FailList extends React.Component {
     if (!this.emptyFieldCheck()) {
       this.props.onSubmitSearch();
     }
+  }
+
+  onDownloadPdf = () => {
+    let pdfColumns = [
+      { title: "Photo", dataKey: "photo" },
+      // { title: "ID", dataKey: "customStaffId" },sectionPosition
+      { title: "Position", dataKey: "sectionPosition" },
+      { title: "Name", dataKey: "studentName" },
+      { title: "Roll No.", dataKey: "studentRoll" },
+      { title: "Student ID", dataKey: "customStudentId" },
+      { title: "Total Marks", dataKey: "totalMarks" },
+      { title: "GPA", dataKey: "gradingPoint" },
+      { title: "Grade", dataKey: "letterGrade" },
+    ]
+    getDownloadTablePDF( "Merit List", pdfColumns, this.props.meritList)
   }
 
   render() {
@@ -225,7 +241,7 @@ export class FailList extends React.Component {
                     <div className="page-inner-title with-print">
                       <h2>
                         <span>Total Failed Student Found<span className="text-orange">({failList && failList.length ? failList.length : 0})</span></span>
-                        {/* <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span> */}
+                        <span className="print text-orange" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>

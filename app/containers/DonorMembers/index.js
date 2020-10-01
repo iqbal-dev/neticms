@@ -25,8 +25,21 @@ import { makeSelectDonorMembersList } from './selectors';
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
 import { centerTableLoader } from '../../utils/contentLoader';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
+import { FormGroup, Button } from 'reactstrap';
 
 export class DonorMembers extends React.PureComponent {
+
+  onDownloadPdf = () => {
+    let pdfColumns = [
+      { title: "Photo", dataKey: "memberImg" },
+      // { title: "ID", dataKey: "customStaffId" },
+      { title: "Name", dataKey: "memberName" },
+      { title: "Mobile No.", dataKey: "memberMobile" },
+      { title: "Email", dataKey: "memberEmail" },
+    ]
+    getDownloadTablePDF( "Donor Members List", pdfColumns, this.props.donorMembersList)
+  }
 
   render() {
     return (
@@ -43,7 +56,20 @@ export class DonorMembers extends React.PureComponent {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="page-inner-title">
-                      <h2 className="text-orange">Donor Members</h2>
+                      <h2 className="text-orange d-flex justify-content-between align-items-center">Donor Members
+                      {
+                        this.props.donorMembersList.length > 0? 
+                          <FormGroup className="mb-0">
+                            <Button
+                              className="btn all-border-radious no-border"
+                              onClick={this.onDownloadPdf}
+                            >
+                              <i class="fas fa-file-pdf" ></i> Download
+                            </Button>
+                          </FormGroup>
+                          :''
+                      }
+                      </h2>
                       <div className="custom-title-border-left"></div>
                     </div>
                   </div>
