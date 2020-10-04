@@ -30,6 +30,7 @@ import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { centerTableLoader } from '../../utils/contentLoader';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -97,6 +98,19 @@ export class StudentWiseAttendance extends React.Component {
     let { errors } = this.state;
     errors[name] = ''
     this.setState({ errors })
+  }
+
+  onDownloadPdf = () => {
+
+    let pdfHeader = "Student Attendance of Student ID " + this.props.studentID + ' From ' + new Date(this.props.attendanceFromDate).toLocaleDateString('en-GB') + ' To ' + new Date(this.props.attendanceToDate).toLocaleDateString('en-GB');
+    let pdfColumns = [
+      { title: "Date", dataKey: "date" },
+      { title: "Day", dataKey: "day" },
+      { title: "Status", dataKey: "status" },
+      { title: "Present Time", dataKey: "presentTime" },
+    ]
+    getDownloadTablePDF(pdfHeader, pdfColumns, this.props.attendanceList.details);
+
   }
 
   render() {
@@ -242,11 +256,27 @@ export class StudentWiseAttendance extends React.Component {
 
               <div className="container info-header-title">
                 <div className="row">
-                  <h5 className="col-lg-12">
-                    Showing result for  <span className="text-orange">Student ID : {this.state.stdDetailsHeaderVisible == true ? this.props.studentID + ' (' + fromDateForHeader + ' to ' + toDateForHeader + ')' : ''} </span>
-                  </h5>
+                  <div className="col-md-12">
+                    <div className="page-inner-title with-print mb-4">
+                      <h2>
+                        <span className="font-20">
+                          Showing result for  <span className="text-orange">Student ID : {this.state.stdDetailsHeaderVisible == true ? this.props.studentID + ' (' + fromDateForHeader + ' to ' + toDateForHeader + ')' : ''} </span></span>
+                        <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
+                      </h2>
+                      <div className="custom-title-border-left my-4" />
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* <div className="container info-header-title">
+                <div className="row">
+                  <h5 className="col-lg-12">
+                    Showing result for  <span className="text-orange">Student ID : {this.state.stdDetailsHeaderVisible == true ? this.props.studentID + ' (' + fromDateForHeader + ' to ' + toDateForHeader + ')' : ''} </span>
+                    <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
+                  </h5>
+                </div>
+              </div> */}
 
               <div className="container">
                 <div className="row">

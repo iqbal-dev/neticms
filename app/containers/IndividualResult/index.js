@@ -43,6 +43,7 @@ import {
   makeSelectStudentID,
 } from './selectors';
 import { inputFieldLoaderLarge, centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
 
 /* eslint-disable react/prefer-stateless-function */
 export class IndividualResult extends React.Component {
@@ -118,6 +119,21 @@ export class IndividualResult extends React.Component {
     this.setState({ errors })
   }
 
+  // onDownloadPdf = () => {
+
+  //   let pdfColumns = [
+  //     { title: "Photo", dataKey: "photo" },
+  //     { title: "Name", dataKey: "studentName" },
+  //     { title: "Roll No.", dataKey: "studentRoll" },
+  //     { title: "Student ID", dataKey: "customStudentId" },
+  //     { title: "Total Marks", dataKey: "totalMarks" },
+  //     { title: "GPA", dataKey: "gradingPoint" },
+  //     { title: "Grade", dataKey: "letterGrade" },
+  //   ]
+  //   getDownloadTablePDF("Section Wise Result of  " + sectionName + '  ' + examName + ' ' + this.props.academicYear, pdfColumns, this.props.sectionWiseResultList);
+
+  // }
+
   render() {
 
     let { errors } = this.state;
@@ -125,6 +141,8 @@ export class IndividualResult extends React.Component {
 
     let resultColumnName = []
     let shortCodeTitle = []
+
+    // console.log('resultData', resultData);
 
     for (let i = 1; i <= 4; i++) {
       if (resultData && resultData['shortCode' + i + 'Name'] != null) {
@@ -271,7 +289,7 @@ export class IndividualResult extends React.Component {
                       <h2>
                         <span className="font-20">
                           Showing Result for Student ID. <span className="text-orange">{resultData && resultData.customStudentId}</span></span>
-                        {/* <span className="print text-orange"><i className="fas fa-print"></i> Print Result</span> */}
+                        {/* <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span> */}
                       </h2>
                       <div className="custom-title-border-left my-4" />
                     </div>
