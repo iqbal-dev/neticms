@@ -1021,7 +1021,7 @@
     top: 0;
     height: 100%;
     width: 100%;
-    background: rgba(0, 0, 0, 0);
+    background: transparent;
     content: ''; }
   .content-wrapper .book-list-wrapper .book-list-image .book-image-zoom {
     height: 50px;
@@ -3035,7 +3035,7 @@
       top: 0;
       height: 100%;
       width: 100%;
-      background: rgba(0, 0, 0, 0);
+      background: transparent;
       content: ''; }
     .image-section .image-section-inside img {
       height: 100%;
