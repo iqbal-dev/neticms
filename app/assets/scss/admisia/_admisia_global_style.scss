@@ -1,0 +1,250 @@
+.admisia{
+    // transition: all .5s;
+
+    .bg-smoke-white{
+        background-color: #E9E9E9;
+    }
+
+    .f-14{
+        font-size: 14px !important;
+    }
+
+    .student-details-info{
+        width: fit-content;
+
+        div{
+            font-size: $fontSizeSecondary;
+            margin: 5px 0;
+            color: #3A3985;
+            font-weight: $fontWeightPrimary;
+
+            .task-badge{
+                position: unset;
+                flex: 0 1 auto;
+                padding: 4px;
+                margin-right: 8px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                left: 3px;
+                background-color: $orangeColor;
+            }
+
+            > label{
+                min-width: 220px;
+                color: $colorBlack;
+                font-weight: 400;
+                margin-bottom: unset;
+                font-weight: $fontWeightSecondary;
+            }
+        }
+    }
+
+    .custom-dropdown{
+        position: relative;
+        border-radius: unset;
+        overflow: hidden;
+
+        &.with-search-btn{
+            &::before {
+                content: unset;
+                width: unset;
+            }
+        }
+        
+        &::after {
+            content: '>';
+            font: 30px "Consolas", monospace;
+            font-weight: 600;
+            color: $orangeColorDark;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            background-color: #ffffff;
+            width: 28px;
+            height: 28px;
+            line-height: 1;
+            bottom: 5px;
+            right: 0;
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            text-align: center;
+            padding: 0px 0px 30px 0;
+            margin: 4px 0px 0px 10px;
+        }
+        // &::before {
+        //     content: '';
+        //     background-color: #f2f2f2;
+        //     width: 28px;
+        //     height: 38px;
+        //     top: 0;
+        //     right: 0;
+        //     position: absolute;
+        // }
+
+        .form-control{
+            // padding-left: 50px;
+
+            option{
+                padding: 5px 10px;
+            }
+        }
+    }
+
+    .custom-upload{
+        .custom-file{
+            .custom-file-input{
+                border: 0px solid transparent;
+            }
+
+            .custom-file-label{
+                border: 0px solid transparent;
+
+                &::after {
+                    height: 100%;
+                    border-radius: unset;
+                    background-color: $orangeColor;
+                    color: $colorWhite;
+                    font-size: $fontSizeSecondarySmall;
+                    line-height: 25px;
+                }
+            }
+        }
+    }
+
+    .online-admission-table {
+        tbody {
+            tr {
+                // background: transparent;
+                // border-bottom: 2px solid #fff;
+                
+                td {
+                    //   border-top: none;
+                    color: $colorBlack;
+                    font-size: $fontSizeSecondarySmall;
+                    font-weight: $fontWeightSecondary;
+                    vertical-align: middle;
+                }
+    
+                &:nth-of-type(odd) {
+                    td {
+                        &:first-child{
+                            background-color: $orangeColorDark;
+                            color: $colorWhite;
+                        }
+                    }
+                }
+                &:nth-of-type(even) {
+                    td {
+                        &:first-child{
+                            background-color: $primaryColorDark;
+                            color: $colorWhite;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .online-application{
+        .section-top-page{
+            .one, .two, .three{
+                position: relative;
+
+                &::before{
+                    position: absolute;
+                    content: "";
+                    width: 100%;
+                    height: 5px;
+                    left: 0;
+                    top: 41%;
+                    background-color: $colorWhite;
+                    z-index: 1;
+                    box-shadow: 0 3px 8px #00000025;
+                }
+
+                &.one::before{
+                    left: unset;
+                }
+
+                &.three::before{
+                    left: unset;
+                    right: 50%;
+                }
+                
+                .page{
+                    background-color: $colorWhite;
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    margin: 0 auto;
+                    line-height: 30px;
+                    border: 5px solid $colorWhite;
+                    font-size: 22px;
+                    font-family: 'Segoe UI';
+                    font-weight: $fontWeightPrimary;
+                    z-index: 2;
+                    position: relative;
+                    // box-shadow: 0 3px 8px #00000025;
+                }
+
+                &.active{
+                    background-color: $primaryColorDark;
+                    color: $colorWhite;
+
+                    .page{
+                        background-color: $orangeColor;
+                    }
+                }
+            }
+        }
+
+        .application-form-table{
+            thead{
+                tr{
+                    th{
+                        background-color: $primaryColorDark;
+                        color: $colorWhite;
+
+                        &:last-child{
+                            font-size: $fontSizeSecondarySmall;
+                        }
+                    }
+                }
+            }
+        }
+
+        .pre-exam-info-table{
+            margin: 0 -2px 0 -5px;
+
+            thead{
+                tr{
+                    th{
+                        background-color: $orangeColor;
+                        color: $colorWhite;
+                        font-size: 14px;
+                        border: 5px solid $grayColorLight;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                }
+            }
+
+            tbody{
+                tr{
+                    min-height: 92px;
+
+                    td{
+                        background-color: $colorWhite;
+                        color: $colorBlack;
+                        font-size: 14px;
+                        border: 5px solid $grayColorLight;
+                        // min-height: 92px;
+                    }
+                }
+            }
+        }
+    }
+}

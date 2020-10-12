@@ -52,6 +52,8 @@ import ExamRoutine from 'containers/ExamRoutine';
 import Awards from 'containers/Awards';
 import TopStudents from 'containers/TopStudents';
 import Alumnus from 'containers/Alumnus';
+import OnlineAdmission from 'containers/admisia/OnlineAdmission';
+import { ApplicationForm } from 'containers/admisia/ApplicationForm';
 
 export default function AppRoute() {
 
@@ -122,6 +124,12 @@ export default function AppRoute() {
 
       <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
       <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} /> */}
+
+      {/* Admisia Menu Start */}
+      <Route exact path="/institute/online_admission" component={OnlineAdmission} />
+      <Route exact path="/institute/application_form" component={ApplicationForm} />
+
+
       <Route path="" component={NotFoundPage} />
 
     </Switch>

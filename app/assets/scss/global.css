@@ -362,7 +362,7 @@
   background: #fff; }
 
 .text-orange {
-  color: #ff4e31; }
+  color: #ff4e31 !important; }
 
 .box-shadow, .speech-wrapper .speech-slider-wrapper, .usefull-links-wrapper {
   -webkit-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);
@@ -2664,6 +2664,142 @@
   color: #ffffff; }
   .rbc-calendar .rbc-month-view .rbc-agenda-table > thead > tr > th .rbc-header, .rbc-calendar .rbc-agenda-view .rbc-agenda-table > thead > tr > th .rbc-header {
     border-bottom: unset; }
+
+.admisia .bg-smoke-white {
+  background-color: #E9E9E9; }
+.admisia .f-14 {
+  font-size: 14px !important; }
+.admisia .student-details-info {
+  width: fit-content; }
+  .admisia .student-details-info div {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #3A3985;
+    font-weight: 600; }
+    .admisia .student-details-info div .task-badge {
+      position: unset;
+      flex: 0 1 auto;
+      padding: 4px;
+      margin-right: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      left: 3px;
+      background-color: #ff4e31; }
+    .admisia .student-details-info div > label {
+      min-width: 220px;
+      color: #000;
+      font-weight: 400;
+      margin-bottom: unset;
+      font-weight: 500; }
+.admisia .custom-dropdown {
+  position: relative;
+  border-radius: unset;
+  overflow: hidden; }
+  .admisia .custom-dropdown.with-search-btn::before {
+    content: unset;
+    width: unset; }
+  .admisia .custom-dropdown::after {
+    content: '>';
+    font: 30px "Consolas", monospace;
+    font-weight: 600;
+    color: #f23010;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    background-color: #ffffff;
+    width: 28px;
+    height: 28px;
+    line-height: 1;
+    bottom: 5px;
+    right: 0;
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    text-align: center;
+    padding: 0px 0px 30px 0;
+    margin: 4px 0px 0px 10px; }
+  .admisia .custom-dropdown .form-control option {
+    padding: 5px 10px; }
+.admisia .custom-upload .custom-file .custom-file-input {
+  border: 0px solid transparent; }
+.admisia .custom-upload .custom-file .custom-file-label {
+  border: 0px solid transparent; }
+  .admisia .custom-upload .custom-file .custom-file-label::after {
+    height: 100%;
+    border-radius: unset;
+    background-color: #ff4e31;
+    color: #fff;
+    font-size: 14px;
+    line-height: 25px; }
+.admisia .online-admission-table tbody tr td {
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: middle; }
+.admisia .online-admission-table tbody tr:nth-of-type(odd) td:first-child {
+  background-color: #f23010;
+  color: #fff; }
+.admisia .online-admission-table tbody tr:nth-of-type(even) td:first-child {
+  background-color: #002749;
+  color: #fff; }
+.admisia .online-application .section-top-page .one, .admisia .online-application .section-top-page .two, .admisia .online-application .section-top-page .three {
+  position: relative; }
+  .admisia .online-application .section-top-page .one::before, .admisia .online-application .section-top-page .two::before, .admisia .online-application .section-top-page .three::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 5px;
+    left: 0;
+    top: 41%;
+    background-color: #fff;
+    z-index: 1;
+    box-shadow: 0 3px 8px #00000025; }
+  .admisia .online-application .section-top-page .one.one::before, .admisia .online-application .section-top-page .two.one::before, .admisia .online-application .section-top-page .three.one::before {
+    left: unset; }
+  .admisia .online-application .section-top-page .one.three::before, .admisia .online-application .section-top-page .two.three::before, .admisia .online-application .section-top-page .three.three::before {
+    left: unset;
+    right: 50%; }
+  .admisia .online-application .section-top-page .one .page, .admisia .online-application .section-top-page .two .page, .admisia .online-application .section-top-page .three .page {
+    background-color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    margin: 0 auto;
+    line-height: 30px;
+    border: 5px solid #fff;
+    font-size: 22px;
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    z-index: 2;
+    position: relative; }
+  .admisia .online-application .section-top-page .one.active, .admisia .online-application .section-top-page .two.active, .admisia .online-application .section-top-page .three.active {
+    background-color: #002749;
+    color: #fff; }
+    .admisia .online-application .section-top-page .one.active .page, .admisia .online-application .section-top-page .two.active .page, .admisia .online-application .section-top-page .three.active .page {
+      background-color: #ff4e31; }
+.admisia .online-application .application-form-table thead tr th {
+  background-color: #002749;
+  color: #fff; }
+  .admisia .online-application .application-form-table thead tr th:last-child {
+    font-size: 14px; }
+.admisia .online-application .pre-exam-info-table {
+  margin: 0 -2px 0 -5px; }
+  .admisia .online-application .pre-exam-info-table thead tr th {
+    background-color: #ff4e31;
+    color: #fff;
+    font-size: 14px;
+    border: 5px solid #f2f2f2;
+    text-align: center;
+    vertical-align: middle; }
+  .admisia .online-application .pre-exam-info-table tbody tr {
+    min-height: 92px; }
+    .admisia .online-application .pre-exam-info-table tbody tr td {
+      background-color: #fff;
+      color: #000;
+      font-size: 14px;
+      border: 5px solid #f2f2f2; }
 
 * {
   font-family: 'Montserrat', sans-serif; }

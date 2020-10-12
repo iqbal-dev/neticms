@@ -325,6 +325,18 @@ export class Menu extends React.Component {
                           </DropdownMenu>
                         </UncontrolledDropdown>
 
+                        {/* ADMISIA MENU START */}
+                        <UncontrolledDropdown nav inNavbar>
+                          <DropdownToggle nav caret>Online Admission</DropdownToggle>
+                          <DropdownMenu right>
+                            <UncontrolledDropdown nav inNavbar>
+                              <NavItem><Link to='/institute/online_admission' className='nav-link'>Admission</Link> </NavItem>
+                              <NavItem><Link to='/institute/payment' className='nav-link'>Payment</Link> </NavItem>
+                              <NavItem><Link to='/institute/application_form' className='nav-link'>Application Form</Link> </NavItem>
+                            </UncontrolledDropdown>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+
                       </Nav>
                     </Collapse>
                   </Navbar>
