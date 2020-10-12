@@ -46,7 +46,9 @@ import {
 import { makeSelectGlobalSectionList } from '../HomePage/selectors';
 import { centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 
-/* eslint-disable react/prefer-stateless-function */
+let sectionName = '';
+let examName = '';
+
 export class FailList extends React.Component {
 
   constructor(props) {
@@ -112,24 +114,35 @@ export class FailList extends React.Component {
   }
 
   onDownloadPdf = () => {
+
     let pdfColumns = [
       { title: "Photo", dataKey: "photo" },
-      // { title: "ID", dataKey: "customStaffId" },sectionPosition
-      { title: "Position", dataKey: "sectionPosition" },
       { title: "Name", dataKey: "studentName" },
       { title: "Roll No.", dataKey: "studentRoll" },
       { title: "Student ID", dataKey: "customStudentId" },
       { title: "Total Marks", dataKey: "totalMarks" },
-      { title: "GPA", dataKey: "gradingPoint" },
-      { title: "Grade", dataKey: "letterGrade" },
+      { title: "Failed Subject", dataKey: "numOfFailedSubjects" },
     ]
-    getDownloadTablePDF( "Merit List", pdfColumns, this.props.meritList)
+    getDownloadTablePDF("Fail List of " + sectionName + '  ' + examName + ' ' + this.props.academicYear, pdfColumns, this.props.failList);
+
   }
 
   render() {
 
     let { errors } = this.state;
-    let { academicYearList, sectionList, examList, classList, failList } = this.props;
+    let { academicYearList, sectionList, examList, failList } = this.props;
+
+    if (sectionList && sectionList.length) {
+      sectionList.filter(item => {
+        if (item.classConfigId == this.props.classConfigId) { sectionName = item.classShiftSection }
+      })
+    }
+
+    if (examList && examList.length) {
+      examList.filter(item => {
+        if (item.examConfigId == this.props.examConfigId) { examName = item.examObject.name }
+      })
+    }
 
     return (
       <div>
@@ -241,7 +254,7 @@ export class FailList extends React.Component {
                     <div className="page-inner-title with-print">
                       <h2>
                         <span>Total Failed Student Found<span className="text-orange">({failList && failList.length ? failList.length : 0})</span></span>
-                        <span className="print text-orange" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
+                        <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>
@@ -264,7 +277,7 @@ export class FailList extends React.Component {
                             <tr>
                               <th>Photo</th>
                               <th>Student ID</th>
-                              <th>Roll No</th>
+                              <th>Roll No.</th>
                               <th>Student Name</th>
                               <th>Total Marks</th>
                               <th>Failed Subject</th>

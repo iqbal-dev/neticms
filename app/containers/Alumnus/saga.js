@@ -17,9 +17,9 @@ export function* fetch_alumnusList() {
   };
   try {
     const response = yield call(request, requestURL, options);
-    console.log('alumnusList-response', response);
+    // console.log('alumnusList-response', response);
     // yield put(setLoader('loaderOff'));
-    yield put(setAlumnusList(response));
+    yield put(setAlumnusList(response.item));
   } catch (error) { }
 
 }

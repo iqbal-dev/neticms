@@ -29,6 +29,9 @@ import { AppLayout } from '../AppLayout';
 import { centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 import { getDownloadTablePDF } from '../../utils/generatePdf';
 
+let sectionName = '';
+let examName = '';
+
 /* eslint-disable react/prefer-stateless-function */
 export class MeritList extends React.Component {
 
@@ -94,6 +97,7 @@ export class MeritList extends React.Component {
   }
 
   onDownloadPdf = () => {
+
     let pdfColumns = [
       { title: "Photo", dataKey: "photo" },
       // { title: "ID", dataKey: "customStaffId" },sectionPosition
@@ -105,13 +109,26 @@ export class MeritList extends React.Component {
       { title: "GPA", dataKey: "gradingPoint" },
       { title: "Grade", dataKey: "letterGrade" },
     ]
-    getDownloadTablePDF( "Merit List", pdfColumns, this.props.meritList)
+    getDownloadTablePDF("Merit List of " + sectionName + '  ' + examName + ' ' + this.props.academicYear, pdfColumns, this.props.meritList);
+
   }
 
   render() {
 
     let { errors } = this.state;
-    let { academicYearList, sectionList, examList, classList, meritList } = this.props;
+    let { academicYearList, sectionList, examList, meritList } = this.props;
+
+    if (sectionList && sectionList.length) {
+      sectionList.filter(item => {
+        if (item.classConfigId == this.props.classConfigId) { sectionName = item.classShiftSection }
+      })
+    }
+
+    if (examList && examList.length) {
+      examList.filter(item => {
+        if (item.examConfigId == this.props.examConfigId) { examName = item.examObject.name }
+      })
+    }
 
     return (
       <div>
@@ -216,7 +233,7 @@ export class MeritList extends React.Component {
                     <div className="page-inner-title with-print">
                       <h2>
                         <span>Total Student Found <span className="text-orange">({meritList && meritList.length ? meritList.length : 0})</span></span>
-                        <span className="print text-orange" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
+                        <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>

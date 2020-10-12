@@ -32,6 +32,7 @@ import { makeSelectStdAttendanceList, makeSelectDate, makeSelectChartDataArray, 
 
 import { AppLayout } from '../AppLayout';
 import { centerTableLoader } from '../../utils/contentLoader';
+import { getDownloadTablePDF } from '../../utils/generatePdf';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SectionWiseAttendance extends React.Component {
@@ -48,7 +49,7 @@ export class SectionWiseAttendance extends React.Component {
   }
 
   handleDateChange = (e) => {
-    console.log('selected date', e);
+    // console.log('selected date', e);
     this.props.onChangeDate(e);
     this.setState({ errors: {} });
   }
@@ -56,7 +57,7 @@ export class SectionWiseAttendance extends React.Component {
   onSubmitSearch = (e) => {
 
     e.preventDefault();
-    console.log('emptyCheck', this.emptyFieldCheck());
+    // console.log('emptyCheck', this.emptyFieldCheck());
     if (!this.emptyFieldCheck()) {
       this.props.onSubmitSearch();
     }
@@ -78,7 +79,21 @@ export class SectionWiseAttendance extends React.Component {
 
   }
 
+  onDownloadPdf = () => {
+
+    let pdfColumns = [
+      { title: "Class Name", dataKey: "className" },
+      { title: "Total Students", dataKey: "totalAttenTakenStds" },
+      { title: "Present", dataKey: "presentStds" },
+      { title: "Absent", dataKey: "absentStds" },
+      { title: "Leave", dataKey: "totalLeaveStds" }
+    ]
+    getDownloadTablePDF("Section Attendance of  " + new Date(this.props.selectedDate).toLocaleDateString('en-GB'), pdfColumns, this.props.attendanceListData);
+
+  }
+
   render() {
+
     let { attendanceListData, chartDataArray } = this.props;
     // console.log("chartDataArray list - index", chartDataArray);
 
@@ -205,16 +220,32 @@ export class SectionWiseAttendance extends React.Component {
               <div className="container m-t-40">
                 <div className="row">
                   <div className="col-md-12">
+                    <div className="page-inner-title with-print mb-4">
+                      <h2>
+                        <span className="font-20">
+                          Total Class Found{' '} <span className="text-orange">({attendanceListData && attendanceListData.length ? attendanceListData.length : 0})</span></span>
+                        <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
+                      </h2>
+                      <div className="custom-title-border-left my-4" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div className="container m-t-40">
+                <div className="row">
+                  <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2>
                         Total Class Found{' '}
                         <span className="text-orange">({attendanceListData && attendanceListData.length ? attendanceListData.length : 0})</span>
+                        <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {this.props.loaderStatus === 'tableLoadOn' ? centerTableLoader() :
 
