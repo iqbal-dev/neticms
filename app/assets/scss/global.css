@@ -364,6 +364,12 @@
 .text-orange {
   color: #ff4e31 !important; }
 
+.text-primary-light {
+  color: #033b6d !important; }
+
+.text-primary-dark {
+  color: #002749 !important; }
+
 .box-shadow, .speech-wrapper .speech-slider-wrapper, .usefull-links-wrapper {
   -webkit-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);
   -moz-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);
@@ -2820,7 +2826,7 @@
     width: 28px;
     height: 28px;
     line-height: 1;
-    bottom: 5px;
+    top: 30px;
     right: 0;
     position: absolute;
     pointer-events: none;
@@ -2852,41 +2858,43 @@
 .admisia .online-admission-table tbody tr:nth-of-type(even) td:first-child {
   background-color: #002749;
   color: #fff; }
-.admisia .online-application .section-top-page .one, .admisia .online-application .section-top-page .two, .admisia .online-application .section-top-page .three {
-  position: relative; }
-  .admisia .online-application .section-top-page .one::before, .admisia .online-application .section-top-page .two::before, .admisia .online-application .section-top-page .three::before {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 5px;
-    left: 0;
-    top: 41%;
-    background-color: #fff;
-    z-index: 1;
-    box-shadow: 0 3px 8px #00000025; }
-  .admisia .online-application .section-top-page .one.one::before, .admisia .online-application .section-top-page .two.one::before, .admisia .online-application .section-top-page .three.one::before {
-    left: unset; }
-  .admisia .online-application .section-top-page .one.three::before, .admisia .online-application .section-top-page .two.three::before, .admisia .online-application .section-top-page .three.three::before {
-    left: unset;
-    right: 50%; }
-  .admisia .online-application .section-top-page .one .page, .admisia .online-application .section-top-page .two .page, .admisia .online-application .section-top-page .three .page {
-    background-color: #fff;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    margin: 0 auto;
-    line-height: 30px;
-    border: 5px solid #fff;
-    font-size: 22px;
-    font-family: 'Segoe UI';
-    font-weight: 600;
-    z-index: 2;
+.admisia .online-application .section-top-page {
+  overflow: hidden; }
+  .admisia .online-application .section-top-page .one, .admisia .online-application .section-top-page .two, .admisia .online-application .section-top-page .three {
     position: relative; }
-  .admisia .online-application .section-top-page .one.active, .admisia .online-application .section-top-page .two.active, .admisia .online-application .section-top-page .three.active {
-    background-color: #002749;
-    color: #fff; }
-    .admisia .online-application .section-top-page .one.active .page, .admisia .online-application .section-top-page .two.active .page, .admisia .online-application .section-top-page .three.active .page {
-      background-color: #ff4e31; }
+    .admisia .online-application .section-top-page .one::before, .admisia .online-application .section-top-page .two::before, .admisia .online-application .section-top-page .three::before {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 5px;
+      left: 0;
+      top: 41%;
+      background-color: #fff;
+      z-index: 1;
+      box-shadow: 0 3px 8px #00000025; }
+    .admisia .online-application .section-top-page .one.one::before, .admisia .online-application .section-top-page .two.one::before, .admisia .online-application .section-top-page .three.one::before {
+      left: unset; }
+    .admisia .online-application .section-top-page .one.three::before, .admisia .online-application .section-top-page .two.three::before, .admisia .online-application .section-top-page .three.three::before {
+      left: unset;
+      right: 50%; }
+    .admisia .online-application .section-top-page .one .page, .admisia .online-application .section-top-page .two .page, .admisia .online-application .section-top-page .three .page {
+      background-color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      margin: 0 auto;
+      line-height: 30px;
+      border: 5px solid #fff;
+      font-size: 22px;
+      font-family: 'Segoe UI';
+      font-weight: 600;
+      z-index: 2;
+      position: relative; }
+    .admisia .online-application .section-top-page .one.active, .admisia .online-application .section-top-page .two.active, .admisia .online-application .section-top-page .three.active {
+      background-color: #002749;
+      color: #fff; }
+      .admisia .online-application .section-top-page .one.active .page, .admisia .online-application .section-top-page .two.active .page, .admisia .online-application .section-top-page .three.active .page {
+        background-color: #ff4e31; }
 .admisia .online-application .application-form-table thead tr th {
   background-color: #002749;
   color: #fff; }
@@ -2974,6 +2982,9 @@
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
 .react-datepicker-wrapper .react-datepicker__input-container .react-datepicker__close-icon {
   background-color: unset !important; }
+
+.react-datepicker-popper {
+  z-index: 3 !important; }
 
 .carousel.slide .carousel-inner {
   max-height: 471px; }
@@ -3103,5 +3114,50 @@
     opacity: 1; }
   .custom-tooltip:hover.custom-tooltip:after {
     opacity: 1; }
+
+.image-cropper-section {
+  padding: 23px 30px;
+  position: absolute;
+  /* top: 0px; */
+  border-radius: 5px;
+  box-shadow: -1px 0px 56px 10px rgba(236, 236, 236, 0.8);
+  background: #fff;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: 1px solid #ECECEC;
+  height: auto;
+  z-index: 1; }
+  .image-cropper-section::after {
+    position: absolute;
+    left: 10%;
+    top: -9px;
+    background: #fff;
+    content: "";
+    height: 15px;
+    width: 15px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(315deg);
+    border-right: 1px solid #ECECEC;
+    border-top: 1px solid #ECECEC; }
+  .image-cropper-section .image-cropper-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+    .image-cropper-section .image-cropper-button .nw-action-button {
+      border: 1px solid #BBE4FF;
+      box-shadow: unset;
+      color: #0099FF;
+      background-color: #FFFFFF !important;
+      font-size: 16px;
+      margin-left: 5px; }
+      .image-cropper-section .image-cropper-button .nw-action-button.p-button-success {
+        background-color: #033b6d !important;
+        border: none !important;
+        color: #ffffff; }
+      .image-cropper-section .image-cropper-button .nw-action-button.p-button-danger {
+        background-color: #E89191 !important;
+        border: none !important;
+        color: #ffffff; }
 
 /*# sourceMappingURL=global.css.map */

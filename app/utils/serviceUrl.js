@@ -2,15 +2,15 @@
 //for PRODUCTION only
 // export const BASE_URL = 'http://34.202.31.220:9001';
 
-export const BASE_URL_NETI_CMS = 'https://api.neticms.com';
-export const BASE_URL_EM = 'https://api.edumanbd.com';
-export const BASE_URL_NW = 'https://api.netiworld.com';
+// export const BASE_URL_NETI_CMS = 'https://api.neticms.com';
+// export const BASE_URL_EM = 'https://api.edumanbd.com';
+// export const BASE_URL_NW = 'https://api.netiworld.com';
 
 //for DEVELOPMENT only
 
-// export const BASE_URL_NETI_CMS = 'https://api.netizendev.com:2096';
-// export const BASE_URL_EM = 'https://api.netizendev.com:2083';
-// export const BASE_URL_NW = 'https://api.netizendev.com:2087';
+export const BASE_URL_NETI_CMS = 'http://18.215.19.195:9992';      //   https://api.netizendev.com:2096
+export const BASE_URL_EM = 'https://api.netizendev.com:2083';
+export const BASE_URL_NW = 'http://18.215.19.195:9991';            //   https://api.netizendev.com:2087
 
 export const fetch_em_token = '/oauth/token';
 export const login_URL = '/oauth/token';
@@ -105,5 +105,12 @@ export const fetch_examSessionList = '/routine/exam-session/list';
 // fetch_classRoutineList
 
 export const FETCH_ONLINE_CLASS_ROUTINE = "/nw/sa-point/online-routine/by/section/group/date";
-
 export const FETCH_ALUMNUS_LIST = "/public/alumonus/members";
+
+
+
+// ADMISIA API  admisia/core/config/find
+
+export const fetch_classConfigListBy_cmsId = "/admisia/class/config/list";
+export const fetch_coreConfigListBy_cmsId = "/admisia/core/config/find";
+export const insert_applicant_info = "/admisia/applicant/save";

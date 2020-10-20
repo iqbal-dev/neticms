@@ -58,6 +58,15 @@
 .text-orange {
   color: $orangeColor !important;
 }
+
+.text-primary-light {
+  color: $primaryColorLight !important;
+}
+
+.text-primary-dark {
+  color: $primaryColorDark !important;
+}
+
 .box-shadow {
   -webkit-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);
   -moz-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);

@@ -19,5 +19,15 @@ const selectOnlineAdmissionDomain = state =>
 const makeSelectOnlineAdmission = () =>
   createSelector(selectOnlineAdmissionDomain, substate => substate.toJS());
 
+const makeSelectClassConfigList = () =>
+  createSelector(selectOnlineAdmissionDomain, substate => substate.get('classConfigObj'));
+
+const makeSelectDataTableLoader = () =>
+  createSelector(selectOnlineAdmissionDomain, substate => substate.get('dataTableLoader'));
+
 export default makeSelectOnlineAdmission;
-export { selectOnlineAdmissionDomain };
+export { 
+  selectOnlineAdmissionDomain,
+  makeSelectClassConfigList,
+  makeSelectDataTableLoader
+ };

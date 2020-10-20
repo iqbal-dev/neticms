@@ -36,7 +36,7 @@ export function getTotalDaysDifference_TillToday(fromDate) {
 
     let today = new Date();
     let form_date = new Date(fromDate);
-    let difference = today > form_date ? form_date - today : today - form_date;
+    let difference = today > form_date ? today - form_date : form_date - today;
 
     let diff_days = Math.floor(difference / (1000 * 3600 * 24))
 
@@ -92,4 +92,16 @@ export function getHHcloneMMwithAMorPM(date) {
     var hhmm = hh + ':' + mm + ' ' + aa;
     return hhmm;
 
+}
+
+export function get_Only_Year(date) {
+    var moment = require('moment/moment');
+    var dateFromString = moment(date).format('YYYY');
+    return dateFromString;
+}
+
+export function get_DDMMM_YY_Format_WithComma(date) {
+    var moment = require('moment/moment');
+    var dateFromString = moment(date).format('DD MMMM, YYYY');
+    return dateFromString;
 }

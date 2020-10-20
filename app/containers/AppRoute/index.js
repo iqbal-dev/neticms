@@ -53,7 +53,7 @@ import Awards from 'containers/Awards';
 import TopStudents from 'containers/TopStudents';
 import Alumnus from 'containers/Alumnus';
 import OnlineAdmission from 'containers/admisia/OnlineAdmission';
-import { ApplicationForm } from 'containers/admisia/ApplicationForm';
+import ApplicationForm from 'containers/admisia/ApplicationForm';
 
 export default function AppRoute() {
 

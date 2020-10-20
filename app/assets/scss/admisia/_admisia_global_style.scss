@@ -65,7 +65,8 @@
             width: 28px;
             height: 28px;
             line-height: 1;
-            bottom: 5px;
+            // bottom: 5px;
+            top: 30px;
             right: 0;
             position: absolute;
             pointer-events: none;
@@ -150,6 +151,8 @@
     
     .online-application{
         .section-top-page{
+            overflow: hidden;
+            
             .one, .two, .three{
                 position: relative;
 

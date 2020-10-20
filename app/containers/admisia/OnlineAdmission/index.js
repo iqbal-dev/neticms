@@ -14,7 +14,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectOnlineAdmission from './selectors';
+import makeSelectOnlineAdmission, { makeSelectClassConfigList, makeSelectDataTableLoader } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -22,10 +22,14 @@ import { AppLayout } from '../../AppLayout';
 import BreadcrumComponent from '../../../components/BreadcrumComponent';
 import { centerTableLoader } from '../../../utils/contentLoader';
 import { Table } from 'reactstrap';
+import { getTotalDaysDifference_TillToday, get_DDMMM_YY_Format_WithComma, get_Only_Year } from '../../../utils/dateFormat';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable react/prefer-stateless-function */
 export class OnlineAdmission extends React.Component {
   render() {
+    let { classConfigObj, dataTableLoader } = this.props
+    // console.log("classConfigList", classConfigObj, dataTableLoader);
     return (
       <div class="admisia">
         <AppLayout>
@@ -47,21 +51,64 @@ export class OnlineAdmission extends React.Component {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2 className="d-flex justify-content-center">
-                        <span className="text-orange "> Academic Year - 2020 </span>
+                        <span className="text-orange "> Academic Year - { classConfigObj && classConfigObj.currentAcademicYear } </span>
                       </h2>
                       {/* <div className="custom-title-border-left"></div> */}
                     </div>
                   </div>
                 </div>
 
-                {this.props.loaderType === 'autoLoadOn' ? centerTableLoader() :
+                { dataTableLoader ? centerTableLoader() :
 
                   <div className="row">
                     <div className="col-md-12">
                       <div className="table-responsive">
                         <Table striped bordered className="online-admission-table">
                           <tbody>
-                            <tr>
+                            { classConfigObj && classConfigObj.classConfigList && classConfigObj.classConfigList.map((item, index) => {
+
+                              Object.assign(item, { currentAcademicYear: classConfigObj && classConfigObj.currentAcademicYear})
+
+                              return <tr>
+                                <td className="text-center">
+                                  <b>
+                                    Class - { item.className } <br/>
+                                    ( { item.groupName } )
+                                  </b>
+                                </td>
+                                <td className="px-5 py-4">
+                                  Start Date <br/>
+                                  <b>{ get_DDMMM_YY_Format_WithComma( item.applicationStartDate ) }</b> <br/>
+                                  {/* <b>15th October, 2020</b> <br/> */}
+                                  <br/>
+                                  End Date <br/>
+                                  <b>{ get_DDMMM_YY_Format_WithComma( item.applicationEndDate ) }</b> <br/>
+                                </td>
+                                <td className="px-5 py-4">
+                                  <b>
+                                    Seat Capacity { item.applicantLimit }<br/>
+                                    { getTotalDaysDifference_TillToday(item.applicationEndDate) } Days Left
+                                  </b>
+                                  { item.prevExamInfoRequiredStatus == 1 ? 
+                                    <p className="text-success"><i className="fas fa-check"></i> Prerequisite</p> : null
+                                  }
+
+                                </td>
+                                <td className="text-center">
+                                  {/* <button class="btn explore-btn">Apply Now</button> */}
+                                  <Link 
+                                    className="btn explore-btn"
+                                    to={{
+                                      pathname: `/institute/application_form`, 
+                                      admissionObj: item//{...item} 
+                                    }} 
+                                  >
+                                    Apply Now
+                                  </Link>
+                                </td>
+                              </tr>
+                            })}
+                            {/* <tr>
                               <td className="text-center">
                                 <b>
                                   Class - Nine <br/>
@@ -109,7 +156,7 @@ export class OnlineAdmission extends React.Component {
                               <td className="text-center">
                                 <button class="btn explore-btn">Apply Now</button>
                               </td>
-                            </tr>
+                            </tr> */}
                           </tbody>
                         </Table>
                       </div>
@@ -159,6 +206,8 @@ OnlineAdmission.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   onlineAdmission: makeSelectOnlineAdmission(),
+  classConfigObj: makeSelectClassConfigList(),
+  dataTableLoader: makeSelectDataTableLoader(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -120,6 +120,10 @@
   }
 }
 
+.react-datepicker-popper{
+  z-index: 3 !important;
+}
+
 .header-menu {
   // position: absolute;
   // z-index: 1;
@@ -320,5 +324,62 @@
     &:after {
       opacity: 1;
     }
+  }
+}
+
+.image-cropper-section{
+  padding: 23px 30px;
+  position: absolute;
+  // right: 170px;
+  /* top: 0px; */
+  border-radius: 5px;
+  box-shadow: -1px 0px 56px 10px rgba(236, 236, 236, 0.8);
+  background: #fff;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: 1px solid #ECECEC;
+  height: auto;
+  z-index: 1;
+
+  &::after{
+      position: absolute;
+      left: 10%;
+      top: -9px;
+      background: #fff;
+      content: "";
+      height: 15px;
+      width: 15px;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(315deg);
+      border-right: 1px solid #ECECEC;
+      border-top: 1px solid #ECECEC;
+  }
+
+  .image-cropper-button{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .nw-action-button{
+          border: 1px solid #BBE4FF;
+          box-shadow: unset;
+          color: #0099FF;
+          background-color: #FFFFFF !important;
+          font-size: 16px;
+          margin-left: 5px;
+
+          &.p-button-success{
+              background-color: $primaryColorLight !important;
+              border: none !important;
+              color: #ffffff;
+          }
+
+          &.p-button-danger{
+              background-color: #E89191 !important;
+              border: none !important;
+              color: #ffffff;
+          }
+      }
   }
 }
