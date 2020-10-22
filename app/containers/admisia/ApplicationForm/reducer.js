@@ -40,6 +40,7 @@ import {
 
   SET_ON_SUBMIT_ADDITIONAL_INFO,
   SET_ON_SUBMIT_INSERT_APPLICANT_INFO,
+  SET_APPLICANT_VIEW,
 } from './constants';
 
 export const initialState = fromJS({
@@ -51,7 +52,6 @@ export const initialState = fromJS({
   quota: '',
   fileName: '',
   fileContent: '',
-  fileName: '',
   fileSave: false,
   mobileNo: '',
   addressDetails: '',
@@ -79,7 +79,8 @@ export const initialState = fromJS({
   ],
   additionalInfos: [],
   applicantInfo: {},
-  insertApplicantInfo:{}
+  insertApplicantInfo:{},
+  applicantView: {}
 });
 
 function applicationFormReducer(state = initialState, action) {
@@ -114,7 +115,7 @@ function applicationFormReducer(state = initialState, action) {
     case SET_ON_CHANGE_File_CONTENT:
       return state.set('fileContent', action.fileContent);
 
-    case SET_ON_CHANGE_File_NAME:
+    case SET_ON_CHANGE_File_SAVE:
       return state.set('fileSave', action.fileSave);
 
     case SET_ON_CHANGE_MOBILE_NO:
@@ -181,6 +182,9 @@ function applicationFormReducer(state = initialState, action) {
 
     case SET_ON_SUBMIT_INSERT_APPLICANT_INFO:
       return state.set('insertApplicantInfo', action.insertApplicantInfo);
+
+    case SET_APPLICANT_VIEW:
+      return state.set('applicantView', action.applicantView);
 
 
 

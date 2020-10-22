@@ -117,6 +117,9 @@ const makeSelectAdditionalInfo = () =>
 const makeSelectInsertApplicantInfo = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('insertApplicantInfo'));
 
+const makeSelectApplicantView = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('applicantView'));
+
   // makeSubmitInsertApplicantInfo
 
 
@@ -157,6 +160,7 @@ export {
 
 
   makeSelectAdditionalInfo,
-  makeSelectInsertApplicantInfo
+  makeSelectInsertApplicantInfo,
+  makeSelectApplicantView
 
  };

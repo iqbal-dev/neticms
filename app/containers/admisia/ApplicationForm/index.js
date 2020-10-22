@@ -45,6 +45,7 @@ import makeSelectApplicationForm, {
   makeSelectExamGrade,
   makeSelectExamGpa,
   makeSelectPassingYear, 
+  makeSelectApplicantView
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -159,6 +160,7 @@ export class ApplicationForm extends React.Component {
       examInfoDialogVisible: false,
       isCheckAgreement: false,
       errors: {},
+      additionalInfoId: ""
     }
 
     window.scrollTo({
@@ -166,6 +168,12 @@ export class ApplicationForm extends React.Component {
       left: 0,
       behavior: 'smooth'
     })
+  }
+
+  componentDidMount(){
+    if(this.props.getApplicantView.applicantPersonalViewResponse){
+      this.setState({ pageFirst: false, pageSecond: false, pageThird: true})
+    }
   }
 
   handleError() {
@@ -369,12 +377,12 @@ export class ApplicationForm extends React.Component {
   }
 
   onSubmitAdditionalInfo = () => {
-    let { insertUserObj, errors } = this.state
+    let { insertUserObj, errors, additionalInfoId } = this.state
     console.log("this.props.submitAdditionalInfo", insertUserObj.additionalInfos.length);
 
     if (this.handleAdditionalInfoError()) {
       let additionalInfo = {
-        id: !insertUserObj.additionalInfos.length ? 0 : insertUserObj.additionalInfos.length,
+        // id: !insertUserObj.additionalInfos.length ? 0 : insertUserObj.additionalInfos.length,
         instituteName: this.props.getInstituteName,
         instituteType: this.props.getInstituteType,
         boardName: this.props.getBoardName,
@@ -388,7 +396,19 @@ export class ApplicationForm extends React.Component {
       }
 
       errors["preExamInfo"] = ""
-      insertUserObj.additionalInfos.push(additionalInfo)
+
+      if(additionalInfoId === ""){
+        additionalInfo.id = !insertUserObj.additionalInfos.length ? 0 : insertUserObj.additionalInfos.length
+        insertUserObj.additionalInfos.push(additionalInfo)
+      }
+      else if( additionalInfoId >= 0 ){
+        console.log("insertUserObj.additionalInfos[additionalInfoId]", insertUserObj.additionalInfos[additionalInfoId]);
+
+        additionalInfo.id = additionalInfoId
+        insertUserObj.additionalInfos[additionalInfoId] = additionalInfo
+        
+      }
+      
       this.setState({ insertUserObj })
 
       this.props.submitAdditionalInfo(insertUserObj.additionalInfos);
@@ -407,6 +427,32 @@ export class ApplicationForm extends React.Component {
     console.log("filteredElement", filteredElement)
 
     this.props.submitAdditionalInfo(filteredElement);
+  }
+
+  onEditAdditionalInfo = (id) => {
+    let { insertUserObj, examInfoDialogVisible, additionalInfoId } = this.state
+    let { getAdditionalInfo } = this.props
+    // insertUserObj.additionalInfos = this.props.getAdditionalInfo
+    this.setState({ examInfoDialogVisible: true })
+
+    let filteredElement = getAdditionalInfo.filter(item => item.id == id)
+    console.log("EDITfilteredElement", filteredElement)
+
+    additionalInfoId = filteredElement[0].id
+    this.setState({ additionalInfoId })
+    this.props.instituteName(filteredElement[0].instituteName)
+    this.props.instituteType(filteredElement[0].instituteType)
+    this.props.boardName(filteredElement[0].boardName)
+    this.props.className(filteredElement[0].className)
+    this.props.rollNo(filteredElement[0].rollNo)
+    this.props.registrationNo(filteredElement[0].registrationNo)
+    this.props.examName(filteredElement[0].examName)
+    this.props.examGrade(filteredElement[0].examGrade)
+    this.props.examGpa(filteredElement[0].examGpa)
+    this.props.passingYear(filteredElement[0].passingYear)
+
+    // let newElement = getAdditionalInfo.filter(item => item.id !== id)
+    // this.props.submitAdditionalInfo(newElement);
   }
 
 
@@ -437,7 +483,7 @@ export class ApplicationForm extends React.Component {
           fileSaveOrEditable: true
         };
         scope.setState({ uploadFile: album });
-        // scope.props.fileName(album.fileName)
+        scope.props.fileName(album.fileName)
         // scope.props.fileContent(album.fileContent)
         // scope.props.fileSave(album.fileSaveOrEditable)
       }
@@ -462,9 +508,9 @@ export class ApplicationForm extends React.Component {
     let maxSize = getMaxFileSizeIsValid(imageObj.photoBlob.size, 500000);
     if (maxSize) {
       uploadFile.fileContent = imageObj.contentPic;
-      this.props.fileName(imageObj.fileName)
+      // this.props.fileName(imageObj.fileName)
       this.props.fileContent(imageObj.contentPic)
-      this.props.fileSave(imageObj.fileSave)
+      this.props.fileSave(true)
       errors["image"] = '';
       this.setState({ errors: errors });
     } else {
@@ -498,12 +544,12 @@ export class ApplicationForm extends React.Component {
 
   render() {
     let { admissionObj, errors } = this.state
-    let { applicantInfo, getApplicantInfo, getApplicantName, getBirthCertificateNo, getAdditionalInfo } = this.props
+    let { applicantInfo, getApplicantInfo, getApplicantName, getBirthCertificateNo, getAdditionalInfo, getApplicantView } = this.props
 
-    console.log("getAdditionalInfo", getAdditionalInfo);
+    console.log("getApplicantView", getApplicantView);
 
     const examInfoDialog = () => {
-      this.setState({ examInfoDialogVisible: !this.state.examInfoDialogVisible });
+      this.setState({ examInfoDialogVisible: !this.state.examInfoDialogVisible, additionalInfoId: '' });
       this.props.instituteName("")
       this.props.instituteType("")
       this.props.boardName("")
@@ -529,7 +575,7 @@ export class ApplicationForm extends React.Component {
       passingYear.push(year - i)
     }
 
-    // console.log("YEAR", passingYear);
+    
 
     return (
       <div class="admisia">
@@ -570,8 +616,8 @@ export class ApplicationForm extends React.Component {
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Academic Year: { admissionObj && admissionObj.currentAcademicYear }</th>
-                            <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( admissionObj && admissionObj.applicationEndDate ) }</span></th>
+                            <th>Academic Year: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.academicYear) || (admissionObj && admissionObj.currentAcademicYear) }</th>
+                            <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</span></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -610,10 +656,10 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div class="col-xl-12">
                                     <div class=" student-details-info">
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Class</label>: { admissionObj && admissionObj.className }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Group</label>: { admissionObj && admissionObj.groupName }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Class</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.className) || (admissionObj && admissionObj.className) }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Group</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.groupName) || (admissionObj && admissionObj.groupName) }</div>
                                       { this.state.pageThird ? 
-                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: 321</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.rollNo) }</div>
                                         :null
                                       }
                                     </div>
@@ -625,9 +671,9 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div class="col-xl-12">
                                     <div class="student-details-info ml-auto">
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Academic Year</label>: { admissionObj && admissionObj.currentAcademicYear }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application End Date</label>: { get_DDMMM_YY_Format_WithComma( admissionObj && admissionObj.applicationEndDate ) }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: { admissionObj && admissionObj.totalFee } TK</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Academic Year</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.academicYear) || (admissionObj && admissionObj.currentAcademicYear) }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application End Date</label>: { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.totalFee) || (admissionObj && admissionObj.totalFee) } TK</div>
                                     </div>
                                   </div>
                                 </div>
@@ -739,7 +785,7 @@ export class ApplicationForm extends React.Component {
                                         dropdownMode="select"
                                         isClearable
                                         fixedHeight
-                                        // maxDate={this.props.attendanceToDate}
+                                        maxDate={new Date()}
                                         selected={this.props.getDob}
                                         onChange={ (e) =>{ this.props.dob(e); this.state.errors["dob"] = ''} }
                                         className="dayPicker-custom-input bg-white border-0 rounded-0"
@@ -859,7 +905,11 @@ export class ApplicationForm extends React.Component {
                                   </div>
 
                                   <div className="col-xl-4 d-flex align-items-center">
-                                    <img src={ "data:image/jpg;base64," + this.props.getFileContent } height="120px" />
+                                    {
+                                      this.props.getFileContent? 
+                                      <img src={ "data:image/jpg;base64," + this.props.getFileContent } height="120px" />: null
+                                    }
+                                    
                                   </div>
 
 
@@ -884,14 +934,14 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div class="col-xl-12">
                                     <div class=" student-details-info">
-                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Student Name</label>: { this.props.getApplicantName }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: { this.props.getGender }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: { this.props.getReligion }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: { get_DDMMM_YY_Format_WithComma( this.props.getDob ) }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Birth Registration No.</label>: { this.props.getBirthCertificateNo }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: { this.props.getMobileNo }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: { this.props.getAddressDetails }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Quota</label>: { this.props.getQuota }</div>
+                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Student Name</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicantName) || this.props.getApplicantName }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.gender) || this.props.getGender }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.religion) || this.props.getReligion }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.dob) || this.props.getDob ) }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Birth Registration No.</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.birthCertificateNo) || this.props.getBirthCertificateNo }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.mobileNo) || this.props.getMobileNo }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.addressDetails) || this.props.getAddressDetails }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Quota</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.quota) || this.props.getQuota }</div>
                                     </div>
                                   </div>
                                 </div>
@@ -1036,12 +1086,12 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div class="col-xl-12">
                                     <div class=" student-details-info">
-                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Father's Name</label>: { this.props.getFatherName }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Occupation</label>: { this.props.getFatherOccupation }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's NID</label>: { this.props.getFatherNidNo }</div>
-                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Mother's Name</label>: { this.props.getMotherName }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Occupation</label>: { this.props.getMotherOccupation }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's NID</label>: { this.props.getMotherNidNo }</div>                                    
+                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Father's Name</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherName) || this.props.getFatherName }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Occupation</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherOccupation) || this.props.getFatherOccupation }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's NID</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherNidNo) || this.props.getFatherNidNo }</div>
+                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Mother's Name</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherName) || this.props.getMotherName }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Occupation</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherOccupation) || this.props.getMotherOccupation }</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's NID</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherNidNo) || this.props.getMotherNidNo }</div>                                    
                                     </div>
                                   </div>
                                 </div>
@@ -1097,7 +1147,7 @@ export class ApplicationForm extends React.Component {
                                         <th>BOARD</th>
                                         <th>CLASS</th>
                                         <th>ROLL NO.</th>
-                                        <th>REG.NO</th>
+                                        <th>REG. NO</th>
                                         <th>EXAM</th>
                                         <th>GRADE </th>
                                         <th>GPA</th>
@@ -1106,33 +1156,65 @@ export class ApplicationForm extends React.Component {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      { getAdditionalInfo && getAdditionalInfo.map( (item, index) =>
-                                        <tr>
-                                          <td>{ item.instituteName }</td>
-                                          <td>{ item.instituteType }</td>
-                                          <td>{ item.boardName }</td>
-                                          <td>{ item.className }</td>
-                                          <td>{ item.rollNo }</td>
-                                          <td>{ item.registrationNo }</td>
-                                          <td>{ item.examName }</td>
-                                          <td>{ item.examGrade }</td>
-                                          <td>{ item.examGpa }</td>
-                                          <td>{ item.passingYear }</td>
-                                          { this.state.pageThird ? null : 
-                                            <td>
-                                              <div className="d-flex">
-                                                <Button className="btn btn-info mr-2" /*onClick={ onEditAdditionalInfo }*/>
-                                                  <i className="fas fa-pencil"></i>
-                                                </Button>
-                                                <Button className="btn btn-danger" onClick={() => this.onDeleteAdditionalInfo(item.id)}>
-                                                  <i className="fas fa-times"></i>
-                                                </Button>
-                                              </div>
-                                              
-                                            </td>
-                                          }
-                                        </tr>
-                                      )}
+                                      { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPreviousExamViewResponses) ?
+                                          getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPreviousExamViewResponses.map((item, index) =>
+                                            <tr>
+                                              <td>{item.instituteName}</td>
+                                              <td>{item.instituteType}</td>
+                                              <td>{item.boardName}</td>
+                                              <td>{item.className}</td>
+                                              <td>{item.rollNo}</td>
+                                              <td>{item.registrationNo}</td>
+                                              <td>{item.examName}</td>
+                                              <td>{item.examGrade}</td>
+                                              <td>{item.examGpa}</td>
+                                              <td>{item.passingYear}</td>
+
+                                              {this.state.pageThird ? null :
+                                                <td>
+                                                  <div className="d-flex">
+                                                    <Button className="btn btn-info mr-2" onClick={() => this.onEditAdditionalInfo(item.id)} /*onClick={ onEditAdditionalInfo }*/>
+                                                      <i className="fas fa-pencil"></i>
+                                                    </Button>
+                                                    <Button className="btn btn-danger" onClick={() => this.onDeleteAdditionalInfo(item.id)}>
+                                                      <i className="fas fa-times"></i>
+                                                    </Button>
+                                                  </div>
+
+                                                </td>
+                                              }
+                                            </tr>
+                                          )
+                                          :
+                                          getAdditionalInfo && getAdditionalInfo.map((item, index) =>
+                                            <tr>
+                                              <td>{item.instituteName}</td>
+                                              <td>{item.instituteType}</td>
+                                              <td>{item.boardName}</td>
+                                              <td>{item.className}</td>
+                                              <td>{item.rollNo}</td>
+                                              <td>{item.registrationNo}</td>
+                                              <td>{item.examName}</td>
+                                              <td>{item.examGrade}</td>
+                                              <td>{item.examGpa}</td>
+                                              <td>{item.passingYear}</td>
+
+                                              {this.state.pageThird ? null :
+                                                <td>
+                                                  <div className="d-flex">
+                                                    <Button className="btn btn-info mr-2" onClick={() => this.onEditAdditionalInfo(item.id)} /*onClick={ onEditAdditionalInfo }*/>
+                                                      <i className="fas fa-pencil"></i>
+                                                    </Button>
+                                                    <Button className="btn btn-danger" onClick={() => this.onDeleteAdditionalInfo(item.id)}>
+                                                      <i className="fas fa-times"></i>
+                                                    </Button>
+                                                  </div>
+
+                                                </td>
+                                              }
+                                            </tr>
+                                          )
+                                      }
                                       
                                     </tbody>
                                   </Table>
@@ -1527,8 +1609,9 @@ const mapStateToProps = createStructuredSelector({
   getExamGpa: makeSelectExamGpa(),
   getPassingYear: makeSelectPassingYear(),
 
+  getAdditionalInfo: makeSelectAdditionalInfo(),
 
-  getAdditionalInfo: makeSelectAdditionalInfo()
+  getApplicantView: makeSelectApplicantView(),
 
 });
 

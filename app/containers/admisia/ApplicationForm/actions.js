@@ -38,7 +38,8 @@ import {
   SET_ON_CHANGE_PASSING_YEAR,
 
   SET_ON_SUBMIT_ADDITIONAL_INFO,
-  SET_ON_SUBMIT_INSERT_APPLICANT_INFO
+  SET_ON_SUBMIT_INSERT_APPLICANT_INFO,
+  SET_APPLICANT_VIEW
  } from './constants';
 
 export function defaultAction() {
@@ -104,6 +105,7 @@ export function makeChangeFileContent(fileContent) {
 }
 
 export function makeChangeFileSave(fileSave) {
+  console.log("fileSave", fileSave);
   return {
     type: SET_ON_CHANGE_File_SAVE,
     fileSave
@@ -265,4 +267,12 @@ export function makeChangeApplicantInfo(applicantInfo) {
   };
 }
 
-  // makeChangeSubmitApplicationInfo
+export function setApplicantPersonalView(applicantView) {
+  console.log("applicantView", applicantView);
+  return {
+    type: SET_APPLICANT_VIEW,
+    applicantView
+  };
+}
+
+  // setApplicantPersonalView

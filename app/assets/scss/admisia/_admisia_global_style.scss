@@ -1,5 +1,6 @@
 .admisia{
     // transition: all .5s;
+    // select:invalid { color:red; }
 
     .bg-smoke-white{
         background-color: #E9E9E9;
@@ -88,7 +89,12 @@
         .form-control{
             // padding-left: 50px;
 
-            option{
+            &{
+                color:  #818181;
+            }
+            
+            & option { 
+                color: black; 
                 padding: 5px 10px;
             }
         }
@@ -96,12 +102,15 @@
 
     .custom-upload{
         .custom-file{
+            height: auto;
+
             .custom-file-input{
                 border: 0px solid transparent;
             }
 
             .custom-file-label{
                 border: 0px solid transparent;
+                // display: inline-table;
 
                 &::after {
                     height: 100%;
