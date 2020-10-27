@@ -54,6 +54,8 @@ import TopStudents from 'containers/TopStudents';
 import Alumnus from 'containers/Alumnus';
 import OnlineAdmission from 'containers/admisia/OnlineAdmission';
 import ApplicationForm from 'containers/admisia/ApplicationForm';
+import Payment from 'containers/admisia/Payment';
+import TrackApplication from 'containers/admisia/TrackApplication';
 
 export default function AppRoute() {
 
@@ -128,6 +130,8 @@ export default function AppRoute() {
       {/* Admisia Menu Start */}
       <Route exact path="/institute/online_admission" component={OnlineAdmission} />
       <Route exact path="/institute/application_form" component={ApplicationForm} />
+      <Route exact path="/institute/admisia_payment" component={Payment} />
+      <Route exact path="/institute/application_track" component={TrackApplication} />
 
 
       <Route path="" component={NotFoundPage} />

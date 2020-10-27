@@ -158,9 +158,11 @@ export class ApplicationForm extends React.Component {
       pageSecond: false,
       pageThird: false,
       examInfoDialogVisible: false,
+      deleteDialogVisible: false,
       isCheckAgreement: false,
       errors: {},
-      additionalInfoId: ""
+      additionalInfoId: "",
+
     }
 
     window.scrollTo({
@@ -427,6 +429,7 @@ export class ApplicationForm extends React.Component {
     console.log("filteredElement", filteredElement)
 
     this.props.submitAdditionalInfo(filteredElement);
+    this.setState({ deleteDialogVisible: false})
   }
 
   onEditAdditionalInfo = (id) => {
@@ -550,17 +553,21 @@ export class ApplicationForm extends React.Component {
 
     const examInfoDialog = () => {
       this.setState({ examInfoDialogVisible: !this.state.examInfoDialogVisible, additionalInfoId: '' });
-      this.props.instituteName("")
-      this.props.instituteType("")
-      this.props.boardName("")
-      this.props.className("")
-      this.props.rollNo("")
-      this.props.registrationNo("")
-      this.props.examName("")
-      this.props.examGrade("")
-      this.props.examGpa("")
-      this.props.passingYear("")
+      // this.props.instituteName("")
+      // this.props.instituteType("")
+      // this.props.boardName("")
+      // this.props.className("")
+      // this.props.rollNo("")
+      // this.props.registrationNo("")
+      // this.props.examName("")
+      // this.props.examGrade("")
+      // this.props.examGpa("")
+      // this.props.passingYear("")
     };
+
+    const deleteDialog= (id) => {
+      this.setState({ deleteDialogVisible: !this.state.deleteDialogVisible, deletePreExamId: id });
+    }
 
     const occupations = [
       'Doctor', 'Engineer', 'Civil Engineer', 'Scientist', 'Lawyer', 'Businessman', 'Teacher', 'Housewife',
@@ -1176,7 +1183,7 @@ export class ApplicationForm extends React.Component {
                                                     <Button className="btn btn-info mr-2" onClick={() => this.onEditAdditionalInfo(item.id)} /*onClick={ onEditAdditionalInfo }*/>
                                                       <i className="fas fa-pencil"></i>
                                                     </Button>
-                                                    <Button className="btn btn-danger" onClick={() => this.onDeleteAdditionalInfo(item.id)}>
+                                                    <Button className="btn btn-danger" onClick={() => deleteDialog(item.id)}>
                                                       <i className="fas fa-times"></i>
                                                     </Button>
                                                   </div>
@@ -1205,7 +1212,7 @@ export class ApplicationForm extends React.Component {
                                                     <Button className="btn btn-info mr-2" onClick={() => this.onEditAdditionalInfo(item.id)} /*onClick={ onEditAdditionalInfo }*/>
                                                       <i className="fas fa-pencil"></i>
                                                     </Button>
-                                                    <Button className="btn btn-danger" onClick={() => this.onDeleteAdditionalInfo(item.id)}>
+                                                    <Button className="btn btn-danger" onClick={() => deleteDialog(item.id)}>
                                                       <i className="fas fa-times"></i>
                                                     </Button>
                                                   </div>
@@ -1547,6 +1554,22 @@ export class ApplicationForm extends React.Component {
                     <Button color="primary" onClick={examInfoDialog}>Do Something</Button>{' '}
                     <Button color="secondary" onClick={examInfoDialog}>Cancel</Button>
                   </ModalFooter> */}
+                </Modal>
+
+                <Modal isOpen={this.state.deleteDialogVisible} toggle={deleteDialog}>
+                  <ModalHeader toggle={deleteDialog} className="bg-primary-color-dark text-white">Delete Confirmation</ModalHeader>
+                  <ModalBody className="bg-light p-5">
+                    <div className="row text-center">
+                      <div className="col-12">
+                        Are you sure? <br/> You want to permanently delete your Previous Exam Info.
+                      </div>
+
+                      <div className="col-12 mt-4">
+                        <Button className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5" onClick={ () => this.onDeleteAdditionalInfo(this.state.deletePreExamId)}>Yes</Button>
+                        <Button className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5" onClick={ () => deleteDialog()}>No</Button>
+                      </div>
+                    </div>
+                  </ModalBody>
                 </Modal>
 
 

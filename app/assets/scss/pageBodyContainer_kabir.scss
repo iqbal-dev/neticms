@@ -69,6 +69,19 @@
     }
 }
 
+.seperator{
+    position: relative;
+
+    &::before{
+        position: absolute;
+        content: "";
+        width: 1px;
+        height: 100%;
+        background-color: $colorBlack;
+        left: 0;
+    }
+}
+
 @mixin font-selector($fontName){
     font-family: $fontName, sans-serif !important;
 }

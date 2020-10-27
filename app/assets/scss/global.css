@@ -1537,6 +1537,16 @@
 .custom-datepicker .react-datepicker-wrapper {
   width: 100%; }
 
+.seperator {
+  position: relative; }
+  .seperator::before {
+    position: absolute;
+    content: "";
+    width: 1px;
+    height: 100%;
+    background-color: #000;
+    left: 0; }
+
 .form .form-inline .form-group {
   position: relative;
   display: flex;
