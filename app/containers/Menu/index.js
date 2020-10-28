@@ -331,7 +331,7 @@ export class Menu extends React.Component {
                           <DropdownMenu right>
                             <UncontrolledDropdown nav inNavbar>
                               <NavItem><Link to='/institute/online_admission' className='nav-link'>Admission</Link> </NavItem>
-                              <NavItem><Link to='/institute/payment' className='nav-link'>Payment</Link> </NavItem>
+                              {/* <NavItem><Link to='/institute/payment' className='nav-link'>Payment</Link> </NavItem> */}
                               <NavItem><Link to='/institute/application_form' className='nav-link'>Application Form</Link> </NavItem>
                               <NavItem><Link to='/institute/admisia_payment' className='nav-link'>Payment</Link> </NavItem>
                               <NavItem><Link to='/institute/application_track' className='nav-link'>Track</Link> </NavItem>

@@ -105,8 +105,8 @@ export class Payment extends React.Component {
                         </thead>
                         <tbody>
                           <tr>
-                            <td>
-                              <div className="row p-4">
+                            <td class="p-4 bg-white shadow">
+                              <div className="row">
                                 <div class="col-xl-3">
                                   <div className="mb-4">
                                     <Label for="class-group" className="text-primary-light">Registration No. </Label>

@@ -2789,10 +2789,44 @@
   .rbc-calendar .rbc-month-view .rbc-agenda-table > thead > tr > th .rbc-header, .rbc-calendar .rbc-agenda-view .rbc-agenda-table > thead > tr > th .rbc-header {
     border-bottom: unset; }
 
+.admisia .d-grid {
+  display: grid !important; }
 .admisia .bg-smoke-white {
   background-color: #E9E9E9; }
 .admisia .f-14 {
   font-size: 14px !important; }
+.admisia .bg-primary-dark {
+  background-color: #002749 !important; }
+.admisia .bg-primary-light {
+  background-color: #033b6d !important; }
+.admisia .shape-squire {
+  width: 18px;
+  height: 18px;
+  background-color: gray; }
+  .admisia .shape-squire:nth-child(1) {
+    background-color: #ff4e31; }
+  .admisia .shape-squire:nth-child(2) {
+    background-color: #002749;
+    margin: 8px 0 0 -10px; }
+.admisia .shape-circle {
+  width: 90px;
+  height: 90px;
+  background-color: gray;
+  border-radius: 50%;
+  font-size: 50px;
+  color: #fff; }
+  .admisia .shape-circle.pending {
+    background-color: #FF9900;
+    border: 2px solid #FFE0B1; }
+  .admisia .shape-circle.approved {
+    background-color: #007CE8;
+    border: 2px solid #8DCAFF; }
+  .admisia .shape-circle.rejected {
+    background-color: #FF0000;
+    border: 2px solid #FFA7A7; }
+  .admisia .shape-circle.waiting {
+    background-color: #002749;
+    border: 2px solid #033b6d; }
 .admisia .student-details-info {
   width: fit-content; }
   .admisia .student-details-info div {

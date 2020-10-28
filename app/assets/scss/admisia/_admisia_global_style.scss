@@ -2,6 +2,10 @@
     // transition: all .5s;
     // select:invalid { color:red; }
 
+    .d-grid{
+        display: grid !important;
+    }
+
     .bg-smoke-white{
         background-color: #E9E9E9;
     }
@@ -9,6 +13,62 @@
     .f-14{
         font-size: 14px !important;
     }
+
+    .bg-primary-dark{
+        background-color: $primaryColorDark !important;
+    }
+
+    .bg-primary-light{
+        background-color: $primaryColorLight !important;
+    }
+
+    .shape-squire{
+        width: 18px;
+        height: 18px;
+        background-color: gray;
+
+        &:nth-child(1){
+            background-color: $orangeColor;
+        }
+
+        &:nth-child(2){
+            background-color: $primaryColorDark;
+            margin: 8px 0 0 -10px;
+        }
+    }
+
+    .shape-circle{
+        width: 90px;
+        height: 90px;
+        // padding: 45px;
+        background-color: gray;
+        border-radius: 50%;
+        font-size: 50px;
+        color: $colorWhite;
+        
+
+        &.pending{
+            background-color: $colorPending;
+            border: 2px solid $colorPendingBorder;
+        }
+
+        &.approved{
+            background-color: $colorApproved;
+            border: 2px solid $colorApprovedBorder;
+        }
+
+        &.rejected{
+            background-color: $colorRejected;
+            border: 2px solid $colorRejectedBorder;
+        }
+
+        &.waiting{
+            background-color: $primaryColorDark;
+            border: 2px solid $primaryColorLight;
+        }
+
+        // $colorRejectedBorder
+    } 
 
     .student-details-info{
         width: fit-content;
