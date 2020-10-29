@@ -335,6 +335,8 @@ export class Menu extends React.Component {
                               <NavItem><Link to='/institute/application_form' className='nav-link'>Application Form</Link> </NavItem>
                               <NavItem><Link to='/institute/admisia_payment' className='nav-link'>Payment</Link> </NavItem>
                               <NavItem><Link to='/institute/application_track' className='nav-link'>Track</Link> </NavItem>
+                              <NavItem><Link to='/institute/admisia_download' className='nav-link'>Download</Link> </NavItem>
+                              <NavItem><Link to='/institute/admission_confirmation_letter' className='nav-link'>Confirmation Letter</Link> </NavItem>
                             </UncontrolledDropdown>
                           </DropdownMenu>
                         </UncontrolledDropdown>

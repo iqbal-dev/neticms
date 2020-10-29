@@ -200,10 +200,10 @@ export class Payment extends React.Component {
                           <tr>
                             <td>
                               <div className="row p-4">
-                                <div className="col-xl-3"><div className="border">Step-1</div></div>
-                                <div className="col-xl-3"><div className="border">Step-2</div></div>
-                                <div className="col-xl-3"><div className="border">Step-3</div></div>
-                                <div className="col-xl-3"><div className="border">Step-4</div></div>
+                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-1</div></div>
+                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-2</div></div>
+                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-3</div></div>
+                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-4</div></div>
                               </div>
                             </td>
                           </tr>

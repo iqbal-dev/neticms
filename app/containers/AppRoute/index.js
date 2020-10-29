@@ -56,6 +56,10 @@ import OnlineAdmission from 'containers/admisia/OnlineAdmission';
 import ApplicationForm from 'containers/admisia/ApplicationForm';
 import Payment from 'containers/admisia/Payment';
 import TrackApplication from 'containers/admisia/TrackApplication';
+import AdmisiaDownload from 'containers/admisia/AdmisiaDownload';
+import AdmissionConfirmationLetter from 'containers/admisia/AdmissionConfirmationLetter';
+
+// AdmissionConfirmationLetter
 
 export default function AppRoute() {
 
@@ -125,13 +129,15 @@ export default function AppRoute() {
       <Route exact path="/admin/download_corner" component={AdminDownloadCorner} />
 
       <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
-      <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} /> */}
+      <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} />AdmissionConfirmationLetter */}
 
       {/* Admisia Menu Start */}
       <Route exact path="/institute/online_admission" component={OnlineAdmission} />
       <Route exact path="/institute/application_form" component={ApplicationForm} />
       <Route exact path="/institute/admisia_payment" component={Payment} />
       <Route exact path="/institute/application_track" component={TrackApplication} />
+      <Route exact path="/institute/admisia_download" component={AdmisiaDownload} />
+      <Route exact path="/institute/admission_confirmation_letter" component={AdmissionConfirmationLetter} />
 
 
       <Route path="" component={NotFoundPage} />
