@@ -5,10 +5,10 @@
  */
 
 import { fromJS } from 'immutable';
-import { 
+import {
   DEFAULT_ACTION,
-  SET_ON_CHANGE_APPLICANT_INFO, 
-  SET_ON_CHANGE_APPLICANT_NAME, 
+  SET_ON_CHANGE_APPLICANT_INFO,
+  SET_ON_CHANGE_APPLICANT_NAME,
   SET_ON_CHANGE_GENDER,
   SET_ON_CHANGE_RELIGION,
   SET_ON_CHANGE_DOB,
@@ -41,13 +41,15 @@ import {
   SET_ON_SUBMIT_ADDITIONAL_INFO,
   SET_ON_SUBMIT_INSERT_APPLICANT_INFO,
   SET_APPLICANT_VIEW,
+  SET_APPLICANT_INFO_DETAILS_LIST,
+  SET_MESSAGE
 } from './constants';
 
 export const initialState = fromJS({
   applicantName: '',
   gender: '',
   religion: '',
-  dob: '',
+
   birthCertificateNo: '',
   quota: '',
   fileName: '',
@@ -72,15 +74,17 @@ export const initialState = fromJS({
   examName: "",
   examGrade: "",
   examGpa: 0,
-  passingYear: 0, 
-  
-  arr:[
-   "test", "test123"
+  passingYear: 0,
+
+  arr: [
+    "test", "test123"
   ],
   additionalInfos: [],
   applicantInfo: {},
-  insertApplicantInfo:{},
-  applicantView: {}
+  insertApplicantInfo: {},
+  applicantView: {},
+  applicantInfoList: [],
+  message: ''
 });
 
 function applicationFormReducer(state = initialState, action) {
@@ -124,7 +128,6 @@ function applicationFormReducer(state = initialState, action) {
     case SET_ON_CHANGE_ADDRERSS:
       return state.set('addressDetails', action.addressDetails);
 
-
     case SET_ON_CHANGE_FATHER_NAME:
       return state.set('fatherName', action.fatherName);
 
@@ -143,7 +146,6 @@ function applicationFormReducer(state = initialState, action) {
     case SET_ON_CHANGE_MOTHER_NID_NO:
       return state.set('motherNidNo', action.motherNidNo);
 
-
     case SET_ON_CHANGE_INSTITUTE_NAME:
       return state.set('instituteName', action.instituteName);
 
@@ -152,7 +154,6 @@ function applicationFormReducer(state = initialState, action) {
 
     case SET_ON_CHANGE_BOARD_NAME:
       return state.set('boardName', action.boardName);
-
 
     case SET_ON_CHANGE_CLASS_NAME:
       return state.set('className', action.className);
@@ -175,8 +176,6 @@ function applicationFormReducer(state = initialState, action) {
     case SET_ON_CHANGE_PASSING_YEAR:
       return state.set('passingYear', action.passingYear);
 
-
-
     case SET_ON_SUBMIT_ADDITIONAL_INFO:
       return state.set('additionalInfos', action.additionalInfo);
 
@@ -186,8 +185,11 @@ function applicationFormReducer(state = initialState, action) {
     case SET_APPLICANT_VIEW:
       return state.set('applicantView', action.applicantView);
 
+    case SET_APPLICANT_INFO_DETAILS_LIST:
+      return state.set('applicantInfoList', action.applicantInfo);
 
-
+    case SET_MESSAGE:
+      return state.set('message', action.message);
 
     default:
       return state;

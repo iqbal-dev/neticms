@@ -9,7 +9,7 @@
 //for DEVELOPMENT only
 
 export const BASE_URL_NETI_CMS = 'http://18.215.19.195:9992';      //   https://api.netizendev.com:2096
-export const BASE_URL_EM = 'https://api.netizendev.com:2083';
+export const BASE_URL_EM = 'https://api.edumanbd.com';
 export const BASE_URL_NW = 'http://18.215.19.195:9991';            //   https://api.netizendev.com:2087
 
 export const fetch_em_token = '/oauth/token';
@@ -107,13 +107,12 @@ export const fetch_examSessionList = '/routine/exam-session/list';
 export const FETCH_ONLINE_CLASS_ROUTINE = "/nw/sa-point/online-routine/by/section/group/date";
 export const FETCH_ALUMNUS_LIST = "/public/alumonus/members";
 
-
-
 // ADMISIA API  admisia/core/config/find
 
 export const fetch_classConfigListBy_cmsId = "/admisia/class/config/list";
 export const fetch_coreConfigListBy_cmsId = "/admisia/core/config/find";
 export const insert_applicant_info = "/admisia/applicant/save";
 export const fetch_Applicant_Personal_View_By_RegistrationId = "/public/applicant-info/find/by-registrationId";
+export const FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID = "/public/applicant/details-info/by-registrationId";
 
 // fetch_Applicant_Personal_View_By_RegistrationId

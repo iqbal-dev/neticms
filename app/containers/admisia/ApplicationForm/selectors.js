@@ -19,7 +19,6 @@ const selectApplicationFormDomain = state =>
 const makeSelectApplicationForm = () =>
   createSelector(selectApplicationFormDomain, substate => substate.toJS());
 
-
 const makeSelectApplicantInfo = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('applicantInfo'));
 
@@ -49,14 +48,12 @@ const makeSelectFileContent = () =>
 
 const makeSelectFileSave = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('fileSave'));
-  
 
 const makeSelectMobileNo = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('mobileNo'));
 
 const makeSelectAddressDetails = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('addressDetails'));
-
 
 const makeSelectFatherName = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('fatherName'));
@@ -76,7 +73,6 @@ const makeSelectMotherOccupation = () =>
 const makeSelectMotherNidNo = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('motherNidNo'));
 
-
 const makeSelectInstituteName = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('instituteName'));
 
@@ -85,7 +81,6 @@ const makeSelectInstituteType = () =>
 
 const makeSelectBoardName = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('boardName'));
-
 
 const makeSelectClassName = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('className'));
@@ -108,9 +103,6 @@ const makeSelectExamGpa = () =>
 const makeSelectPassingYear = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('passingYear'));
 
-  
-
-
 const makeSelectAdditionalInfo = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('additionalInfos'));
 
@@ -120,12 +112,16 @@ const makeSelectInsertApplicantInfo = () =>
 const makeSelectApplicantView = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('applicantView'));
 
-  // makeSubmitInsertApplicantInfo
+const makeSelectApplicantInfoList = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('applicantInfoList'));
 
+const makeSelectMessage = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('message'));
 
+// makeSubmitInsertApplicantInfo
 
 export default makeSelectApplicationForm;
-export { 
+export {
   selectApplicationFormDomain,
   makeSelectApplicantInfo,
   makeSelectApplicantName,
@@ -158,9 +154,9 @@ export {
   makeSelectExamGpa,
   makeSelectPassingYear,
 
-
   makeSelectAdditionalInfo,
   makeSelectInsertApplicantInfo,
-  makeSelectApplicantView
-
- };
+  makeSelectApplicantView,
+  makeSelectApplicantInfoList,
+  makeSelectMessage,
+};

@@ -40,6 +40,9 @@ export const SET_ON_SUBMIT_ADDITIONAL_INFO = 'app/ApplicationForm/SET_ON_SUBMIT_
 export const SET_ON_SUBMIT_INSERT_APPLICANT_INFO = 'app/ApplicationForm/SET_ON_SUBMIT_INSERT_APPLICANT_INFO';
 export const SET_APPLICANT_VIEW = 'app/ApplicationForm/SET_APPLICANT_VIEW';
 
+export const SET_APPLICANT_INFO_DETAILS_LIST = 'app/ApplicationForm/SET_APPLICANT_INFO_DETAILS_LIST';
+
+export const SET_MESSAGE = 'app/ApplicationForm/SET_MESSAGE';
 
 // SET_ON_CHANGE_File_CONTENT
 // SET_ON_CHANGE_INSTITUTE_NAME

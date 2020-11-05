@@ -38,9 +38,9 @@ export class OnlineAdmission extends React.Component {
             <meta name="description" content="Description of OnlineAdmission" />
           </Helmet>
           {/* <FormattedMessage {...messages.header} /> */}
-          <BreadcrumComponent 
+          <BreadcrumComponent
             pageTitle="Online Admission"
-            menuStepFirst="Online Admission" 
+            menuStepFirst="Online Admission"
             menuStepSenond="Admission"
           />
 
@@ -51,57 +51,57 @@ export class OnlineAdmission extends React.Component {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2 className="d-flex justify-content-center">
-                        <span className="text-orange "> Academic Year - { classConfigObj && classConfigObj.currentAcademicYear } </span>
+                        <span className="text-orange "> Academic Year - {classConfigObj && classConfigObj.currentAcademicYear} </span>
                       </h2>
                       {/* <div className="custom-title-border-left"></div> */}
                     </div>
                   </div>
                 </div>
 
-                { dataTableLoader ? centerTableLoader() :
+                {dataTableLoader ? centerTableLoader() :
 
                   <div className="row">
                     <div className="col-md-12">
                       <div className="table-responsive">
                         <Table striped bordered className="online-admission-table">
                           <tbody>
-                            { classConfigObj && classConfigObj.classConfigList && classConfigObj.classConfigList.map((item, index) => {
+                            {classConfigObj && classConfigObj.classConfigList && classConfigObj.classConfigList.map((item, index) => {
 
-                              Object.assign(item, { currentAcademicYear: classConfigObj && classConfigObj.currentAcademicYear})
+                              Object.assign(item, { currentAcademicYear: classConfigObj && classConfigObj.currentAcademicYear })
 
                               return <tr>
                                 <td className="text-center">
                                   <b>
-                                    Class - { item.className } <br/>
-                                    ( { item.groupName } )
+                                    Class - {item.className} <br />
+                                    ( {item.groupName} )
                                   </b>
                                 </td>
                                 <td className="px-5 py-4">
-                                  Start Date <br/>
-                                  <b>{ get_DDMMM_YY_Format_WithComma( item.applicationStartDate ) }</b> <br/>
+                                  Start Date <br />
+                                  <b>{get_DDMMM_YY_Format_WithComma(item.applicationStartDate)}</b> <br />
                                   {/* <b>15th October, 2020</b> <br/> */}
-                                  <br/>
-                                  End Date <br/>
-                                  <b>{ get_DDMMM_YY_Format_WithComma( item.applicationEndDate ) }</b> <br/>
+                                  <br />
+                                  End Date <br />
+                                  <b>{get_DDMMM_YY_Format_WithComma(item.applicationEndDate)}</b> <br />
                                 </td>
                                 <td className="px-5 py-4">
                                   <b>
-                                    Seat Capacity { item.applicantLimit }<br/>
-                                    { getTotalDaysDifference_TillToday(item.applicationEndDate) } Days Left
+                                    Seat Capacity {item.applicantLimit}<br />
+                                    {getTotalDaysDifference_TillToday(item.applicationEndDate)} Days Left
                                   </b>
-                                  { item.prevExamInfoRequiredStatus == 1 ? 
+                                  {item.prevExamInfoRequiredStatus == 1 ?
                                     <p className="text-success"><i className="fas fa-check"></i> Prerequisite</p> : null
                                   }
 
                                 </td>
                                 <td className="text-center">
                                   {/* <button class="btn explore-btn">Apply Now</button> */}
-                                  <Link 
+                                  <Link
                                     className="btn explore-btn"
                                     to={{
-                                      pathname: `/institute/application_form`, 
+                                      pathname: `/institute/application_form`,
                                       admissionObj: item//{...item} 
-                                    }} 
+                                    }}
                                   >
                                     Apply Now
                                   </Link>
@@ -170,20 +170,20 @@ export class OnlineAdmission extends React.Component {
                 <div className="row">
                   <div className="col-md-12 d-flex justify-content-center">
                     <button class="btn btn-primary bg-primary-color-dark p-4 mx-3 border-0">
-                      <i className="fas fa-download"></i><br/>
+                      <i className="fas fa-download"></i><br />
                       Instruction Download
                       </button>
-                  {/* </div>
+                    {/* </div>
 
                   <div className="col-md-6"> */}
                     <button class="btn explore-btn px-5 py-4 mx-3">
-                      <i className="fas fa-info-circle"></i><br/>
+                      <i className="fas fa-info-circle"></i><br />
                       <span className="px-2">How To Apply</span>
                     </button>
                   </div>
                 </div>
               </div>
-              
+
               <div className="container">
                 <div className="row">
                   <div className="offset-md-1 col-md-10">
@@ -193,7 +193,7 @@ export class OnlineAdmission extends React.Component {
               </div>
             </div>
           </section>
-        
+
         </AppLayout>
       </div>
     );

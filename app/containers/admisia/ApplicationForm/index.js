@@ -14,12 +14,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectApplicationForm, { 
-  makeSelectApplicantInfo, 
-  makeSelectApplicantName, 
-  makeSelectGender, 
-  makeSelectReligion ,
-  makeSelectDob, 
+import makeSelectApplicationForm, {
+  makeSelectApplicantInfo,
+  makeSelectApplicantName,
+  makeSelectGender,
+  makeSelectReligion,
+  makeSelectDob,
   makeSelectBirthCertificateNo,
   makeSelectQuota,
   makeSelectFileName,
@@ -44,18 +44,20 @@ import makeSelectApplicationForm, {
   makeSelectExamName,
   makeSelectExamGrade,
   makeSelectExamGpa,
-  makeSelectPassingYear, 
-  makeSelectApplicantView
+  makeSelectPassingYear,
+  makeSelectApplicantView,
+  makeSelectApplicantInfoList,
+  makeSelectMessage,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { AppLayout } from '../../AppLayout';
 import BreadcrumComponent from '../../../components/BreadcrumComponent';
-import { CustomInput, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { CustomInput, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import staticImg from '../../../assets/img/demo-image.jpg';
 import { get_DDMMM_YY_Format_WithComma, get_Only_Year } from '../../../utils/dateFormat';
-import { 
+import {
   makeChangeApplicantInfo,
   makeChangeApplicantName,
   makeChangeGender,
@@ -75,7 +77,7 @@ import {
   makeChangeMotherName,
   makeChangeMotherOccupation,
   makeChangeMotherNidNo,
-  
+
   makeChangeInstituteType,
   makeChangeInstituteName,
   makeChangeBoardName,
@@ -88,9 +90,10 @@ import {
   makeChangePassingYear,
 
   makeChangeSubmitAdditionalInfo,
-  makeSubmitInsertApplicantInfo
+  makeSubmitInsertApplicantInfo,
+  setMessage
 
- } from './actions';
+} from './actions';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -98,6 +101,7 @@ import { insert_applicant_info } from '../../../utils/serviceUrl';
 
 import { ImageCropper } from '../../../components/common/ImageCropper';
 import { getFileContentType, getMaxFileSizeIsValid } from '../../../utils/FileHandler';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable react/prefer-stateless-function */
 let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
@@ -123,7 +127,6 @@ export class ApplicationForm extends React.Component {
         "fileSave": false,
         "mobileNo": "",
         "addressDetails": "",
-
 
         "fatherName": "",
         "fatherOccupation": "",
@@ -172,9 +175,9 @@ export class ApplicationForm extends React.Component {
     })
   }
 
-  componentDidMount(){
-    if(this.props.getApplicantView.applicantPersonalViewResponse){
-      this.setState({ pageFirst: false, pageSecond: false, pageThird: true})
+  componentDidMount() {
+    if (this.props.getApplicantView.applicantPersonalViewResponse) {
+      this.setState({ pageFirst: false, pageSecond: false, pageThird: true })
     }
   }
 
@@ -291,7 +294,6 @@ export class ApplicationForm extends React.Component {
         insertUserObj.mobileNo = this.props.getMobileNo
         insertUserObj.addressDetails = this.props.getAddressDetails
 
-
         insertUserObj.fatherName = this.props.getFatherName
         insertUserObj.fatherOccupation = this.props.getFatherOccupation
         insertUserObj.fatherNidNo = this.props.getFatherNidNo
@@ -321,6 +323,7 @@ export class ApplicationForm extends React.Component {
   }
 
   handleAdditionalInfoError() {
+
     let formIsValid = true;
     let { errors } = this.state;
 
@@ -379,8 +382,9 @@ export class ApplicationForm extends React.Component {
   }
 
   onSubmitAdditionalInfo = () => {
-    let { insertUserObj, errors, additionalInfoId } = this.state
-    console.log("this.props.submitAdditionalInfo", insertUserObj.additionalInfos.length);
+
+    let { insertUserObj, errors, additionalInfoId } = this.state;
+    // console.log("this.props.submitAdditionalInfo", insertUserObj.additionalInfos.length);
 
     if (this.handleAdditionalInfoError()) {
       let additionalInfo = {
@@ -399,20 +403,19 @@ export class ApplicationForm extends React.Component {
 
       errors["preExamInfo"] = ""
 
-      if(additionalInfoId === ""){
+      if (additionalInfoId === "") {
         additionalInfo.id = !insertUserObj.additionalInfos.length ? 0 : insertUserObj.additionalInfos.length
         insertUserObj.additionalInfos.push(additionalInfo)
       }
-      else if( additionalInfoId >= 0 ){
-        console.log("insertUserObj.additionalInfos[additionalInfoId]", insertUserObj.additionalInfos[additionalInfoId]);
+      else if (additionalInfoId >= 0) {
 
+        // console.log("insertUserObj.additionalInfos[additionalInfoId]", insertUserObj.additionalInfos[additionalInfoId]);
         additionalInfo.id = additionalInfoId
         insertUserObj.additionalInfos[additionalInfoId] = additionalInfo
-        
-      }
-      
-      this.setState({ insertUserObj })
 
+      }
+
+      this.setState({ insertUserObj });
       this.props.submitAdditionalInfo(insertUserObj.additionalInfos);
       this.setState({ examInfoDialogVisible: false });
 
@@ -421,25 +424,27 @@ export class ApplicationForm extends React.Component {
   }
 
   onDeleteAdditionalInfo = (id) => {
-    let { insertUserObj } = this.state
-    let { getAdditionalInfo } = this.props
-    // insertUserObj.additionalInfos = this.props.getAdditionalInfo
+    let { insertUserObj } = this.state;
+    let { getAdditionalInfo } = this.props;
 
     let filteredElement = getAdditionalInfo.filter(item => item.id !== id)
-    console.log("filteredElement", filteredElement)
+    // console.log("filteredElement", filteredElement)
+    insertUserObj.additionalInfos = filteredElement;
 
     this.props.submitAdditionalInfo(filteredElement);
-    this.setState({ deleteDialogVisible: false})
+    this.setState({ deleteDialogVisible: false, insertUserObj });
+    this.resetApplicantPreviousExamData();
   }
 
   onEditAdditionalInfo = (id) => {
+
     let { insertUserObj, examInfoDialogVisible, additionalInfoId } = this.state
-    let { getAdditionalInfo } = this.props
+    let { getAdditionalInfo } = this.props;
     // insertUserObj.additionalInfos = this.props.getAdditionalInfo
-    this.setState({ examInfoDialogVisible: true })
+    this.setState({ examInfoDialogVisible: true });
 
     let filteredElement = getAdditionalInfo.filter(item => item.id == id)
-    console.log("EDITfilteredElement", filteredElement)
+    // console.log("EDITfilteredElement", filteredElement);
 
     additionalInfoId = filteredElement[0].id
     this.setState({ additionalInfoId })
@@ -458,17 +463,16 @@ export class ApplicationForm extends React.Component {
     // this.props.submitAdditionalInfo(newElement);
   }
 
-
-
   onLoadPic = (e) => {
-    console.log('fileType e', event);
+
+    // console.log('fileType e', event);
     let { errors, cropperObject } = this.state;
     // this.emptyErrorMessage();
 
     let fileType = getFileContentType(event.target.files[0].name);
     let supportedExtention = ['data:image/jpeg;base64,', 'data:image/jpg;base64,', 'data:image/png;base64,'];
 
-    console.log('fileType', fileType, " | ", supportedExtention.includes(fileType));
+    // console.log('fileType', fileType, " | ", supportedExtention.includes(fileType));
 
     if (supportedExtention.includes(fileType)) {
 
@@ -540,49 +544,94 @@ export class ApplicationForm extends React.Component {
     this.setState({ cropperVisible: false });
   }
 
-  checkAgreement = () =>{
+  checkAgreement = () => {
     this.setState({ isCheckAgreement: !this.state.isCheckAgreement });
   }
-  
+
+  resetApplicationFormData = () => {
+    this.props.applicantName('');
+    this.props.gender('');
+    this.props.religion('');
+    this.props.dob('');
+    this.props.birthCertificateNo('');
+    this.props.quota('');
+
+    this.props.fileName('');
+    this.props.fileContent('');
+    this.props.fileSave(false);
+
+    this.props.mobileNo('');
+    this.props.addressDetails('');
+
+    this.props.fatherName('');
+    this.props.fatherOccupation('');
+    this.props.fatherNidNo('');
+    this.props.motherName('');
+    this.props.motherOccupation('');
+    this.props.motherNidNo('');
+
+    this.props.instituteName('');
+    this.props.instituteType('');
+    this.props.boardNam('');
+    this.props.className('');
+    this.props.rollNo('');
+    this.props.registrationNo('');
+    this.props.examName('');
+    this.props.examGrade('');
+    this.props.examGpa('');
+    this.props.passingYear('');
+    this.props.setMessage('');
+  }
+
+  resetApplicantPreviousExamData = () => {
+    this.props.instituteName('');
+    this.props.instituteType('');
+    this.props.boardName('');
+    this.props.className('');
+    this.props.rollNo('');
+    this.props.registrationNo('');
+    this.props.examName('');
+    this.props.examGrade('');
+    this.props.examGpa('');
+    this.props.passingYear('');
+  }
 
   render() {
-    let { admissionObj, errors } = this.state
-    let { applicantInfo, getApplicantInfo, getApplicantName, getBirthCertificateNo, getAdditionalInfo, getApplicantView } = this.props
 
-    console.log("getApplicantView", getApplicantView);
+    let { admissionObj, errors } = this.state
+    let { getAdditionalInfo, getApplicantView } = this.props;
+
+    // console.log("main-getAdditionalInfo", getAdditionalInfo);
+    // console.log("getApplicantView", getApplicantView);
 
     const examInfoDialog = () => {
       this.setState({ examInfoDialogVisible: !this.state.examInfoDialogVisible, additionalInfoId: '' });
-      // this.props.instituteName("")
-      // this.props.instituteType("")
-      // this.props.boardName("")
-      // this.props.className("")
-      // this.props.rollNo("")
-      // this.props.registrationNo("")
-      // this.props.examName("")
-      // this.props.examGrade("")
-      // this.props.examGpa("")
-      // this.props.passingYear("")
     };
 
-    const deleteDialog= (id) => {
+    const deleteDialog = (id) => {
       this.setState({ deleteDialogVisible: !this.state.deleteDialogVisible, deletePreExamId: id });
     }
 
-    const occupations = [
+    const maleOccupations = [
+      'Doctor', 'Engineer', 'Civil Engineer', 'Scientist', 'Lawyer', 'Businessman', 'Teacher',
+      'BGB', 'Army', 'Police', 'Govt. Service Holder', 'Pvt. Service Holder', 'Social Worker',
+      'Farmer', 'Shopkeeper', 'Technician', 'Others'
+    ]
+
+    const femaleOccupations = [
       'Doctor', 'Engineer', 'Civil Engineer', 'Scientist', 'Lawyer', 'Businessman', 'Teacher', 'Housewife',
-      'BGB', 'Army', 'Police', 'Govt. Service Holder', 'Pvt. Service Holder', 'Social Worker', 'Farmer',
+      'BGB', 'Army', 'Police', 'Govt. Service Holder', 'Pvt. Service Holder', 'Social Worker',
       'Shopkeeper', 'Technician', 'Others'
     ]
 
     let date = new Date();
     let year = date.getFullYear();
     let passingYear = [];
-    for(let i = 0 ; i < 10 ; i++){
+    for (let i = 0; i < 10; i++) {
       passingYear.push(year - i)
     }
 
-    
+    // console.log('message', this.props.message);
 
     return (
       <div class="admisia">
@@ -602,16 +651,23 @@ export class ApplicationForm extends React.Component {
           <section>
             <div className="container-fluid">
               <div className="container m-t-40 online-application">
+
+                {this.props.message.messageType == 1 ? <Alert color="success">
+                  {this.props.message.message}
+                </Alert> : this.props.message.messageType == 0 ? <Alert color="danger">
+                  {this.props.message.message}
+                </Alert> : ''}
+
                 <div className="row m-0 text-center bg-smoke-white section-top-page">
                   <div className="col-xl-4 py-5 text-center one active">
                     <div className='page'>1</div>
                     <div>Information</div>
                   </div>
-                  <div className={ this.state.pageSecond || this.state.pageThird? "col-xl-4 py-5 two active" : "col-xl-4 py-5 two " } >
+                  <div className={this.state.pageSecond || this.state.pageThird ? "col-xl-4 py-5 two active" : "col-xl-4 py-5 two "} >
                     <div className='page'>2</div>
                     <div>Review</div>
                   </div>
-                  <div className={ this.state.pageThird? "col-xl-4 py-5 three active" : "col-xl-4 py-5 three " }>
+                  <div className={this.state.pageThird ? "col-xl-4 py-5 three active" : "col-xl-4 py-5 three "}>
                     <div className='page'>3</div>
                     <div>Completed</div>
                   </div>
@@ -623,12 +679,12 @@ export class ApplicationForm extends React.Component {
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Academic Year: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.academicYear) || (admissionObj && admissionObj.currentAcademicYear) }</th>
-                            <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</span></th>
+                            <th>Academic Year: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.academicYear) || (admissionObj && admissionObj.currentAcademicYear)}</th>
+                            <th className="text-right"><span>Application End Date : {get_DDMMM_YY_Format_WithComma((getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate))}</span></th>
                           </tr>
                         </thead>
                         <tbody>
-                          { this.state.pageFirst ?
+                          {this.state.pageFirst ?
                             <tr>
                               <td colSpan="2" class="p-4">
                                 <div className="row">
@@ -639,7 +695,7 @@ export class ApplicationForm extends React.Component {
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
                                         name="class-group"
-                                        value={ (admissionObj && admissionObj.className) + " ( " + (admissionObj && admissionObj.groupName) + " )"}
+                                        value={(admissionObj && admissionObj.className) + " ( " + (admissionObj && admissionObj.groupName) + " )"}
                                         readOnly
                                       >
                                       </Input>
@@ -648,45 +704,44 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4"></div>
                                   <div className="col-xl-4 text-right my-auto text-primary">
-                                    <small>Application Fee -</small> { admissionObj && admissionObj.totalFee } TK (BDT)
+                                    <small>Application Fee -</small> {admissionObj && admissionObj.totalFee} TK (BDT)
                                   </div>
-
 
                                 </div>
                               </td>
                             </tr>
 
-                          : this.state.pageSecond || this.state.pageThird ?
+                            : this.state.pageSecond || this.state.pageThird ?
 
-                            <tr>
-                              <td>
-                                <div className="row">
-                                  <div class="col-xl-12">
-                                    <div class=" student-details-info">
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Class</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.className) || (admissionObj && admissionObj.className) }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Group</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.groupName) || (admissionObj && admissionObj.groupName) }</div>
-                                      { this.state.pageThird ? 
-                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.rollNo) }</div>
-                                        :null
-                                      }
+                              <tr>
+                                <td>
+                                  <div className="row">
+                                    <div class="col-xl-12">
+                                      <div class=" student-details-info">
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Class</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.className) || (admissionObj && admissionObj.className)}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Group</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.groupName) || (admissionObj && admissionObj.groupName)}</div>
+                                        {this.state.pageThird ?
+                                          <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: {(this.props.applicantInfoList && this.props.applicantInfoList.rollNo)}</div>
+                                          : null
+                                        }
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </td>
+                                </td>
 
-                              <td>
-                                <div className="row">
-                                  <div class="col-xl-12">
-                                    <div class="student-details-info ml-auto">
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Academic Year</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.academicYear) || (admissionObj && admissionObj.currentAcademicYear) }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application End Date</label>: { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.totalFee) || (admissionObj && admissionObj.totalFee) } TK</div>
+                                <td>
+                                  <div className="row">
+                                    <div class="col-xl-12">
+                                      <div class="student-details-info ml-auto">
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Academic Year</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.academicYear) || (admissionObj && admissionObj.currentAcademicYear)}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application End Date</label>: {get_DDMMM_YY_Format_WithComma((getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate))}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.totalFee) || (admissionObj && admissionObj.totalFee)} TK</div>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            : null
+                                </td>
+                              </tr>
+                              : null
 
                           }
 
@@ -718,7 +773,7 @@ export class ApplicationForm extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-                          { this.state.pageFirst ?
+                          {this.state.pageFirst ?
                             <tr>
                               <td colSpan="2" class="p-4">
                                 <div className="row">
@@ -729,9 +784,9 @@ export class ApplicationForm extends React.Component {
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
                                         name="class-group"
-                                        placeholder="Add Name"
-                                        value={ this.props.getApplicantName }
-                                        onChange={ (e) =>{ this.props.applicantName(e); this.state.errors["applicantName"] = '' }}
+                                        placeholder="Enter Student Name"
+                                        value={this.props.getApplicantName}
+                                        onChange={(e) => { this.props.applicantName(e); this.state.errors["applicantName"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['applicantName']}</span>
@@ -745,9 +800,9 @@ export class ApplicationForm extends React.Component {
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
                                         name="class-group"
-                                        placeholder="Select gender"
-                                        value={ this.props.getGender }
-                                        onChange={ (e) =>{ this.props.gender(e); this.state.errors["gender"] = '' } }
+                                        placeholder="Select Gender"
+                                        value={this.props.getGender}
+                                        onChange={(e) => { this.props.gender(e); this.state.errors["gender"] = '' }}
                                       >
                                         <option hidden value="">Select Gender</option>
                                         <option value="Male">Male</option>
@@ -765,9 +820,9 @@ export class ApplicationForm extends React.Component {
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
                                         name="class-group"
-                                        placeholder="Select gender"
-                                        value={ this.props.getReligion }
-                                        onChange={ (e) =>{ this.props.religion(e); this.state.errors["religion"] = '' } }
+                                        placeholder="Select Religion"
+                                        value={this.props.getReligion}
+                                        onChange={(e) => { this.props.religion(e); this.state.errors["religion"] = '' }}
                                       >
                                         <option hidden value="">Select Religion</option>
                                         <option value="Islam">Islam</option>
@@ -794,7 +849,7 @@ export class ApplicationForm extends React.Component {
                                         fixedHeight
                                         maxDate={new Date()}
                                         selected={this.props.getDob}
-                                        onChange={ (e) =>{ this.props.dob(e); this.state.errors["dob"] = ''} }
+                                        onChange={(e) => { this.props.dob(e); this.state.errors["dob"] = '' }}
                                         className="dayPicker-custom-input bg-white border-0 rounded-0"
                                         name='date'
                                         autoComplete="off"
@@ -808,11 +863,12 @@ export class ApplicationForm extends React.Component {
                                       <Label for="class-group" className="text-primary-light"><small>BIRTH REG. NO. <span className="required">*</span></small></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
-                                        type="text"
+                                        type="number"
+                                        min={0} type="number" step="1"
                                         name="class-group"
-                                        placeholder="Birth reg. no."
-                                        value={ this.props.getBirthCertificateNo }
-                                        onChange={  (e) =>{ this.props.birthCertificateNo(e); this.state.errors["birthCertificateNo"] = '' } }
+                                        placeholder="Enter Birth Reg. No."
+                                        value={this.props.getBirthCertificateNo}
+                                        onChange={(e) => { this.props.birthCertificateNo(e); this.state.errors["birthCertificateNo"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['birthCertificateNo']}</span>
@@ -827,8 +883,8 @@ export class ApplicationForm extends React.Component {
                                         type="select"
                                         name="class-group"
                                         placeholder="Select Your Quota"
-                                        value={ this.props.getQuota }
-                                        onChange={ (e) =>{ this.props.quota(e); this.state.errors["quota"] = '' } }
+                                        value={this.props.getQuota}
+                                        onChange={(e) => { this.props.quota(e); this.state.errors["quota"] = '' }}
                                       >
                                         <option hidden value="">Select Your Quota</option>
                                         <option value="BGB">BGB</option>
@@ -876,11 +932,12 @@ export class ApplicationForm extends React.Component {
                                       <Label for="class-group" className="text-primary-light"><small>GUARDIAN MOBILE NO. <span className="required">*</span></small></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
-                                        type="text"
+                                        type="number"
+                                        min={0} type="number" step="1"
                                         name="class-group"
-                                        placeholder="Enter Mobile no."
-                                        value={ this.props.getMobileNo }
-                                        onChange={  (e) =>{ this.props.mobileNo(e); this.state.errors["mobileNo"] = '' } }
+                                        placeholder="Enter Mobile No."
+                                        value={this.props.getMobileNo}
+                                        onChange={(e) => { this.props.mobileNo(e); this.state.errors["mobileNo"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['mobileNo']}</span>
@@ -903,8 +960,8 @@ export class ApplicationForm extends React.Component {
                                         name="class-group"
                                         placeholder="Enter Address"
                                         style={{ height: "150px" }}
-                                        value={ this.props.getAddressDetails }
-                                        onChange={  (e) =>{ this.props.addressDetails(e); this.state.errors["addressDetails"] = '' } }
+                                        value={this.props.getAddressDetails}
+                                        onChange={(e) => { this.props.addressDetails(e); this.state.errors["addressDetails"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['addressDetails']}</span>
@@ -913,48 +970,47 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 d-flex align-items-center">
                                     {
-                                      this.props.getFileContent? 
-                                      <img src={ "data:image/jpg;base64," + this.props.getFileContent } height="120px" />: null
+                                      this.props.getFileContent ?
+                                        <img src={"data:image/jpg;base64," + this.props.getFileContent} height="120px" /> : null
                                     }
-                                    
-                                  </div>
 
+                                  </div>
 
                                 </div>
                               </td>
                               {/* <td>Test</td> */}
                             </tr>
 
-                          : this.state.pageSecond || this.state.pageThird ?
+                            : this.state.pageSecond || this.state.pageThird ?
 
-                            <tr>
-                              <td style={{ width: "232px"}} className="p-4">
-                              {/* { "data:image/jpg;base64," + this.props.getFileContent } */}
+                              <tr>
+                                <td style={{ width: "232px" }} className="p-4">
+                                  {/* { "data:image/jpg;base64," + this.props.getFileContent } */}
 
-                              { this.props.getFileContent ?
-                                <img src={ "data:image/jpg;base64," + this.props.getFileContent } style={{ width: "232px"}}/>
-                                :<img src={staticImg} style={{ width: "232px"}}/>
-                              }
-                                
+                                  {this.props.getFileContent ?
+                                    <img src={"data:image/jpg;base64," + this.props.getFileContent} style={{ width: "232px" }} />
+                                    : <img src={staticImg} style={{ width: "232px" }} />
+                                  }
+
                                 </td>
-                              <td className="p-4">
-                                <div className="row">
-                                  <div class="col-xl-12">
-                                    <div class=" student-details-info">
-                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Student Name</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicantName) || this.props.getApplicantName }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.gender) || this.props.getGender }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.religion) || this.props.getReligion }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.dob) || this.props.getDob ) }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Birth Registration No.</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.birthCertificateNo) || this.props.getBirthCertificateNo }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.mobileNo) || this.props.getMobileNo }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.addressDetails) || this.props.getAddressDetails }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Quota</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.quota) || this.props.getQuota }</div>
+                                <td className="p-4">
+                                  <div className="row">
+                                    <div class="col-xl-12">
+                                      <div class=" student-details-info">
+                                        <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Student Name</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicantName) || this.props.getApplicantName}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.gender) || this.props.getGender}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.religion) || this.props.getReligion}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {get_DDMMM_YY_Format_WithComma((getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.dob) || this.props.getDob)}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Birth Registration No.</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.birthCertificateNo) || this.props.getBirthCertificateNo}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Quota</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.quota) || this.props.getQuota}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.mobileNo) || this.props.getMobileNo}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.addressDetails) || this.props.getAddressDetails}</div>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            :null
+                                </td>
+                              </tr>
+                              : null
                           }
 
                         </tbody>
@@ -974,7 +1030,7 @@ export class ApplicationForm extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-                          { this.state.pageFirst ?
+                          {this.state.pageFirst ?
                             <tr>
                               <td colSpan="2" class="p-4">
                                 <div className="row">
@@ -986,8 +1042,8 @@ export class ApplicationForm extends React.Component {
                                         type="text"
                                         name="class-group"
                                         placeholder="Enter Father's Name"
-                                        value={ this.props.getFatherName }
-                                        onChange={ (e) =>{ this.props.fatherName(e); this.state.errors["fatherName"] = '' }}
+                                        value={this.props.getFatherName}
+                                        onChange={(e) => { this.props.fatherName(e); this.state.errors["fatherName"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['fatherName']}</span>
@@ -1002,12 +1058,12 @@ export class ApplicationForm extends React.Component {
                                         type="select"
                                         name="class-group"
                                         placeholder="Select gender"
-                                        value={ this.props.getFatherOccupation }
-                                        onChange={ (e) =>{ this.props.fatherOccupation(e); this.state.errors["fatherOccupation"] = '' }}
+                                        value={this.props.getFatherOccupation}
+                                        onChange={(e) => { this.props.fatherOccupation(e); this.state.errors["fatherOccupation"] = '' }}
                                       >
                                         <option hidden value="">Select Father's Occupation</option>
-                                        { occupations.map( item => 
-                                          <option value={ item }> { item } </option>
+                                        {maleOccupations.map(item =>
+                                          <option value={item}> {item} </option>
                                         )}
                                       </Input>
                                       <span className='error-message'>{errors['fatherOccupation']}</span>
@@ -1019,11 +1075,12 @@ export class ApplicationForm extends React.Component {
                                       <Label for="class-group" className="text-primary-light"><small>FATHER'S NID. <span className="required">*</span></small></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
-                                        type="text"
+                                        type="number"
+                                        min={0} type="number" step="1"
                                         name="class-group"
                                         placeholder="Enter Father's NID (If Any)"
-                                        value={ this.props.getFatherNidNo }
-                                        onChange={ (e) =>{ this.props.fatherNidNo(e); this.state.errors["fatherNidNo"] = '' }}
+                                        value={this.props.getFatherNidNo}
+                                        onChange={(e) => { this.props.fatherNidNo(e); this.state.errors["fatherNidNo"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['fatherNidNo']}</span>
@@ -1037,9 +1094,9 @@ export class ApplicationForm extends React.Component {
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
                                         name="class-group"
-                                        placeholder="Enter Mothers's Name"
-                                        value={ this.props.getMotherName }
-                                        onChange={ (e) =>{ this.props.motherName(e); this.state.errors["motherName"] = '' }}
+                                        placeholder="Enter Mother's Name"
+                                        value={this.props.getMotherName}
+                                        onChange={(e) => { this.props.motherName(e); this.state.errors["motherName"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['motherName']}</span>
@@ -1053,12 +1110,12 @@ export class ApplicationForm extends React.Component {
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
                                         name="class-group"
-                                        value={ this.props.getMotherOccupation }
-                                        onChange={ (e) =>{ this.props.motherOccupation(e); this.state.errors["motherOccupation"] = '' }}
+                                        value={this.props.getMotherOccupation}
+                                        onChange={(e) => { this.props.motherOccupation(e); this.state.errors["motherOccupation"] = '' }}
                                       >
                                         <option hidden value="">Select Mother's Occupation</option>
-                                        { occupations.map( item => 
-                                          <option value={ item }> { item } </option>
+                                        {femaleOccupations.map(item =>
+                                          <option value={item}> {item} </option>
                                         )}
                                       </Input>
                                       <span className='error-message'>{errors['motherOccupation']}</span>
@@ -1070,17 +1127,17 @@ export class ApplicationForm extends React.Component {
                                       <Label for="class-group" className="text-primary-light"><small>MOTHERS'S NID. <span className="required">*</span></small></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
-                                        type="text"
+                                        type="text" type="number"
+                                        min={0} type="number" step="1"
                                         name="class-group"
                                         placeholder="Enter Mother's NID (If Any)"
-                                        value={ this.props.getMotherNidNo }
-                                        onChange={ (e) =>{ this.props.motherNidNo(e); this.state.errors["motherNidNo"] = '' }}
+                                        value={this.props.getMotherNidNo}
+                                        onChange={(e) => { this.props.motherNidNo(e); this.state.errors["motherNidNo"] = '' }}
                                       >
                                       </Input>
                                       <span className='error-message'>{errors['motherNidNo']}</span>
                                     </FormGroup>
                                   </div>
-
 
                                 </div>
                               </td>
@@ -1088,23 +1145,23 @@ export class ApplicationForm extends React.Component {
 
                             : this.state.pageSecond || this.state.pageThird ?
 
-                            <tr>
-                              <td className="p-4">
-                                <div className="row">
-                                  <div class="col-xl-12">
-                                    <div class=" student-details-info">
-                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Father's Name</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherName) || this.props.getFatherName }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Occupation</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherOccupation) || this.props.getFatherOccupation }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's NID</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherNidNo) || this.props.getFatherNidNo }</div>
-                                      <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Mother's Name</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherName) || this.props.getMotherName }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Occupation</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherOccupation) || this.props.getMotherOccupation }</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's NID</label>: { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherNidNo) || this.props.getMotherNidNo }</div>                                    
+                              <tr>
+                                <td className="p-4">
+                                  <div className="row">
+                                    <div class="col-xl-12">
+                                      <div class=" student-details-info">
+                                        <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Father's Name</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherName) || this.props.getFatherName}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Occupation</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherOccupation) || this.props.getFatherOccupation}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's NID</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.fatherNidNo) || this.props.getFatherNidNo}</div>
+                                        <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Mother's Name</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherName) || this.props.getMotherName}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Occupation</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherOccupation) || this.props.getMotherOccupation}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's NID</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.motherNidNo) || this.props.getMotherNidNo}</div>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            :null
+                                </td>
+                              </tr>
+                              : null
                           }
 
                         </tbody>
@@ -1113,57 +1170,57 @@ export class ApplicationForm extends React.Component {
                   </div>
                 </div>
 
-                { admissionObj && admissionObj.prevExamInfoRequiredStatus == 1 ? 
-                <div className="row mt-1">
-                  <div className="col-xl-12">
-                    <div className="">
-                      <Table striped responsive className="application-form-table">
-                        <thead>
-                          <tr>
-                            <th>Previous Exam Information</th>
-                            {/* <th className="text-right"><span>Application End Date : 31 Oct, 2020</span></th> */}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td colSpan="2" class="p-4">
-                              <div className="row">
-                                { this.state.pageFirst ?
-                                  <React.Fragment>
-                                    <div className="col-xl-12">
-                                      <FormGroup className="mb-0">
-                                        <Button
-                                          className="btn all-border-radious no-border explore-btn border-0"
-                                          onClick={examInfoDialog}
-                                        >
-                                          <i class="fas fa-plus" ></i> ADD INFO
+                {admissionObj && admissionObj.prevExamInfoRequiredStatus == 1 ?
+                  <div className="row mt-1">
+                    <div className="col-xl-12">
+                      <div className="">
+                        <Table striped responsive className="application-form-table">
+                          <thead>
+                            <tr>
+                              <th>Previous Exam Information</th>
+                              {/* <th className="text-right"><span>Application End Date : 31 Oct, 2020</span></th> */}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td colSpan="2" class="p-4">
+                                <div className="row">
+                                  {this.state.pageFirst ?
+                                    <React.Fragment>
+                                      <div className="col-xl-12">
+                                        <FormGroup className="mb-0">
+                                          <Button
+                                            className="btn all-border-radious no-border explore-btn border-0"
+                                            onClick={examInfoDialog}
+                                          >
+                                            <i class="fas fa-plus" ></i> ADD INFO
                                         </Button>
-                                      </FormGroup>
-                                      <span className='error-message'>{errors['preExamInfo']}</span>
-                                    </div>
-                                  </React.Fragment>
-                                  : null
-                                }
+                                        </FormGroup>
+                                        <span className='error-message'>{errors['preExamInfo']}</span>
+                                      </div>
+                                    </React.Fragment>
+                                    : null
+                                  }
 
-                                <div className="col-xl-12 mt-3">
-                                  <Table striped className="pre-exam-info-table">
-                                    <thead>
-                                      <tr>
-                                        <th>INSTITUTE NAME</th>
-                                        <th>INS. TYPE</th>
-                                        <th>BOARD</th>
-                                        <th>CLASS</th>
-                                        <th>ROLL NO.</th>
-                                        <th>REG. NO</th>
-                                        <th>EXAM</th>
-                                        <th>GRADE </th>
-                                        <th>GPA</th>
-                                        <th>PASSING YEAR</th>
-                                        { this.state.pageThird ? null : <th>Action</th> }
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      { (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPreviousExamViewResponses) ?
+                                  <div className="col-xl-12 mt-3">
+                                    <Table striped className="pre-exam-info-table">
+                                      <thead>
+                                        <tr>
+                                          <th>INSTITUTE NAME</th>
+                                          <th>INS. TYPE</th>
+                                          <th>BOARD</th>
+                                          <th>CLASS</th>
+                                          <th>ROLL NO.</th>
+                                          <th>REG. NO</th>
+                                          <th>EXAM</th>
+                                          <th>GRADE </th>
+                                          <th>GPA</th>
+                                          <th>PASSING YEAR</th>
+                                          {this.state.pageThird ? null : <th>Action</th>}
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPreviousExamViewResponses) ?
                                           getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPreviousExamViewResponses.map((item, index) =>
                                             <tr>
                                               <td>{item.instituteName}</td>
@@ -1221,129 +1278,158 @@ export class ApplicationForm extends React.Component {
                                               }
                                             </tr>
                                           )
-                                      }
-                                      
-                                    </tbody>
-                                  </Table>
-                                </div>
+                                        }
 
-                                {/* <div className="col-xl-12">
+                                      </tbody>
+                                    </Table>
+                                  </div>
+
+                                  {/* <div className="col-xl-12">
                                   No Record Found
                                 </div> */}
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </Table>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                      </div>
                     </div>
                   </div>
-                </div>
-                : null
+                  : null
                 }
 
                 <div className="row mt-1 p-4">
                   <div className="col-xl-12 mb-2"><b>Agreement *</b></div>
                   <div className="col-xl-12 f-14">
-                    { !this.state.pageThird ?
+                    {!this.state.pageThird ?
                       <span className="mr-2">
-                        <Input 
-                          type="checkbox" 
-                          style={{ position: "relative", marginLeft: "0px"}} 
-                          onChange={ this.checkAgreement } 
+                        <Input
+                          type="checkbox"
+                          style={{ position: "relative", marginLeft: "0px" }}
+                          onChange={this.checkAgreement}
                           checked={this.state.isCheckAgreement}
-                        /> 
-                      </span> 
+                        />
+                      </span>
                       : null
                     }
-                    I declare that the above mention information are correct. If any information provide by me is found false.<br/>
+                    I declare that the above mention information are correct. If any information provide by me is found false.<br />
                     The institute reserves the right to cancel my admission. I shall be obliged and obey all the rules & regulations of the institute.
                   </div>
                 </div>
 
-                
-
-
-                  {this.state.pageThird ? 
-                    <React.Fragment>
-                      <div className="container">
-                        <div className="row">
-                          <div className="offset-xl-1 col-xl-10">
-                            <div className="custom-title-border-center"></div>
-                          </div>
+                {this.state.pageThird ?
+                  <React.Fragment>
+                    <div className="container">
+                      <div className="row">
+                        <div className="offset-xl-1 col-xl-10">
+                          <div className="custom-title-border-center"></div>
                         </div>
                       </div>
+                    </div>
 
-                      <div className="col-xl-12 text-orange">
-                        <h2 className="mb-0"><b>Congratulation !!</b></h2>
-                        Application Submitted Successfully.
+                    <div className="col-xl-12 text-orange">
+                      <h2 className="mb-0"><b>Congratulation !!</b></h2>
+                      Application Submitted Successfully.
                       </div>
 
-                      <div className="col-xl-12 my-3">
-                        <small>Your User ID: 20200000012, Please keep this number to pay the application fee 125.00/= taka within 72 Hours through Bkash app or USSD Dial code.</small>
-                      </div>
+                    <div className="col-xl-12 my-3">
+                      <small>Your Registration No. : <strong> {this.props.applicantInfoList.registrationId}</strong>, Please keep this number to pay the application fee {admissionObj.totalFee}.00/= taka within 72 Hours through Bkash app or USSD Dial code.</small>
+                    </div>
 
-                      <div className="col-xl-12">
-                        <h4 className="mb-3"><u><b>Follow The Steps</b></u></h4>
-                        <small>
-                          01. Go to Your Bkash Mobile app/dial code <br />
-                          02. Choose ''Pay bill'' option <br />
-                          03. Select Admisia option <br />
-                          04. Enter the student registration no. <br />
-                          05. After enter student registration you see the fees that you would be pay <br />
-                          06. Now enter your Bkash mobile menu PIN to conform <br /><br />
+                    <div className="col-xl-12">
+                      <h4 className="mb-3"><u><b>Follow The Steps</b></u></h4>
+                      <small>
+                        01. Go to Your Bkash Mobile app/dial code <br />
+                        02. Choose ''Pay bill'' option <br />
+                        03. Select Admisia option <br />
+                        04. Enter the student registration no. <br />
+                        05. After enter student registration you see the fees that you would be pay <br />
+                        06. Now enter your Bkash mobile menu PIN to conform <br /><br />
 
-                          N.B: Please preserve the user ID. You will need User ID to download Admit card after Completed your payment <br />
-                        </small>
+                        N.B: Please preserve your "Registration No." You will need Registration No. to download Admit card after Completed your payment. <br />
+                      </small>
 
-                      </div>
+                    </div>
 
-                      <div className="col-xl-12 text-right d-flex justify-content-end mt-4">
-                        <FormGroup className="mr-5">
-                          <Button
-                            className="btn all-border-radious no-border explore-btn border-0 px-5"
-                            onClick={this.showPreviousPage}
-                          >
-                            DOWNLOAD
+                    <div className="col-xl-12 text-right d-flex justify-content-end mt-4">
+                      <FormGroup className="mr-5">
+                        <Button
+                          className="btn all-border-radious no-border explore-btn border-0 px-5"
+                        // onClick={this.showPreviousPage}
+                        >
+                          DOWNLOAD
                           </Button>
-                        </FormGroup>
+                      </FormGroup>
 
-                        <FormGroup>
-                          <Button
-                            className="btn all-border-radious no-border explore-btn border-0 px-5"
-                            onClick={this.showNextPage}
-                          >
-                            FINISHED
-                          </Button>
-                        </FormGroup>
-                      </div>
-                    </React.Fragment>
-                    : 
-                    <div className="col-xl-12 text-right d-flex justify-content-end">
-                      { this.state.pageSecond ?
-                        <FormGroup className="mr-5">
-                          <Button
-                            className="btn all-border-radious no-border explore-btn border-0 px-5"
-                            onClick={this.showPreviousPage}
-                          >
-                            <i class="fas fa-angle-left" ></i> UPDATE 
-                          </Button>
-                        </FormGroup>
-                        : null
-                      }
-    
                       <FormGroup>
+
+                        <Link
+                          className="btn all-border-radious no-border explore-btn mx-2 "
+                          to={{ pathname: `/institute/online_admission`, }}
+                          onClick={this.resetApplicationFormData}
+                        >
+                          FINISHED <i class="fas fa-angle-right" ></i>
+                        </Link>
+
+                        {/* <Button
+                          className="btn all-border-radious no-border explore-btn border-0 px-5"
+                          onClick={this.showNextPage}
+                        >
+                          FINISHED
+                          </Button> */}
+
+                      </FormGroup>
+                    </div>
+                  </React.Fragment>
+                  :
+                  <div className="col-xl-12 text-right d-flex justify-content-end">
+                    {this.state.pageSecond ?
+                      <FormGroup className="mr-5">
+                        <Button
+                          className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5"
+                          onClick={this.showPreviousPage}
+                        >
+                          <i class="fas fa-angle-left" ></i> UPDATE
+                          </Button>
+
+                        <Button
+                          className="btn all-border-radious no-border explore-btn border-0 px-5"
+                          onClick={this.showNextPage}
+                        >
+                          Confirm  <i class="fas fa-angle-right" ></i>
+                        </Button>
+
+                      </FormGroup>
+                      : <FormGroup>
+
+                        <Link
+                          className="btn all-border-radious no-border explore-btn mx-2 "
+                          to={{ pathname: `/institute/online_admission`, }}
+                          onClick={this.resetApplicationFormData}
+                        >
+                          <i class="fas fa-angle-left" ></i> Exit
+                        </Link>
+
+                        {/* <Button
+                        className="btn all-border-radious no-border explore-btn border-0 mx-2  px-5"
+                        onClick={this.showNextPage}
+                        disabled={!this.state.isCheckAgreement}
+                      >
+                        <i class="fas fa-angle-left" ></i> Exit
+                      </Button> */}
+
                         <Button
                           className="btn all-border-radious no-border explore-btn border-0 px-5"
                           onClick={this.showNextPage}
                           disabled={!this.state.isCheckAgreement}
                         >
-                          Next <i class="fas fa-angle-right" ></i> 
+                          Save <i class="fas fa-angle-right" ></i>
                         </Button>
                       </FormGroup>
-                    </div>
-                  }
+                    }
 
-
+                  </div>
+                }
 
                 <Modal isOpen={this.state.examInfoDialogVisible} toggle={examInfoDialog}>
                   <ModalHeader toggle={examInfoDialog} className="bg-primary-color-dark text-white">Previous Exam Info</ModalHeader>
@@ -1357,8 +1443,8 @@ export class ApplicationForm extends React.Component {
                             type="text"
                             name="class-group"
                             placeholder="Enter Institute Name"
-                            value={ this.props.getInstituteName }
-                            onChange={ (e) =>{ this.props.instituteName(e.target.value); this.state.errors["instituteName"] = '' }}
+                            value={this.props.getInstituteName}
+                            onChange={(e) => { this.props.instituteName(e.target.value); this.state.errors["instituteName"] = '' }}
                           >
                           </Input>
                           <span className='error-message'>{errors['instituteName']}</span>
@@ -1373,8 +1459,8 @@ export class ApplicationForm extends React.Component {
                             type="select"
                             name="class-group"
                             placeholder="Select Institute Type"
-                            value={ this.props.getInstituteType }
-                            onChange={ (e) =>{ this.props.instituteType(e.target.value); this.state.errors["instituteType"] = '' }}
+                            value={this.props.getInstituteType}
+                            onChange={(e) => { this.props.instituteType(e.target.value); this.state.errors["instituteType"] = '' }}
                           >
                             <option hidden value="">Select Type</option>
                             <option value="Kinder Garden">Kinder Garden</option>
@@ -1398,8 +1484,8 @@ export class ApplicationForm extends React.Component {
                             className=" bg-white border-0 rounded-0"
                             type="select"
                             name="class-group"
-                            value={ this.props.getBoardName }
-                            onChange={ (e) =>{ this.props.boardName(e.target.value); this.state.errors["boardName"] = '' }}
+                            value={this.props.getBoardName}
+                            onChange={(e) => { this.props.boardName(e.target.value); this.state.errors["boardName"] = '' }}
                           >
                             <option hidden value="">Select Board</option>
                             <option value="Dhaka Board">Dhaka Board</option>
@@ -1427,8 +1513,8 @@ export class ApplicationForm extends React.Component {
                             type="text"
                             name="class-group"
                             placeholder="Enter Class Name"
-                            value={ this.props.getClassdName }
-                            onChange={ (e) =>{ this.props.className(e.target.value); this.state.errors["className"] = '' }}
+                            value={this.props.getClassdName}
+                            onChange={(e) => { this.props.className(e.target.value); this.state.errors["className"] = '' }}
                           >
                           </Input>
                           <span className='error-message'>{errors['className']}</span>
@@ -1440,11 +1526,12 @@ export class ApplicationForm extends React.Component {
                           <Label for="class-group" className="text-primary-light"><small>Roll NO. <span className="required">*</span></small></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
-                            type="text"
+                            type="number"
+                            min={0} type="number" step="1"
                             name="class-group"
                             placeholder="Enter Roll No."
-                            value={ this.props.getRollNo }
-                            onChange={ (e) =>{ this.props.rollNo(e.target.value); this.state.errors["rollNo"] = '' }}
+                            value={this.props.getRollNo}
+                            onChange={(e) => { this.props.rollNo(e.target.value); this.state.errors["rollNo"] = '' }}
                           >
                           </Input>
                           <span className='error-message'>{errors['rollNo']}</span>
@@ -1456,11 +1543,12 @@ export class ApplicationForm extends React.Component {
                           <Label for="class-group" className="text-primary-light"><small>REGISTRATION NO. <span className="required"></span></small></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
-                            type="text"
+                            type="number"
+                            min={0} type="number" step="1"
                             name="class-group"
                             placeholder="Enter Reg. No."
-                            value={ this.props.getRegistrationNo }
-                            onChange={ (e) =>{ this.props.registrationNo(e.target.value); this.state.errors["registrationNo"] = '' }}
+                            value={this.props.getRegistrationNo}
+                            onChange={(e) => { this.props.registrationNo(e.target.value); this.state.errors["registrationNo"] = '' }}
                           >
                           </Input>
                           <span className='error-message'>{errors['registrationNo']}</span>
@@ -1475,8 +1563,8 @@ export class ApplicationForm extends React.Component {
                             type="text"
                             name="class-group"
                             placeholder="Enter Exam Name"
-                            value={ this.props.getExamName }
-                            onChange={ (e) =>{ this.props.examName(e.target.value); this.state.errors["examName"] = '' }}
+                            value={this.props.getExamName}
+                            onChange={(e) => { this.props.examName(e.target.value); this.state.errors["examName"] = '' }}
                           >
                           </Input>
                           <span className='error-message'>{errors['examName']}</span>
@@ -1490,8 +1578,8 @@ export class ApplicationForm extends React.Component {
                             className=" bg-white border-0 rounded-0"
                             type="select"
                             name="class-group"
-                            value={ this.props.getExamGrade }
-                            onChange={ (e) =>{ this.props.examGrade(e.target.value); this.state.errors["examGrade"] = '' }}
+                            value={this.props.getExamGrade}
+                            onChange={(e) => { this.props.examGrade(e.target.value); this.state.errors["examGrade"] = '' }}
                           >
                             <option hidden value="">Select Gread</option>
                             <option value="A+">A+</option>
@@ -1515,8 +1603,8 @@ export class ApplicationForm extends React.Component {
                             type="text"
                             name="class-group"
                             placeholder="Enter GPA"
-                            value={ this.props.getExamGpa }
-                            onChange={ (e) =>{ this.props.examGpa(e.target.value); this.state.errors["examGpa"] = '' }}
+                            value={this.props.getExamGpa}
+                            onChange={(e) => { this.props.examGpa(e.target.value); this.state.errors["examGpa"] = '' }}
                           >
                           </Input>
                           <span className='error-message'>{errors['examGpa']}</span>
@@ -1530,15 +1618,15 @@ export class ApplicationForm extends React.Component {
                             className=" bg-white border-0 rounded-0"
                             type="select"
                             name="class-group"
-                            value={ this.props.getPassingYear }
-                            onChange={ (e) =>{ this.props.passingYear(e.target.value); this.state.errors["passingYear"] = '' }}
+                            value={this.props.getPassingYear}
+                            onChange={(e) => { this.props.passingYear(e.target.value); this.state.errors["passingYear"] = '' }}
                           >
                             <option hidden value="">Select Passing Year</option>
 
-                            { passingYear.map(item => 
-                              <option value={ item }>{ item }</option>
+                            {passingYear.map(item =>
+                              <option value={item}>{item}</option>
                             )}
-                            
+
                           </Input>
                           <span className='error-message'>{errors['passingYear']}</span>
                         </FormGroup>
@@ -1561,20 +1649,18 @@ export class ApplicationForm extends React.Component {
                   <ModalBody className="bg-light p-5">
                     <div className="row text-center">
                       <div className="col-12">
-                        Are you sure? <br/> You want to permanently delete your Previous Exam Info.
+                        Are you sure? <br /> You want to permanently delete your Previous Exam Info.
                       </div>
 
                       <div className="col-12 mt-4">
-                        <Button className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5" onClick={ () => this.onDeleteAdditionalInfo(this.state.deletePreExamId)}>Yes</Button>
-                        <Button className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5" onClick={ () => deleteDialog()}>No</Button>
+                        <Button className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5" onClick={() => this.onDeleteAdditionalInfo(this.state.deletePreExamId)}>Yes</Button>
+                        <Button className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5" onClick={() => deleteDialog()}>No</Button>
                       </div>
                     </div>
                   </ModalBody>
                 </Modal>
 
-
               </div>
-
 
               <div className="container">
                 <div className="row">
@@ -1635,7 +1721,8 @@ const mapStateToProps = createStructuredSelector({
   getAdditionalInfo: makeSelectAdditionalInfo(),
 
   getApplicantView: makeSelectApplicantView(),
-
+  applicantInfoList: makeSelectApplicantInfoList(),
+  message: makeSelectMessage(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -1673,6 +1760,7 @@ function mapDispatchToProps(dispatch) {
     examGrade: (value) => { dispatch(makeChangeExamGrade(value)) },
     examGpa: (value) => { dispatch(makeChangeExamGpa(value)) },
     passingYear: (value) => { dispatch(makeChangePassingYear(value)) },
+    setMessage: () => { dispatch(setMessage('')) },
 
     submitAdditionalInfo: (additionalInfo) => { dispatch(makeChangeSubmitAdditionalInfo(additionalInfo)) },
     onSubmitInsertApplicantInfo: (applicationInfo) => { dispatch(makeSubmitInsertApplicantInfo(applicationInfo)) },

@@ -4,8 +4,8 @@
  *
  */
 
-import { 
-  DEFAULT_ACTION, 
+import {
+  DEFAULT_ACTION,
   SET_ON_CHANGE_APPLICANT_INFO,
   SET_ON_CHANGE_APPLICANT_NAME,
   SET_ON_CHANGE_GENDER,
@@ -39,8 +39,10 @@ import {
 
   SET_ON_SUBMIT_ADDITIONAL_INFO,
   SET_ON_SUBMIT_INSERT_APPLICANT_INFO,
-  SET_APPLICANT_VIEW
- } from './constants';
+  SET_APPLICANT_VIEW,
+  SET_APPLICANT_INFO_DETAILS_LIST,
+  SET_MESSAGE
+} from './constants';
 
 export function defaultAction() {
   return {
@@ -105,7 +107,6 @@ export function makeChangeFileContent(fileContent) {
 }
 
 export function makeChangeFileSave(fileSave) {
-  console.log("fileSave", fileSave);
   return {
     type: SET_ON_CHANGE_File_SAVE,
     fileSave
@@ -125,8 +126,6 @@ export function makeChangeAddressDetails(addressDetails) {
     addressDetails
   };
 }
-
-
 
 export function makeChangeFatherName(fatherName) {
   return {
@@ -169,7 +168,6 @@ export function makeChangeMotherNidNo(motherNidNo) {
     motherNidNo
   };
 }
-
 
 export function makeChangeInstituteName(instituteName) {
   return {
@@ -242,7 +240,6 @@ export function makeChangePassingYear(passingYear) {
 }
 
 export function makeChangeSubmitAdditionalInfo(additionalInfo) {
-  // console.log("additionalInfo", additionalInfo);
   return {
     type: SET_ON_SUBMIT_ADDITIONAL_INFO,
     additionalInfo
@@ -250,17 +247,13 @@ export function makeChangeSubmitAdditionalInfo(additionalInfo) {
 }
 
 export function makeSubmitInsertApplicantInfo(insertApplicantInfo) {
-  console.log("insertApplicantInfo", insertApplicantInfo);
   return {
     type: SET_ON_SUBMIT_INSERT_APPLICANT_INFO,
     insertApplicantInfo
   };
 }
 
-
-
 export function makeChangeApplicantInfo(applicantInfo) {
-  console.log("applicantInfo", applicantInfo);
   return {
     type: SET_ON_CHANGE_APPLICANT_INFO,
     applicantInfo
@@ -268,10 +261,23 @@ export function makeChangeApplicantInfo(applicantInfo) {
 }
 
 export function setApplicantPersonalView(applicantView) {
-  console.log("applicantView", applicantView);
   return {
     type: SET_APPLICANT_VIEW,
     applicantView
+  };
+}
+
+export function setApplicantInfoListByRegId(applicantInfo) {
+  return {
+    type: SET_APPLICANT_INFO_DETAILS_LIST,
+    applicantInfo
+  };
+}
+
+export function setMessage(message) {
+  return {
+    type: SET_MESSAGE,
+    message
   };
 }
 
