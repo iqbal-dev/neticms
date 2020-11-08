@@ -8,9 +8,9 @@
 
 //for DEVELOPMENT only
 
-export const BASE_URL_NETI_CMS = 'http://18.215.19.195:9992';      //   https://api.netizendev.com:2096
+export const BASE_URL_NETI_CMS = 'https://api.netizendev.com:2096'   //'http://18.215.19.195:9992';
 export const BASE_URL_EM = 'https://api.edumanbd.com';
-export const BASE_URL_NW = 'http://18.215.19.195:9991';            //   https://api.netizendev.com:2087
+export const BASE_URL_NW = 'https://api.netizendev.com:2087'   // 'http://18.215.19.195:9991';          
 
 export const fetch_em_token = '/oauth/token';
 export const login_URL = '/oauth/token';
