@@ -22,9 +22,60 @@ import { AppLayout } from '../../AppLayout';
 import BreadcrumComponent from '../../../components/BreadcrumComponent';
 import { Button, FormGroup, Input, Label, Table } from 'reactstrap';
 
-/* eslint-disable react/prefer-stateless-function */
+import { makeSelectRegistrationNo, makeSelectApplicantInfoList } from './selectors';
+import { setRegistrationNo, submitSearch } from './actions';
+import { getAnyShortForm, get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
+import { Link } from 'react-router-dom';
+import { BASE_URL_NETI_CMS } from '../../../utils/serviceUrl';
+
 export class Payment extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: {},
+    }
+  }
+
+  onChangeRegNumber = (e) => {
+    this.props.onChangeRegNo(e.target.value);
+    this.clearErrorMsg('registrationNo')
+  }
+
+  submitSearchBtn = () => {
+
+    if (this.emptyFieldCheck()) {
+      this.props.onSubmitSearch();
+    }
+
+  }
+
+  emptyFieldCheck = () => {
+
+    let { errors } = this.state;
+    let formIsValid = true;
+
+    if (this.props.registrationNo === '') {
+      formIsValid = false;
+      errors["registrationNo"] = "Registration No. can't left empty";
+    }
+    this.setState({ errors });
+    return formIsValid;
+
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = '';
+    this.setState({ errors })
+
+  }
+
   render() {
+
+    let { errors } = this.state;
+    let { applicantInfoList } = this.props;
+
     return (
       <div class="admisia">
         <AppLayout>
@@ -36,7 +87,7 @@ export class Payment extends React.Component {
 
           <BreadcrumComponent
             pageTitle="Online Payment"
-            menuStepFirst="Online Payment"
+            menuStepFirst="Online Admission"
             menuStepSenond="Payment"
           />
 
@@ -63,12 +114,13 @@ export class Payment extends React.Component {
                                     <Input
                                       className=" bg-white border-0 rounded-0"
                                       type="text"
-                                      name="class-group"
+                                      name="registrationNo"
                                       placeholder="Enter Registration No."
-                                    // value={(admissionObj && admissionObj.className) + " ( " + (admissionObj && admissionObj.groupName) + " )"}
-                                    // readOnly
+                                      value={this.props.registrationNo}
+                                      onChange={this.onChangeRegNumber}
                                     >
                                     </Input>
+                                    <span className='error-message'>{errors['registrationNo']}</span>
                                   </FormGroup>
                                 </div>
 
@@ -78,7 +130,7 @@ export class Payment extends React.Component {
                                     <br />
                                     <Button
                                       className="btn all-border-radious no-border explore-btn border-0 mt-xl-2"
-                                    // onClick={examInfoDialog}
+                                      onClick={this.submitSearchBtn}
                                     >
                                       <i class="fas fa-search" ></i> Search
                                     </Button>
@@ -110,31 +162,31 @@ export class Payment extends React.Component {
                                 <div class="col-xl-3">
                                   <div className="mb-4">
                                     <Label for="class-group" className="text-primary-light">Registration No. </Label>
-                                    <h4><b>120120120</b></h4>
+                                    <h4><b>{applicantInfoList.registrationId}</b></h4>
                                   </div>
 
                                   <div className="mb-4">
                                     <Label for="class-group" className="text-primary-light">Roll No. </Label>
-                                    <h4><b>125689</b></h4>
+                                    <h4><b>{applicantInfoList.rollNo}</b></h4>
                                   </div>
 
                                   <div className="mb-4">
                                     <Label for="class-group" className="text-primary-light">Payment Status</Label>
-                                    <h4 className="text-orange"><b>Unpaid</b></h4>
-                                    <h4 className="text-success"><b>Paid</b></h4>
+                                    {applicantInfoList.applicantFeeStatus === 1 ? <h4 className="text-success"><b>Paid</b></h4>
+                                      : <h4 className="text-orange"><b>Unpaid</b></h4>}
                                   </div>
                                 </div>
 
                                 <div class="col-xl-6 seperator">
                                   <div class=" student-details-info">
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: Shahrear Kabir</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: Male</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: Islam</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: 2 March, 1991</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: Md. Ruhul Amin</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: Most. Jobeda Khatun</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: 01675886072</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: Test address</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
 
                                   </div>
                                 </div>
@@ -142,40 +194,55 @@ export class Payment extends React.Component {
                                 <div class="col-xl-3 seperator">
                                   <div className="mb-3">
                                     <Label className="text-primary-light mb-0">Class </Label>
-                                    <h5>Nine</h5>
+                                    <h5>{applicantInfoList.clasName}</h5>
                                   </div>
 
                                   <div className="mb-3">
                                     <Label className="text-primary-light mb-0">Group </Label>
-                                    <h5>Science</h5>
+                                    <h5>{applicantInfoList.groupName}</h5>
                                   </div>
 
                                   <div className="mb-3">
                                     <Label className="text-primary-light mb-0">Application Date</Label>
-                                    <h5 className="">31 June, 2020</h5>
+                                    <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
                                   </div>
 
                                   <div className="mb-3">
                                     <Label className="text-primary-light mb-0">Application End Date</Label>
-                                    <h5 className="">15 November, 2020</h5>
+                                    <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
                                   </div>
 
                                 </div>
 
-                                <div class="col-xl-9 text-orange mt-5">
-                                  <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
-                                </div>
+                                {applicantInfoList.applicantFeeStatus === 0 ?
+                                  <div class="col-xl-9 text-orange mt-5">
+                                    <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
+                                  </div>
+                                  : ''
+                                }
+                                {applicantInfoList.applicantFeeStatus === 0 ?
 
-                                <div class="col-xl-3 text-orange mt-5">
-                                  <FormGroup className="mb-0">
-                                    <Button
-                                      className="btn all-border-radious no-border explore-btn border-0"
-                                    // onClick={examInfoDialog}
-                                    >
-                                      Payment
-                                      </Button>
-                                  </FormGroup>
-                                </div>
+                                  <div class="col-xl-3 text-orange mt-5">
+                                    <FormGroup className="mb-0">
+
+                                      <Link
+                                        className="btn all-border-radious no-border explore-btn mx-2 "
+                                        to={{ pathname: `${BASE_URL_NETI_CMS}/admisia/application-fee/pay?registrationId=${applicantInfoList.registrationId}`, }}
+                                        target="_blank"
+                                      >
+                                        Pay <i class="fas fa-angle-right" ></i>
+                                      </Link>
+
+                                      {/* <Button
+                                        className="btn all-border-radious no-border explore-btn border-0"
+                                        onClick={this.handlePay}
+                                      >
+                                        Payment
+                                      </Button> */}
+
+                                    </FormGroup>
+                                  </div>
+                                  : ''}
 
                               </div>
                             </td>
@@ -236,11 +303,15 @@ Payment.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   payment: makeSelectPayment(),
+  registrationNo: makeSelectRegistrationNo(),
+  applicantInfoList: makeSelectApplicantInfoList()
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeRegNo: (value) => { dispatch(setRegistrationNo(value)) },
+    onSubmitSearch: () => { dispatch(submitSearch()) },
   };
 }
 

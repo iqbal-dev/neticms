@@ -42,7 +42,7 @@ export class Menu extends React.Component {
     }
   }
 
-  toggle = () => this.setState({ toggle: !this.state.toggle})
+  toggle = () => this.setState({ toggle: !this.state.toggle })
 
   componentDidMount() {
 
@@ -296,7 +296,7 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/institute/class_routine' className='nav-link'>Class Routine</Link> </NavItem>
                                 <NavItem><Link to='/institute/online_class_routine' className='nav-link'>Online Class Routine</Link> </NavItem>
                                 <NavItem><Link to='/institute/exam_routine' className='nav-link'>Exam Routine</Link> </NavItem>
-                                </DropdownMenu>
+                              </DropdownMenu>
                             </UncontrolledDropdown>
 
                             {/* <UncontrolledDropdown nav inNavbar>
@@ -332,7 +332,7 @@ export class Menu extends React.Component {
                             <UncontrolledDropdown nav inNavbar>
                               <NavItem><Link to='/institute/online_admission' className='nav-link'>Admission</Link> </NavItem>
                               {/* <NavItem><Link to='/institute/payment' className='nav-link'>Payment</Link> </NavItem> */}
-                              <NavItem><Link to='/institute/application_form' className='nav-link'>Application Form</Link> </NavItem>
+                              {/* <NavItem><Link to='/institute/application_form' className='nav-link'>Application Form</Link> </NavItem> */}
                               <NavItem><Link to='/institute/admisia_payment' className='nav-link'>Payment</Link> </NavItem>
                               <NavItem><Link to='/institute/application_track' className='nav-link'>Track</Link> </NavItem>
                               <NavItem><Link to='/institute/admisia_download' className='nav-link'>Download</Link> </NavItem>

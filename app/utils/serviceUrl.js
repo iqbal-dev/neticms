@@ -112,7 +112,5 @@ export const FETCH_ALUMNUS_LIST = "/public/alumonus/members";
 export const fetch_classConfigListBy_cmsId = "/admisia/class/config/list";
 export const fetch_coreConfigListBy_cmsId = "/admisia/core/config/find";
 export const insert_applicant_info = "/admisia/applicant/save";
-export const fetch_Applicant_Personal_View_By_RegistrationId = "/public/applicant-info/find/by-registrationId";
 export const FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID = "/public/applicant/details-info/by-registrationId";
-
-// fetch_Applicant_Personal_View_By_RegistrationId
+export const FETCH_APPLICANT_PERSONAL_INFO_BY_REG_ID = "/public/applicant/personal-info/by-registrationId";

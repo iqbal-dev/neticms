@@ -11,6 +11,12 @@ const selectPaymentDomain = state => state.get('payment', initialState);
  * Other specific selectors
  */
 
+const makeSelectRegistrationNo = () =>
+  createSelector(selectPaymentDomain, substate => substate.get('regNo'));
+
+const makeSelectApplicantInfoList = () =>
+  createSelector(selectPaymentDomain, substate => substate.get('applicantInfoList'));
+
 /**
  * Default selector used by Payment
  */
@@ -19,4 +25,8 @@ const makeSelectPayment = () =>
   createSelector(selectPaymentDomain, substate => substate.toJS());
 
 export default makeSelectPayment;
-export { selectPaymentDomain };
+export {
+  selectPaymentDomain,
+  makeSelectRegistrationNo,
+  makeSelectApplicantInfoList
+};

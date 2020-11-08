@@ -69,14 +69,14 @@ export class Footer extends React.Component {
       instituteName = instituteUrlInfo[0].instituteName;
       instituteAddress = instituteUrlInfo[0].instituteAddress;
       instituteContact = instituteUrlInfo[0].instituteContact;
-      instituteEmail =instituteUrlInfo[0].instituteEmail;
+      instituteEmail = instituteUrlInfo[0].instituteEmail;
       logoName = instituteUrlInfo[0].logoName,
-      logoContent = instituteUrlInfo[0].logoContent
+        logoContent = instituteUrlInfo[0].logoContent
     }
 
     return (
       <div>
-        <LoginAccess />
+        {/* <LoginAccess /> */}
         <footer className="footer-wrapper">
           <div className="container-fluid address-bg">
             <div className="container">

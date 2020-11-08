@@ -105,3 +105,9 @@ export function get_DDMMM_YY_Format_WithComma(date) {
     var dateFromString = moment(date).format('DD MMMM, YYYY');
     return dateFromString;
 }
+
+export function getAnyShortForm(date, format) {
+    var moment = require('moment/moment');
+    var anyShortForm = moment(date).format(format);
+    return anyShortForm;
+}
