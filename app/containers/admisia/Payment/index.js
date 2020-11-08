@@ -173,7 +173,8 @@ export class Payment extends React.Component {
                                   <div className="mb-4">
                                     <Label for="class-group" className="text-primary-light">Payment Status</Label>
                                     {applicantInfoList.applicantFeeStatus === 1 ? <h4 className="text-success"><b>Paid</b></h4>
-                                      : <h4 className="text-orange"><b>Unpaid</b></h4>}
+                                      : applicantInfoList.applicantFeeStatus === 0 ? <h4 className="text-orange"><b>Unpaid</b></h4>
+                                        : ''}
                                   </div>
                                 </div>
 
@@ -204,12 +205,16 @@ export class Payment extends React.Component {
 
                                   <div className="mb-3">
                                     <Label className="text-primary-light mb-0">Application Date</Label>
-                                    <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
+                                    {applicantInfoList.applicationDate ?
+                                      <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
+                                      : ''}
                                   </div>
 
                                   <div className="mb-3">
                                     <Label className="text-primary-light mb-0">Application End Date</Label>
-                                    <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
+                                    {applicantInfoList.applicationDate ?
+                                      <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
+                                      : ''}
                                   </div>
 
                                 </div>
