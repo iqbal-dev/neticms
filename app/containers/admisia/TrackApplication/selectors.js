@@ -11,6 +11,11 @@ const selectTrackApplicationDomain = state =>
 /**
  * Other specific selectors
  */
+const makeSelectRegistrationNo = () =>
+  createSelector(selectTrackApplicationDomain, substate => substate.get('regNo'));
+
+const makeSelectApplicantInfoList = () =>
+  createSelector(selectTrackApplicationDomain, substate => substate.get('applicantInfoList'));
 
 /**
  * Default selector used by TrackApplication
@@ -20,4 +25,8 @@ const makeSelectTrackApplication = () =>
   createSelector(selectTrackApplicationDomain, substate => substate.toJS());
 
 export default makeSelectTrackApplication;
-export { selectTrackApplicationDomain };
+export {
+  selectTrackApplicationDomain,
+  makeSelectRegistrationNo,
+  makeSelectApplicantInfoList
+};
