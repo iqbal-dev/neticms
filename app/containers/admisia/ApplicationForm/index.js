@@ -52,11 +52,6 @@ import makeSelectApplicationForm, {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { AppLayout } from '../../AppLayout';
-import BreadcrumComponent from '../../../components/BreadcrumComponent';
-import { CustomInput, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
-import staticImg from '../../../assets/img/demo-image.jpg';
-import { get_DDMMM_YY_Format_WithComma, get_Only_Year } from '../../../utils/dateFormat';
 import {
   makeChangeApplicantInfo,
   makeChangeApplicantName,
@@ -95,6 +90,14 @@ import {
 
 } from './actions';
 
+import { AppLayout } from '../../AppLayout';
+import BreadcrumComponent from '../../../components/BreadcrumComponent';
+import {
+  CustomInput, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert
+} from 'reactstrap';
+import staticImg from '../../../assets/img/demo-image.jpg';
+import { get_DDMMM_YY_Format_WithComma, get_Only_Year } from '../../../utils/dateFormat';
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { insert_applicant_info } from '../../../utils/serviceUrl';
@@ -103,9 +106,9 @@ import { ImageCropper } from '../../../components/common/ImageCropper';
 import { getFileContentType, getMaxFileSizeIsValid } from '../../../utils/FileHandler';
 import { Link } from 'react-router-dom';
 
-/* eslint-disable react/prefer-stateless-function */
 let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
 let cmsID = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
+
 export class ApplicationForm extends React.Component {
   constructor(props) {
     super(props);

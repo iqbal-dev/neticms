@@ -18,13 +18,16 @@ import makeSelectTrackApplication from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { AppLayout } from '../../AppLayout';
-import BreadcrumComponent from '../../../components/BreadcrumComponent';
+import { Link } from 'react-router-dom';
 import { Button, FormGroup, Input, Label, Table, Modal, ModalBody } from 'reactstrap';
-import staticImg from '../../../assets/img/demo-image.jpg';
 
+//customs imports
 import { makeSelectRegistrationNo, makeSelectApplicantInfoList } from './selectors';
 import { setRegistrationNo, submitSearch } from './actions';
+
+import { AppLayout } from '../../AppLayout';
+import BreadcrumComponent from '../../../components/BreadcrumComponent';
+import staticImg from '../../../assets/img/demo-image.jpg';
 import { get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
 
 export class TrackApplication extends React.Component {
@@ -306,9 +309,9 @@ export class TrackApplication extends React.Component {
           {/* <FormattedMessage {...messages.header} /> */}
 
           <BreadcrumComponent
-            pageTitle="Online Payment"
-            menuStepFirst="Online Payment"
-            menuStepSenond="Payment"
+            pageTitle="Track Application"
+            menuStepFirst="Online Admision"
+            menuStepSenond="Track"
           />
 
           <section>
@@ -364,7 +367,7 @@ export class TrackApplication extends React.Component {
                                 <div className="col-xl-4 text-center my-xl-auto text-primary d-flex my-3">
                                   <span className="shape-squire"></span>
                                   <span className="shape-squire"></span>
-                                  <b className="ml-3"><u><a href="#">Forgot your Registration No. ?</a></u></b>
+                                  <b className="ml-3"><u><Link to="#">Forgot your Registration No. ?</Link></u></b>
                                 </div>
                               </div>
                             </td>
