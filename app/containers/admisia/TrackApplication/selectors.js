@@ -17,6 +17,9 @@ const makeSelectRegistrationNo = () =>
 const makeSelectApplicantInfoList = () =>
   createSelector(selectTrackApplicationDomain, substate => substate.get('applicantInfoList'));
 
+const makeSelectMessage = () =>
+  createSelector(selectTrackApplicationDomain, substate => substate.get('message'));
+
 /**
  * Default selector used by TrackApplication
  */
@@ -28,5 +31,6 @@ export default makeSelectTrackApplication;
 export {
   selectTrackApplicationDomain,
   makeSelectRegistrationNo,
-  makeSelectApplicantInfoList
+  makeSelectApplicantInfoList,
+  makeSelectMessage
 };

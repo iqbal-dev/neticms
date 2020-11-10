@@ -367,7 +367,7 @@ export class TrackApplication extends React.Component {
                                 <div className="col-xl-4 text-center my-xl-auto text-primary d-flex my-3">
                                   <span className="shape-squire"></span>
                                   <span className="shape-squire"></span>
-                                  <b className="ml-3"><u><Link to="#">Forgot your Registration No. ?</Link></u></b>
+                                  <b className="ml-3"><u><Link to="/institute/find_registration_no">Forgot your Registration No. ?</Link></u></b>
                                 </div>
                               </div>
                             </td>
@@ -518,7 +518,7 @@ export class TrackApplication extends React.Component {
                                   <div className="mb-2">
                                     {
                                       applicantInfoList.fileContent ?
-                                        <img src={"data:image/jpg;base64," + applicantInfoList.fileContent} height="120px" />
+                                        <img src={"data:image/jpg;base64," + applicantInfoList.fileContent} height="120px" className="border rounded" />
                                         : <img src={staticImg} height="150px" className="border rounded" />
                                     }
                                   </div>
@@ -540,7 +540,7 @@ export class TrackApplication extends React.Component {
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfo.dob) : ''}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>

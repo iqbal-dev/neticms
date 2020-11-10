@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_REGISTRATION_NO, SET_APPLICANT_INFO_LIST } from './constants';
+import { DEFAULT_ACTION, SET_REGISTRATION_NO, SET_APPLICANT_INFO_LIST, SET_MESSAGE } from './constants';
 
 export const initialState = fromJS({
   regNo: '',
@@ -22,6 +22,9 @@ function trackApplicationReducer(state = initialState, action) {
 
     case SET_APPLICANT_INFO_LIST:
       return state.set('applicantInfoList', action.applicantInfoList);
+
+    case SET_MESSAGE:
+      return state.set('message', action.message);
 
     default:
       return state;
