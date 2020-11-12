@@ -25,11 +25,13 @@ import { Table } from 'reactstrap';
 import { getTotalDaysDifference_TillToday, get_DDMMM_YY_Format_WithComma, get_Only_Year } from '../../../utils/dateFormat';
 import { Link } from 'react-router-dom';
 
-/* eslint-disable react/prefer-stateless-function */
 export class OnlineAdmission extends React.Component {
+
   render() {
+
     let { classConfigObj, dataTableLoader } = this.props
     // console.log("classConfigList", classConfigObj, dataTableLoader);
+
     return (
       <div class="admisia">
         <AppLayout>
@@ -79,7 +81,6 @@ export class OnlineAdmission extends React.Component {
                                 <td className="px-5 py-4">
                                   Start Date <br />
                                   <b>{get_DDMMM_YY_Format_WithComma(item.applicationStartDate)}</b> <br />
-                                  {/* <b>15th October, 2020</b> <br/> */}
                                   <br />
                                   End Date <br />
                                   <b>{get_DDMMM_YY_Format_WithComma(item.applicationEndDate)}</b> <br />
@@ -87,7 +88,8 @@ export class OnlineAdmission extends React.Component {
                                 <td className="px-5 py-4">
                                   <b>
                                     Seat Capacity {item.applicantLimit}<br />
-                                    {getTotalDaysDifference_TillToday(item.applicationEndDate)} Days Left
+                                    {item.leftDays} Days Left
+                                    {/* {getTotalDaysDifference_TillToday(item.applicationEndDate)} Days Left */}
                                   </b>
                                   {item.prevExamInfoRequiredStatus == 1 ?
                                     <p className="text-success"><i className="fas fa-check"></i> Prerequisite</p> : null

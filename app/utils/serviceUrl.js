@@ -110,6 +110,7 @@ export const FETCH_ALUMNUS_LIST = "/public/alumonus/members";
 // ADMISIA API  admisia/core/config/find
 
 export const fetch_classConfigListBy_cmsId = "/admisia/class/config/list";
+export const FETCH_PUBLIC_ADMISIA_CLASS_CONFIG_LIST_BY_CMS_ID = "/public/admisia/class-config/list";
 export const fetch_coreConfigListBy_cmsId = "/admisia/core/config/find";
 export const insert_applicant_info = "/admisia/applicant/save";
 export const FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID = "/public/applicant/details-info/by-registrationId";
