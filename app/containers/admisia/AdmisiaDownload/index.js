@@ -18,14 +18,70 @@ import makeSelectAdmisiaDownload from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+
+import {
+  makeSelectRegistrationNo,
+  makeSelectApplicantInfoList,
+  makeSelectMessage,
+  makeSelectLoader
+} from './selectors';
+import { setRegistrationNo, submitSearch } from './actions';
+
+// Custom imports
 import { AppLayout } from '../../AppLayout';
 import BreadcrumComponent from '../../../components/BreadcrumComponent';
 import { Button, FormGroup, Input, Label, Table } from 'reactstrap';
 import staticImg from '../../../assets/img/demo-image.jpg';
+import { get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AdmisiaDownload extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: {},
+    }
+  }
+
+  onChangeRegNumber = (e) => {
+    this.props.onChangeRegNo(e.target.value);
+    this.clearErrorMsg('registrationNo')
+  }
+
+  submitSearchBtn = () => {
+
+    if (this.emptyFieldCheck()) {
+      this.props.onSubmitSearch();
+    }
+
+  }
+
+  emptyFieldCheck = () => {
+
+    let { errors } = this.state;
+    let formIsValid = true;
+
+    if (this.props.registrationNo === '') {
+      formIsValid = false;
+      errors["registrationNo"] = "Registration No. can't left empty";
+    }
+    this.setState({ errors });
+    return formIsValid;
+
+  }
+
+  clearErrorMsg = (name) => {
+    let { errors } = this.state;
+    errors[name] = '';
+    this.setState({ errors })
+  }
+
   render() {
+
+    let { errors } = this.state;
+    let { applicantInfoList } = this.props;
+
     return (
       <div class="admisia">
         <AppLayout>
@@ -63,13 +119,14 @@ export class AdmisiaDownload extends React.Component {
                                     <Label for="class-group" className="text-primary-light"><small>Registration No. <span className="required">*</span></small></Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
-                                      type="text"
+                                      type="number"
                                       name="class-group"
                                       placeholder="Enter Registration No."
-                                    // value={(admissionObj && admissionObj.className) + " ( " + (admissionObj && admissionObj.groupName) + " )"}
-                                    // readOnly
+                                      value={this.props.registrationNo}
+                                      onChange={this.onChangeRegNumber}
                                     >
                                     </Input>
+                                    <span className='error-message'>{errors['registrationNo']}</span>
                                   </FormGroup>
                                 </div>
 
@@ -79,7 +136,7 @@ export class AdmisiaDownload extends React.Component {
                                     <br />
                                     <Button
                                       className="btn all-border-radious no-border explore-btn border-0 mt-xl-2"
-                                    // onClick={examInfoDialog}
+                                      onClick={this.submitSearchBtn}
                                     >
                                       <i class="fas fa-search" ></i> Search
                                     </Button>
@@ -96,106 +153,116 @@ export class AdmisiaDownload extends React.Component {
                 </div>
 
                 <div className="row mt-1">
-                    <div className="col-xl-12">
-                      <div className="">
-                        <Table striped className="application-form-table">
-                          <thead>
-                            <tr>
-                              <th>Applicant Information</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="bg-white shadow">
-                              <td>
-                                <div className="row p-4">
-                                  <div class="col-xl-3">
+                  <div className="col-xl-12">
+                    <div className="">
+                      <Table striped className="application-form-table">
+                        <thead>
+                          <tr>
+                            <th>Applicant Information</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="bg-white shadow">
+                            <td>
+                              <div className="row p-4">
+                                <div class="col-xl-3">
 
-                                    <div className="mb-2">
-                                      <img src={staticImg} height="150px" className="border rounded" />
-                                    </div>
-
-                                    <div className="mb-2">
-                                      <Label for="class-group" className="text-primary-light">Registration No. </Label>
-                                      <h4><b>120120120</b></h4>
-                                    </div>
-
-                                    <div className="mb-0">
-                                      <Label for="class-group" className="text-primary-light">Roll No. </Label>
-                                      <h4><b>125689</b></h4>
-                                    </div>
-
-
+                                  <div className="mb-2">
+                                    <img src={staticImg} height="150px" className="border rounded" />
                                   </div>
 
-                                  <div class="col-xl-6 seperator">
-                                    <div class=" student-details-info">
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: Shahrear Kabir</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: Male</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: Islam</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: 2 March, 1991</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: Md. Ruhul Amin</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: Most. Jobeda Khatun</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: 01675886072</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: Test address</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: 135.00 TK</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Payment Status</label>: <span className="text-success ml-1"> Paid</span></div>
-
-                                    </div>
+                                  <div className="mb-2">
+                                    <Label for="class-group" className="text-primary-light">Registration No. </Label>
+                                    <h4><b>120120120</b></h4>
                                   </div>
 
-                                  <div class="col-xl-3 seperator">
-                                    <div className="mb-3">
-                                      <Label className="text-primary-light mb-0">Class </Label>
-                                      <h5 className="font-weight-bold">Nine</h5>
-                                    </div>
+                                  <div className="mb-0">
+                                    <Label for="class-group" className="text-primary-light">Roll No. </Label>
+                                    <h4><b>125689</b></h4>
+                                  </div>
 
-                                    <div className="mb-3">
-                                      <Label className="text-primary-light mb-0">Group </Label>
-                                      <h5 className="font-weight-bold">Science</h5>
-                                    </div>
+                                </div>
 
-                                    <div className="mb-3">
-                                      <Label className="text-primary-light mb-0">Application Date</Label>
-                                      <h5 className="font-weight-bold">31 June, 2020</h5>
-                                    </div>
+                                <div class="col-xl-6 seperator">
+                                  <div class=" student-details-info">
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfoList.dob) : ''}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
 
-                                    <div className="mb-0">
-                                      <Label className="text-primary-light mb-0">Application End Date</Label>
-                                      <h5 className="font-weight-bold">15 November, 2020</h5>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: {applicantInfoList.totalFee} TK</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Payment Status</label>:
+                                      {applicantInfoList.applicantFeeStatus === 1 ? <span className="text-success ml-1"><b>Paid</b></span>
+                                        : applicantInfoList.applicantFeeStatus === 0 ? <span className="text-orange ml-1"><b>Unpaid</b></span>
+                                          : ''}
                                     </div>
 
                                   </div>
+                                </div>
+
+                                <div class="col-xl-3 seperator">
+                                  <div className="mb-3">
+                                    <Label className="text-primary-light mb-0">Class </Label>
+                                    <h5 className='font-weight-bold'>{applicantInfoList.clasName}</h5>
+                                  </div>
+
+                                  <div className="mb-3">
+                                    <Label className="text-primary-light mb-0">Group </Label>
+                                    <h5 className='font-weight-bold'>{applicantInfoList.groupName}</h5>
+                                  </div>
+
+                                  <div className="mb-3">
+                                    <Label className="text-primary-light mb-0">Application Date</Label>
+                                    {applicantInfoList.applicationDate ?
+                                      <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
+                                      : ''}
+                                  </div>
+
+                                  <div className="mb-3">
+                                    <Label className="text-primary-light mb-0">Application End Date</Label>
+                                    {applicantInfoList.applicationDate ?
+                                      <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
+                                      : ''}
+                                  </div>
+
+                                </div>
+
+                                {applicantInfoList.applicantFeeStatus === 1 ?
 
                                   <div class="col-xl-9 text-success mt-5">
                                     <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
                                   </div>
+                                  : applicantInfoList.applicantFeeStatus === 0 ?
+                                    <div class="col-xl-9 text-orange mt-5">
+                                      <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
+                                    </div>
+                                    : ''}
 
-                                  <div class="col-xl-9 text-orange mt-5">
-                                    <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
-                                  </div>
-
-                                  <div class="col-xl-3 text-orange mt-5">
-                                    <FormGroup className="mb-0">
-                                      <Button
-                                        className="btn all-border-radious no-border explore-btn border-0"
+                                <div class="col-xl-3 text-orange mt-5">
+                                  <FormGroup className="mb-0">
+                                    <Button
+                                      className="btn all-border-radious no-border explore-btn border-0"
                                       // onClick={examInfoDialog}
-                                      >
-                                        Admit Card
+                                      disabled={applicantInfoList.applicantFeeStatus === 1 ? false : true}
+                                    >
+                                      Admit Card
                                       </Button>
-                                    </FormGroup>
-                                  </div>
-
-
-
+                                  </FormGroup>
                                 </div>
-                              </td>
-                            </tr>
 
-                          </tbody>
-                        </Table>
-                      </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </Table>
                     </div>
                   </div>
+                </div>
 
               </div>
 
@@ -221,11 +288,15 @@ AdmisiaDownload.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   admisiaDownload: makeSelectAdmisiaDownload(),
+  registrationNo: makeSelectRegistrationNo(),
+  applicantInfoList: makeSelectApplicantInfoList()
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onChangeRegNo: (value) => { dispatch(setRegistrationNo(value)) },
+    onSubmitSearch: () => { dispatch(submitSearch()) },
   };
 }
 

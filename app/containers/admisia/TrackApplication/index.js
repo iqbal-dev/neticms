@@ -338,7 +338,7 @@ export class TrackApplication extends React.Component {
                                     <Label for="class-group" className="text-primary-light"><small>Registration No. <span className="required">*</span></small></Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
-                                      type="text"
+                                      type="number"
                                       name="class-group"
                                       placeholder="Enter Registration No."
                                       value={this.props.registrationNo}
@@ -540,7 +540,7 @@ export class TrackApplication extends React.Component {
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfo.dob) : ''}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfoList.dob) : ''}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
