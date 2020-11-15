@@ -18,9 +18,6 @@ export function* submitApplicantInfo() {
   let insertApplicantInfo = yield select(makeSelectInsertApplicantInfo());
   // console.log("INSERT OBJ", insertApplicantInfo);
 
-  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  let cmsID = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
-
   const requestURL = BASE_URL_NETI_CMS.concat(insert_applicant_info);
   const options = {
     method: 'POST',
@@ -43,7 +40,10 @@ export function* submitApplicantInfo() {
 
 export function* fetch_applicantInfoDetailsByRegId(registrationId) {
 
-  const requestURL = BASE_URL_NETI_CMS.concat(FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID).concat('?registrationId=').concat(registrationId);
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
+
+  const requestURL = BASE_URL_NETI_CMS.concat(FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID).concat('?registrationId=').concat(registrationId).concat('&cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
     headers: {

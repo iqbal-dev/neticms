@@ -9,7 +9,10 @@ import { makeSelectRegistrationNo } from './selectors';
 export function* fetchApplicantInfoByRegNo() {
 
   const regNo = yield select(makeSelectRegistrationNo());
-  const requestURL = BASE_URL_NETI_CMS.concat(FETCH_APPLICANT_PERSONAL_INFO_BY_REG_ID).concat('?registrationId=').concat(regNo);
+  let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+  let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
+
+  const requestURL = BASE_URL_NETI_CMS.concat(FETCH_APPLICANT_PERSONAL_INFO_BY_REG_ID).concat('?registrationId=').concat(regNo).concat('&cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', },
