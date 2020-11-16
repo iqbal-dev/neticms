@@ -41,7 +41,7 @@ export class OnlineAdmission extends React.Component {
           </Helmet>
           {/* <FormattedMessage {...messages.header} /> */}
           <BreadcrumComponent
-            pageTitle="Online Admission"
+            pageTitle="Admission Circular"
             menuStepFirst="Online Admission"
             menuStepSenond="Admission"
           />
