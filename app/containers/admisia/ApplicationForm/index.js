@@ -102,6 +102,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { insert_applicant_info } from '../../../utils/serviceUrl';
 
+// import "react-modern-calendar-datepicker/lib/DatePicker.css";
+// import DatePicker from "react-modern-calendar-datepicker";
+
 import { ImageCropper } from '../../../components/common/ImageCropper';
 import { getFileContentType, getMaxFileSizeIsValid } from '../../../utils/FileHandler';
 import { Link } from 'react-router-dom';
@@ -259,8 +262,8 @@ export class ApplicationForm extends React.Component {
       formIsValid = false;
       errors["mobileNo"] = "Mobile No. can't left empty.";
     } else if (!this.validOperatorCode(this.props.getMobileNo)) {
-      // errors["mobileNo"] = " Valid BD phone no. is required.";
-      // formIsValid = false;
+      errors["mobileNo"] = " Valid BD phone no. is required.";
+      formIsValid = false;
     }
 
     if (!this.props.getAddressDetails) {
@@ -311,7 +314,7 @@ export class ApplicationForm extends React.Component {
 
   validOperatorCode = () => {
     var opCode = this.props.getMobileNo.substring(0, 3);
-    if (["011", "015", "016", "018", "017", "013", "019", "014"].includes(opCode) && this.props.getMobileNo.length > 10) { return true; }
+    if (["011", "015", "016", "018", "017", "013", "019", "014"].includes(opCode) && this.props.getMobileNo.length === 11) { return true; }
   }
 
   showNextPage = () => {
@@ -820,7 +823,7 @@ export class ApplicationForm extends React.Component {
                 <div className="row mt-1">
                   <div className="col-xl-12">
                     <div className="">
-                      <Table striped responsive className="application-form-table">
+                      <Table striped className="application-form-table">
                         <thead>
                           <tr>
                             <th colSpan="3">Personal Information</th>
@@ -893,6 +896,17 @@ export class ApplicationForm extends React.Component {
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-datepicker">
                                       <Label for="class-group" className="text-primary-light"><small>DATE OF BIRTH <span className="required">*</span></small></Label>
+
+                                      {/* <br />
+                                      <DatePicker
+
+                                        value={this.props.getDob}
+                                        onChange={(e) => { this.props.dob(e); this.state.errors["dob"] = '' }}
+                                        inputPlaceholder="Select Date of Birth"
+                                        shouldHighlightWeekends
+                                        className="form-control dayPicker-custom-input bg-white border-0 rounded-0"
+                                      /> */}
+
                                       <DatePicker
                                         placeholderText='Select Date'
                                         dateFormat="dd/MM/yyyy"

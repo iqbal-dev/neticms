@@ -388,13 +388,16 @@ export class TrackApplication extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="p-4 bg-white shadow">
-                              {/* <div className="row"> */}
 
-                              {this.getApplicantStatus()}
+                          {applicantInfoList && applicantInfoList.registrationId ?
 
-                              {/* {applicantInfoList.applicantFeeStatus === 1 ?
+                            <tr>
+                              <td class="p-4 bg-white shadow">
+                                {/* <div className="row"> */}
+
+                                {this.getApplicantStatus()}
+
+                                {/* {applicantInfoList.applicantFeeStatus === 1 ?
                                 <div className="col-xl-12 font-weight-bold">
                                   <div className=" d-flex align-items-center justify-content-center shape-circle pending">P</div>
                                   <h2 className="mt-3"><b>Pending For Assesment</b></h2>
@@ -491,9 +494,13 @@ export class TrackApplication extends React.Component {
                                   <p className=""> <i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </p>
                                 </div>
 } */}
-                              {/* </div> */}
-                            </td>
-                          </tr>
+                                {/* </div> */}
+                              </td>
+                            </tr>
+
+                            : <tr><td colSpan='12'>No Data Found</td></tr>
+
+                          }
                         </tbody>
                       </Table>
                     </div>
@@ -509,84 +516,90 @@ export class TrackApplication extends React.Component {
                             <th>Applicant Information</th>
                           </tr>
                         </thead>
+
                         <tbody>
-                          <tr className="bg-white shadow">
-                            <td>
-                              <div className="row p-4">
-                                <div class="col-xl-3">
 
-                                  <div className="mb-2">
-                                    {
-                                      applicantInfoList.fileContent ?
-                                        <img src={"data:image/jpg;base64," + applicantInfoList.fileContent} height="120px" className="border rounded" />
-                                        : <img src={staticImg} height="150px" className="border rounded" />
-                                    }
-                                  </div>
+                          {applicantInfoList && applicantInfoList.registrationId ?
 
-                                  <div className="mb-2">
-                                    <Label for="class-group" className="text-primary-light">Registration No. </Label>
-                                    <h4><b>{applicantInfoList.registrationId}</b></h4>
-                                  </div>
+                            <tr className="bg-white shadow">
+                              <td>
+                                <div className="row p-4">
+                                  <div class="col-xl-3">
 
-                                  <div className="mb-0">
-                                    <Label for="class-group" className="text-primary-light">Roll No. </Label>
-                                    <h4><b>{applicantInfoList.rollNo}</b></h4>
-                                  </div>
+                                    <div className="mb-2">
+                                      {
+                                        applicantInfoList.fileContent ?
+                                          <img src={"data:image/jpg;base64," + applicantInfoList.fileContent} height="120px" className="border rounded" />
+                                          : <img src={staticImg} height="150px" className="border rounded" />
+                                      }
+                                    </div>
 
-                                </div>
+                                    <div className="mb-2">
+                                      <Label for="class-group" className="text-primary-light">Registration No. </Label>
+                                      <h4><b>{applicantInfoList.registrationId}</b></h4>
+                                    </div>
 
-                                <div class="col-xl-6 seperator">
-                                  <div class=" student-details-info">
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfoList.dob) : ''}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
-
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: {applicantInfoList.totalFee} TK</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Payment Status</label>:
-                                      {applicantInfoList.applicantFeeStatus === 1 ? <span className="text-success ml-1"><b>Paid</b></span>
-                                        : applicantInfoList.applicantFeeStatus === 0 ? <span className="text-orange ml-1"><b>Unpaid</b></span>
-                                          : ''}
+                                    <div className="mb-0">
+                                      <Label for="class-group" className="text-primary-light">Roll No. </Label>
+                                      <h4><b>{applicantInfoList.rollNo}</b></h4>
                                     </div>
 
                                   </div>
+
+                                  <div class="col-xl-6 seperator">
+                                    <div class=" student-details-info">
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfoList.dob) : ''}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
+
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: {applicantInfoList.totalFee} TK</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Payment Status</label>:
+                                      {applicantInfoList.applicantFeeStatus === 1 ? <span className="text-success ml-1"><b>Paid</b></span>
+                                          : applicantInfoList.applicantFeeStatus === 0 ? <span className="text-orange ml-1"><b>Unpaid</b></span>
+                                            : ''}
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                  <div class="col-xl-3 seperator">
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Class </Label>
+                                      <h5 className='font-weight-bold'>{applicantInfoList.clasName}</h5>
+                                    </div>
+
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Group </Label>
+                                      <h5 className='font-weight-bold'>{applicantInfoList.groupName}</h5>
+                                    </div>
+
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Application Date</Label>
+                                      {applicantInfoList.applicationDate ?
+                                        <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
+                                        : ''}
+                                    </div>
+
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Application End Date</Label>
+                                      {applicantInfoList.applicationDate ?
+                                        <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
+                                        : ''}
+                                    </div>
+
+                                  </div>
+
                                 </div>
+                              </td>
+                            </tr>
+                            : <tr><td colSpan='12'>No Data Found</td></tr>
 
-                                <div class="col-xl-3 seperator">
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Class </Label>
-                                    <h5 className='font-weight-bold'>{applicantInfoList.clasName}</h5>
-                                  </div>
-
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Group </Label>
-                                    <h5 className='font-weight-bold'>{applicantInfoList.groupName}</h5>
-                                  </div>
-
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Application Date</Label>
-                                    {applicantInfoList.applicationDate ?
-                                      <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
-                                      : ''}
-                                  </div>
-
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Application End Date</Label>
-                                    {applicantInfoList.applicationDate ?
-                                      <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
-                                      : ''}
-                                  </div>
-
-                                </div>
-
-                              </div>
-                            </td>
-                          </tr>
-
+                          }
                         </tbody>
                       </Table>
                     </div>

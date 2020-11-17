@@ -279,3 +279,20 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.DatePicker {
+  width: 100%;
+
+  .DatePicker__input {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 0.4em 0.8em;
+    font-family: inherit;
+    text-align: left;
+    border: none;
+    font-size: 1rem;
+    color: #495057;
+    font-weight: 400;
+  }
+}

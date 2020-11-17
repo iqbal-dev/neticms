@@ -21,10 +21,11 @@ export function* fetchApplicantInfoByMobileNo() {
   try {
     const response = yield call(request, requestURL, options);
     console.log('list-by-regId', response);
+
     yield put(setLoader('tableLoadOff'));
     if (response.messageType === 1) {
       yield put(setApplicantInfoDetails(response.item));
-    } else { setApplicantInfoDetails([]) }
+    } else { yield put(setApplicantInfoDetails([])) }
 
   } catch (error) { }
 

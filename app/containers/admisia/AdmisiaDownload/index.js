@@ -92,9 +92,9 @@ export class AdmisiaDownload extends React.Component {
           {/* <FormattedMessage {...messages.header} /> */}
 
           <BreadcrumComponent
-            pageTitle="Online Payment"
-            menuStepFirst="Online Payment"
-            menuStepSenond="Payment"
+            pageTitle="Download"
+            menuStepFirst="Online Admission"
+            menuStepSenond="Download"
           />
 
           <section>
@@ -110,6 +110,7 @@ export class AdmisiaDownload extends React.Component {
                             {/* <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</span></th> */}
                           </tr>
                         </thead>
+
                         <tbody>
                           <tr>
                             <td colSpan="2" class="p-4">
@@ -146,6 +147,7 @@ export class AdmisiaDownload extends React.Component {
                               </div>
                             </td>
                           </tr>
+
                         </tbody>
                       </Table>
                     </div>
@@ -162,102 +164,108 @@ export class AdmisiaDownload extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="bg-white shadow">
-                            <td>
-                              <div className="row p-4">
-                                <div class="col-xl-3">
 
-                                  <div className="mb-2">
-                                    <img src={staticImg} height="150px" className="border rounded" />
+                          {applicantInfoList && applicantInfoList.registrationId ?
+
+                            <tr className="bg-white shadow">
+                              <td>
+                                <div className="row p-4">
+                                  <div class="col-xl-3">
+
+                                    <div className="mb-2">
+                                      <img src={staticImg} height="150px" className="border rounded" />
+                                    </div>
+
+                                    <div className="mb-2">
+                                      <Label for="class-group" className="text-primary-light">Registration No. </Label>
+                                      <h4><b>120120120</b></h4>
+                                    </div>
+
+                                    <div className="mb-0">
+                                      <Label for="class-group" className="text-primary-light">Roll No. </Label>
+                                      <h4><b>125689</b></h4>
+                                    </div>
+
                                   </div>
 
-                                  <div className="mb-2">
-                                    <Label for="class-group" className="text-primary-light">Registration No. </Label>
-                                    <h4><b>120120120</b></h4>
-                                  </div>
+                                  <div class="col-xl-6 seperator">
+                                    <div class=" student-details-info">
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfoList.dob) : ''}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
 
-                                  <div className="mb-0">
-                                    <Label for="class-group" className="text-primary-light">Roll No. </Label>
-                                    <h4><b>125689</b></h4>
-                                  </div>
-
-                                </div>
-
-                                <div class="col-xl-6 seperator">
-                                  <div class=" student-details-info">
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfoList.dob) : ''}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
-
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: {applicantInfoList.totalFee} TK</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Payment Status</label>:
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: {applicantInfoList.totalFee} TK</div>
+                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Payment Status</label>:
                                       {applicantInfoList.applicantFeeStatus === 1 ? <span className="text-success ml-1"><b>Paid</b></span>
-                                        : applicantInfoList.applicantFeeStatus === 0 ? <span className="text-orange ml-1"><b>Unpaid</b></span>
-                                          : ''}
+                                          : applicantInfoList.applicantFeeStatus === 0 ? <span className="text-orange ml-1"><b>Unpaid</b></span>
+                                            : ''}
+                                      </div>
+
+                                    </div>
+                                  </div>
+
+                                  <div class="col-xl-3 seperator">
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Class </Label>
+                                      <h5 className='font-weight-bold'>{applicantInfoList.clasName}</h5>
+                                    </div>
+
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Group </Label>
+                                      <h5 className='font-weight-bold'>{applicantInfoList.groupName}</h5>
+                                    </div>
+
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Application Date</Label>
+                                      {applicantInfoList.applicationDate ?
+                                        <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
+                                        : ''}
+                                    </div>
+
+                                    <div className="mb-3">
+                                      <Label className="text-primary-light mb-0">Application End Date</Label>
+                                      {applicantInfoList.applicationDate ?
+                                        <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
+                                        : ''}
                                     </div>
 
                                   </div>
-                                </div>
 
-                                <div class="col-xl-3 seperator">
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Class </Label>
-                                    <h5 className='font-weight-bold'>{applicantInfoList.clasName}</h5>
-                                  </div>
+                                  {applicantInfoList.applicantFeeStatus === 1 ?
 
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Group </Label>
-                                    <h5 className='font-weight-bold'>{applicantInfoList.groupName}</h5>
-                                  </div>
-
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Application Date</Label>
-                                    {applicantInfoList.applicationDate ?
-                                      <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
-                                      : ''}
-                                  </div>
-
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Application End Date</Label>
-                                    {applicantInfoList.applicationDate ?
-                                      <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
-                                      : ''}
-                                  </div>
-
-                                </div>
-
-                                {applicantInfoList.applicantFeeStatus === 1 ?
-
-                                  <div class="col-xl-9 text-success mt-5">
-                                    <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
-                                  </div>
-                                  : applicantInfoList.applicantFeeStatus === 0 ?
-                                    <div class="col-xl-9 text-orange mt-5">
-                                      <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
+                                    <div class="col-xl-9 text-success mt-5">
+                                      <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
                                     </div>
-                                    : ''}
+                                    : applicantInfoList.applicantFeeStatus === 0 ?
+                                      <div class="col-xl-9 text-orange mt-5">
+                                        <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
+                                      </div>
+                                      : ''}
 
-                                <div class="col-xl-3 text-orange mt-5">
-                                  <FormGroup className="mb-0">
-                                    <Button
-                                      className="btn all-border-radious no-border explore-btn border-0"
-                                      // onClick={examInfoDialog}
-                                      disabled={applicantInfoList.applicantFeeStatus === 1 ? false : true}
-                                    >
-                                      Admit Card
+                                  <div class="col-xl-3 text-orange mt-5">
+                                    <FormGroup className="mb-0">
+                                      <Button
+                                        className="btn all-border-radious no-border explore-btn border-0"
+                                        // onClick={examInfoDialog}
+                                        disabled={applicantInfoList.applicantFeeStatus === 1 ? false : true}
+                                      >
+                                        Admit Card
                                       </Button>
-                                  </FormGroup>
+                                    </FormGroup>
+                                  </div>
+
                                 </div>
+                              </td>
+                            </tr>
 
-                              </div>
-                            </td>
-                          </tr>
+                            : <tr><td colSpan='12'>No Data Found</td></tr>
 
+                          }
                         </tbody>
                       </Table>
                     </div>

@@ -5,11 +5,16 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, SET_REGISTRATION_NO, SET_APPLICANT_INFO_LIST } from './constants';
+import {
+  DEFAULT_ACTION, SET_REGISTRATION_NO, SET_APPLICANT_INFO_LIST,
+  SET_MSG_TYPE, SET_LOADER
+} from './constants';
 
 export const initialState = fromJS({
   regNo: '',
-  applicantInfoList: [],
+  applicantInfos: [],
+  msgType: 0,
+  loaderType: '',
 });
 
 function paymentReducer(state = initialState, action) {
@@ -21,7 +26,13 @@ function paymentReducer(state = initialState, action) {
       return state.set('regNo', action.regNo);
 
     case SET_APPLICANT_INFO_LIST:
-      return state.set('applicantInfoList', action.applicantInfoList);
+      return state.set('applicantInfos', action.applicantInfoList);
+
+    case SET_APPLICANT_INFO_LIST:
+      return state.set('msgType', action.msgType);
+
+    case SET_LOADER:
+      return state.set('loaderType', action.loaderType);
 
     default:
       return state;

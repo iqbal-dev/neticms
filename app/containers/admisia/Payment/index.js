@@ -21,7 +21,10 @@ import messages from './messages';
 import { Button, FormGroup, Input, Label, Table } from 'reactstrap';
 
 // custom imports
-import { makeSelectRegistrationNo, makeSelectApplicantInfoList } from './selectors';
+import {
+  makeSelectRegistrationNo, makeSelectApplicantInfoList,
+  makeSelectApplicantInfoMsgType, makeSelectLoader
+} from './selectors';
 import { setRegistrationNo, submitSearch } from './actions';
 
 import { AppLayout } from '../../AppLayout';
@@ -29,6 +32,7 @@ import BreadcrumComponent from '../../../components/BreadcrumComponent';
 import { get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
 import { Link } from 'react-router-dom';
 import { BASE_URL_NETI_CMS } from '../../../utils/serviceUrl';
+import { centerTableLoader } from '../../../utils/contentLoader';
 
 export class Payment extends React.Component {
 
@@ -78,6 +82,9 @@ export class Payment extends React.Component {
     let { errors } = this.state;
     let { applicantInfoList } = this.props;
 
+    // console.log('loaderType', this.props.loaderType);
+    // console.log('applicantInfoList', applicantInfoList);
+
     return (
       <div class="admisia">
         <AppLayout>
@@ -115,7 +122,7 @@ export class Payment extends React.Component {
                                     <Label for="class-group" className="text-primary-light"><small>Registration No. <span className="required">*</span></small></Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
-                                      type="text"
+                                      type="number"
                                       name="registrationNo"
                                       placeholder="Enter Registration No."
                                       value={this.props.registrationNo}
@@ -148,144 +155,163 @@ export class Payment extends React.Component {
                   </div>
                 </div>
 
-                <div className="row mt-1">
-                  <div className="col-xl-12">
-                    <div className="">
-                      <Table striped className="application-form-table">
-                        <thead>
-                          <tr>
-                            <th>Applicant Information</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="p-4 bg-white shadow">
-                              <div className="row">
-                                <div class="col-xl-3">
-                                  <div className="mb-4">
-                                    <Label for="class-group" className="text-primary-light">Registration No. </Label>
-                                    <h4><b>{applicantInfoList.registrationId}</b></h4>
-                                  </div>
+                {this.props.loaderType === 'tableLoadOn' ? centerTableLoader() :
 
-                                  <div className="mb-4">
-                                    <Label for="class-group" className="text-primary-light">Roll No. </Label>
-                                    <h4><b>{applicantInfoList.rollNo}</b></h4>
-                                  </div>
+                  <div className="row mt-1">
+                    <div className="col-xl-12">
+                      <div className="">
+                        <Table striped className="application-form-table">
+                          <thead>
+                            <tr>
+                              <th>Applicant Information</th>
+                            </tr>
+                          </thead>
 
-                                  <div className="mb-4">
-                                    <Label for="class-group" className="text-primary-light">Payment Status</Label>
-                                    {applicantInfoList.applicantFeeStatus === 1 ? <h4 className="text-success"><b>Paid</b></h4>
-                                      : applicantInfoList.applicantFeeStatus === 0 ? <h4 className="text-orange"><b>Unpaid</b></h4>
-                                        : ''}
-                                  </div>
-                                </div>
+                          <tbody>
 
-                                <div class="col-xl-6 seperator">
-                                  <div class=" student-details-info">
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
+                            {this.props.applicantInfoList && applicantInfoList.registrationId ?
+                              <tr>
+                                <td class="p-4 bg-white shadow">
+                                  <div className="row">
+                                    <div class="col-xl-3">
+                                      <div className="mb-4">
+                                        <Label for="class-group" className="text-primary-light">Registration No. </Label>
+                                        <h4><b>{applicantInfoList.registrationId}</b></h4>
+                                      </div>
 
-                                  </div>
-                                </div>
+                                      <div className="mb-4">
+                                        <Label for="class-group" className="text-primary-light">Roll No. </Label>
+                                        <h4><b>{applicantInfoList.rollNo}</b></h4>
+                                      </div>
 
-                                <div class="col-xl-3 seperator">
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Class </Label>
-                                    <h5>{applicantInfoList.clasName}</h5>
-                                  </div>
+                                      <div className="mb-4">
+                                        <Label for="class-group" className="text-primary-light">Payment Status</Label>
+                                        {applicantInfoList.applicantFeeStatus === 1 ? <h4 className="text-success"><b>Paid</b></h4>
+                                          : applicantInfoList.applicantFeeStatus === 0 ? <h4 className="text-orange"><b>Unpaid</b></h4>
+                                            : ''}
+                                      </div>
+                                    </div>
 
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Group </Label>
-                                    <h5>{applicantInfoList.groupName}</h5>
-                                  </div>
+                                    <div class="col-xl-6 seperator">
+                                      <div class=" student-details-info">
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
 
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Application Date</Label>
-                                    {applicantInfoList.applicationDate ?
-                                      <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
-                                      : ''}
-                                  </div>
+                                      </div>
+                                    </div>
 
-                                  <div className="mb-3">
-                                    <Label className="text-primary-light mb-0">Application End Date</Label>
-                                    {applicantInfoList.applicationDate ?
-                                      <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
-                                      : ''}
-                                  </div>
+                                    <div class="col-xl-3 seperator">
+                                      <div className="mb-3">
+                                        <Label className="text-primary-light mb-0">Class </Label>
+                                        <h5>{applicantInfoList.clasName}</h5>
+                                      </div>
 
-                                </div>
+                                      <div className="mb-3">
+                                        <Label className="text-primary-light mb-0">Group </Label>
+                                        <h5>{applicantInfoList.groupName}</h5>
+                                      </div>
 
-                                {applicantInfoList.applicantFeeStatus === 0 ?
-                                  <div class="col-xl-9 text-orange mt-5">
-                                    <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
-                                  </div>
-                                  : ''
-                                }
-                                {applicantInfoList.applicantFeeStatus === 0 ?
+                                      <div className="mb-3">
+                                        <Label className="text-primary-light mb-0">Application Date</Label>
+                                        {applicantInfoList.applicationDate ?
+                                          <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
+                                          : ''}
+                                      </div>
 
-                                  <div class="col-xl-3 text-orange mt-5">
-                                    <FormGroup className="mb-0">
+                                      <div className="mb-3">
+                                        <Label className="text-primary-light mb-0">Application End Date</Label>
+                                        {applicantInfoList.applicationDate ?
+                                          <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
+                                          : ''}
+                                      </div>
 
-                                      <Link
-                                        className="btn all-border-radious no-border explore-btn mx-2 "
-                                        to={{ pathname: `${BASE_URL_NETI_CMS}/admisia/application-fee/pay?registrationId=${applicantInfoList.registrationId}`, }}
-                                        target="_blank"
-                                      >
-                                        Pay <i class="fas fa-angle-right" ></i>
-                                      </Link>
+                                    </div>
 
-                                      {/* <Button
+                                    {applicantInfoList.applicantFeeStatus === 0 ?
+                                      <div class="col-xl-9 text-orange mt-5">
+                                        <h4><b><i className="fas fa-info-circle"></i> Pay your application fee to confirm your application. </b></h4>
+                                      </div>
+                                      : ''
+                                    }
+                                    {applicantInfoList.applicantFeeStatus === 0 ?
+
+                                      <div class="col-xl-3 text-orange mt-5">
+                                        <FormGroup className="mb-0">
+
+                                          <Link
+                                            className="btn all-border-radious no-border explore-btn mx-2 "
+                                            to={{ pathname: `${BASE_URL_NETI_CMS}/admisia/application-fee/pay?registrationId=${applicantInfoList.registrationId}`, }}
+                                            target="_blank"
+                                          >
+                                            Pay <i class="fas fa-angle-right" ></i>
+                                          </Link>
+
+                                          {/* <Button
                                         className="btn all-border-radious no-border explore-btn border-0"
                                         onClick={this.handlePay}
                                       >
                                         Payment
                                       </Button> */}
 
-                                    </FormGroup>
+                                        </FormGroup>
+                                      </div>
+                                      : ''}
+
                                   </div>
-                                  : ''}
+                                </td>
+                              </tr>
 
-                              </div>
-                            </td>
-                          </tr>
+                              : <tr><td colSpan='12'>No Data Found</td></tr>
 
-                        </tbody>
-                      </Table>
+                            }
+                          </tbody>
+                        </Table>
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
 
-                <div className="row mt-1">
-                  <div className="col-xl-12">
-                    <div className="">
-                      <Table striped className="application-form-table">
-                        <thead>
-                          <tr>
-                            <th>Payment Instruction</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div className="row p-4">
-                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-1</div></div>
-                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-2</div></div>
-                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-3</div></div>
-                                <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-4</div></div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </Table>
+                {this.props.loaderType === 'tableLoadOn' ? <div style={{ marginTop: '25px' }}> {centerTableLoader()}</div> :
+
+                  <div className="row mt-1">
+                    <div className="col-xl-12">
+                      <div className="">
+                        <Table striped className="application-form-table">
+                          <thead>
+                            <tr>
+                              <th>Payment Instruction</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            {applicantInfoList && applicantInfoList.registrationId ?
+                              <tr>
+                                <td>
+                                  <div className="row p-4">
+                                    <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-1</div></div>
+                                    <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-2</div></div>
+                                    <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-3</div></div>
+                                    <div className="col-xl-3"><div className="border bg-white text-center p-3">Step-4</div></div>
+                                  </div>
+                                </td>
+                              </tr>
+
+                              : <tr><td colSpan='12'>No Data Found</td></tr>
+
+                            }
+                          </tbody>
+
+                        </Table>
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
 
               </div>
 
@@ -311,7 +337,10 @@ Payment.propTypes = {
 const mapStateToProps = createStructuredSelector({
   payment: makeSelectPayment(),
   registrationNo: makeSelectRegistrationNo(),
-  applicantInfoList: makeSelectApplicantInfoList()
+  applicantInfoList: makeSelectApplicantInfoList(),
+  msgType: makeSelectApplicantInfoMsgType(),
+  loaderType: makeSelectLoader(),
+
 });
 
 function mapDispatchToProps(dispatch) {

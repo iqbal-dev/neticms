@@ -22,7 +22,9 @@ export function* fetchApplicantInfoByRegNo() {
     console.log('list-by-regId', response);
     if (response.messageType === 1) {
       yield put(setApplicantInfoDetails(response.item));
-    } else { setApplicantInfoDetails([]) }
+    } else if (response.messageType === 0) {
+      yield put(setApplicantInfoDetails([]));
+    }
 
   } catch (error) { }
 

@@ -3,7 +3,7 @@ import request from '../../../utils/request';
 import { FETCH_APPLICANT_PERSONAL_INFO_BY_REG_ID, BASE_URL_NETI_CMS } from '../../../utils/serviceUrl';
 
 import { SUBMIT_SEARCH } from './constants';
-import { setApplicantInfoDetails } from './actions';
+import { setApplicantInfoDetails, setLoader } from './actions';
 import { makeSelectRegistrationNo } from './selectors';
 
 export function* fetchApplicantInfoByRegNo() {
@@ -12,6 +12,7 @@ export function* fetchApplicantInfoByRegNo() {
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
 
+  yield put(setLoader('tableLoadOn'));
   const requestURL = BASE_URL_NETI_CMS.concat(FETCH_APPLICANT_PERSONAL_INFO_BY_REG_ID).concat('?registrationId=').concat(regNo).concat('&cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
@@ -20,11 +21,19 @@ export function* fetchApplicantInfoByRegNo() {
   try {
     const response = yield call(request, requestURL, options);
     console.log('list-by-regId', response);
+
+    yield put(setLoader('tableLoadOff'));
+
     if (response.messageType === 1) {
       yield put(setApplicantInfoDetails(response.item));
-    } else { setApplicantInfoDetails([]) }
+      // yield put(setMsgType(1));
+    } else if (response.messageType === 0) {
+      yield put(setApplicantInfoDetails([]));
+    }
 
-  } catch (error) { }
+  } catch (error) {
+    yield put(setLoader('tableLoadOff'));
+  }
 
 }
 
