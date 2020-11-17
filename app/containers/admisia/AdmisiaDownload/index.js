@@ -33,6 +33,7 @@ import BreadcrumComponent from '../../../components/BreadcrumComponent';
 import { Button, FormGroup, Input, Label, Table } from 'reactstrap';
 import staticImg from '../../../assets/img/demo-image.jpg';
 import { get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
+import { BASE_URL_NETI_CMS, ADMISIA_ADMIT_CARD_DOWNLOAD } from '../../../utils/serviceUrl';
 
 /* eslint-disable react/prefer-stateless-function */
 export class AdmisiaDownload extends React.Component {
@@ -75,6 +76,30 @@ export class AdmisiaDownload extends React.Component {
     let { errors } = this.state;
     errors[name] = '';
     this.setState({ errors })
+  }
+
+  onDownloadAdmitCard = () => {
+
+    let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+    let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
+
+    let regId = this.props.applicantInfoList.registrationId;
+
+    const requestURL = BASE_URL_NETI_CMS.concat(ADMISIA_ADMIT_CARD_DOWNLOAD).concat('?cmsId=').concat(cmsId).concat('&registrationIds=').concat(regId);
+    // https://api.netizendev.com:2096/admisia/download/admit-card?cmsId=4&registrationIds=210000021
+
+    const finalURL = requestURL;
+    if (finalURL) {
+      setTimeout(() => {
+        const response = {
+          file: finalURL,
+        };
+        window.location.href = response.file;
+
+      }, 100);
+
+    }
+
   }
 
   render() {
@@ -173,17 +198,24 @@ export class AdmisiaDownload extends React.Component {
                                   <div class="col-xl-3">
 
                                     <div className="mb-2">
-                                      <img src={staticImg} height="150px" className="border rounded" />
+                                      {/* <img src={staticImg} height="150px" className="border rounded" /> */}
+
+                                      {
+                                        applicantInfoList.fileContent ?
+                                          <img src={"data:image/jpg;base64," + applicantInfoList.fileContent} height="220px" className="border rounded" />
+                                          : <img src={staticImg} height="150px" className="border rounded" />
+                                      }
+
                                     </div>
 
                                     <div className="mb-2">
                                       <Label for="class-group" className="text-primary-light">Registration No. </Label>
-                                      <h4><b>120120120</b></h4>
+                                      <h4><b>{applicantInfoList.registrationId}</b></h4>
                                     </div>
 
                                     <div className="mb-0">
                                       <Label for="class-group" className="text-primary-light">Roll No. </Label>
-                                      <h4><b>125689</b></h4>
+                                      <h4><b>{applicantInfoList.rollNo}</b></h4>
                                     </div>
 
                                   </div>
@@ -239,7 +271,12 @@ export class AdmisiaDownload extends React.Component {
                                   {applicantInfoList.applicantFeeStatus === 1 ?
 
                                     <div class="col-xl-9 text-success mt-5">
-                                      <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
+                                      {applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
+                                        <h4><b><i className="fas fa-info-circle"></i> Download your Confirmation Letter. </b></h4>
+                                        :
+                                        <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
+                                      }
+
                                     </div>
                                     : applicantInfoList.applicantFeeStatus === 0 ?
                                       <div class="col-xl-9 text-orange mt-5">
@@ -249,13 +286,31 @@ export class AdmisiaDownload extends React.Component {
 
                                   <div class="col-xl-3 text-orange mt-5">
                                     <FormGroup className="mb-0">
-                                      <Button
-                                        className="btn all-border-radious no-border explore-btn border-0"
-                                        // onClick={examInfoDialog}
-                                        disabled={applicantInfoList.applicantFeeStatus === 1 ? false : true}
-                                      >
-                                        Admit Card
+
+                                      {applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
+
+                                        <Button
+                                          className="btn all-border-radious no-border explore-btn border-0"
+                                          // onClick={examInfoDialog}
+                                          disabled={
+                                            applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
+                                              false : true}
+                                        >
+                                          Confirmation
+                                      </Button> :
+
+                                        <Button
+                                          className="btn all-border-radious no-border explore-btn border-0"
+                                          onClick={this.onDownloadAdmitCard}
+                                          disabled={
+                                            applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1 ?
+                                              false : true}
+                                        >
+                                          Admit Card
                                       </Button>
+
+                                      }
+
                                     </FormGroup>
                                   </div>
 

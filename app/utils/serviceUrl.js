@@ -116,3 +116,5 @@ export const insert_applicant_info = "/admisia/applicant/save";
 export const FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID = "/public/applicant/details-info/by-registrationId";
 export const FETCH_APPLICANT_PERSONAL_INFO_BY_REG_ID = "/public/applicant/personal-info/by-registrationId";
 export const FETCH_APPLICANT_PERSONAL_INFO_BY_MOBILE = "/public/applicant/info/by-mobileNo";
+
+export const ADMISIA_ADMIT_CARD_DOWNLOAD = "/admisia/download/admit-card";
