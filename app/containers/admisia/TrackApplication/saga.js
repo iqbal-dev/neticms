@@ -22,7 +22,10 @@ export function* fetchApplicantInfoByRegNo() {
     console.log('list-by-regId', response);
     if (response.messageType === 1) {
       yield put(setApplicantInfoDetails(response.item));
+      sessionStorage.setItem('applicantInfoByRegNo', JSON.stringify(response.item));
+
     } else if (response.messageType === 0) {
+      sessionStorage.setItem('applicantInfoByRegNo', JSON.stringify([]));
       yield put(setApplicantInfoDetails([]));
     }
 

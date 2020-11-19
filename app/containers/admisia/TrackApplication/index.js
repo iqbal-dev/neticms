@@ -29,6 +29,7 @@ import { AppLayout } from '../../AppLayout';
 import BreadcrumComponent from '../../../components/BreadcrumComponent';
 import staticImg from '../../../assets/img/demo-image.jpg';
 import { get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
+import { BASE_URL_NETI_CMS, ADMISIA_ADMIT_CARD_DOWNLOAD } from '../../../utils/serviceUrl';
 
 export class TrackApplication extends React.Component {
 
@@ -112,7 +113,7 @@ export class TrackApplication extends React.Component {
 
               <Button
                 className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
-              // onClick={examInfoDialog}
+                onClick={this.onDownloadAdmitCard}
               >
                 ADMIT CARD
               </Button>
@@ -261,12 +262,21 @@ export class TrackApplication extends React.Component {
             <h2 className="mt-3"><b>Approved For Admission</b></h2>
             <p className=""><span className="text-orange">Congratulation !!! </span> Your application has been "Approved" for Admission.</p>
 
-            <Button
+            <Link
+              className="btn all-border-radious no-border explore-btn mx-2 "
+              to={{ pathname: '/institute/admission_confirmation_letter' }}
+              disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ? false : true}
+              target="_blank"
+            >
+              Confirmation Letter
+            </Link>
+
+            {/* <Button
               className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
             // onClick={examInfoDialog}
             >
               ADMISSION CONFIRMATION LETTER
-          </Button>
+          </Button> */}
           </div>
 
           <div class="col-xl-3 d-flex align-items-center pl-0">
@@ -292,6 +302,31 @@ export class TrackApplication extends React.Component {
   onChangeModalStatus = () => {
     const visibleStatus = this.state.modalVisible;
     this.setState({ modalVisible: !visibleStatus });
+  }
+
+  onDownloadAdmitCard = () => {
+
+    let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+    let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
+    let regId = this.props.applicantInfoList.registrationId;
+
+    if (this.props.applicantInfoList.applicantFeeStatus === 1) {
+
+      const requestURL = BASE_URL_NETI_CMS.concat(ADMISIA_ADMIT_CARD_DOWNLOAD).concat('?cmsId=').concat(cmsId).concat('&registrationIds=').concat(regId);
+      const finalURL = requestURL;
+      if (finalURL) {
+        setTimeout(() => {
+          const response = {
+            file: finalURL,
+          };
+          window.location.href = response.file;
+
+        }, 100);
+
+      }
+
+    }
+
   }
 
   render() {

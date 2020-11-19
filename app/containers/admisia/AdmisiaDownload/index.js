@@ -34,8 +34,9 @@ import { Button, FormGroup, Input, Label, Table } from 'reactstrap';
 import staticImg from '../../../assets/img/demo-image.jpg';
 import { get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
 import { BASE_URL_NETI_CMS, ADMISIA_ADMIT_CARD_DOWNLOAD } from '../../../utils/serviceUrl';
+import { AdmissionConfirmationLetter } from '../AdmissionConfirmationLetter';
+import { Link } from 'react-router-dom';
 
-/* eslint-disable react/prefer-stateless-function */
 export class AdmisiaDownload extends React.Component {
 
   constructor(props) {
@@ -82,24 +83,29 @@ export class AdmisiaDownload extends React.Component {
 
     let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
     let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
-
     let regId = this.props.applicantInfoList.registrationId;
 
-    const requestURL = BASE_URL_NETI_CMS.concat(ADMISIA_ADMIT_CARD_DOWNLOAD).concat('?cmsId=').concat(cmsId).concat('&registrationIds=').concat(regId);
-    // https://api.netizendev.com:2096/admisia/download/admit-card?cmsId=4&registrationIds=210000021
+    if (this.props.applicantInfoList.applicantFeeStatus === 1) {
 
-    const finalURL = requestURL;
-    if (finalURL) {
-      setTimeout(() => {
-        const response = {
-          file: finalURL,
-        };
-        window.location.href = response.file;
+      const requestURL = BASE_URL_NETI_CMS.concat(ADMISIA_ADMIT_CARD_DOWNLOAD).concat('?cmsId=').concat(cmsId).concat('&registrationIds=').concat(regId);
+      const finalURL = requestURL;
+      if (finalURL) {
+        setTimeout(() => {
+          const response = {
+            file: finalURL,
+          };
+          window.location.href = response.file;
 
-      }, 100);
+        }, 100);
+
+      }
 
     }
 
+  }
+
+  onLoadConfirmationLetter = () => {
+    this.refs.admissionConfirmationLetter.setConfirmationLetterToDownload();
   }
 
   render() {
@@ -284,43 +290,56 @@ export class AdmisiaDownload extends React.Component {
                                       </div>
                                       : ''}
 
-                                  <div class="col-xl-3 text-orange mt-5">
-                                    <FormGroup className="mb-0">
+                                  {applicantInfoList.applicantFeeStatus === 1 ?
+                                    <div class="col-xl-3 text-orange mt-5">
+                                      <FormGroup className="mb-0">
 
-                                      {applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
+                                        {applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
 
-                                        <Button
-                                          className="btn all-border-radious no-border explore-btn border-0"
-                                          // onClick={examInfoDialog}
-                                          disabled={
-                                            applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
+                                          <Link
+                                            className="btn all-border-radious no-border explore-btn mx-2 "
+                                            to={{ pathname: '/institute/admission_confirmation_letter' }}
+                                            disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ? false : true}
+                                            target="_blank"
+                                          >
+                                            Confirmation Letter
+                                          </Link>
+
+                                          // <Button
+                                          //   className="btn all-border-radious no-border explore-btn border-0"
+                                          //   onClick={() => this.onLoadConfirmationLetter()}
+                                          //   disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
+                                          //     false : true}
+                                          // >
+                                          //   Confirmation Letter
+                                          // </Button>
+
+                                          :
+
+                                          <Button
+                                            className="btn all-border-radious no-border explore-btn border-0"
+                                            onClick={this.onDownloadAdmitCard}
+                                            disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1 ?
                                               false : true}
-                                        >
-                                          Confirmation
-                                      </Button> :
-
-                                        <Button
-                                          className="btn all-border-radious no-border explore-btn border-0"
-                                          onClick={this.onDownloadAdmitCard}
-                                          disabled={
-                                            applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1 ?
-                                              false : true}
-                                        >
-                                          Admit Card
+                                          >
+                                            Admit Card
                                       </Button>
 
-                                      }
+                                        }
 
-                                    </FormGroup>
-                                  </div>
+                                      </FormGroup>
+                                    </div>
+                                    : ''}
 
                                 </div>
                               </td>
+
                             </tr>
 
                             : <tr><td colSpan='12'>No Data Found</td></tr>
 
                           }
+
                         </tbody>
                       </Table>
                     </div>
@@ -338,6 +357,7 @@ export class AdmisiaDownload extends React.Component {
               </div>
 
             </div>
+
           </section>
         </AppLayout>
       </div>

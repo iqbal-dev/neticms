@@ -646,7 +646,7 @@ export class ApplicationForm extends React.Component {
 
   render() {
 
-    let { admissionObj, errors } = this.state
+    let { admissionObj, errors } = this.state;
     let { getAdditionalInfo, getApplicantView } = this.props;
 
     // console.log("main-getAdditionalInfo", getAdditionalInfo);
