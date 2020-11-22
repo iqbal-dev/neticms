@@ -800,7 +800,6 @@ export class ApplicationForm extends React.Component {
                             </tr>
 
                             : this.state.pageSecond || this.state.pageThird ?
-
                               <tr>
                                 <td>
                                   <div className="row">
@@ -1480,12 +1479,21 @@ export class ApplicationForm extends React.Component {
 
                     <div className="col-xl-12 text-right d-flex justify-content-end mt-4">
                       <FormGroup className="mr-5">
-                        <Button
+
+                        <Link
+                          className="btn all-border-radious no-border explore-btn mx-2 "
+                          to={{ pathname: '/institute/application_form_download' }}
+                          target="_blank"
+                        >
+                          Go for Download <i class="fas fa-angle-right" ></i>
+                        </Link>
+
+                        {/* <Button
                           className="btn all-border-radious no-border explore-btn border-0 px-5"
                         // onClick={this.showPreviousPage}
                         >
                           DOWNLOAD
-                          </Button>
+                          </Button> */}
                       </FormGroup>
 
                       <FormGroup>
@@ -1495,7 +1503,7 @@ export class ApplicationForm extends React.Component {
                           to={{ pathname: `/institute/online_admission`, }}
                           onClick={this.resetApplicationFormData}
                         >
-                          FINISHED <i class="fas fa-angle-right" ></i>
+                          Finished <i class="fas fa-angle-right" ></i>
                         </Link>
 
                         {/* <Button
@@ -1526,7 +1534,7 @@ export class ApplicationForm extends React.Component {
                           className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5"
                           onClick={this.showPreviousPage}
                         >
-                          <i class="fas fa-angle-left" ></i> UPDATE
+                          <i class="fas fa-angle-left" ></i> Update
                           </Button>
 
                         <Button
@@ -1778,7 +1786,7 @@ export class ApplicationForm extends React.Component {
                       <div className="col-xl-12 text-right my-3">
                         <Button className="btn all-border-radious no-border explore-btn border-0 px-5" onClick={this.onSubmitAdditionalInfo}>
                           {this.state.additionalInfoId === "" ?
-                            'SAVE' : 'UPDATE'}
+                            'Save' : 'Update'}
                         </Button>
                       </div>
 
@@ -1808,13 +1816,6 @@ export class ApplicationForm extends React.Component {
 
               </div>
 
-              <div className="container">
-                <div className="row">
-                  <div className="offset-xl-1 col-xl-10">
-                    <div className="custom-title-border-center mb-2"></div>
-                  </div>
-                </div>
-              </div>
             </div>
           </section>
 

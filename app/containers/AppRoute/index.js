@@ -58,9 +58,9 @@ import Payment from 'containers/admisia/Payment';
 import TrackApplication from 'containers/admisia/TrackApplication';
 import AdmisiaDownload from 'containers/admisia/AdmisiaDownload';
 import AdmissionConfirmationLetter from 'containers/admisia/AdmissionConfirmationLetter';
-import ForgetRegistrationNo from 'containers/admisia/ForgetRegistrationNo';
+import ApplicationFormDownload from '../admisia/ApplicationFormDownload';
 
-// AdmissionConfirmationLetter
+import ForgetRegistrationNo from 'containers/admisia/ForgetRegistrationNo';
 
 export default function AppRoute() {
 
@@ -140,6 +140,7 @@ export default function AppRoute() {
       <Route exact path="/institute/admisia_download" component={AdmisiaDownload} />
       <Route exact path="/institute/admission_confirmation_letter" component={AdmissionConfirmationLetter} />
       <Route exact path="/institute/find_registration_no" component={ForgetRegistrationNo} />
+      <Route exact path="/institute/application_form_download" component={ApplicationFormDownload} />
 
       <Route path="" component={NotFoundPage} />
 

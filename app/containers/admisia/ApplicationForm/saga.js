@@ -40,6 +40,10 @@ export function* submitApplicantInfo() {
 
 export function* fetch_applicantInfoDetailsByRegId(registrationId) {
 
+  let insertApplicantInfoObj = yield select(makeSelectInsertApplicantInfo());
+
+  console.log('insertApplicantInfoObj', insertApplicantInfoObj);
+
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
 
@@ -50,13 +54,26 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
       'Content-Type': 'application/json',
     },
   };
-
   try {
-    const response = yield call(request, requestURL, options);
-    // console.log('list-by-regId', response);
+    let response = yield call(request, requestURL, options);
+    console.log('list-by-regId', response);
+
     if (response.messageType === 1) {
       yield put(setApplicantInfoListByRegId(response.item.applicantPersonalViewResponse));
     }
+
+    let downloadInformationArray = [];
+    let downloadInformationObj = {
+      insertApplicantInfoObj: insertApplicantInfoObj,
+      applicantPersonalViewResponse: response.item.applicantPersonalViewResponse,
+      applicantPreviousExamViewResponses: response.item.applicantPreviousExamViewResponses
+    }
+
+    console.log('downloadInformationObj', downloadInformationObj);
+    downloadInformationArray.push(downloadInformationObj);
+    console.log('downloadInformationArray', downloadInformationArray);
+
+    sessionStorage.setItem("applicantFromDownloadData", JSON.stringify(downloadInformationObj));
 
   } catch (error) { }
 }
