@@ -26,6 +26,10 @@ import { FormGroup, Button } from 'reactstrap';
 
 export class CommitteeMembers extends React.PureComponent {
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onDownloadPdf = () => {
     let pdfColumns = [
       { title: "Photo", dataKey: "memberImg" },
@@ -34,9 +38,9 @@ export class CommitteeMembers extends React.PureComponent {
       { title: "Mobile No.", dataKey: "memberMobile" },
       { title: "Email", dataKey: "memberEmail" },
     ]
-    getDownloadTablePDF( "Comittee Members List", pdfColumns, this.props.committeMembersList)
+    getDownloadTablePDF("Comittee Members List", pdfColumns, this.props.committeMembersList)
   }
-  
+
   render() {
     return (
       <div>
@@ -55,7 +59,7 @@ export class CommitteeMembers extends React.PureComponent {
                       <h2 className="text-orange d-flex justify-content-between align-items-center">
                         Committee Members
                         {
-                          this.props.committeMembersList.length > 0? 
+                          this.props.committeMembersList.length > 0 ?
                             <FormGroup className="mb-0">
                               <Button
                                 className="btn all-border-radious no-border"
@@ -64,7 +68,7 @@ export class CommitteeMembers extends React.PureComponent {
                                 <i class="fas fa-file-pdf" ></i> Download
                               </Button>
                             </FormGroup>
-                            :''
+                            : ''
                         }
                       </h2>
                       <div className="custom-title-border-left"></div>
@@ -96,7 +100,7 @@ export class CommitteeMembers extends React.PureComponent {
                           <div className="grid-social">
                             <ul className="d-flex justify-content-center w-100 nav">
 
-                              <li><a className={!item.memberMobile ? '' : "phone"} phone={item.memberMobile}><i class="fas fa-phone"></i></a></li>
+                              {/* <li><a className={!item.memberMobile ? '' : "phone"} phone={item.memberMobile}><i class="fas fa-phone"></i></a></li> */}
                               <li><a className={!item.memberEmail ? '' : "email"} email={item.memberEmail}><i class="fas fa-envelope"></i></a></li>
                               <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
                               <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>

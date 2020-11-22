@@ -43,7 +43,7 @@ export class StuffInformation extends React.Component {
       // { title: "Email", dataKey: "staffEmail" },
       { title: "Gender", dataKey: "gender" },
     ]
-    getDownloadTablePDF( "Stuff's List", pdfColumns, this.props.staffInfoList)
+    getDownloadTablePDF("Stuff's List", pdfColumns, this.props.staffInfoList)
   }
 
   render() {
@@ -68,17 +68,17 @@ export class StuffInformation extends React.Component {
                     <div className="page-inner-title">
                       <h2 className="text-orange d-flex justify-content-between align-items-center">List of Staff's
                       {
-                        this.props.staffInfoList.length > 0? 
-                        <FormGroup className="mb-0">
-                          <Button
-                            className="btn all-border-radious no-border"
-                            onClick={this.onDownloadPdf}
-                          >
-                            <i class="fas fa-file-pdf" ></i> Download
+                          this.props.staffInfoList.length > 0 ?
+                            <FormGroup className="mb-0">
+                              <Button
+                                className="btn all-border-radious no-border"
+                                onClick={this.onDownloadPdf}
+                              >
+                                <i class="fas fa-file-pdf" ></i> Download
                           </Button>
-                        </FormGroup>
-                        :''
-                      }
+                            </FormGroup>
+                            : ''
+                        }
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>
@@ -115,7 +115,7 @@ export class StuffInformation extends React.Component {
                           <div className="grid-social">
                             <ul className="d-flex justify-content-center w-100 nav">
 
-                              <li><a className={!item.staffMobile1 ? '' : "phone"} phone={item.staffMobile1}><i class="fas fa-phone"></i></a></li>
+                              {/* <li><a className={!item.staffMobile1 ? '' : "phone"} phone={item.staffMobile1}><i class="fas fa-phone"></i></a></li> */}
                               <li><a className={!item.staffEmail ? '' : "email"} email={item.staffEmail}><i class="fas fa-envelope"></i></a></li>
                               <li><a className={!item.facebookProfile ? '' : "facebook"} facebook={item.facebookProfile}><i class="fab fa-facebook-f"></i></a></li>
                               <li><a className={!item.linkedinProfile ? '' : "linkedin"} linkedin={item.linkedinProfile}><i class="fab fa-linkedin-in"></i></a></li>

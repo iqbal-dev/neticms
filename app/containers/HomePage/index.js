@@ -442,7 +442,7 @@ export class HomePage extends React.Component {
                         <span>
                           <i className="fas fa-link" />
                         </span>
-                        <h2>Useful Links</h2>
+                        <h2>Important Links</h2>
                       </div>
                       <ul className="links-lists">
 
@@ -509,7 +509,7 @@ export class HomePage extends React.Component {
                       </div>
                       <div className="content">
 
-                        <p style={{ overflow: 'unset'}}>
+                        <p style={{ overflow: 'unset' }}>
 
                           {this.props.instituteHistory ?
 
@@ -647,20 +647,20 @@ export class HomePage extends React.Component {
                         </div>
                       </div>
                       <div className="col-md-6">
-                        
-                          <div className="icon-box-border">
-                            <div className="icon-wrapper">
-                              <div className="icon box-shadow">
-                                <Link to={{ pathname: "/institute/class_routine"}}>
-                                  <img src={crownIconRoutine} />
-                                </Link>
-                              </div>
-                              <div className="icon-title">
-                              <Link to={{ pathname: "/institute/class_routine"}}><h5>Class Routine</h5></Link>
-                              </div>
+
+                        <div className="icon-box-border">
+                          <div className="icon-wrapper">
+                            <div className="icon box-shadow">
+                              <Link to={{ pathname: "/institute/class_routine" }}>
+                                <img src={crownIconRoutine} />
+                              </Link>
+                            </div>
+                            <div className="icon-title">
+                              <Link to={{ pathname: "/institute/online_class_routine" }}><h5>Online Class Routine</h5></Link>
                             </div>
                           </div>
-                        
+                        </div>
+
                       </div>
                     </div>
                     <div className="row">
@@ -682,14 +682,14 @@ export class HomePage extends React.Component {
                         <div className="icon-box-border">
                           <div className="icon-wrapper">
                             <div className="icon box-shadow">
-                              <Link to={{ pathname: "/institute/exam_routine"}}>
+                              <Link to={{ pathname: "/institute/exam_routine" }}>
                                 <img src={crownIconSyllabus} />
                               </Link>
                             </div>
                             <div className="icon-title">
-                                <Link to={{ pathname: "/institute/exam_routine"}}>
-                                  <h5>Exam Routine</h5>
-                                </Link>
+                              <Link to={{ pathname: "/institute/exam_routine" }}>
+                                <h5>Exam Routine</h5>
+                              </Link>
                             </div>
                           </div>
                         </div>

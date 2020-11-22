@@ -44,6 +44,10 @@ export class ExamRoutine extends React.Component {
     }
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onChangeClass = (e) => {
     this.props.onChangeClassId(e);
     this.clearErrorMsg(e.target.name);

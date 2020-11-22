@@ -62,6 +62,8 @@ import ApplicationFormDownload from '../admisia/ApplicationFormDownload';
 
 import ForgetRegistrationNo from 'containers/admisia/ForgetRegistrationNo';
 
+import OngoingComponent from 'components/OngoingComponent';
+
 export default function AppRoute() {
 
   const instituteHostNm = window.location.pathname.slice(1).toString();
@@ -141,6 +143,7 @@ export default function AppRoute() {
       <Route exact path="/institute/admission_confirmation_letter" component={AdmissionConfirmationLetter} />
       <Route exact path="/institute/find_registration_no" component={ForgetRegistrationNo} />
       <Route exact path="/institute/application_form_download" component={ApplicationFormDownload} />
+      <Route exact path="/institute/ongoing_task" component={OngoingComponent} />
 
       <Route path="" component={NotFoundPage} />
 

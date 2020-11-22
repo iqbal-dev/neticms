@@ -48,6 +48,10 @@ export class OnlineClassRoutine extends React.Component {
     this.onSubmitSearch = this.onSubmitSearch.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onChangeSection = (e) => {
     this.props.onChangeSection(e);
     this.clearErrorMsg(e.target.name);
@@ -138,12 +142,12 @@ export class OnlineClassRoutine extends React.Component {
 
       difference = (tStop - tStart) / (1000 * 60);
 
-      if( difference < 0){
-        difference12 = Math.ceil((12 - (( tStart - tStop ) / (1000 * 60)) / 60 )*60);
+      if (difference < 0) {
+        difference12 = Math.ceil((12 - ((tStart - tStop) / (1000 * 60)) / 60) * 60);
 
         console.log("difference12", difference12);
       }
-      else{
+      else {
         difference12 = ""
       }
     }
@@ -151,7 +155,7 @@ export class OnlineClassRoutine extends React.Component {
       difference = "";
     }
 
-    return <>(Duration: { difference12 || difference} min)</>
+    return <>(Duration: {difference12 || difference} min)</>
   }
 
   render() {
@@ -299,8 +303,8 @@ export class OnlineClassRoutine extends React.Component {
 
                                   <tr>
                                     <td>
-                                      <b>{item.startTime + " - " + item.endTime}</b><br/>
-                                      { this.getPeriodTime(item.startTime, item.endTime) }
+                                      <b>{item.startTime + " - " + item.endTime}</b><br />
+                                      {this.getPeriodTime(item.startTime, item.endTime)}
                                     </td>
                                     <td className="pl-5">
                                       <span className="font-16"><b>{item.subjectName}</b></span>

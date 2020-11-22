@@ -39,38 +39,44 @@ class LoginAccess extends React.PureComponent {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-4 p-b-60">
-                      <div className="login-form-wrapper student">
-                        <div className="login-image">
-                          <img src={student} className="img-fluid w-100" />
-                        </div>
-                        <div className="login-btn text-center">
-                          Student Portal
-                        </div>
-                      </div>
-                  </div>
-                  <div className="col-md-4 p-b-60">
-                      <div className="login-form-wrapper guardian">
-                        <div className="login-image">
-                          <img src={guardian} className="img-fluid w-100" />
-                        </div>
-                        <div className="login-btn text-center">
-                          Guardian Portal
-                        </div>
-                      </div>
-                  </div>
+                  <div className="col-lg-1" />
+                  <div className="col-lg-10">
+                    <div className="row">
 
-                  <div className="col-md-4 p-b-60">
-                    {/* <a href="https://www.netiworld.com" target='_blank'> */}
-                      <div className="login-form-wrapper teacher">
-                        <div className="login-image">
-                          <img src={teacher} className="img-fluid w-100" />
+                      <div className="col-md-4 p-b-60">
+                        <div className="login-form-wrapper student">
+                          <div className="login-image">
+                            <img src={student} className="img-fluid w-100" />
+                          </div>
+                          <div className="login-btn text-center">
+                            Student Portal
                         </div>
-                        <div className="login-btn text-center">
-                          Teacher Portal
                         </div>
                       </div>
-                    {/* </a> */}
+                      <div className="col-md-4 p-b-60">
+                        <div className="login-form-wrapper guardian">
+                          <div className="login-image">
+                            <img src={guardian} className="img-fluid w-100" />
+                          </div>
+                          <div className="login-btn text-center">
+                            Guardian Portal
+                        </div>
+                        </div>
+                      </div>
+
+                      <div className="col-md-4 p-b-60">
+                        {/* <a href="https://www.netiworld.com" target='_blank'> */}
+                        <div className="login-form-wrapper teacher">
+                          <div className="login-image">
+                            <img src={teacher} className="img-fluid w-100" />
+                          </div>
+                          <div className="login-btn text-center">
+                            Teacher Portal
+                        </div>
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    </div>
                   </div>
                 </div>
 

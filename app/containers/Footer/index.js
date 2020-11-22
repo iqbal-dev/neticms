@@ -32,6 +32,7 @@ import {
   makeSelectEmail,
   makeSelectMessageDetails,
 } from './selectors';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Footer extends React.Component {
@@ -76,7 +77,7 @@ export class Footer extends React.Component {
 
     return (
       <div>
-        {/* <LoginAccess /> */}
+        <LoginAccess />
         <footer className="footer-wrapper">
           <div className="container-fluid address-bg">
             <div className="container">
@@ -154,32 +155,26 @@ export class Footer extends React.Component {
                         <div className="col-md-6">
                           <ul className="nav">
                             <li>
-                              <a href="#">প্রাতিষ্ঠানিক কাযকম</a>
+                              <Link to='/institute/infrastructure'>প্রাতিষ্ঠানিক কার্যক্রম</Link>
                             </li>
                             <li>
-                              <a href="#">ভর্তি তথ্য</a>
+                              <Link to="/institute/ongoing_task">ভর্তি তথ্য</Link>
                             </li>
-                            <li>
+                            {/* <li>
                               <a href="#">রেজাল্ট অনুসন্ধান</a>
                             </li>
                             <li>
                               <a href="#">স্কুল প্রশাসন</a>
-                            </li>
+                            </li> */}
                           </ul>
                         </div>
                         <div className="col-md-6">
                           <ul className="nav">
                             <li>
-                              <a href="#">প্রাতিষ্ঠানিক কাযকম</a>
+                              <Link to='/institute/individual_result'>রেজাল্ট অনুসন্ধান</Link>
                             </li>
                             <li>
-                              <a href="#">ভর্তি তথ্য</a>
-                            </li>
-                            <li>
-                              <a href="#">রেজাল্ট অনুসন্ধান</a>
-                            </li>
-                            <li>
-                              <a href="#">স্কুল প্রশাসন</a>
+                              <Link to='/institute/committee'> প্রতিষ্ঠান প্রশাসন</Link>
                             </li>
                           </ul>
                         </div>

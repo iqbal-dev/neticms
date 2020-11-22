@@ -4,6 +4,7 @@ import logo from '../../assets/img/logo.png';
 import { getFullDayName, getFullMonthName, getHHcloneMMwithAMorPM } from '../../utils/dateFormat';
 import { getUrlInfoLocally } from '../../utils/localStorageMethod';
 import LocalClockTime from './LocalClockTime';
+import { Link } from 'react-router-dom';
 
 export class AppHeader extends React.Component {
 
@@ -33,7 +34,7 @@ export class AppHeader extends React.Component {
                             <div className="col-md-8">
                                 <div className="d-md-inline-flex d-sm-block justify-content-md-center align-items-sm-center">
                                     <div className="logo-wrapper">
-                                        <img src={instituteUrlInfo && instituteUrlInfo.length ? "data:image/*;base64," + instituteUrlInfo[0].logoContent : ''} />
+                                        <Link to={{ pathname: '/institute/home' }}>   <img src={instituteUrlInfo && instituteUrlInfo.length ? "data:image/*;base64," + instituteUrlInfo[0].logoContent : ''} /> </Link>
                                     </div>
                                     <div className="inst-title-wrapper">
                                         <h1 className="ins-title" style={{ marginTop: '-15px' }}>{instituteUrlInfo && instituteUrlInfo.length ? instituteUrlInfo[0].instituteName : ''}</h1>

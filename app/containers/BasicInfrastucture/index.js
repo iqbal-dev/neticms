@@ -26,6 +26,10 @@ import { centerTableLoader } from '../../utils/contentLoader';
 /* eslint-disable react/prefer-stateless-function */
 export class BasicInfrastucture extends React.PureComponent {
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   getPlainTextToHtml = (html) => {
 
     var temp = document.createElement("div");
