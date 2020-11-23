@@ -326,7 +326,7 @@ export class Menu extends React.Component {
                         </UncontrolledDropdown>
 
                         {/* ADMISIA MENU START */}
-                        {/* <UncontrolledDropdown nav inNavbar>
+                        <UncontrolledDropdown nav inNavbar>
                           <DropdownToggle nav caret>Online Admission</DropdownToggle>
                           <DropdownMenu right>
                             <UncontrolledDropdown nav inNavbar>
@@ -336,7 +336,7 @@ export class Menu extends React.Component {
                               <NavItem><Link to='/institute/admisia_download' className='nav-link'>Download</Link> </NavItem>
                             </UncontrolledDropdown>
                           </DropdownMenu>
-                        </UncontrolledDropdown> */}
+                        </UncontrolledDropdown>
 
                       </Nav>
                     </Collapse>
