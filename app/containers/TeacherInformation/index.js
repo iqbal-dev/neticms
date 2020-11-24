@@ -44,10 +44,10 @@ export class TeacherInformation extends React.PureComponent {
       { title: "Photo", dataKey: "imageName" },
       { title: "ID", dataKey: "customStaffId" },
       { title: "Name", dataKey: "staffName" },
-      { title: "Designation", dataKey: "designationName" },
-      { title: "Mobile No.", dataKey: "staffMobile1" },
-      { title: "Email", dataKey: "staffEmail" },
       { title: "Gender", dataKey: "gender" },
+      { title: "Designation", dataKey: "designationName" },
+      // { title: "Mobile No.", dataKey: "staffMobile1" },
+      { title: "Email", dataKey: "staffEmail" },
     ]
     getDownloadTablePDF("Teacher's List", pdfColumns, this.props.teacherList)
   }
@@ -99,7 +99,7 @@ export class TeacherInformation extends React.PureComponent {
                     {
                       teachers.map((item) => {
                         return (
-                          <div className="col-md-6 col-lg-4">
+                          <div className="col-md-4 col-lg-3">
                             <div className="grid-list-wrapper">
                               {
                                 item.gender == "Male" ?

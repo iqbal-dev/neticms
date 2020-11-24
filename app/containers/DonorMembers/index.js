@@ -38,7 +38,7 @@ export class DonorMembers extends React.PureComponent {
       { title: "Mobile No.", dataKey: "memberMobile" },
       { title: "Email", dataKey: "memberEmail" },
     ]
-    getDownloadTablePDF( "Donor Members List", pdfColumns, this.props.donorMembersList)
+    getDownloadTablePDF("Donor Members List", pdfColumns, this.props.donorMembersList)
   }
 
   render() {
@@ -57,7 +57,7 @@ export class DonorMembers extends React.PureComponent {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2 className="text-orange d-flex justify-content-between align-items-center">Donor Members
-                      {
+                      {/* {
                         this.props.donorMembersList.length > 0? 
                           <FormGroup className="mb-0">
                             <Button
@@ -68,7 +68,7 @@ export class DonorMembers extends React.PureComponent {
                             </Button>
                           </FormGroup>
                           :''
-                      }
+                      } */}
                       </h2>
                       <div className="custom-title-border-left"></div>
                     </div>
@@ -79,7 +79,7 @@ export class DonorMembers extends React.PureComponent {
 
                   <div className="row">
                     {this.props.donorMembersList && this.props.donorMembersList.map((item, index) => (
-                      <div className="col-md-6 col-lg-4">
+                      <div className="col-md-4 col-lg-3">
                         <div className="grid-list-wrapper">
                           <div className="grid-image text-center">
                             {

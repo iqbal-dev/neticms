@@ -1208,7 +1208,7 @@
 }
 .grid-list-wrapper {
   border: 1px solid $grayColorLight;
-  padding: 40px 15px 30px;
+  padding: 26px 15px 30px;
   margin-bottom: 20px;
   .grid-image {
     img {
@@ -1378,7 +1378,7 @@
           background-color: rgba(0, 0, 0, 0.05);
         }
         &:nth-of-type(even) {
-          background-color: rgba($tableHeaderTransparent, .1);
+          background-color: rgba($tableHeaderTransparent, 0.1);
         }
         td {
           border-top: none;
@@ -1470,7 +1470,7 @@
     padding: 50px;
     background-color: $grayColorLight;
 
-    .dress-code-inside{
+    .dress-code-inside {
       padding: 10px 0;
       margin-bottom: 25px;
       border: 1px solid #fff;
@@ -1479,7 +1479,7 @@
 
       .page-inner-title {
         margin-bottom: 30px;
-  
+
         h2 {
           font-size: $fontSizePrimary;
           font-weight: $fontWeightPrimary;
@@ -1494,11 +1494,11 @@
         }
       }
 
-      .panel-image{
+      .panel-image {
         margin: -10px -6px;
         overflow: hidden;
 
-        img{
+        img {
           height: 300px;
           width: 100%;
           max-width: 500px;
@@ -1507,14 +1507,13 @@
         }
       }
     }
-    
   }
 }
 
-.infrastructure-main{
-  .row:last-child{
-    div{
-      .custom-title-border-center{
+.infrastructure-main {
+  .row:last-child {
+    div {
+      .custom-title-border-center {
         margin-top: 80px;
         margin-bottom: 10px;
       }
@@ -1527,16 +1526,16 @@
   border-radius: 25px;
   // min-height: 345px;
 
-  div{
-    .content{
+  div {
+    .content {
       height: 185px;
       overflow-y: auto;
       text-align: justify;
 
-      .display-text-group{
-        .displayed-text{
-          .read-more-button{
-            .btn{
+      .display-text-group {
+        .displayed-text {
+          .read-more-button {
+            .btn {
               width: max-content;
             }
           }

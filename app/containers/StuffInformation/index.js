@@ -39,9 +39,10 @@ export class StuffInformation extends React.Component {
       { title: "ID", dataKey: "customStaffId" },
       { title: "Name", dataKey: "staffName" },
       { title: "Designation", dataKey: "designationName" },
-      { title: "Mobile No.", dataKey: "staffMobile1" },
-      // { title: "Email", dataKey: "staffEmail" },
       { title: "Gender", dataKey: "gender" },
+
+      // { title: "Mobile No.", dataKey: "staffMobile1" },
+      // { title: "Email", dataKey: "staffEmail" },
     ]
     getDownloadTablePDF("Stuff's List", pdfColumns, this.props.staffInfoList)
   }
@@ -89,7 +90,7 @@ export class StuffInformation extends React.Component {
 
                   <div className="row">
                     {this.props.staffInfoList.map((item, index) =>
-                      <div className="col-md-6 col-lg-4">
+                      <div className="col-md-4 col-lg-3">
                         <div className="grid-list-wrapper">
                           {/* <div className="grid-image">
                             {item.image ? <img src={"data:image/*;base64," + item.image} className="mx-auto d-block" /> : <img src={donorImage} className="mx-auto d-block" />}

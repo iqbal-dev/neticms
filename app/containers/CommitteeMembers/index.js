@@ -30,16 +30,16 @@ export class CommitteeMembers extends React.PureComponent {
     window.scrollTo(0, 0);
   }
 
-  onDownloadPdf = () => {
-    let pdfColumns = [
-      { title: "Photo", dataKey: "memberImg" },
-      // { title: "ID", dataKey: "customStaffId" },
-      { title: "Name", dataKey: "memberName" },
-      { title: "Mobile No.", dataKey: "memberMobile" },
-      { title: "Email", dataKey: "memberEmail" },
-    ]
-    getDownloadTablePDF("Comittee Members List", pdfColumns, this.props.committeMembersList)
-  }
+  // onDownloadPdf = () => {
+  //   let pdfColumns = [
+  //     { title: "Photo", dataKey: "memberImg" },
+  //     // { title: "ID", dataKey: "customStaffId" },
+  //     { title: "Name", dataKey: "memberName" },
+  //     { title: "Mobile No.", dataKey: "memberMobile" },
+  //     { title: "Email", dataKey: "memberEmail" },
+  //   ]
+  //   getDownloadTablePDF("Comittee Members List", pdfColumns, this.props.committeMembersList)
+  // }
 
   render() {
     return (
@@ -58,7 +58,7 @@ export class CommitteeMembers extends React.PureComponent {
                     <div className="page-inner-title">
                       <h2 className="text-orange d-flex justify-content-between align-items-center">
                         Committee Members
-                        {
+                        {/* {
                           this.props.committeMembersList.length > 0 ?
                             <FormGroup className="mb-0">
                               <Button
@@ -69,7 +69,7 @@ export class CommitteeMembers extends React.PureComponent {
                               </Button>
                             </FormGroup>
                             : ''
-                        }
+                        } */}
                       </h2>
                       <div className="custom-title-border-left"></div>
                     </div>
@@ -80,7 +80,7 @@ export class CommitteeMembers extends React.PureComponent {
 
                   <div className="row">
                     {this.props.committeMembersList && this.props.committeMembersList.map((item, index) => (
-                      <div className="col-md-6 col-lg-5">
+                      <div className="col-md-4 col-lg-3">
                         <div className="grid-list-wrapper">
                           <div className="grid-image">
                             {
