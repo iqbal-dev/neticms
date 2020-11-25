@@ -74,6 +74,23 @@ export const getFileTypeOnly = (fileName) => {
     return fileType;
 }
 
+export const getImageContentType = (fileName) => {
+    if (fileName === undefined) {
+        return;
+    }
+    let contentType = '';
+    if (fileName.endsWith('.jpeg')) {
+        contentType = 'image/jpeg';
+    } else if (fileName.endsWith('.jpg')) {
+        contentType = 'image/jpg';
+    } else if (fileName.endsWith('.png')) {
+        contentType = 'image/png';
+    } else if (fileName.endsWith('.pdf')) {
+        contentType = 'application/pdf';
+    }
+    return 'data:' + contentType + ';base64,';
+}
+
 export const getMaxFileSizeIsValid = (fileSize, maxFileSize) => {
 
     // file must be in byte

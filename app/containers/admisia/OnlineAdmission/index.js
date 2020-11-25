@@ -24,13 +24,32 @@ import { centerTableLoader } from '../../../utils/contentLoader';
 import { Table } from 'reactstrap';
 import { getTotalDaysDifference_TillToday, get_DDMMM_YY_Format_WithComma, get_Only_Year } from '../../../utils/dateFormat';
 import { Link } from 'react-router-dom';
+import { getImageContentType } from '../../../utils/FileHandler';
 
 export class OnlineAdmission extends React.Component {
+
+  getDownloadFile = () => {
+
+    if (this.props.classConfigObj && this.props.classConfigObj.coreConfigObj) {
+
+      let fileName = this.props.classConfigObj.coreConfigObj.fileName;
+      let fileContent = this.props.classConfigObj.coreConfigObj.fileContent;
+
+      let contentType = getImageContentType(fileName);
+      let a = document.createElement("a");
+      a.href = contentType + fileContent;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+  }
 
   render() {
 
     let { classConfigObj, dataTableLoader } = this.props
-    // console.log("classConfigList", classConfigObj, dataTableLoader);
+    console.log("classConfigList", classConfigObj, dataTableLoader);
 
     return (
       <div class="admisia">
@@ -53,7 +72,7 @@ export class OnlineAdmission extends React.Component {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2 className="d-flex justify-content-center">
-                        <span className="text-orange "> Academic Year - {classConfigObj && classConfigObj.currentAcademicYear} </span>
+                        <span className="text-orange "> Academic Year - {classConfigObj && classConfigObj.coreConfigObj && classConfigObj.coreConfigObj.currentAdmissionYear} </span>
                       </h2>
                       {/* <div className="custom-title-border-left"></div> */}
                     </div>
@@ -69,7 +88,7 @@ export class OnlineAdmission extends React.Component {
                           <tbody>
                             {classConfigObj && classConfigObj.classConfigList && classConfigObj.classConfigList.map((item, index) => {
 
-                              Object.assign(item, { currentAcademicYear: classConfigObj && classConfigObj.currentAcademicYear })
+                              Object.assign(item, { currentAcademicYear: classConfigObj && classConfigObj.coreConfigObj && classConfigObj.coreConfigObj.currentAdmissionYear })
 
                               return <tr>
                                 <td className="text-center">
@@ -171,17 +190,19 @@ export class OnlineAdmission extends React.Component {
               <div className="container mt-5">
                 <div className="row">
                   <div className="col-md-12 d-flex justify-content-center">
-                    <button class="btn btn-primary bg-primary-color-dark p-4 mx-3 border-0">
+                    <button class="btn btn-primary bg-primary-color-dark p-4 mx-3 border-0"
+                      onClick={this.getDownloadFile}
+                    >
                       <i className="fas fa-download"></i><br />
                       Instruction Download
                       </button>
                     {/* </div>
 
                   <div className="col-md-6"> */}
-                    <button class="btn explore-btn px-5 py-4 mx-3">
+                    {/* <button class="btn explore-btn px-5 py-4 mx-3">
                       <i className="fas fa-info-circle"></i><br />
                       <span className="px-2">How To Apply</span>
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

@@ -34,10 +34,11 @@ export function* fetch_classConfigList() {
     // console.log('response-list', response);
 
     const responseAdmissionYear = yield call(request, requestURLforAdmissionYear, options);
+    console.log('responseAdmissionYear-list', responseAdmissionYear);
 
     try {
       let classConfigObj = {
-        currentAcademicYear: responseAdmissionYear.item.currentAdmissionYear,
+        coreConfigObj: responseAdmissionYear.item,
         classConfigList: response.item
       }
       // console.log("response classConfigList", classConfigObj);

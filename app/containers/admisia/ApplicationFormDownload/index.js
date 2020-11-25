@@ -29,6 +29,8 @@ export class ApplicationFormDownload extends React.Component {
 
   applicationDownload() {
 
+    var applicantInfoDetails = JSON.parse(sessionStorage.applicantFromDownloadData);
+
     var HTML_Width = $(".canvas_div_pdf").width();
     var HTML_Height = $(".canvas_div_pdf").height();
     var top_left_margin = 15;
@@ -53,14 +55,14 @@ export class ApplicationFormDownload extends React.Component {
         pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
       }
 
-      pdf.save("application form.pdf");
+      pdf.save(applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.registrationId + "_application form.pdf");
     });
   }
 
   render() {
 
     let applicantInfoDetails = JSON.parse(sessionStorage.applicantFromDownloadData);
-    console.log('download-applicantInfoList', applicantInfoDetails);
+    // console.log('download-applicantInfoList', applicantInfoDetails);
 
     return (
       <div class="admisia">

@@ -202,7 +202,6 @@ export class Payment extends React.Component {
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
-
                                       </div>
                                     </div>
 
@@ -276,7 +275,7 @@ export class Payment extends React.Component {
                     </div>
                   </div>
                 }
-
+                {/* 
                 {this.props.loaderType === 'tableLoadOn' ? <div style={{ marginTop: '25px' }}> {centerTableLoader()}</div> :
 
                   <div className="row mt-1">
@@ -311,7 +310,7 @@ export class Payment extends React.Component {
                       </div>
                     </div>
                   </div>
-                }
+                } */}
 
               </div>
 
