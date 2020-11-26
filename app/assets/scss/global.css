@@ -370,6 +370,10 @@
 .text-primary-dark {
   color: #002749 !important; }
 
+.admisia-level {
+  color: #002749;
+  font-size: 14px; }
+
 .box-shadow, .speech-wrapper .speech-slider-wrapper, .usefull-links-wrapper {
   -webkit-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);
   -moz-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);
@@ -2983,6 +2987,9 @@
 * {
   font-family: 'Montserrat', sans-serif; }
 
+.text-bold {
+  font-weight: bold; }
+
 *::-webkit-scrollbar,
 .nw-layout-content::-webkit-scrollbar {
   width: 14px;
@@ -3003,7 +3010,7 @@
   box-shadow: unset !important; }
 
 .bg-gray-light {
-  background-color: #F0F0F0 !important; }
+  background-color: #f0f0f0 !important; }
 
 .bg-orange {
   background-color: #f23010 !important; }
@@ -3188,7 +3195,7 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  border: 1px solid #ECECEC;
+  border: 1px solid #ececec;
   height: auto;
   z-index: 1; }
   .image-cropper-section::after {
@@ -3196,22 +3203,22 @@
     left: 10%;
     top: -9px;
     background: #fff;
-    content: "";
+    content: '';
     height: 15px;
     width: 15px;
     -webkit-transform: rotate(45deg);
     transform: rotate(315deg);
-    border-right: 1px solid #ECECEC;
-    border-top: 1px solid #ECECEC; }
+    border-right: 1px solid #ececec;
+    border-top: 1px solid #ececec; }
   .image-cropper-section .image-cropper-button {
     display: flex;
     justify-content: flex-end;
     align-items: center; }
     .image-cropper-section .image-cropper-button .nw-action-button {
-      border: 1px solid #BBE4FF;
+      border: 1px solid #bbe4ff;
       box-shadow: unset;
-      color: #0099FF;
-      background-color: #FFFFFF !important;
+      color: #0099ff;
+      background-color: #ffffff !important;
       font-size: 16px;
       margin-left: 5px; }
       .image-cropper-section .image-cropper-button .nw-action-button.p-button-success {
@@ -3219,7 +3226,7 @@
         border: none !important;
         color: #ffffff; }
       .image-cropper-section .image-cropper-button .nw-action-button.p-button-danger {
-        background-color: #E89191 !important;
+        background-color: #e89191 !important;
         border: none !important;
         color: #ffffff; }
 

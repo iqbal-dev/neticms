@@ -330,14 +330,13 @@ export class Menu extends React.Component {
                           <DropdownToggle nav caret>Online Admission</DropdownToggle>
                           <DropdownMenu right>
                             <UncontrolledDropdown nav inNavbar>
-                              <NavItem><Link to='/institute/online_admission' className='nav-link'>Admission</Link> </NavItem>
-                              <NavItem><Link to='/institute/admisia_payment' className='nav-link'>Payment</Link> </NavItem>
-                              <NavItem><Link to='/institute/application_track' className='nav-link'>Search</Link> </NavItem>
-                              <NavItem><Link to='/institute/admisia_download' className='nav-link'>Download</Link> </NavItem>
+                              <NavItem><Link to='/institute/admisia/online_admission' className='nav-link'>Admission</Link> </NavItem>
+                              <NavItem><Link to='/institute/admisia/payment' className='nav-link'>Payment</Link> </NavItem>
+                              <NavItem><Link to='/institute/admisia/application_track' className='nav-link'>Search</Link> </NavItem>
+                              <NavItem><Link to='/institute/admisia/download' className='nav-link'>Download</Link> </NavItem>
                             </UncontrolledDropdown>
                           </DropdownMenu>
                         </UncontrolledDropdown>
-
                       </Nav>
                     </Collapse>
                   </Navbar>

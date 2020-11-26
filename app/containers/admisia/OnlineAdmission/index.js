@@ -72,7 +72,7 @@ export class OnlineAdmission extends React.Component {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2 className="d-flex justify-content-center">
-                        <span className="text-orange "> Academic Year - {classConfigObj && classConfigObj.coreConfigObj && classConfigObj.coreConfigObj.currentAdmissionYear} </span>
+                        <span className="text-orange text-bold"> Academic Year - {classConfigObj && classConfigObj.coreConfigObj && classConfigObj.coreConfigObj.currentAdmissionYear} </span>
                       </h2>
                       {/* <div className="custom-title-border-left"></div> */}
                     </div>
@@ -106,8 +106,9 @@ export class OnlineAdmission extends React.Component {
                                 </td>
                                 <td className="px-5 py-4">
                                   <b>
-                                    Seat Capacity {item.applicantLimit}<br />
-                                    {item.leftDays} Days Left
+
+                                    Seat Capacity <span className="text-primary-light"> {item.applicantLimit}</span><br />
+                                    <i class="fas fa-history"></i> {item.leftDays} Days Left
                                     {/* {getTotalDaysDifference_TillToday(item.applicationEndDate)} Days Left */}
                                   </b>
                                   {item.prevExamInfoRequiredStatus == 1 ?
@@ -120,7 +121,7 @@ export class OnlineAdmission extends React.Component {
                                   <Link
                                     className="btn explore-btn"
                                     to={{
-                                      pathname: `/institute/application_form`,
+                                      pathname: `/institute/admisia/application_form`,
                                       admissionObj: item//{...item} 
                                     }}
                                   >
@@ -218,7 +219,7 @@ export class OnlineAdmission extends React.Component {
           </section>
 
         </AppLayout>
-      </div>
+      </div >
     );
   }
 }

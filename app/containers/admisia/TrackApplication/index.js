@@ -402,7 +402,7 @@ export class TrackApplication extends React.Component {
                                 <div className="col-xl-4 text-center my-xl-auto text-primary d-flex my-3">
                                   <span className="shape-squire"></span>
                                   <span className="shape-squire"></span>
-                                  <b className="ml-3"><u><Link to="/institute/find_registration_no">Forgot your Registration No. ?</Link></u></b>
+                                  <b className="ml-3"><u><Link to="/institute/admisia/find_registration_no">Forgot your Registration No. ?</Link></u></b>
                                 </div>
                               </div>
                             </td>

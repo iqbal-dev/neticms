@@ -400,10 +400,10 @@ export class ApplicationForm extends React.Component {
       errors["rollNo"] = "Roll No. can't left empty.";
     }
 
-    if (!this.props.getRegistrationNo) {
-      formIsValid = false;
-      errors["registrationNo"] = "Registration No. can't left empty.";
-    }
+    // if (!this.props.getRegistrationNo) {
+    //   formIsValid = false;
+    //   errors["registrationNo"] = "Registration No. can't left empty.";
+    // }
 
     if (!this.props.getExamName) {
       formIsValid = false;
@@ -682,7 +682,7 @@ export class ApplicationForm extends React.Component {
     let { getAdditionalInfo, getApplicantView } = this.props;
 
     // console.log("main-getAdditionalInfo", getAdditionalInfo);
-    // console.log("getApplicantView", getApplicantView);
+    console.log("getApplicantView", getApplicantView);
 
     const examInfoDialog = () => {
       this.resetApplicantPreviousExamData();
@@ -778,7 +778,8 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>CLASS & GROUP <span className="required">*</span></small></Label>
+                                      {/* <Label for="class-group" className="text-primary-light"><small>CLASS & GROUP </small></Label> */}
+                                      <Label for="class-group" className="admisia-level"><b>CLASS & GROUP </b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -843,7 +844,7 @@ export class ApplicationForm extends React.Component {
                     <div className="col-xl-12">
                       <div className="my-3">    {/*page-inner-title*/}
                         <h2 className="d-flex justify-content-center">
-                          <span className="text-orange "> Application Form </span>
+                          <span className="text-orange text-bold "> Application Form - {admissionObj && admissionObj.currentAcademicYear}</span>
                         </h2>
                         {/* <div className="custom-title-border-left"></div> */}
                       </div>
@@ -868,7 +869,7 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>STUDENT NAME <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>STUDENT NAME <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -884,7 +885,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup className="custom-dropdown mb-3">
-                                      <Label for="class-group" className="text-primary-light"><small>GENDER <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>GENDER <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -904,7 +905,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="text-primary-light"><small>RELIGION <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>RELIGION <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -926,7 +927,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-datepicker">
-                                      <Label for="class-group" className="text-primary-light"><small>DATE OF BIRTH <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>DATE OF BIRTH <span className="required">*</span></b></Label>
 
                                       {/* <br />
                                       <DatePicker
@@ -960,7 +961,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>BIRTH REG. NO. </small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>BIRTH REG. NO. </b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="number"
@@ -978,7 +979,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="text-primary-light"><small>QUOTA <span className="required">*</span> </small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>QUOTA <span className="required">*</span> </b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -1007,7 +1008,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-upload">
-                                      <Label for="class-group" className="text-primary-light"><small>PHOTO <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>PHOTO <span className="required">*</span></b></Label>
                                       <CustomInput
                                         label="Choose a photo"
                                         className=" bg-white border-0 rounded-0"
@@ -1032,7 +1033,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>GUARDIAN MOBILE NO. <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>GUARDIAN MOBILE NO. <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         maxLength="11"
@@ -1052,14 +1053,14 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 d-flex align-items-center">
                                     <small className="text-orange">
-                                      ***This number will be needed from further <br />
-                                      communication.So, Please input a valid contact no.***
+                                      ***This number will be needed for further <br />
+                                      communication. So, Please enter a valid contact no.***
                                     </small>
                                   </div>
 
                                   <div className="col-xl-8">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>Address <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>ADDRESS <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="textarea"
@@ -1142,7 +1143,7 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>FATHER'S NAME <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>FATHER'S NAME <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -1158,7 +1159,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="text-primary-light"><small>FATHER'S OCCUPATION <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>FATHER'S OCCUPATION <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -1178,13 +1179,13 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>FATHER'S NID.</small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>FATHER'S NID</b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="number"
                                         min={0} type="number" step="1"
                                         name="class-group"
-                                        placeholder="Enter Father's NID (If Any)"
+                                        placeholder="Enter Father's NID (if any)"
                                         value={this.props.getFatherNidNo}
                                         onChange={(e) => { this.props.fatherNidNo(e); }}
                                       // this.state.errors["fatherNidNo"] = ''
@@ -1196,7 +1197,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>MOTHER'S NAME <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>MOTHER'S NAME <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -1212,7 +1213,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="text-primary-light"><small>MOTHER'S OCCUPATION <span className="required">*</span></small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>MOTHER'S OCCUPATION <span className="required">*</span></b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -1231,13 +1232,13 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="text-primary-light"><small>MOTHERS'S NID. </small></Label>
+                                      <Label for="class-group" className="admisia-level"><b>MOTHER'S NID </b></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text" type="number"
                                         min={0} type="number" step="1"
                                         name="class-group"
-                                        placeholder="Enter Mother's NID (If Any)"
+                                        placeholder="Enter Mother's NID (if any)"
                                         value={this.props.getMotherNidNo}
                                         onChange={(e) => { this.props.motherNidNo(e); }}
                                       >
@@ -1482,7 +1483,7 @@ export class ApplicationForm extends React.Component {
 
                         <Link
                           className="btn all-border-radious no-border explore-btn mx-2 "
-                          to={{ pathname: '/institute/application_form_download' }}
+                          to={{ pathname: '/institute/admisia/application_form_download' }}
                           target="_blank"
                         >
                           Go for Download <i class="fas fa-angle-right" ></i>
@@ -1500,7 +1501,7 @@ export class ApplicationForm extends React.Component {
 
                         <Link
                           className="btn all-border-radious no-border explore-btn mx-2 "
-                          to={{ pathname: `/institute/online_admission`, }}
+                          to={{ pathname: `/institute/admisia/online_admission`, }}
                           onClick={this.resetApplicationFormData}
                         >
                           Finished <i class="fas fa-angle-right" ></i>
@@ -1550,7 +1551,7 @@ export class ApplicationForm extends React.Component {
 
                         <Link
                           className="btn all-border-radious no-border explore-btn mx-2 "
-                          to={{ pathname: `/institute/online_admission`, }}
+                          to={{ pathname: `/institute/admisia/online_admission`, }}
                           onClick={this.resetApplicationFormData}
                         >
                           <i class="fas fa-angle-left" ></i> Exit

@@ -134,17 +134,19 @@ export default function AppRoute() {
       <PrivateRoute path="/admin/homepage" exact component={AdminHomepage} />
       <PrivateRoute path="/admin/syllabus" exact component={AdminSyllabus} />AdmissionConfirmationLetter */}
 
-      {/* Admisia Menu Start */}
-      <Route exact path="/institute/online_admission" component={OnlineAdmission} />
-      <Route exact path="/institute/application_form" component={ApplicationForm} />
-      <Route exact path="/institute/admisia_payment" component={Payment} />
-      <Route exact path="/institute/application_track" component={TrackApplication} />
-      <Route exact path="/institute/admisia_download" component={AdmisiaDownload} />
+      {/* Admisia Menu START */}
+      <Route exact path="/institute/admisia/online_admission" component={OnlineAdmission} />
+      <Route exact path="/institute/admisia/application_form" component={ApplicationForm} />
+      <Route exact path="/institute/admisia/payment" component={Payment} />
+      <Route exact path="/institute/admisia/application_track" component={TrackApplication} />
+      <Route exact path="/institute/admisia/download" component={AdmisiaDownload} />
       <Route exact path="/institute/admission_confirmation_letter" component={AdmissionConfirmationLetter} />
-      <Route exact path="/institute/find_registration_no" component={ForgetRegistrationNo} />
-      <Route exact path="/institute/application_form_download" component={ApplicationFormDownload} />
-      <Route exact path="/institute/ongoing_task" component={OngoingComponent} />
+      <Route exact path="/institute/admisia/find_registration_no" component={ForgetRegistrationNo} />
+      <Route exact path="/institute/admisia/application_form_download" component={ApplicationFormDownload} />
 
+      {/* Admisia Menu END */}
+
+      <Route exact path="/institute/ongoing_task" component={OngoingComponent} />
       <Route path="" component={NotFoundPage} />
 
     </Switch>
