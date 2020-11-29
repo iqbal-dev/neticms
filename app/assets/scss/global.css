@@ -372,7 +372,15 @@
 
 .admisia-level {
   color: #002749;
-  font-size: 14px; }
+  font-weight: 600;
+  font-size: 15px; }
+  .admisia-level.dialog-level {
+    color: #ff4e31; }
+
+.modal-header .close {
+  opacity: unset; }
+.modal-header button span {
+  color: #fff; }
 
 .box-shadow, .speech-wrapper .speech-slider-wrapper, .usefull-links-wrapper {
   -webkit-box-shadow: -0.5px 2px 2px 0px rgba(153, 153, 153, 0.5);
@@ -2779,6 +2787,24 @@
     color: #495057;
     font-weight: 400; }
 
+.success-wrapper .success-top-section {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0; }
+  .success-wrapper .success-top-section .success-level {
+    position: absolute;
+    top: 17px;
+    left: 15px;
+    opacity: 0.8; }
+.success-wrapper .success-details {
+  margin-left: 14px;
+  margin-top: 18px; }
+.success-wrapper .success-bottom-section {
+  padding-left: 0;
+  padding-right: 0; }
+.success-wrapper .MuiLinearProgress-root {
+  height: 8px !important; }
+
 .rbc-calendar .rbc-toolbar .rbc-btn-group button {
   font-size: 12px; }
 .rbc-calendar .rbc-toolbar .rbc-toolbar-label {
@@ -2989,6 +3015,27 @@
 
 .text-bold {
   font-weight: bold; }
+
+.f-left {
+  float: left; }
+
+.f-right {
+  float: right; }
+
+.m-r-0 {
+  margin-right: 0; }
+
+.m-l-0 {
+  margin-left: 0; }
+
+.p-0 {
+  padding: 0; }
+
+.m-b-10 {
+  margin-bottom: 10px; }
+
+.m-t-8 {
+  margin-top: 8px; }
 
 *::-webkit-scrollbar,
 .nw-layout-content::-webkit-scrollbar {

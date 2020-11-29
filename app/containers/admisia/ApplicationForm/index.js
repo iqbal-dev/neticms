@@ -48,6 +48,7 @@ import makeSelectApplicationForm, {
   makeSelectApplicantView,
   makeSelectApplicantInfoList,
   makeSelectMessage,
+  makeSelectLoader,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -108,6 +109,10 @@ import { insert_applicant_info } from '../../../utils/serviceUrl';
 import { ImageCropper } from '../../../components/common/ImageCropper';
 import { getFileContentType, getMaxFileSizeIsValid } from '../../../utils/FileHandler';
 import { Link } from 'react-router-dom';
+import succesImage from './succesImage.png';
+import { centerTableLoader, inputFieldLoaderLarge } from '../../../utils/contentLoader';
+// import { ProgressBar } from 'primereact/progressbar';
+import { LinearProgress } from '@material-ui/core';
 
 let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
 let cmsID = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
@@ -644,45 +649,15 @@ export class ApplicationForm extends React.Component {
     this.props.passingYear('');
   }
 
-  // setConfirmationLetterToDownload() {
-
-  //   // console.log('letter dwnld click');
-
-  //   var HTML_Width = $(".canvas_div_pdf").width();
-  //   var HTML_Height = $(".canvas_div_pdf").height();
-  //   var top_left_margin = 15;
-  //   var PDF_Width = HTML_Width + (top_left_margin * 2);
-  //   var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-  //   var canvas_image_width = HTML_Width;
-  //   var canvas_image_height = HTML_Height;
-
-  //   var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-
-  //   html2canvas($(".canvas_div_pdf")[0], { allowTaint: true }).then(function (canvas) {
-  //     canvas.getContext('2d');
-
-  //     // console.log(canvas.height + "  " + canvas.width);
-
-  //     var imgData = canvas.toDataURL("image/JPG", 1.0);
-  //     var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-  //     pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-
-  //     for (var i = 1; i <= totalPDFPages; i++) {
-  //       pdf.addPage(PDF_Width, PDF_Height);
-  //       pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-  //     }
-
-  //     pdf.save("application-letter.pdf");
-  //   });
-  // }
-
   render() {
 
     let { admissionObj, errors } = this.state;
     let { getAdditionalInfo, getApplicantView } = this.props;
 
     // console.log("main-getAdditionalInfo", getAdditionalInfo);
-    console.log("getApplicantView", getApplicantView);
+    // console.log("getApplicantView", getApplicantView);
+
+    console.log(" this.props.loader", this.props.loader);
 
     const examInfoDialog = () => {
       this.resetApplicantPreviousExamData();
@@ -741,6 +716,8 @@ export class ApplicationForm extends React.Component {
                   {this.props.message.message}
                 </Alert> : ''}
 
+                {this.props.loader === "RegLoaderOn" || this.props.loader === "RNLoaderOn" ? <div className="m-b-10"> <LinearProgress style={{ height: '8px' }} /> </div> : ''}
+
                 <div className="row m-0 text-center bg-smoke-white section-top-page">
                   <div className="col-xl-4 py-5 text-center one active">
                     <div className='page'>1</div>
@@ -764,7 +741,7 @@ export class ApplicationForm extends React.Component {
                           <tr>
                             {this.state.pageFirst ?
                               <th>Academic Year: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.academicYear) || (admissionObj && admissionObj.currentAcademicYear)}</th>
-                              : <th>Applicant Information</th>}
+                              : <th>Application Information</th>}
 
                             {this.state.pageFirst ?
                               <th className="text-right"><span>Application End Date : {get_DDMMM_YY_Format_WithComma((getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate))}</span></th>
@@ -779,7 +756,7 @@ export class ApplicationForm extends React.Component {
                                   <div className="col-xl-4">
                                     <FormGroup>
                                       {/* <Label for="class-group" className="text-primary-light"><small>CLASS & GROUP </small></Label> */}
-                                      <Label for="class-group" className="admisia-level"><b>CLASS & GROUP </b></Label>
+                                      <Label for="class-group" className="admisia-level">CLASS & GROUP</Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -809,7 +786,7 @@ export class ApplicationForm extends React.Component {
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Class</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.className) || (admissionObj && admissionObj.className)}</div>
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Group</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.groupName) || (admissionObj && admissionObj.groupName)}</div>
                                         {this.state.pageThird ?
-                                          <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: {(this.props.applicantInfoList && this.props.applicantInfoList.rollNo)}</div>
+                                          <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: {this.props.loader === "RegLoaderOn" || this.props.loader === "RNLoaderOn" ? inputFieldLoaderLarge() : (this.props.applicantInfoList && this.props.applicantInfoList.rollNo)}</div>
                                           : null
                                         }
                                       </div>
@@ -869,7 +846,7 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>STUDENT NAME <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">STUDENT NAME <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -885,7 +862,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup className="custom-dropdown mb-3">
-                                      <Label for="class-group" className="admisia-level"><b>GENDER <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">GENDER <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -905,7 +882,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="admisia-level"><b>RELIGION <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">RELIGION <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -927,7 +904,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-datepicker">
-                                      <Label for="class-group" className="admisia-level"><b>DATE OF BIRTH <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">DATE OF BIRTH <span className="required">*</span></Label>
 
                                       {/* <br />
                                       <DatePicker
@@ -961,7 +938,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>BIRTH REG. NO. </b></Label>
+                                      <Label for="class-group" className="admisia-level">BIRTH REG. NO. </Label><span className='f-right'> (optional)</span>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="number"
@@ -979,7 +956,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="admisia-level"><b>QUOTA <span className="required">*</span> </b></Label>
+                                      <Label for="class-group" className="admisia-level">QUOTA <span className="required">*</span> </Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -1008,7 +985,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4 text-primary">
                                     <FormGroup className="custom-upload">
-                                      <Label for="class-group" className="admisia-level"><b>PHOTO <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">PHOTO <span className="required">*</span></Label>
                                       <CustomInput
                                         label="Choose a photo"
                                         className=" bg-white border-0 rounded-0"
@@ -1033,7 +1010,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>GUARDIAN MOBILE NO. <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">GUARDIAN MOBILE NO. <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         maxLength="11"
@@ -1060,7 +1037,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-8">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>ADDRESS <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">ADDRESS <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="textarea"
@@ -1143,7 +1120,7 @@ export class ApplicationForm extends React.Component {
                                 <div className="row">
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>FATHER'S NAME <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">FATHER'S NAME <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -1159,7 +1136,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="admisia-level"><b>FATHER'S OCCUPATION <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">FATHER'S OCCUPATION <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -1179,7 +1156,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>FATHER'S NID</b></Label>
+                                      <Label for="class-group" className="admisia-level">FATHER'S NID</Label><span className='f-right'> (optional)</span>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="number"
@@ -1197,7 +1174,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>MOTHER'S NAME <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">MOTHER'S NAME <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text"
@@ -1213,7 +1190,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup className="custom-dropdown">
-                                      <Label for="class-group" className="admisia-level"><b>MOTHER'S OCCUPATION <span className="required">*</span></b></Label>
+                                      <Label for="class-group" className="admisia-level">MOTHER'S OCCUPATION <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="select"
@@ -1232,7 +1209,7 @@ export class ApplicationForm extends React.Component {
 
                                   <div className="col-xl-4">
                                     <FormGroup>
-                                      <Label for="class-group" className="admisia-level"><b>MOTHER'S NID </b></Label>
+                                      <Label for="class-group" className="admisia-level">MOTHER'S NID</Label><span className='f-right'> (optional)</span>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="text" type="number"
@@ -1315,16 +1292,16 @@ export class ApplicationForm extends React.Component {
                                       <thead>
                                         <tr>
                                           <th>INSTITUTE NAME</th>
-                                          <th>INS. TYPE</th>
+                                          <th>INST. TYPE</th>
                                           <th>BOARD</th>
                                           <th>CLASS</th>
                                           <th>ROLL NO.</th>
-                                          <th>REG. NO</th>
+                                          <th>REG. NO.</th>
                                           <th>EXAM</th>
                                           <th>GRADE </th>
                                           <th>GPA</th>
                                           <th>PASSING YEAR</th>
-                                          {this.state.pageThird ? null : <th>Action</th>}
+                                          {this.state.pageThird || this.state.pageSecond ? null : <th>Action</th>}
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -1342,7 +1319,7 @@ export class ApplicationForm extends React.Component {
                                               <td>{item.examGpa}</td>
                                               <td>{item.passingYear}</td>
 
-                                              {this.state.pageThird ? null :
+                                              {this.state.pageThird || this.state.pageSecond ? null :
                                                 <td>
                                                   <div className="d-flex">
                                                     <Button className="btn btn-info mr-2" onClick={() => this.onEditAdditionalInfo(item.id)} /*onClick={ onEditAdditionalInfo }*/>
@@ -1371,7 +1348,7 @@ export class ApplicationForm extends React.Component {
                                               <td>{item.examGpa}</td>
                                               <td>{item.passingYear}</td>
 
-                                              {this.state.pageThird ? null :
+                                              {this.state.pageThird || this.state.pageSecond ? null :
                                                 <td>
                                                   <div className="d-flex">
                                                     <Button className="btn btn-info mr-2" onClick={() => this.onEditAdditionalInfo(item.id)} /*onClick={ onEditAdditionalInfo }*/>
@@ -1392,9 +1369,6 @@ export class ApplicationForm extends React.Component {
                                     </Table>
                                   </div>
 
-                                  {/* <div className="col-xl-12">
-                                  No Record Found
-                                </div> */}
                                 </div>
                               </td>
                             </tr>
@@ -1431,7 +1405,7 @@ export class ApplicationForm extends React.Component {
                     <div className="row mt-1">
                       <div className="col-xl-12">
                         <div className="">
-                          <Table striped responsive className="application-form-table">
+                          <Table striped className="application-form-table">
                             <thead>
                               <tr>
                                 <th>Success Message</th>
@@ -1441,20 +1415,33 @@ export class ApplicationForm extends React.Component {
                             <tbody>
 
                               <tr>
-                                <td colSpan="12">
-                                  {/* <div className="row">
-                                      <div className="col-xl-4"> */}
+                                {this.props.loader === "RegLoaderOn" ? centerTableLoader() :
+                                  <td colSpan="12" className="p-0 success-wrapper">
 
-                                  <div className="col-xl-12 text-orange">
-                                    <h2 className="mb-0" style={{ marginTop: '12px' }}><b>Congratulation !!</b></h2>
-                                    Application Submitted Successfully.
+                                    <div className="col-xl-12 success-top-section">
+
+                                      <img className="successImage" src={succesImage} width="100%" height="90" />
+                                      <div className="col-xl-12 success-level text-orange">
+                                        <h2 className="mb-0" style={{ marginTop: '12px' }}><b>Congratulation !!</b></h2>
+                                        Application Submitted Successfully.
                                     </div>
 
-                                  <div className="col-xl-12 my-3">
-                                    <small>Your Registration No. : <span className="text-orange" style={{ fontSize: 'medium' }}> {this.props.applicantInfoList.registrationId}</span>, Please keep this number to pay the application fee {admissionObj.totalFee}.00/= taka within 72 Hours through Bkash app or USSD Dial code.</small>
-                                  </div>
+                                    </div>
 
-                                  <div className="col-xl-12">
+                                    <div className="col-xl-12 success-details">
+                                      Your Registration No.  <span className="text-orange" style={{ fontSize: 'x-large' }}> <strong>{this.props.applicantInfoList.registrationId}</strong></span>, Please keep this number to pay the application fee {admissionObj.totalFee}.00/= taka.
+                                    {/* within 72 Hours through Bkash app or USSD Dial code. */}
+                                      <br />
+                                      <p className="m-t-8">
+                                        <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and<br />also further inquiries. <br />
+                                      </p>
+                                    </div>
+
+                                    <div className="col-xl-12 success-bottom-section ">
+                                      <img className="successImage" src={succesImage} width="100%" height="90" />
+                                    </div>
+
+                                    {/* <div className="col-xl-12">
                                     <h4 className="mb-3"><u><b>Follow The Steps</b></u></h4>
                                     <small>
                                       01. Go to Your Bkash Mobile app/dial code <br />
@@ -1467,9 +1454,10 @@ export class ApplicationForm extends React.Component {
                                       <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and also further inquiries. <br />
                                     </small>
 
-                                  </div>
+                                  </div> */}
 
-                                </td>
+                                  </td>
+                                }
                               </tr>
 
                             </tbody>
@@ -1479,8 +1467,7 @@ export class ApplicationForm extends React.Component {
                     </div>
 
                     <div className="col-xl-12 text-right d-flex justify-content-end mt-4">
-                      <FormGroup className="mr-5">
-
+                      <FormGroup >
                         <Link
                           className="btn all-border-radious no-border explore-btn mx-2 "
                           to={{ pathname: '/institute/admisia/application_form_download' }}
@@ -1517,20 +1504,12 @@ export class ApplicationForm extends React.Component {
                       </FormGroup>
                     </div>
 
-                    <div className="container">
-                      <div className="row">
-                        <div className="offset-xl-1 col-xl-10">
-                          <div className="custom-title-border-center"></div>
-                        </div>
-                      </div>
-                    </div>
-
                   </React.Fragment>
 
                   :
                   <div className="col-xl-12 text-right d-flex justify-content-end">
                     {this.state.pageSecond ?
-                      <FormGroup className="mr-5">
+                      <FormGroup >
                         <Button
                           className="btn all-border-radious no-border explore-btn border-0 mx-2 px-5"
                           onClick={this.showPreviousPage}
@@ -1541,7 +1520,7 @@ export class ApplicationForm extends React.Component {
                         <Button
                           className="btn all-border-radious no-border explore-btn border-0 px-5"
                           onClick={this.showNextPage}
-                          disabled={admissionObj && admissionObj.prevExamInfoRequiredStatus == 1 && this.state.insertUserObj && this.state.insertUserObj.additionalInfos.length < 1 ? true : false}
+                        // disabled={admissionObj && admissionObj.prevExamInfoRequiredStatus == 1 && this.state.insertUserObj && this.state.insertUserObj.additionalInfos.length < 1 ? true : false}
                         >
                           Confirm  <i class="fas fa-angle-right" ></i>
                         </Button>
@@ -1576,7 +1555,15 @@ export class ApplicationForm extends React.Component {
                     }
 
                   </div>
+
                 }
+                <div className="container">
+                  <div className="row">
+                    <div className="offset-xl-1 col-xl-10">
+                      <div className="custom-title-border-center"></div>
+                    </div>
+                  </div>
+                </div>
 
                 <Modal isOpen={this.state.examInfoDialogVisible} toggle={examInfoDialog}>
 
@@ -1589,7 +1576,7 @@ export class ApplicationForm extends React.Component {
                     <div className="row">
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="text-primary-light"><small>INSTITUTE NAME <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">INSTITUTE NAME <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1605,7 +1592,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="text-primary-light"><small>INSTITUTE TYPE <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">INSTITUTE TYPE <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1631,7 +1618,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="text-primary-light"><small>BOARD <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">BOARD <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1659,7 +1646,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="text-primary-light"><small>CLASS <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">CLASS <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1675,7 +1662,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="text-primary-light"><small>Roll NO. <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">ROLL NO. <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="number"
@@ -1692,7 +1679,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="text-primary-light"><small>REGISTRATION NO. <span className="required"></span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">REGISTRATION NO.</Label><span className='f-right'> (optional)</span>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="number"
@@ -1709,7 +1696,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="text-primary-light"><small>EXAM <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">EXAM <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1725,7 +1712,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="text-primary-light"><small>GRADE <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">GRADE <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1749,7 +1736,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="text-primary-light"><small>GPA <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">GPA <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1765,7 +1752,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="text-primary-light"><small>PASSING YRAR <span className="required">*</span></small></Label>
+                          <Label for="class-group" className="admisia-level dialog-level">PASSING YEAR <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1804,7 +1791,7 @@ export class ApplicationForm extends React.Component {
                   <ModalBody className="bg-light p-5">
                     <div className="row text-center">
                       <div className="col-12">
-                        Are you sure? <br /> You want to permanently delete your Previous Exam Info.
+                        <label className="admisia-level">  Are you sure <br /> You want to permanently delete your Previous Exam Info?</label>
                       </div>
 
                       <div className="col-12 mt-4">
@@ -1871,6 +1858,7 @@ const mapStateToProps = createStructuredSelector({
   getApplicantView: makeSelectApplicantView(),
   applicantInfoList: makeSelectApplicantInfoList(),
   message: makeSelectMessage(),
+  loader: makeSelectLoader(),
 });
 
 function mapDispatchToProps(dispatch) {

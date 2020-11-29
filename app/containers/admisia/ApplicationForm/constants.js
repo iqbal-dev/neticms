@@ -43,6 +43,7 @@ export const SET_APPLICANT_VIEW = 'app/ApplicationForm/SET_APPLICANT_VIEW';
 export const SET_APPLICANT_INFO_DETAILS_LIST = 'app/ApplicationForm/SET_APPLICANT_INFO_DETAILS_LIST';
 
 export const SET_MESSAGE = 'app/ApplicationForm/SET_MESSAGE';
+export const SET_LOADER = 'app/ApplicationForm/SET_LOADER';
 
 // SET_ON_CHANGE_File_CONTENT
 // SET_ON_CHANGE_INSTITUTE_NAME

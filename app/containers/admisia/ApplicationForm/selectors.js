@@ -118,6 +118,9 @@ const makeSelectApplicantInfoList = () =>
 const makeSelectMessage = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('message'));
 
+const makeSelectLoader = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('loader'));
+
 // makeSubmitInsertApplicantInfo
 
 export default makeSelectApplicationForm;
@@ -159,4 +162,5 @@ export {
   makeSelectApplicantView,
   makeSelectApplicantInfoList,
   makeSelectMessage,
+  makeSelectLoader
 };

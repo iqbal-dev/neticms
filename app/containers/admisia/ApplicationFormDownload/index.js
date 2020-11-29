@@ -18,6 +18,7 @@ import makeSelectApplicationFormDownload from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import succesImage from './succesImage.png';
 
 import {
   CustomInput, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert
@@ -99,7 +100,7 @@ export class ApplicationFormDownload extends React.Component {
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Applicant Information</th>
+                            <th>Application Information</th>
                             <th></th>
                           </tr>
                         </thead>
@@ -190,7 +191,7 @@ export class ApplicationFormDownload extends React.Component {
                   <div className="row mt-1">
                     <div className="col-xl-12">
                       <div className="">
-                        <Table striped responsive className="application-form-table">
+                        <Table striped className="application-form-table">
                           <thead>
                             <tr>
                               <th>Previous Exam Information</th>
@@ -258,7 +259,7 @@ export class ApplicationFormDownload extends React.Component {
                   <div className="row mt-1">
                     <div className="col-xl-12">
                       <div className="">
-                        <Table striped responsive className="application-form-table">
+                        <Table striped className="application-form-table">
                           <thead>
                             <tr>
                               <th>Success Message</th>
@@ -267,30 +268,45 @@ export class ApplicationFormDownload extends React.Component {
                           <tbody>
 
                             <tr>
-                              <td colSpan="12">
-                                <div className="col-xl-12 text-orange">
-                                  <h2 className="mb-0" style={{ marginTop: '12px' }}><b>Congratulation !!</b></h2>
-                                  Application Submitted Successfully.
+                              <td colSpan="12" className="p-0 success-wrapper">
+
+                                <div className="col-xl-12 success-top-section">
+
+                                  <img className="successImage" src={succesImage} width="100%" height="90" />
+                                  <div className="col-xl-12 success-level text-orange">
+                                    <h2 className="mb-0" style={{ marginTop: '12px' }}><b>Congratulation !!</b></h2>
+                                    Application Submitted Successfully.
                                     </div>
 
-                                <div className="col-xl-12 my-3">
-                                  <small>Your Registration No. : <span className="text-orange" style={{ fontSize: 'medium' }}> {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.registrationId}</span>, Please keep this number to pay the application fee {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.totalFee}.00/= taka within 72 Hours through Bkash app or USSD Dial code.</small>
                                 </div>
 
-                                <div className="col-xl-12">
-                                  <h4 className="mb-3"><u><b>Follow The Steps</b></u></h4>
-                                  <small>
-                                    01. Go to Your Bkash Mobile app/dial code <br />
-                                    02. Choose ''Pay bill'' option <br />
-                                    03. Select Admisia option <br />
-                                    04. Enter the student registration no. <br />
-                                    05. After enter student registration you see the fees that you would be pay <br />
-                                    06. Now enter your Bkash mobile menu PIN to conform <br /><br />
-
-                                    <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and also further inquiries. <br />
-                                  </small>
-
+                                <div className="col-xl-12 success-details">
+                                  Your Registration No.  <span className="text-orange" style={{ fontSize: 'x-large' }}> <strong>{applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.registrationId}</strong> </span>, Please keep this number to pay the application fee {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.totalFee}.00/= taka.
+                                    {/* within 72 Hours through Bkash app or USSD Dial code. */}
+                                  <br />
+                                  <p className="m-t-8">
+                                    <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and<br />also further inquiries. <br />
+                                  </p>
                                 </div>
+
+                                <div className="col-xl-12 success-bottom-section ">
+                                  <img className="successImage" src={succesImage} width="100%" height="90" />
+                                </div>
+
+                                {/* <div className="col-xl-12">
+                                    <h4 className="mb-3"><u><b>Follow The Steps</b></u></h4>
+                                    <small>
+                                      01. Go to Your Bkash Mobile app/dial code <br />
+                                      02. Choose ''Pay bill'' option <br />
+                                      03. Select Admisia option <br />
+                                      04. Enter the student registration no. <br />
+                                      05. After enter student registration you see the fees that you would be pay <br />
+                                      06. Now enter your Bkash mobile menu PIN to conform <br /><br />
+
+                                      <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and also further inquiries. <br />
+                                    </small>
+
+                                  </div> */}
 
                               </td>
                             </tr>

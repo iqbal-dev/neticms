@@ -69,7 +69,23 @@
 
 .admisia-level {
   color: $colorDelayTime;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
+
+  &.dialog-level {
+    color: $orangeColor;
+  }
+}
+
+.modal-header {
+  .close {
+    opacity: unset;
+  }
+  button {
+    span {
+      color: $colorWhite;
+    }
+  }
 }
 
 .box-shadow {

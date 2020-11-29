@@ -9,7 +9,8 @@ import {
 import { SET_ON_SUBMIT_INSERT_APPLICANT_INFO } from './constants';
 import {
   setApplicantInfoListByRegId,
-  setMessage
+  setMessage,
+  setLoader
 } from './actions';
 import { makeSelectInsertApplicantInfo } from './selectors';
 
@@ -17,6 +18,7 @@ export function* submitApplicantInfo() {
 
   let insertApplicantInfo = yield select(makeSelectInsertApplicantInfo());
   // console.log("INSERT OBJ", insertApplicantInfo);
+  yield put(setLoader('RegLoaderOn'));
 
   const requestURL = BASE_URL_NETI_CMS.concat(insert_applicant_info);
   const options = {
@@ -29,8 +31,10 @@ export function* submitApplicantInfo() {
 
   try {
     const response = yield call(request, requestURL, options);
-    // console.log('SUBMIT::::', response);
+    console.log('SUBMIT::::', response);
     yield put(setMessage(response));
+    yield put(setLoader('RegLoaderOff'));
+
     if (response.messageType === 1) {
       yield fetch_applicantInfoDetailsByRegId(response.item);
     }
@@ -47,6 +51,7 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
 
+  yield put(setLoader('RNLoaderOn'));
   const requestURL = BASE_URL_NETI_CMS.concat(FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID).concat('?registrationId=').concat(registrationId).concat('&cmsId=').concat(cmsId);
   const options = {
     method: 'GET',
@@ -57,6 +62,8 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
   try {
     let response = yield call(request, requestURL, options);
     console.log('list-by-regId', response);
+
+    yield put(setLoader('RNLoaderOff'));
 
     if (response.messageType === 1) {
       yield put(setApplicantInfoListByRegId(response.item.applicantPersonalViewResponse));

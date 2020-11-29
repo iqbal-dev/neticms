@@ -296,3 +296,40 @@
     font-weight: 400;
   }
 }
+
+//application form
+
+.success-wrapper {
+  .success-top-section {
+    position: relative;
+    // top: -14px;
+    padding-left: 0;
+    padding-right: 0;
+    // img {
+    //   object-fit: contain;
+    // }
+    .success-level {
+      position: absolute;
+      top: 17px;
+      left: 15px;
+      opacity: 0.8;
+    }
+  }
+
+  .success-details {
+    margin-left: 14px;
+    margin-top: 18px;
+  }
+  .success-bottom-section {
+    padding-left: 0;
+    padding-right: 0;
+
+    // img {
+    //   object-fit: contain;
+    // }
+  }
+
+  .MuiLinearProgress-root {
+    height: 8px !important;
+  }
+}

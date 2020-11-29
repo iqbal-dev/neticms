@@ -42,7 +42,8 @@ import {
   SET_ON_SUBMIT_INSERT_APPLICANT_INFO,
   SET_APPLICANT_VIEW,
   SET_APPLICANT_INFO_DETAILS_LIST,
-  SET_MESSAGE
+  SET_MESSAGE,
+  SET_LOADER
 } from './constants';
 
 export const initialState = fromJS({
@@ -84,7 +85,8 @@ export const initialState = fromJS({
   insertApplicantInfo: {},
   applicantView: {},
   applicantInfoList: [],
-  message: ''
+  message: '',
+  loader: ''
 });
 
 function applicationFormReducer(state = initialState, action) {
@@ -190,6 +192,9 @@ function applicationFormReducer(state = initialState, action) {
 
     case SET_MESSAGE:
       return state.set('message', action.message);
+
+    case SET_LOADER:
+      return state.set('loader', action.loader);
 
     default:
       return state;

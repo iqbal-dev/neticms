@@ -41,7 +41,8 @@ import {
   SET_ON_SUBMIT_INSERT_APPLICANT_INFO,
   SET_APPLICANT_VIEW,
   SET_APPLICANT_INFO_DETAILS_LIST,
-  SET_MESSAGE
+  SET_MESSAGE,
+  SET_LOADER
 } from './constants';
 
 export function defaultAction() {
@@ -278,6 +279,13 @@ export function setMessage(message) {
   return {
     type: SET_MESSAGE,
     message
+  };
+}
+
+export function setLoader(loader) {
+  return {
+    type: SET_LOADER,
+    loader
   };
 }
 
