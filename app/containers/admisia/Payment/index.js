@@ -44,7 +44,11 @@ export class Payment extends React.Component {
   }
 
   onChangeRegNumber = (e) => {
-    this.props.onChangeRegNo(e.target.value);
+
+    var filteredValue = e.target.value.replace(/\D/g, "");
+    // console.log('filteredValue', filteredValue);
+
+    this.props.onChangeRegNo(filteredValue);
     this.clearErrorMsg('registrationNo')
   }
 
@@ -81,6 +85,7 @@ export class Payment extends React.Component {
 
     let { errors } = this.state;
     let { applicantInfoList } = this.props;
+    const coreConfigDetails = JSON.parse(localStorage.getItem('admisiaCoreConfigDetails'));
 
     // console.log('loaderType', this.props.loaderType);
     // console.log('applicantInfoList', applicantInfoList);
@@ -109,7 +114,7 @@ export class Payment extends React.Component {
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Academic Year: 2020</th>
+                            <th>Academic Year: {coreConfigDetails.currentAdmissionYear ? coreConfigDetails.currentAdmissionYear : ''}</th>
                             {/* <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</span></th> */}
                           </tr>
                         </thead>
@@ -119,12 +124,12 @@ export class Payment extends React.Component {
                               <div className="row">
                                 <div className="col-xl-4">
                                   <FormGroup>
-                                    <Label for="class-group" className="text-primary-light"><small>Registration No. <span className="required">*</span></small></Label>
+                                    <Label for="class-group" className="admisia-level">Registration No. <span className="required">*</span></Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
-                                      type="number"
                                       name="registrationNo"
                                       placeholder="Enter Registration No."
+                                      maxLength="15"
                                       value={this.props.registrationNo}
                                       onChange={this.onChangeRegNumber}
                                     >
@@ -208,25 +213,25 @@ export class Payment extends React.Component {
                                     <div class="col-xl-3 seperator">
                                       <div className="mb-3">
                                         <Label className="text-primary-light mb-0">Class </Label>
-                                        <h5>{applicantInfoList.clasName}</h5>
+                                        <h5 className="level-color font-w-primary">{applicantInfoList.clasName}</h5>
                                       </div>
 
                                       <div className="mb-3">
                                         <Label className="text-primary-light mb-0">Group </Label>
-                                        <h5>{applicantInfoList.groupName}</h5>
+                                        <h5 className="level-color font-w-primary">{applicantInfoList.groupName}</h5>
                                       </div>
 
                                       <div className="mb-3">
                                         <Label className="text-primary-light mb-0">Application Date</Label>
                                         {applicantInfoList.applicationDate ?
-                                          <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
+                                          <h5 className="level-color font-w-primary">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
                                           : ''}
                                       </div>
 
                                       <div className="mb-3">
                                         <Label className="text-primary-light mb-0">Application End Date</Label>
                                         {applicantInfoList.applicationDate ?
-                                          <h5 className="">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
+                                          <h5 className="level-color font-w-primary">{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
                                           : ''}
                                       </div>
 

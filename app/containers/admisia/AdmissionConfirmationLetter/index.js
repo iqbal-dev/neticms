@@ -257,13 +257,13 @@ export class AdmissionConfirmationLetter extends React.Component {
 
                 <div className="row my-2 mx-2">
                   <div className="col-xl-4">
-                    Powered By: Netizen IT Limited
-                </div>
+                    <small> Powered By: Netizen IT Limited</small>
+                  </div>
                   <div className="col-xl-4 text-center">
-                    This is a system generated letter
-                </div>
+                    <small> This is a system generated letter </small>
+                  </div>
                   <div className="col-xl-4 text-right">
-                    Print Date : {get_DDMMYY_Format_WithHyphen(new Date)}
+                    <small> Print Date : {get_DDMMYY_Format_WithHyphen(new Date)}</small>
                   </div>
                 </div>
 

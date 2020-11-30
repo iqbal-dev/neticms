@@ -39,13 +39,41 @@ export class ForgetRegistrationNo extends React.Component {
     this.state = {
       errors: {},
       modalVisible: false,
+      mobileOperatorError: false,
 
     }
   }
 
   onChangeMobileNumber = (e) => {
-    this.props.onChangeMobileNo(e.target.value);
-    this.clearErrorMsg('mobileNo')
+    // this.props.onChangeMobileNo(e.target.value);
+    this.clearErrorMsg('mobileNo');
+
+    var filteredValue = e.target.value.replace(/\D/g, "");
+    this.props.onChangeMobileNo(filteredValue);
+
+    if (filteredValue.length > 2) {
+      this.immediateValidOpCheck(filteredValue);
+    } else {
+      this.setState({ mobileOperatorError: false });
+    }
+
+  }
+
+  immediateValidOpCheck = (value) => {
+
+    var opCode = value.substring(0, 3);
+    if (!["011", "015", "016", "018", "017", "013", "019", "014"].includes(opCode)) {
+      console.log('invalid mobile operator');
+      this.setState({ mobileOperatorError: true });
+    } else {
+      this.setState({ mobileOperatorError: false });
+    }
+
+  }
+
+  validOperatorCode = () => {
+    var opCode = this.props.mobileNo.substring(0, 3);
+    if (["011", "015", "016", "018", "017", "013", "019", "014"].includes(opCode) && this.props.mobileNo.length === 11) { return true; }
   }
 
   submitSearchBtn = () => {
@@ -62,9 +90,18 @@ export class ForgetRegistrationNo extends React.Component {
     let formIsValid = true;
 
     if (this.props.mobileNo === '') {
+      this.setState({ mobileOperatorError: false });
       formIsValid = false;
       errors["mobileNo"] = "Mobile No. can't left empty";
+    } else if (!this.validOperatorCode(this.props.mobileNo)) {
+      formIsValid = false;
+
+      if (!this.state.mobileOperatorError) {
+        errors["mobileNo"] = "Valid BD phone no. is required.";
+      }
+
     }
+
     this.setState({ errors });
     return formIsValid;
 
@@ -81,6 +118,7 @@ export class ForgetRegistrationNo extends React.Component {
 
     let { errors } = this.state;
     let { applicantInfoList } = this.props;
+    const coreConfigDetails = JSON.parse(localStorage.getItem('admisiaCoreConfigDetails'));
 
     return (
       <div class="admisia">
@@ -91,24 +129,24 @@ export class ForgetRegistrationNo extends React.Component {
           </Helmet>
 
           <BreadcrumComponent
-            pageTitle="Find Forget Reg. No."
+            pageTitle="Search Application"
             menuStepFirst="Online Admision"
-            menuStepSenond="Track"
-            menuStepThird="Forget Registration No. "
+            menuStepSenond="Search"
+            menuStepThird="Forgot Your Registration No."
           />
 
           <section>
             <div className="container-fluid">
               <div className="container m-t-40 online-application">
                 <div className="row">
-                  <div className="col-xl-12"><h2 className="text-center text-orange mb-3">Forget Registration No.</h2></div>
+                  <div className="col-xl-12"><h3 className="text-center text-orange text-bold mb-3"><span>Forgot Your Registration No.</span></h3></div>
 
                   <div className="col-xl-12">
                     <div className="">
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Academic Year: 2020</th>
+                            <th>Academic Year: {coreConfigDetails.currentAdmissionYear ? coreConfigDetails.currentAdmissionYear : ''}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -117,17 +155,19 @@ export class ForgetRegistrationNo extends React.Component {
                               <div className="row">
                                 <div className="col-xl-4">
                                   <FormGroup>
-                                    <Label for="class-group" className="text-primary-light"><small>Mobile No. <span className="required">*</span></small></Label>
+                                    <Label for="class-group" className="admisia-level">Mobile No. <span className="required">*</span></Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
-                                      type="text"
                                       name="class-group"
                                       placeholder="Enter Mobile No."
+                                      maxLength="11"
                                       value={this.props.mobileNo}
                                       onChange={this.onChangeMobileNumber}
                                     >
                                     </Input>
                                     <span className='error-message'>{errors['mobileNo']}</span>
+                                    <span className='error-message'>{this.state.mobileOperatorError ? "Valid BD phone no. is required" : ""}</span>
+
                                   </FormGroup>
                                 </div>
 
@@ -196,14 +236,14 @@ export class ForgetRegistrationNo extends React.Component {
                                           <div class="col-xl-6">
                                             <div class="bg-primary-dark text-center text-white py-3 rounded">
                                               Registration No. <br />
-                                              <b>{applicantInfo.registrationId}</b>
+                                              <span className="font-s-17"><b>{applicantInfo.registrationId}</b></span>
                                             </div>
                                           </div>
 
                                           <div class="col-xl-6 ">
                                             <div class="bg-primary-dark text-center text-white py-3 rounded">
                                               Roll No. <br />
-                                              <b>{applicantInfo.rollNo}</b>
+                                              <span className="font-s-17"> <b>{applicantInfo.rollNo}</b></span>
                                             </div>
                                           </div>
                                         </div>

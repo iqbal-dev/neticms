@@ -34,7 +34,6 @@ import {
 } from './selectors';
 import { Link } from 'react-router-dom';
 
-/* eslint-disable react/prefer-stateless-function */
 export class Footer extends React.Component {
 
   onChangeName = (e) => {
@@ -75,13 +74,11 @@ export class Footer extends React.Component {
         logoContent = instituteUrlInfo[0].logoContent
     }
 
-    console.log('footeer', window.location.pathname);
-    console.log('after-split')
     const currentPathname = window.location.pathname;
     let splitedPath = currentPathname.split('/');
-    console.log('splitedValue', splitedPath);
     let currentFilteredPath = `/${splitedPath[1]}/${splitedPath[2]}`;
-    console.log('currentFilteredPath', currentFilteredPath)
+    // console.log('currentFilteredPath', currentFilteredPath);
+
     return (
       <div>
         {currentFilteredPath !== '/institute/admisia' ?

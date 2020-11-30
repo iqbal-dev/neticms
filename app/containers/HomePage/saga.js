@@ -7,7 +7,8 @@ import {
   fetch_welcomeSpeechBy_cmsId, fetch_noticeBy_cmsId, fetch_instituteHistoryBy_cmsId,
   fetch_instituteTopEventBy_cmsId,
   fetch_coreSettingsListBy_typeId, fetch_coreSettingsClassConfigurationListBy_instituteId, fetch_usefullLinksBy_cmsId,
-  fetch_sliderImage_cmsId
+  fetch_sliderImage_cmsId,
+  fetch_coreConfigListBy_cmsId
 
 } from '../../utils/serviceUrl';
 
@@ -91,6 +92,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
       yield fetch_emAuthToken();
       yield put(setUrlInfo(response.item));
+      yield fetch_admisiaAcademicYear(response.item.cmsId);
 
       let urlDetails = JSON.parse(localStorage.instituteInfo);
       if (urlDetails[0].cmsId && urlDetails[0].emInstituteList.length > 1 && instMappingCheck) {
@@ -153,6 +155,27 @@ export function* fetch_emAuthToken() {
     localStorage.setItem('emToken', JSON.stringify(response));
     // console.log('token-response', response);
   } catch (error) { console.log('token-response-err', error); }
+
+}
+export function* fetch_admisiaAcademicYear(cmsId) {
+
+  // only for online admision menu 
+
+  const requestURL = BASE_URL_NETI_CMS.concat(fetch_coreConfigListBy_cmsId).concat('?cmsId=').concat(cmsId);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = yield call(request, requestURL, options);
+  try {
+    console.log('for admisia academic year-', response);
+    localStorage.setItem('admisiaCoreConfigDetails', JSON.stringify(response.item));
+  } catch (error) {
+    console.log('admisia academic year can not fecth');
+  }
 
 }
 

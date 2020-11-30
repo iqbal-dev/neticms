@@ -195,12 +195,7 @@ export class ApplicationForm extends React.Component {
   onChangeMobileNo = (value) => {
 
     var filteredValue = value.replace(/\D/g, "");
-    // console.log('filteredValue', filteredValue);
     this.props.mobileNo(filteredValue);
-
-    // if (this.props.getMobileNo === "") {
-    //   this.setState({ mobileOperatorError: true });
-    // } else { this.setState({ mobileOperatorError: false }); }
 
     if (filteredValue.length > 2) {
       this.immediateValidOpCheck(filteredValue);
@@ -1433,7 +1428,7 @@ export class ApplicationForm extends React.Component {
                                     {/* within 72 Hours through Bkash app or USSD Dial code. */}
                                       <br />
                                       <p className="m-t-8">
-                                        <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and<br />also further inquiries. <br />
+                                        <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit Card and<br />also for further inquiries. <br />
                                       </p>
                                     </div>
 

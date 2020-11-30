@@ -47,7 +47,8 @@ export class AdmisiaDownload extends React.Component {
   }
 
   onChangeRegNumber = (e) => {
-    this.props.onChangeRegNo(e.target.value);
+    var filteredValue = e.target.value.replace(/\D/g, "");
+    this.props.onChangeRegNo(filteredValue);
     this.clearErrorMsg('registrationNo')
   }
 
@@ -112,6 +113,7 @@ export class AdmisiaDownload extends React.Component {
 
     let { errors } = this.state;
     let { applicantInfoList } = this.props;
+    const coreConfigDetails = JSON.parse(localStorage.getItem('admisiaCoreConfigDetails'));
 
     return (
       <div class="admisia">
@@ -137,7 +139,7 @@ export class AdmisiaDownload extends React.Component {
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Academic Year: 2020</th>
+                            <th>Academic Year: {coreConfigDetails.currentAdmissionYear ? coreConfigDetails.currentAdmissionYear : ''}</th>
                             {/* <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</span></th> */}
                           </tr>
                         </thead>
@@ -148,12 +150,12 @@ export class AdmisiaDownload extends React.Component {
                               <div className="row">
                                 <div className="col-xl-4">
                                   <FormGroup>
-                                    <Label for="class-group" className="text-primary-light"><small>Registration No. <span className="required">*</span></small></Label>
+                                    <Label for="class-group" className="admisia-level">Registration No. <span className="required">*</span></Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
-                                      type="number"
                                       name="class-group"
                                       placeholder="Enter Registration No."
+                                      maxLength="15"
                                       value={this.props.registrationNo}
                                       onChange={this.onChangeRegNumber}
                                     >

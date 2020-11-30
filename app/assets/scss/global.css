@@ -370,6 +370,9 @@
 .text-primary-dark {
   color: #002749 !important; }
 
+.level-color {
+  color: #002749; }
+
 .admisia-level {
   color: #002749;
   font-weight: 600;
@@ -2805,6 +2808,10 @@
 .success-wrapper .MuiLinearProgress-root {
   height: 8px !important; }
 
+.btn-no-hover {
+  background: #ff4e31 !important;
+  color: #fff !important; }
+
 .rbc-calendar .rbc-toolbar .rbc-btn-group button {
   font-size: 12px; }
 .rbc-calendar .rbc-toolbar .rbc-toolbar-label {
@@ -3015,6 +3022,18 @@
 
 .text-bold {
   font-weight: bold; }
+
+.font-w-primary {
+  font-weight: 600; }
+
+.font-s-25 {
+  font-size: 25px; }
+
+.font-s-18 {
+  font-size: 18px; }
+
+.font-s-17 {
+  font-size: 17px; }
 
 .f-left {
   float: left; }

@@ -43,7 +43,8 @@ export class TrackApplication extends React.Component {
   }
 
   onChangeRegNumber = (e) => {
-    this.props.onChangeRegNo(e.target.value);
+    var filteredValue = e.target.value.replace(/\D/g, "");
+    this.props.onChangeRegNo(filteredValue);
     this.clearErrorMsg('registrationNo')
   }
 
@@ -94,7 +95,7 @@ export class TrackApplication extends React.Component {
               <p className="">Oops !!! Your application is in "Pending" status for Assesment.</p>
 
               <Button
-                className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
+                className="btn all-border-radious no-border btn-no-hover border-0 mt-xl-2 px-4"
                 disabled
               >
                 ADMIT CARD
@@ -157,7 +158,7 @@ export class TrackApplication extends React.Component {
               <p className="">Sorry !!! Your are "Rejected" for Assesment.</p>
 
               <Button
-                className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
+                className="btn all-border-radious no-border btn-no-hover border-0 mt-xl-2 px-4"
                 // onClick={examInfoDialog}
                 disabled
               >
@@ -187,7 +188,7 @@ export class TrackApplication extends React.Component {
             <p className="">Oops !!! Your application is in "Pending" status for Admission.</p>
 
             <Button
-              className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
+              className="btn all-border-radious no-border btn-no-hover border-0 mt-xl-2 px-4"
               // onClick={examInfoDialog}
               disabled
             >
@@ -208,7 +209,7 @@ export class TrackApplication extends React.Component {
             <p className="">Sorry !!! Your are "Rejected" for Admission.</p>
 
             <Button
-              className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
+              className="btn all-border-radious no-border btn-no-hover border-0 mt-xl-2 px-4"
               // onClick={examInfoDialog}
               disabled
             >
@@ -235,7 +236,7 @@ export class TrackApplication extends React.Component {
             <p className="">You are in "Waiting" list for Admission.</p>
 
             <Button
-              className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
+              className="btn all-border-radious no-border btn-no-hover border-0 mt-xl-2 px-4"
               // onClick={examInfoDialog}
               disabled
             >
@@ -260,15 +261,15 @@ export class TrackApplication extends React.Component {
           <div className="col-xl-9 font-weight-bold">
             <div className=" d-flex align-items-center justify-content-center shape-circle approved">A</div>
             <h2 className="mt-3"><b>Approved For Admission</b></h2>
-            <p className=""><span className="text-orange">Congratulation !!! </span> Your application has been "Approved" for Admission.</p>
+            <p className=""><span className="text-orange">Congratulation !!! </span> You are eligible for admission to our institute.</p>
 
             <Link
-              className="btn all-border-radious no-border explore-btn mx-2 "
+              className="btn all-border-radious no-border explore-btn "
               to={{ pathname: '/institute/admission_confirmation_letter' }}
               disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ? false : true}
               target="_blank"
             >
-              Confirmation Letter
+              Admission Confirmation Letter
             </Link>
 
             {/* <Button
@@ -333,6 +334,7 @@ export class TrackApplication extends React.Component {
 
     let { errors } = this.state;
     let { applicantInfoList } = this.props;
+    const coreConfigDetails = JSON.parse(localStorage.getItem('admisiaCoreConfigDetails'));
 
     return (
       <div class="admisia">
@@ -344,23 +346,23 @@ export class TrackApplication extends React.Component {
           {/* <FormattedMessage {...messages.header} /> */}
 
           <BreadcrumComponent
-            pageTitle="Search"
+            pageTitle="Search Application"
             menuStepFirst="Online Admision"
-            menuStepSenond="Track"
+            menuStepSenond="Search"
           />
 
           <section>
             <div className="container-fluid">
               <div className="container m-t-40 online-application">
                 <div className="row">
-                  <div className="col-xl-12"><h2 className="text-center text-orange mb-3">Track Your Application</h2></div>
+                  <div className="col-xl-12"><h3 className="text-center text-orange text-bold mb-3">Track Your Application</h3></div>
 
                   <div className="col-xl-12">
                     <div className="">
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Academic Year: 2020</th>
+                            <th>Academic Year: {coreConfigDetails.currentAdmissionYear ? coreConfigDetails.currentAdmissionYear : ''}</th>
                             {/* <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</span></th> */}
                           </tr>
                         </thead>
@@ -370,14 +372,14 @@ export class TrackApplication extends React.Component {
                               <div className="row">
                                 <div className="col-xl-4">
                                   <FormGroup>
-                                    <Label for="class-group" className="text-primary-light"><small>Registration No. <span className="required">*</span></small></Label>
+                                    <Label for="class-group" className="admisia-level">Registration No. <span className="required">*</span></Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
-                                      type="number"
                                       name="class-group"
                                       placeholder="Enter Registration No."
                                       value={this.props.registrationNo}
                                       onChange={this.onChangeRegNumber}
+                                      maxLength="15"
                                     >
                                     </Input>
                                     <span className='error-message'>{errors['registrationNo']}</span>
@@ -419,7 +421,7 @@ export class TrackApplication extends React.Component {
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Applicant Status</th>
+                            <th>Application Status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -827,8 +829,6 @@ export class TrackApplication extends React.Component {
                           </table>
                         </td>
                       </tr>
-                      )
-
                     </table>
                   </div>
                 </div>

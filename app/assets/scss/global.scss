@@ -28,6 +28,21 @@
 .text-bold {
   font-weight: bold;
 }
+.font-w-primary {
+  font-weight: $fontWeightPrimary;
+}
+
+.font-s-25 {
+  font-size: 25px;
+}
+
+.font-s-18 {
+  font-size: 18px;
+}
+
+.font-s-17 {
+  font-size: 17px;
+}
 
 .f-left {
   float: left;
