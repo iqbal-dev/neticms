@@ -278,13 +278,16 @@ export class AdmisiaDownload extends React.Component {
 
                                   {applicantInfoList.applicantFeeStatus === 1 ?
 
-                                    <div class="col-xl-9 text-success mt-5">
+                                    <div class="col-xl-8 text-success mt-5">
                                       {applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
-                                        <h4><b><i className="fas fa-info-circle"></i> Download your Confirmation Letter. </b></h4>
+                                        <h4><b><i className="fas fa-info-circle"></i> Download your Admission Confirmation Letter. </b></h4>
                                         :
-                                        <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
+                                        applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1
+                                          || applicantInfoList.applicantStatus === 2 || applicantInfoList.applicantStatus === 0 ?
+                                          <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
+                                          :
+                                          <h4><b><i className="fas fa-info-circle"></i> Download your Admission Confirmation Letter. </b></h4>
                                       }
-
                                     </div>
                                     : applicantInfoList.applicantFeeStatus === 0 ?
                                       <div class="col-xl-9 text-orange mt-5">
@@ -293,18 +296,17 @@ export class AdmisiaDownload extends React.Component {
                                       : ''}
 
                                   {applicantInfoList.applicantFeeStatus === 1 ?
-                                    <div class="col-xl-3 text-orange mt-5">
+                                    <div class="col-xl-4 text-orange mt-5 text-center">
                                       <FormGroup className="mb-0">
 
                                         {applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
 
                                           <Link
-                                            className="btn all-border-radious no-border explore-btn mx-2 "
+                                            className="btn all-border-radious no-border explore-btn mx-2"
                                             to={{ pathname: '/institute/admission_confirmation_letter' }}
-                                            disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ? false : true}
                                             target="_blank"
                                           >
-                                            Confirmation Letter
+                                            Admission Confirmation Letter
                                           </Link>
 
                                           // <Button
@@ -317,15 +319,55 @@ export class AdmisiaDownload extends React.Component {
                                           // </Button>
 
                                           :
+                                          applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 0
+                                            || applicantInfoList.applicantStatus === 2 ?
+                                            <Button
+                                              className="btn all-border-radious no-border btn-no-hover border-0"
+                                              disabled={true}
+                                            >
+                                              Admit Card
+                                            </Button>
+                                            :
+                                            applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1 ?
+                                              <Button
+                                                className="btn all-border-radious no-border explore-btn border-0"
+                                                onClick={this.onDownloadAdmitCard}
+                                              >
+                                                Admit Card
+                                            </Button>
+                                              :
 
-                                          <Button
-                                            className="btn all-border-radious no-border explore-btn border-0"
-                                            onClick={this.onDownloadAdmitCard}
-                                            disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1 ?
-                                              false : true}
-                                          >
-                                            Admit Card
-                                      </Button>
+                                              <Button
+                                                className="btn all-border-radious no-border btn-no-hover border-0"
+                                                disabled={true}
+                                              >
+                                                Admission Confirmation Letter
+                                            </Button>
+
+                                          //   <Link
+                                          //     className="btn all-border-radious no-border btn-no-hover mx-2"
+                                          //     disabled="true"
+                                          //     target="_blank"
+                                          //     to=""
+                                          //   >
+                                          //     Admission Confirmation Letter
+                                          // </Link>
+
+                                          // <Button
+                                          //   className="btn all-border-radious no-border btn-no-hover border-0"
+                                          //   disabled={true}
+                                          // >
+                                          //   Admit Card
+                                          // </Button>
+
+                                          //     <Button
+                                          //       className="btn all-border-radious no-border explore-btn border-0 f-right"
+                                          //       onClick={this.onDownloadAdmitCard}
+                                          //       disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1 ?
+                                          //         false : true}
+                                          //     >
+                                          //       Admit Card
+                                          // </Button>
 
                                         }
 
