@@ -46,7 +46,7 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
 
   let insertApplicantInfoObj = yield select(makeSelectInsertApplicantInfo());
 
-  console.log('insertApplicantInfoObj', insertApplicantInfoObj);
+  // console.log('insertApplicantInfoObj', insertApplicantInfoObj);
 
   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
   let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
@@ -76,9 +76,9 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
       applicantPreviousExamViewResponses: response.item.applicantPreviousExamViewResponses
     }
 
-    console.log('downloadInformationObj', downloadInformationObj);
+    // console.log('downloadInformationObj', downloadInformationObj);
     downloadInformationArray.push(downloadInformationObj);
-    console.log('downloadInformationArray', downloadInformationArray);
+    // console.log('downloadInformationArray', downloadInformationArray);
 
     sessionStorage.setItem("applicantFromDownloadData", JSON.stringify(downloadInformationObj));
 

@@ -432,7 +432,6 @@ export class ApplicationForm extends React.Component {
   onSubmitAdditionalInfo = () => {
 
     let { insertUserObj, errors, additionalInfoId } = this.state;
-    // console.log("this.props.submitAdditionalInfo", insertUserObj.additionalInfos.length);
 
     if (this.handleAdditionalInfoError()) {
       let additionalInfo = {
@@ -652,8 +651,6 @@ export class ApplicationForm extends React.Component {
     // console.log("main-getAdditionalInfo", getAdditionalInfo);
     // console.log("getApplicantView", getApplicantView);
 
-    console.log(" this.props.loader", this.props.loader);
-
     const examInfoDialog = () => {
       this.resetApplicantPreviousExamData();
       this.setState({ examInfoDialogVisible: !this.state.examInfoDialogVisible, additionalInfoId: '' });
@@ -681,9 +678,6 @@ export class ApplicationForm extends React.Component {
     for (let i = 0; i < 10; i++) {
       passingYear.push(year - i)
     }
-
-    // console.log('state.additionalInfoId', this.state.insertUserObj.additionalInfos);
-    // console.log('getApplicantView.applicantPersonalViewResponse', getApplicantView);
 
     return (
       <div class="admisia">
