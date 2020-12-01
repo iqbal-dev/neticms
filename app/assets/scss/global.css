@@ -3026,11 +3026,23 @@
 .font-w-primary {
   font-weight: 600; }
 
+.font-w-secondary {
+  font-weight: 500; }
+
+.font-w-400 {
+  font-weight: 400; }
+
+.font-w-401 {
+  font-weight: 401; }
+
 .font-s-25 {
   font-size: 25px; }
 
 .font-s-18 {
   font-size: 18px; }
+
+.font-s-20 {
+  font-size: 20px; }
 
 .font-s-17 {
   font-size: 17px; }
@@ -3046,6 +3058,9 @@
 
 .m-l-0 {
   margin-left: 0; }
+
+.margin-l-4 {
+  margin-left: 4px; }
 
 .p-0 {
   padding: 0; }

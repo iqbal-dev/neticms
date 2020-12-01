@@ -32,12 +32,28 @@
   font-weight: $fontWeightPrimary;
 }
 
+.font-w-secondary {
+  font-weight: $fontWeightSecondary;
+}
+
+.font-w-400 {
+  font-weight: $fontWeightSecondarySmall;
+}
+
+.font-w-401 {
+  font-weight: 401;
+}
+
 .font-s-25 {
   font-size: 25px;
 }
 
 .font-s-18 {
   font-size: 18px;
+}
+
+.font-s-20 {
+  font-size: 20px;
 }
 
 .font-s-17 {
@@ -59,6 +75,10 @@
 .m-l-0 {
   margin-left: 0;
 }
+.margin-l-4 {
+  margin-left: 4px;
+}
+
 .p-0 {
   padding: 0;
 }

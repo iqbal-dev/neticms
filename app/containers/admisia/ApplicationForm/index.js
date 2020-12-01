@@ -781,7 +781,8 @@ export class ApplicationForm extends React.Component {
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Class</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.className) || (admissionObj && admissionObj.className)}</div>
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Group</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.groupName) || (admissionObj && admissionObj.groupName)}</div>
                                         {this.state.pageThird ?
-                                          <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: {this.props.loader === "RegLoaderOn" || this.props.loader === "RNLoaderOn" ? inputFieldLoaderLarge() : (this.props.applicantInfoList && this.props.applicantInfoList.rollNo)}</div>
+                                          <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>:
+                                           {this.props.loader === "RegLoaderOn" || this.props.loader === "RNLoaderOn" ? inputFieldLoaderLarge() : <span className="text-orange text-bold margin-l-4 font-s-20">{this.props.applicantInfoList && this.props.applicantInfoList.rollNo}</span>}</div>
                                           : null
                                         }
                                       </div>
@@ -1404,7 +1405,6 @@ export class ApplicationForm extends React.Component {
                             <thead>
                               <tr>
                                 <th>Success Message</th>
-                                {/* <th className="text-right"><span>Application End Date : 31 Oct, 2020</span></th> */}
                               </tr>
                             </thead>
                             <tbody>
@@ -1423,11 +1423,10 @@ export class ApplicationForm extends React.Component {
 
                                     </div>
 
-                                    <div className="col-xl-12 success-details">
+                                    <div className="col-xl-12 success-details font-w-401">
                                       Your Registration No.  <span className="text-orange" style={{ fontSize: 'x-large' }}> <strong>{this.props.applicantInfoList.registrationId}</strong></span>, Please keep this number to pay the application fee {admissionObj.totalFee}.00/= taka.
-                                    {/* within 72 Hours through Bkash app or USSD Dial code. */}
                                       <br />
-                                      <p className="m-t-8">
+                                      <p className="m-t-8 font-w-401 ">
                                         <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit Card and<br />also for further inquiries. <br />
                                       </p>
                                     </div>
@@ -1448,7 +1447,6 @@ export class ApplicationForm extends React.Component {
 
                                       <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and also further inquiries. <br />
                                     </small>
-
                                   </div> */}
 
                                   </td>
@@ -1571,7 +1569,7 @@ export class ApplicationForm extends React.Component {
                     <div className="row">
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="admisia-level dialog-level">INSTITUTE NAME <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">INSTITUTE NAME <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1587,7 +1585,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="admisia-level dialog-level">INSTITUTE TYPE <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">INSTITUTE TYPE <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1613,7 +1611,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="admisia-level dialog-level">BOARD <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">BOARD <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1641,7 +1639,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="admisia-level dialog-level">CLASS <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">CLASS <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1657,7 +1655,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="admisia-level dialog-level">ROLL NO. <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">ROLL NO. <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="number"
@@ -1674,7 +1672,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="admisia-level dialog-level">REGISTRATION NO.</Label><span className='f-right'> (optional)</span>
+                          <Label for="class-group" className="admisia-level">REGISTRATION NO.</Label><span className='f-right'> (optional)</span>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="number"
@@ -1691,7 +1689,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="admisia-level dialog-level">EXAM <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">EXAM <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1707,7 +1705,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="admisia-level dialog-level">GRADE <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">GRADE <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1731,7 +1729,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup>
-                          <Label for="class-group" className="admisia-level dialog-level">GPA <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">GPA <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="text"
@@ -1747,7 +1745,7 @@ export class ApplicationForm extends React.Component {
 
                       <div className="col-xl-6">
                         <FormGroup className="custom-dropdown">
-                          <Label for="class-group" className="admisia-level dialog-level">PASSING YEAR <span className="required">*</span></Label>
+                          <Label for="class-group" className="admisia-level">PASSING YEAR <span className="required">*</span></Label>
                           <Input
                             className=" bg-white border-0 rounded-0"
                             type="select"
@@ -1786,7 +1784,7 @@ export class ApplicationForm extends React.Component {
                   <ModalBody className="bg-light p-5">
                     <div className="row text-center">
                       <div className="col-12">
-                        <label className="admisia-level">  Are you sure <br /> You want to permanently delete your Previous Exam Info?</label>
+                        <label className="admisia-level">  Are you sure you want to permanently delete <br /> your previous exam info?</label>
                       </div>
 
                       <div className="col-12 mt-4">

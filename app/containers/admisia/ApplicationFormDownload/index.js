@@ -113,7 +113,7 @@ export class ApplicationFormDownload extends React.Component {
                                   <div class=" student-details-info">
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Class</label>: {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.clasName}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Group</label>: {applicantInfoDetails.applicantPersonalViewResponse.groupName}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.rollNo}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Roll No.</label>: <span className="text-orange text-bold margin-l-4 font-s-20">{applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.rollNo}</span></div>
                                   </div>
                                 </div>
                               </div>
@@ -155,7 +155,6 @@ export class ApplicationFormDownload extends React.Component {
                         <thead>
                           <tr>
                             <th colSpan="3">Personal Information</th>
-                            {/* <th className="text-right"><span>Application End Date : 31 Oct, 2020</span></th> */}
                           </tr>
                         </thead>
                         <tbody>
@@ -181,6 +180,38 @@ export class ApplicationFormDownload extends React.Component {
                             </td>
                           </tr>
 
+                        </tbody>
+                      </Table>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row mt-1">
+                  <div className="col-xl-12">
+                    <div className="">
+                      <Table striped responsive className="application-form-table">
+                        <thead>
+                          <tr>
+                            <th>Parents Information</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="p-4">
+                              <div className="row">
+                                <div class="col-xl-12">
+                                  <div class=" student-details-info">
+                                    <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Father's Name</label>: {(applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.fatherName)}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Occupation</label>: {(applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.fatherOccupation)}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's NID</label>: {(applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.fatherNidNo)}</div>
+                                    <div className="d-flex align-items-center mt-0"><div class="task-badge found"></div><label>Mother's Name</label>: {(applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.motherName)}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Occupation</label>: {(applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.motherOccupation)}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's NID</label>: {(applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.motherNidNo)}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
                         </tbody>
                       </Table>
                     </div>
@@ -280,11 +311,11 @@ export class ApplicationFormDownload extends React.Component {
 
                                 </div>
 
-                                <div className="col-xl-12 success-details">
+                                <div className="col-xl-12 success-details font-w-401">
                                   Your Registration No.  <span className="text-orange" style={{ fontSize: 'x-large' }}> <strong>{applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.registrationId}</strong> </span>, Please keep this number to pay the application fee {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.totalFee}.00/= taka.
                                     {/* within 72 Hours through Bkash app or USSD Dial code. */}
                                   <br />
-                                  <p className="m-t-8">
+                                  <p className="m-t-8 font-w-401">
                                     <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and<br />also further inquiries. <br />
                                   </p>
                                 </div>
