@@ -190,6 +190,11 @@ export class Payment extends React.Component {
                                       </div>
 
                                       <div className="mb-4">
+                                        <Label for="class-group" className="text-primary-light">Payable Amount</Label>
+                                        <h4 className="text-orange"><b>{applicantInfoList.totalFee}</b></h4>
+                                      </div>
+
+                                      <div className="mb-4">
                                         <Label for="class-group" className="text-primary-light">Payment Status</Label>
                                         {applicantInfoList.applicantFeeStatus === 1 ? <h4 className="text-success"><b>Paid</b></h4>
                                           : applicantInfoList.applicantFeeStatus === 0 ? <h4 className="text-orange"><b>Unpaid</b></h4>
