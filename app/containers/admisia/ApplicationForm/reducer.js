@@ -43,7 +43,12 @@ import {
   SET_APPLICANT_VIEW,
   SET_APPLICANT_INFO_DETAILS_LIST,
   SET_MESSAGE,
-  SET_LOADER
+  SET_LOADER,
+
+  SET_DIVISION_LIST,
+  SET_DISTRICT_LIST,
+  SET_DIVISION_ID,
+  SET_DISTRICT_ID,
 } from './constants';
 
 export const initialState = fromJS({
@@ -86,7 +91,12 @@ export const initialState = fromJS({
   applicantView: {},
   applicantInfoList: [],
   message: '',
-  loader: ''
+  loader: '',
+
+  divisionList: [],
+  districtList: [],
+  divisionId: '',
+  districtId: '',
 });
 
 function applicationFormReducer(state = initialState, action) {
@@ -195,6 +205,18 @@ function applicationFormReducer(state = initialState, action) {
 
     case SET_LOADER:
       return state.set('loader', action.loader);
+
+    case SET_DIVISION_LIST:
+      return state.set('divisionList', action.divisionList);
+
+    case SET_DISTRICT_LIST:
+      return state.set('districtList', action.districtList);
+
+    case SET_DIVISION_ID:
+      return state.set('divisionId', action.divisionId);
+
+    case SET_DISTRICT_ID:
+      return state.set('districtId', action.districtId);
 
     default:
       return state;

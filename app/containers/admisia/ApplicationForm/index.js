@@ -49,6 +49,12 @@ import makeSelectApplicationForm, {
   makeSelectApplicantInfoList,
   makeSelectMessage,
   makeSelectLoader,
+
+  makeSelectDivisionList,
+  makeSelectDistrictList,
+  makeSelectDivisionId,
+  makeSelectDistrictId,
+
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -87,8 +93,12 @@ import {
 
   makeChangeSubmitAdditionalInfo,
   makeSubmitInsertApplicantInfo,
-  setMessage
+  setMessage,
 
+  setDivisionList,
+  setDistrictList,
+  setDivisionID,
+  setDistrictID
 } from './actions';
 
 import { AppLayout } from '../../AppLayout';
@@ -138,7 +148,7 @@ export class ApplicationForm extends React.Component {
         "fileSave": false,
         "mobileNo": "",
         "addressDetails": "",
-
+        "districtId": "",
         "fatherName": "",
         "fatherOccupation": "",
         "fatherNidNo": "",
@@ -266,6 +276,16 @@ export class ApplicationForm extends React.Component {
       formIsValid = false;
     }
 
+    if (!this.props.divisionId) {
+      formIsValid = false;
+      errors["divisionId"] = "Division can't left empty.";
+    }
+
+    if (!this.props.districtId) {
+      formIsValid = false;
+      errors["districtId"] = "District can't left empty.";
+    }
+
     if (!this.props.getAddressDetails) {
       formIsValid = false;
       errors["addressDetails"] = "Address Details can't left empty.";
@@ -340,6 +360,7 @@ export class ApplicationForm extends React.Component {
         insertUserObj.fileContent = this.props.getFileContent
         insertUserObj.fileSave = true
         insertUserObj.mobileNo = this.props.getMobileNo
+        insertUserObj.districtId = this.props.districtId
         insertUserObj.addressDetails = this.props.getAddressDetails
 
         insertUserObj.fatherName = this.props.getFatherName
@@ -609,6 +630,8 @@ export class ApplicationForm extends React.Component {
 
     this.props.mobileNo('');
     this.props.addressDetails('');
+    this.props.setDivisionID('');
+    this.props.setDistrictID('');
 
     this.props.fatherName('');
     this.props.fatherOccupation('');
@@ -646,7 +669,7 @@ export class ApplicationForm extends React.Component {
   render() {
 
     let { admissionObj, errors } = this.state;
-    let { getAdditionalInfo, getApplicantView } = this.props;
+    let { getAdditionalInfo, getApplicantView, divisionList, districtList } = this.props;
 
     // console.log("main-getAdditionalInfo", getAdditionalInfo);
     // console.log("getApplicantView", getApplicantView);
@@ -678,6 +701,18 @@ export class ApplicationForm extends React.Component {
     for (let i = 0; i < 10; i++) {
       passingYear.push(year - i)
     }
+
+    // console.log('divisionList-index', this.props.divisionList);
+    // console.log('divisionId-index', this.props.divisionId);
+    // console.log('districtId-index', this.props.districtId);
+
+    // let divisionOptions = [];
+    // if (this.props.divisionList && this.props.divisionList.length) {
+    //   divisionOptions = this.props.divisionList.map(item => ({
+    //     label: item.divisionName,
+    //     value: item.divisionId
+    //   }))
+    // }
 
     return (
       <div class="admisia">
@@ -999,7 +1034,7 @@ export class ApplicationForm extends React.Component {
                                   </div>
 
                                   <div className="col-xl-4">
-                                    <FormGroup>
+                                    <FormGroup className="custom-dropdown">
                                       <Label for="class-group" className="admisia-level">GUARDIAN MOBILE NO. <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
@@ -1025,14 +1060,51 @@ export class ApplicationForm extends React.Component {
                                     </small>
                                   </div>
 
-                                  <div className="col-xl-8">
-                                    <FormGroup>
-                                      <Label for="class-group" className="admisia-level">ADDRESS <span className="required">*</span></Label>
+                                  <div className="col-xl-4 text-primary">
+                                    <FormGroup className="custom-dropdown">
+                                      <Label className="admisia-level">DIVISION<span className="required">*</span> </Label>
+
+                                      <Input type="select" name="section"
+                                        className=" bg-white border-0 rounded-0"
+                                        onChange={(e) => { this.props.setDivisionID(e.target.value); this.state.errors["divisionId"] = '' }}
+                                      >
+                                        <option value=''>Select Division</option>
+                                        {
+                                          divisionList && divisionList.map((item) =>
+                                            <option key={item.divisionId} value={item.divisionId}>{item.divisionName}</option>
+                                          )
+                                        }
+                                      </Input>
+                                      <span className="error-message"> {errors['divisionId']}</span>
+                                    </FormGroup>
+                                  </div>
+
+                                  <div className="col-xl-4">
+                                    <FormGroup className="custom-dropdown">
+                                      <Label for="class-group" className="admisia-level">DISTRICT <span className="required">*</span> </Label>
+                                      <Input type="select" name="section"
+                                        className=" bg-white border-0 rounded-0"
+                                        onChange={(e) => { this.props.setDistrictID(e.target.value); this.state.errors["districtId"] = '' }}
+                                      >
+                                        <option value=''>Select District</option>
+                                        {
+                                          districtList && districtList.map((item) =>
+                                            <option key={item.districtId} value={item.districtId}>{item.districtName}</option>
+                                          )
+                                        }
+                                      </Input>
+                                      <span className="error-message"> {errors['districtId']}</span>
+                                    </FormGroup>
+                                  </div>
+
+                                  <div className="col-xl-8 text-primary m-t-15">
+                                    <FormGroup className="custom-dropdown">
+                                      <Label className="admisia-level">ADDRESS DETAILS <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
                                         type="textarea"
-                                        name="class-group"
-                                        placeholder="Enter Address"
+                                        name="address"
+                                        placeholder="Enter Address Details"
                                         style={{ height: "150px" }}
                                         value={this.props.getAddressDetails}
                                         onChange={(e) => { this.props.addressDetails(e); this.state.errors["addressDetails"] = '' }}
@@ -1846,6 +1918,12 @@ const mapStateToProps = createStructuredSelector({
   applicantInfoList: makeSelectApplicantInfoList(),
   message: makeSelectMessage(),
   loader: makeSelectLoader(),
+
+  divisionList: makeSelectDivisionList(),
+  districtList: makeSelectDistrictList(),
+  divisionId: makeSelectDivisionId(),
+  districtId: makeSelectDistrictId(),
+
 });
 
 function mapDispatchToProps(dispatch) {
@@ -1884,6 +1962,9 @@ function mapDispatchToProps(dispatch) {
     examGpa: (value) => { dispatch(makeChangeExamGpa(value)) },
     passingYear: (value) => { dispatch(makeChangePassingYear(value)) },
     setMessage: () => { dispatch(setMessage('')) },
+
+    setDivisionID: (value) => { dispatch(setDivisionID(value)) },
+    setDistrictID: (value) => { dispatch(setDistrictID(value)) },
 
     submitAdditionalInfo: (additionalInfo) => { dispatch(makeChangeSubmitAdditionalInfo(additionalInfo)) },
     onSubmitInsertApplicantInfo: (applicationInfo) => { dispatch(makeSubmitInsertApplicantInfo(applicationInfo)) },

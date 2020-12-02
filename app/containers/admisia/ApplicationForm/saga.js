@@ -4,20 +4,53 @@ import {
   BASE_URL_NETI_CMS,
   insert_applicant_info,
   FETCH_APPLICANT_INFO_DETAILS_BY_REG_ID,
+  FETCH_DIVISION_LIST,
+  FETCH_DISTRICT_LIST_BY_DIVISION,
 } from '../../../utils/serviceUrl';
 
-import { SET_ON_SUBMIT_INSERT_APPLICANT_INFO } from './constants';
+import { SET_ON_SUBMIT_INSERT_APPLICANT_INFO, SET_DIVISION_ID } from './constants';
 import {
   setApplicantInfoListByRegId,
   setMessage,
-  setLoader
+  setLoader,
+  setDivisionList,
+  setDistrictList
 } from './actions';
-import { makeSelectInsertApplicantInfo } from './selectors';
+import { makeSelectInsertApplicantInfo, makeSelectDivisionId } from './selectors';
+
+export function* fetch_divisionList() {
+
+  const requestURL = BASE_URL_NETI_CMS.concat(FETCH_DIVISION_LIST);
+  const options = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
+  try {
+    const response = yield call(request, requestURL, options);
+    console.log('response', response);
+    yield put(setDivisionList(response.item));
+  } catch (error) {
+    console.log('division not fetch');
+  }
+
+}
+
+export function* fetch_districtList() {
+
+  const divisionId = yield select(makeSelectDivisionId());
+  const requestURL = BASE_URL_NETI_CMS.concat(FETCH_DISTRICT_LIST_BY_DIVISION).concat('?divisionId=').concat(divisionId);
+  const options = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
+  try {
+    const response = yield call(request, requestURL, options);
+    console.log('district-response', response);
+    yield put(setDistrictList(response.item));
+  } catch (error) {
+    console.log('district not fetch');
+  }
+
+}
 
 export function* submitApplicantInfo() {
 
   let insertApplicantInfo = yield select(makeSelectInsertApplicantInfo());
-  // console.log("INSERT OBJ", insertApplicantInfo);
+  console.log("INSERT OBJ", insertApplicantInfo);
   yield put(setLoader('RegLoaderOn'));
 
   const requestURL = BASE_URL_NETI_CMS.concat(insert_applicant_info);
@@ -86,5 +119,7 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
 }
 
 export default function* applicationFormSaga() {
-  yield takeLatest(SET_ON_SUBMIT_INSERT_APPLICANT_INFO, submitApplicantInfo)
+  yield fetch_divisionList();
+  yield takeLatest(SET_DIVISION_ID, fetch_districtList);
+  yield takeLatest(SET_ON_SUBMIT_INSERT_APPLICANT_INFO, submitApplicantInfo);
 }

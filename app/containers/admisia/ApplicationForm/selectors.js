@@ -121,7 +121,17 @@ const makeSelectMessage = () =>
 const makeSelectLoader = () =>
   createSelector(selectApplicationFormDomain, substate => substate.get('loader'));
 
-// makeSubmitInsertApplicantInfo
+const makeSelectDivisionList = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('divisionList'));
+
+const makeSelectDistrictList = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('districtList'));
+
+const makeSelectDivisionId = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('divisionId'));
+
+const makeSelectDistrictId = () =>
+  createSelector(selectApplicationFormDomain, substate => substate.get('districtId'));
 
 export default makeSelectApplicationForm;
 export {
@@ -162,5 +172,11 @@ export {
   makeSelectApplicantView,
   makeSelectApplicantInfoList,
   makeSelectMessage,
-  makeSelectLoader
+  makeSelectLoader,
+
+  makeSelectDivisionList,
+  makeSelectDistrictList,
+  makeSelectDivisionId,
+  makeSelectDistrictId,
+
 };

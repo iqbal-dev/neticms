@@ -42,6 +42,12 @@ export const SET_APPLICANT_VIEW = 'app/ApplicationForm/SET_APPLICANT_VIEW';
 
 export const SET_APPLICANT_INFO_DETAILS_LIST = 'app/ApplicationForm/SET_APPLICANT_INFO_DETAILS_LIST';
 
+export const SET_DIVISION_LIST = 'app/ApplicationForm/SET_DIVISION_LIST';
+export const SET_DISTRICT_LIST = 'app/ApplicationForm/SET_DISTRICT_LIST';
+
+export const SET_DIVISION_ID = 'app/ApplicationForm/SET_DIVISION_ID';
+export const SET_DISTRICT_ID = 'app/ApplicationForm/SET_DISTRICT_ID';
+
 export const SET_MESSAGE = 'app/ApplicationForm/SET_MESSAGE';
 export const SET_LOADER = 'app/ApplicationForm/SET_LOADER';
 

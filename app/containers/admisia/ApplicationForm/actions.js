@@ -42,7 +42,12 @@ import {
   SET_APPLICANT_VIEW,
   SET_APPLICANT_INFO_DETAILS_LIST,
   SET_MESSAGE,
-  SET_LOADER
+  SET_LOADER,
+  SET_DIVISION_LIST,
+  SET_DISTRICT_LIST,
+  SET_DIVISION_ID,
+  SET_DISTRICT_ID,
+
 } from './constants';
 
 export function defaultAction() {
@@ -272,6 +277,34 @@ export function setApplicantInfoListByRegId(applicantInfo) {
   return {
     type: SET_APPLICANT_INFO_DETAILS_LIST,
     applicantInfo
+  };
+}
+
+export function setDivisionList(divisionList) {
+  return {
+    type: SET_DIVISION_LIST,
+    divisionList
+  };
+}
+
+export function setDistrictList(districtList) {
+  return {
+    type: SET_DISTRICT_LIST,
+    districtList
+  };
+}
+
+export function setDivisionID(divisionId) {
+  return {
+    type: SET_DIVISION_ID,
+    divisionId
+  };
+}
+
+export function setDistrictID(districtId) {
+  return {
+    type: SET_DISTRICT_ID,
+    districtId
   };
 }
 

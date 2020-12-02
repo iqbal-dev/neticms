@@ -118,3 +118,7 @@ export const FETCH_APPLICANT_PERSONAL_INFO_BY_REG_ID = "/public/applicant/person
 export const FETCH_APPLICANT_PERSONAL_INFO_BY_MOBILE = "/public/applicant/info/by-mobileNo";
 
 export const ADMISIA_ADMIT_CARD_DOWNLOAD = "/admisia/download/admit-card";
+
+// Address related Fetch api
+export const FETCH_DIVISION_LIST = '/public/location/info/division-list';
+export const FETCH_DISTRICT_LIST_BY_DIVISION = '/public/location/info/district-list/by/division-id';
