@@ -8,7 +8,7 @@ import {
   FETCH_DISTRICT_LIST_BY_DIVISION,
 } from '../../../utils/serviceUrl';
 
-import { SET_ON_SUBMIT_INSERT_APPLICANT_INFO, SET_DIVISION_ID } from './constants';
+import { SET_ON_SUBMIT_INSERT_APPLICANT_INFO, SET_DIVISION_ID, SET_DISTRICT_ID } from './constants';
 import {
   setApplicantInfoListByRegId,
   setMessage,
@@ -16,7 +16,7 @@ import {
   setDivisionList,
   setDistrictList
 } from './actions';
-import { makeSelectInsertApplicantInfo, makeSelectDivisionId } from './selectors';
+import { makeSelectInsertApplicantInfo, makeSelectDivisionId, makeSelectDivisionList, makeSelectDistrictList, makeSelectDistrictId } from './selectors';
 
 export function* fetch_divisionList() {
 
@@ -34,12 +34,14 @@ export function* fetch_divisionList() {
 
 export function* fetch_districtList() {
 
+  yield put(setLoader('dropDownLoaderOn'));
   const divisionId = yield select(makeSelectDivisionId());
   const requestURL = BASE_URL_NETI_CMS.concat(FETCH_DISTRICT_LIST_BY_DIVISION).concat('?divisionId=').concat(divisionId);
   const options = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
   try {
     const response = yield call(request, requestURL, options);
     console.log('district-response', response);
+    yield put(setLoader('dropDownLoaderOff'));
     yield put(setDistrictList(response.item));
   } catch (error) {
     console.log('district not fetch');
@@ -102,11 +104,15 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
       yield put(setApplicantInfoListByRegId(response.item.applicantPersonalViewResponse));
     }
 
+    let addressObject = yield fetch_division_district_name();
+    // console.log('test-addressObject', addressObject);
+
     let downloadInformationArray = [];
     let downloadInformationObj = {
       insertApplicantInfoObj: insertApplicantInfoObj,
       applicantPersonalViewResponse: response.item.applicantPersonalViewResponse,
-      applicantPreviousExamViewResponses: response.item.applicantPreviousExamViewResponses
+      applicantPreviousExamViewResponses: response.item.applicantPreviousExamViewResponses,
+      address: addressObject,
     }
 
     // console.log('downloadInformationObj', downloadInformationObj);
@@ -116,6 +122,39 @@ export function* fetch_applicantInfoDetailsByRegId(registrationId) {
     sessionStorage.setItem("applicantFromDownloadData", JSON.stringify(downloadInformationObj));
 
   } catch (error) { }
+}
+
+export function* fetch_division_district_name() {
+
+  let divisionList = yield select(makeSelectDivisionList());
+  let districtList = yield select(makeSelectDistrictList());
+  const divisionId = yield select(makeSelectDivisionId());
+  const districtId = yield select(makeSelectDistrictId());
+
+  let divisionName = '';
+  if (divisionList && divisionList.length) {
+    divisionList.filter(item => {
+      if (item.divisionId == divisionId) { divisionName = item.divisionName }
+    })
+  }
+  // console.log('come-to-divisionName', divisionName);
+
+  let districtName = '';
+  if (districtList && districtList.length) {
+    districtList.filter(item => {
+      if (item.districtId == districtId) { districtName = item.districtName }
+    })
+  }
+  // console.log('come-to-districtName', districtName);
+
+  const addressObj = {
+    divisionName: divisionName,
+    districtName: districtName
+  }
+
+  // console.log('addressObj', addressObj);
+  return addressObj;
+
 }
 
 export default function* applicationFormSaga() {

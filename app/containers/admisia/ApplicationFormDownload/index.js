@@ -63,7 +63,7 @@ export class ApplicationFormDownload extends React.Component {
   render() {
 
     let applicantInfoDetails = JSON.parse(sessionStorage.applicantFromDownloadData);
-    // console.log('download-applicantInfoList', applicantInfoDetails);
+    console.log('download-applicantInfoList', applicantInfoDetails);
 
     return (
       <div class="admisia">
@@ -173,7 +173,11 @@ export class ApplicationFormDownload extends React.Component {
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Birth Registration No.</label>: {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.birthCertificateNo}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Quota</label>: {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.quota}</div>
                                     <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.mobileNo}</div>
-                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.addressDetails}</div>
+
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Division</label>: {applicantInfoDetails && applicantInfoDetails.address.divisionName}</div>
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>District</label>: {applicantInfoDetails && applicantInfoDetails.address.districtName}</div>
+
+                                    <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address Details</label>: {applicantInfoDetails && applicantInfoDetails.applicantPersonalViewResponse.addressDetails}</div>
                                   </div>
                                 </div>
                               </div>

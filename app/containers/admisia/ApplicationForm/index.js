@@ -120,12 +120,9 @@ import { ImageCropper } from '../../../components/common/ImageCropper';
 import { getFileContentType, getMaxFileSizeIsValid } from '../../../utils/FileHandler';
 import { Link } from 'react-router-dom';
 import succesImage from './succesImage.png';
-import { centerTableLoader, inputFieldLoaderLarge } from '../../../utils/contentLoader';
+import { centerTableLoader, inputFieldLoaderLarge, inputFieldLoader } from '../../../utils/contentLoader';
 // import { ProgressBar } from 'primereact/progressbar';
 import { LinearProgress } from '@material-ui/core';
-
-let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-let cmsID = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
 
 export class ApplicationForm extends React.Component {
   constructor(props) {
@@ -133,7 +130,7 @@ export class ApplicationForm extends React.Component {
     this.state = {
       admissionObj: props.location.admissionObj,
       insertUserObj: {
-        "cmsId": cmsID,
+        "cmsId": 0,
         "academicYear": props.location.admissionObj && props.location.admissionObj.currentAcademicYear,
         "admisiaClassConfigId": props.location.admissionObj && props.location.admissionObj.classConfigId,
 
@@ -339,7 +336,7 @@ export class ApplicationForm extends React.Component {
 
   showNextPage = () => {
 
-    let { insertUserObj } = this.state
+    let { insertUserObj } = this.state;
 
     if (this.handleError()) {
 
@@ -348,29 +345,34 @@ export class ApplicationForm extends React.Component {
       }
 
       if (!this.state.pageFirst && this.state.pageSecond) {
+
+        let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+        const cmsID = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
+
         this.setState({ pageFirst: false, pageSecond: false, pageThird: true });
 
-        insertUserObj.applicantName = this.props.getApplicantName
-        insertUserObj.gender = this.props.getGender
-        insertUserObj.religion = this.props.getReligion
-        insertUserObj.dob = this.props.getDob
-        insertUserObj.birthCertificateNo = this.props.getBirthCertificateNo
-        insertUserObj.quota = this.props.getQuota
-        insertUserObj.fileName = this.props.getFileName
-        insertUserObj.fileContent = this.props.getFileContent
-        insertUserObj.fileSave = true
-        insertUserObj.mobileNo = this.props.getMobileNo
-        insertUserObj.districtId = this.props.districtId
-        insertUserObj.addressDetails = this.props.getAddressDetails
+        insertUserObj.cmsId = cmsID;
+        insertUserObj.applicantName = this.props.getApplicantName;
+        insertUserObj.gender = this.props.getGender;
+        insertUserObj.religion = this.props.getReligion;
+        insertUserObj.dob = this.props.getDob;
+        insertUserObj.birthCertificateNo = this.props.getBirthCertificateNo;
+        insertUserObj.quota = this.props.getQuota;
+        insertUserObj.fileName = this.props.getFileName;
+        insertUserObj.fileContent = this.props.getFileContent;
+        insertUserObj.fileSave = true;
+        insertUserObj.mobileNo = this.props.getMobileNo;
+        insertUserObj.districtId = this.props.districtId;
+        insertUserObj.addressDetails = this.props.getAddressDetails;
 
-        insertUserObj.fatherName = this.props.getFatherName
-        insertUserObj.fatherOccupation = this.props.getFatherOccupation
-        insertUserObj.fatherNidNo = this.props.getFatherNidNo
-        insertUserObj.motherName = this.props.getMotherName
-        insertUserObj.motherOccupation = this.props.getMotherOccupation
-        insertUserObj.motherNidNo = this.props.getMotherNidNo
+        insertUserObj.fatherName = this.props.getFatherName;
+        insertUserObj.fatherOccupation = this.props.getFatherOccupation;
+        insertUserObj.fatherNidNo = this.props.getFatherNidNo;
+        insertUserObj.motherName = this.props.getMotherName;
+        insertUserObj.motherOccupation = this.props.getMotherOccupation;
+        insertUserObj.motherNidNo = this.props.getMotherNidNo;
 
-        insertUserObj.additionalInfos = this.props.getAdditionalInfo
+        insertUserObj.additionalInfos = this.props.getAdditionalInfo;
 
         this.setState({ insertUserObj })
 
@@ -700,6 +702,20 @@ export class ApplicationForm extends React.Component {
     let passingYear = [];
     for (let i = 0; i < 10; i++) {
       passingYear.push(year - i)
+    }
+
+    let divisionName = '';
+    if (divisionList && divisionList.length) {
+      divisionList.filter(item => {
+        if (item.divisionId == this.props.divisionId) { divisionName = item.divisionName }
+      })
+    }
+
+    let districtName = '';
+    if (districtList && districtList.length) {
+      districtList.filter(item => {
+        if (item.districtId == this.props.districtId) { districtName = item.districtName }
+      })
     }
 
     // console.log('divisionList-index', this.props.divisionList);
@@ -1034,7 +1050,7 @@ export class ApplicationForm extends React.Component {
                                   </div>
 
                                   <div className="col-xl-4">
-                                    <FormGroup className="custom-dropdown">
+                                    <FormGroup >
                                       <Label for="class-group" className="admisia-level">GUARDIAN MOBILE NO. <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
@@ -1080,25 +1096,30 @@ export class ApplicationForm extends React.Component {
                                   </div>
 
                                   <div className="col-xl-4">
+
                                     <FormGroup className="custom-dropdown">
                                       <Label for="class-group" className="admisia-level">DISTRICT <span className="required">*</span> </Label>
-                                      <Input type="select" name="section"
-                                        className=" bg-white border-0 rounded-0"
-                                        onChange={(e) => { this.props.setDistrictID(e.target.value); this.state.errors["districtId"] = '' }}
-                                      >
-                                        <option value=''>Select District</option>
-                                        {
-                                          districtList && districtList.map((item) =>
-                                            <option key={item.districtId} value={item.districtId}>{item.districtName}</option>
-                                          )
-                                        }
-                                      </Input>
+                                      {this.props.loader === 'dropDownLoaderOn' ? <div> {inputFieldLoaderLarge()} </div> :
+                                        <Input type="select" name="section"
+                                          className=" bg-white border-0 rounded-0"
+                                          onChange={(e) => { this.props.setDistrictID(e.target.value); this.state.errors["districtId"] = '' }}
+                                        >
+                                          <option value=''>Select District</option>
+                                          {
+                                            districtList && districtList.map((item) =>
+                                              <option key={item.districtId} value={item.districtId}>{item.districtName}</option>
+                                            )
+                                          }
+                                        </Input>
+                                      }
+
                                       <span className="error-message"> {errors['districtId']}</span>
                                     </FormGroup>
+
                                   </div>
 
                                   <div className="col-xl-8 text-primary m-t-15">
-                                    <FormGroup className="custom-dropdown">
+                                    <FormGroup >
                                       <Label className="admisia-level">ADDRESS DETAILS <span className="required">*</span></Label>
                                       <Input
                                         className=" bg-white border-0 rounded-0"
@@ -1150,7 +1171,11 @@ export class ApplicationForm extends React.Component {
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Birth Registration No.</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.birthCertificateNo) || this.props.getBirthCertificateNo}</div>
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Quota</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.quota) || this.props.getQuota}</div>
                                         <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.mobileNo) || this.props.getMobileNo}</div>
-                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.addressDetails) || this.props.getAddressDetails}</div>
+
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Division</label>: {divisionName}</div>
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>District</label>: {districtName}</div>
+
+                                        <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address Details</label>: {(getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.addressDetails) || this.props.getAddressDetails}</div>
                                       </div>
                                     </div>
                                   </div>

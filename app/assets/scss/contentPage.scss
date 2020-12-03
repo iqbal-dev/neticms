@@ -1233,15 +1233,18 @@
 }
 .grid-list-wrapper {
   border: 1px solid $grayColorLight;
-  padding: 26px 15px 30px;
+  // padding: 26px 15px 30px;
+  padding: 20px 0px;
   margin-bottom: 20px;
   .grid-image {
     img {
       // height: 270px;
       // width: 270px;
       border-radius: 5px;
-      max-height: 270px;
-      max-width: 270px;
+      // max-height: 270px;
+      // max-width: 270px;
+      max-height: 200px;
+      max-width: 200px;
       /* object-fit: cover; */
       width: 100%;
     }
