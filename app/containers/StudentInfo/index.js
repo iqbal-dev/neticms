@@ -93,13 +93,13 @@ export class StudentInfo extends React.Component {
       { title: "Name", dataKey: "studentName" },
       { title: "Father's Name", dataKey: "fatherName" },
       { title: "Mother's Name", dataKey: "motherName" },
-      { title: "Mobile No.", dataKey: "mobileNo" },
+      // { title: "Mobile No.", dataKey: "mobileNo" },
       // { title: "Email", dataKey: "staffEmail" },
       { title: "Gender", dataKey: "studentGender" },
       { title: "ID", dataKey: "customStudentId" },
     ]
     // console.log("this.props.searchResult", this.props.searchResult);
-    getDownloadTablePDF( "Student's List of " + this.state.classNameTitle + " " + this.state.groupNameTitle, pdfColumns, this.props.searchResult)
+    getDownloadTablePDF("Student's List of " + this.state.classNameTitle + " " + this.state.groupNameTitle, pdfColumns, this.props.searchResult)
   }
 
   render() {
@@ -241,16 +241,16 @@ export class StudentInfo extends React.Component {
                     <h5 className="col-lg-12 d-flex justify-content-between align-items-center">
                       <span>Showing result for <span className="text-orange"> Class {classNameFind ? classNameFind : ''} ({studentInfiList ? studentInfiList.length + ' Students' : ''})</span></span>
                       {
-                        studentInfiList.length > 0? 
-                        <FormGroup className="mb-0">
-                          <Button
-                            className="btn all-border-radious no-border"
-                            onClick={this.onDownloadPdf}
-                          >
-                            <i class="fas fa-file-pdf" ></i> Download
+                        studentInfiList.length > 0 ?
+                          <FormGroup className="mb-0">
+                            <Button
+                              className="btn all-border-radious no-border"
+                              onClick={this.onDownloadPdf}
+                            >
+                              <i class="fas fa-file-pdf" ></i> Download
                           </Button>
-                        </FormGroup>
-                        :''
+                          </FormGroup>
+                          : ''
                       }
                     </h5>
                   </div>

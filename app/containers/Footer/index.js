@@ -163,8 +163,12 @@ export class Footer extends React.Component {
                             <li>
                               <Link to='/institute/infrastructure'>প্রাতিষ্ঠানিক কার্যক্রম</Link>
                             </li>
+
                             <li>
                               <Link to="/institute/ongoing_task">ভর্তি তথ্য</Link>
+                            </li>
+                            <li>
+                              <Link to='/institute/ongoing_task'>চাকরি বিজ্ঞপ্তি</Link>
                             </li>
                             {/* <li>
                               <a href="#">রেজাল্ট অনুসন্ধান</a>
@@ -293,13 +297,10 @@ export class Footer extends React.Component {
                       <div className="copy-right-menu">
                         <ul className="nav">
                           <li>
-                            <a href="#">Disclaimer</a>
+                            <Link to='/institute/ongoing_task'>Disclaimer</Link>
                           </li>
                           <li>
-                            <a href="#">Privacy</a>
-                          </li>
-                          <li>
-                            <a href="#">Contact Us</a>
+                            <Link to='/institute/ongoing_task'>Privacy</Link>
                           </li>
                         </ul>
                       </div>

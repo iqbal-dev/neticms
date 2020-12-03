@@ -14,6 +14,11 @@ import { AppLayout } from '../../containers/AppLayout';
 
 /* eslint-disable react/prefer-stateless-function */
 class OngoingComponent extends React.Component {
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return (
       <AppLayout>

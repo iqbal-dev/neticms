@@ -5,7 +5,7 @@
   .header-wrapper .logo-wrapper {
     height: 120px;
     width: 120px;
-    background: #fff;
+    background: #002749;
     padding: 5px; }
     .header-wrapper .logo-wrapper img {
       height: 110px;
@@ -1192,8 +1192,8 @@
   margin-bottom: 20px; }
   .grid-list-wrapper .grid-image img {
     border-radius: 5px;
-    max-height: 200px;
-    max-width: 200px;
+    max-height: 180px;
+    max-width: 180px;
     /* object-fit: cover; */
     width: 100%; }
   .grid-list-wrapper .grid-image .rounded {
@@ -1203,16 +1203,12 @@
   .grid-list-wrapper .grid-content {
     margin-top: 35px; }
     .grid-list-wrapper .grid-content .grid-title h3 {
-      font-size: 25px;
+      font-size: 23px;
       font-weight: 600;
       color: #ff4e31;
       display: block;
       display: -webkit-box;
-      /* max-width: 200px; */
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis; }
+      -webkit-box-orient: vertical; }
     .grid-list-wrapper .grid-content .grid-subtitle-title h4 {
       font-size: 16px;
       font-weight: 500;

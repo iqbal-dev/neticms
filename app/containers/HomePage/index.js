@@ -369,7 +369,7 @@ export class HomePage extends React.Component {
                                       <img id="speechImg" align="left" className="fileContent" src={imageContent} />
                                       <div className="grid-social">
                                         <ul className="d-flex justify-content-center w-100 nav">
-                                          <li><a id='phone' className={!speakerMobile ? '' : "phone"} phone={speakerMobile}><i class="fas fa-phone"></i></a></li>
+                                          {/* <li><a id='phone' className={!speakerMobile ? '' : "phone"} phone={speakerMobile}><i class="fas fa-phone"></i></a></li> */}
                                           <li><a id='email' className={!speakerEmail ? '' : "email"} email={speakerEmail}><i class="fas fa-envelope"></i></a></li>
                                           <li><a id='facebook' className={!speakerFacebook ? '' : "facebook"} facebook={speakerFacebook}><i class="fab fa-facebook-f"></i></a></li>
                                           <li><a id='linkedin' className={!speakerLinkedin ? '' : "linkedin"} linkedin={speakerLinkedin}><i class="fab fa-linkedin-in"></i></a></li>

@@ -80,7 +80,7 @@ export class CommitteeMembers extends React.PureComponent {
 
                   <div className="row">
                     {this.props.committeMembersList && this.props.committeMembersList.map((item, index) => (
-                      <div className="col-md-4 col-lg-3">
+                      <div className="col-md-4 col-lg-3 ">
                         <div className="grid-list-wrapper">
                           <div className="grid-image">
                             {
