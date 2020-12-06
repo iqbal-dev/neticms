@@ -113,13 +113,14 @@ export class DressCode extends React.Component {
                       <TabContent activeTab={this.props.tabVisibleStatus}>
                         <TabPane tabId="1">
                           <div className="tab-panel-wrapper">
-                            <div className="row">
-                              {this.props.loaderType === 'autoLoadOn' ? tableLoader() :
+                            {this.props.loaderType === 'autoLoadOn' ? tableLoader() :
 
-                                this.props.maleDressCodeList && this.props.maleDressCodeList.map((item, index) => (
+                              this.props.maleDressCodeList && this.props.maleDressCodeList.map((item, index) => (
+                                <div className="row">
 
+                                  {/* <div className="col-lg-1" /> */}
                                   <div className="col-12 row dress-code-inside">
-                                    <div className="col-md-8">
+                                    <div className="col-md-9">
                                       <div className="page-inner-title">
                                         <h2 className="text-orange">
                                           {item.classRange}
@@ -133,7 +134,7 @@ export class DressCode extends React.Component {
                                       </div>
                                     </div>
 
-                                    <div className="col-md-4 px-0">
+                                    <div className="col-md-3 px-0">
                                       <div className="panel-image text-center">
                                         {
                                           item.fileContent ?
@@ -143,8 +144,10 @@ export class DressCode extends React.Component {
                                       </div>
                                     </div>
                                   </div>
-                                ))}
-                            </div>
+                                  {/* <div className="col-lg-1" /> */}
+                                </div>
+
+                              ))}
                           </div>
                           {/* <div className="tab-panel-wrapper">
                           <div className="row">
@@ -192,7 +195,7 @@ export class DressCode extends React.Component {
                             <div className="row">
                               {this.props.femaleDressCodeList && this.props.femaleDressCodeList.map((item, index) => (
                                 <div className="col-12 row dress-code-inside">
-                                  <div className="col-md-8">
+                                  <div className="col-md-9">
                                     <div className="page-inner-title">
                                       <h2 className="text-orange">
                                         {item.classRange}
@@ -206,13 +209,13 @@ export class DressCode extends React.Component {
                                     </div>
                                   </div>
 
-                                  <div className="col-md-4 px-0">
+                                  <div className="col-md-3 px-0">
                                     <div className="panel-image text-center">
                                       {
                                         item.fileContent ?
                                           // <img src={"data:image/*;base64," + item.fileContent} align="left" className="img-fluid m-auto" /> :
-                                          <img src={"data:image/*;base64," + item.fileContent}/> :
-                                          <img src={staticImg}/>
+                                          <img src={"data:image/*;base64," + item.fileContent} /> :
+                                          <img src={staticImg} />
                                       }
                                     </div>
                                   </div>
@@ -228,7 +231,7 @@ export class DressCode extends React.Component {
                             <div className="row">
                               {this.props.combineDressCodeList && this.props.combineDressCodeList.map((item, index) => (
                                 <div className="col-12 row dress-code-inside">
-                                  <div className="col-md-8">
+                                  <div className="col-md-9">
                                     <div className="page-inner-title">
                                       <h2 className="text-orange">
                                         {item.classRange}
@@ -242,12 +245,12 @@ export class DressCode extends React.Component {
                                     </div>
                                   </div>
 
-                                  <div className="col-md-4 px-0">
+                                  <div className="col-md-3 px-0">
                                     <div className="panel-image text-center">
                                       {
                                         item.fileContent ?
-                                          <img src={"data:image/*;base64," + item.fileContent}/> :
-                                          <img src={staticImg}/>
+                                          <img src={"data:image/*;base64," + item.fileContent} /> :
+                                          <img src={staticImg} />
                                       }
 
                                     </div>

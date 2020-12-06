@@ -2,13 +2,13 @@
 //for PRODUCTION only
 // export const BASE_URL = 'http://34.202.31.220:9001';
 
-// export const BASE_URL_NETI_CMS = 'https://api.neticms.com';
+export const BASE_URL_NETI_CMS = 'https://api.neticms.com';
 // export const BASE_URL_EM = 'https://api.edumanbd.com';
 // export const BASE_URL_NW = 'https://api.netiworld.com';
 
 //for DEVELOPMENT only
 
-export const BASE_URL_NETI_CMS = 'https://api.netizendev.com:2096'   //'http://18.215.19.195:9992';
+// export const BASE_URL_NETI_CMS = 'https://api.netizendev.com:2096'   //'http://18.215.19.195:9992';
 export const BASE_URL_EM = 'https://api.edumanbd.com';
 export const BASE_URL_NW = 'https://api.netizendev.com:2087'   // 'http://18.215.19.195:9991';          
 

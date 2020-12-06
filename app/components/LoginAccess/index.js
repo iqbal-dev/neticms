@@ -39,8 +39,8 @@ class LoginAccess extends React.PureComponent {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-lg-1" />
-                  <div className="col-lg-10">
+                  <div className="col-lg-2" />
+                  <div className="col-lg-8">
                     <div className="row">
 
                       <div className="col-md-4 p-b-60">

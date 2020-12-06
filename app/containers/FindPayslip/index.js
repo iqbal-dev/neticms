@@ -286,7 +286,7 @@ export class FindPayslip extends React.PureComponent {
                             <div className="row">
                               {
                                 makeSelectFindPayslipData && makeSelectFindPayslipData.map((item) =>
-                                  <div className="col-md-6 mb-3">
+                                  <div className="col-12 col-lg-6 mb-3 ">
                                     <div className="student-info-box-wrapper">
                                       <div className="student-info-box-title">
                                         Fee Name :  <span>{item.feeHeadDetails}</span>

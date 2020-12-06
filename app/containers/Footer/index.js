@@ -264,7 +264,6 @@ export class Footer extends React.Component {
                                 value={this.props.messageDetails}
                                 placeholder='Message*'
                               />
-
                             </div>
                           </div>
                           <div className="col-md-12">

@@ -320,7 +320,7 @@ export class ApplicationFormDownload extends React.Component {
                                     {/* within 72 Hours through Bkash app or USSD Dial code. */}
                                   <br />
                                   <p className="m-t-8 font-w-401">
-                                    <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and<br />also further inquiries. <br />
+                                    <strong> N.B: </strong>  Please preserve your "Registration No." You will need Registration No. to complete payment procedure, to download Admit and<br />also for further inquiries. <br />
                                   </p>
                                 </div>
 

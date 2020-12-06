@@ -702,7 +702,7 @@
     position: absolute;
     content: '';
     height: 56px;
-    width: 20px;
+    width: 12px;
     background-color: #ff4e31;
     bottom: -56px;
     margin: 0px 0px 0 -9px; }
@@ -730,7 +730,7 @@
     .login-form-wrapper .login-image img {
       width: 50% !important; }
   .login-form-wrapper .login-btn {
-    padding: 20px 15px;
+    padding: 12px 15px;
     background: #ff4e31;
     color: #ffffff;
     font-size: 20px;
@@ -752,21 +752,21 @@
     .login-form-wrapper.main::before {
       position: absolute;
       content: '';
-      height: 20px;
-      width: 68%;
+      height: 15px;
+      width: 44%;
       background-color: #ff4e31;
-      top: -40px; }
+      top: -35px; }
     .login-form-wrapper.main::after {
       position: absolute;
       content: '';
       height: 76px;
-      width: 20px;
+      width: 13px;
       background-color: #ff4e31;
       top: -76px; }
     .login-form-wrapper.main .login-btn {
       background: #033b6d;
       width: 200px;
-      height: 80px;
+      height: 64px;
       border-radius: 10px;
       position: relative; }
       .login-form-wrapper.main .login-btn .btn {
@@ -1370,7 +1370,7 @@
       margin: -10px -6px;
       overflow: hidden; }
       .dress-code-tab-wrapper .tab-panel-wrapper .dress-code-inside .panel-image img {
-        height: 300px;
+        height: 220px;
         width: 100%;
         max-width: 500px;
         object-fit: cover;
@@ -1425,7 +1425,6 @@
   box-shadow: 0px 4px 15px 3px rgba(189, 189, 189, 0.5);
   margin-left: 0px !important;
   margin-right: 0px !important;
-  display: flex;
   align-items: center; }
   .find-pay-slip-info-wrapper .student-info-table {
     margin: auto 0 auto 25px; }

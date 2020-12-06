@@ -30,7 +30,7 @@ import { get_DDMMYY_Format_WithSlash } from '../../utils/dateFormat';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { centerTableLoader } from '../../utils/contentLoader';
-import { getDownloadTablePDF } from '../../utils/generatePdf';
+import { getDownloadTablePDF, getDownloadNoImageTablePDF } from '../../utils/generatePdf';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -109,7 +109,7 @@ export class StudentWiseAttendance extends React.Component {
       { title: "Status", dataKey: "status" },
       { title: "Present Time", dataKey: "presentTime" },
     ]
-    getDownloadTablePDF(pdfHeader, pdfColumns, this.props.attendanceList.details);
+    getDownloadNoImageTablePDF(pdfHeader, pdfColumns, this.props.attendanceList.details);
 
   }
 
