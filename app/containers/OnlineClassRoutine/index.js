@@ -183,7 +183,7 @@ export class OnlineClassRoutine extends React.Component {
 
           <BreadcrumComponent
             pageTitle="Online Class Routine"
-            menuStepFirst="More"
+            menuStepFirst="Academic Info"
             menuStepSenond="Routine"
             menuStepThird="Online Class Routine"
           />

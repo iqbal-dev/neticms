@@ -166,7 +166,7 @@ export class ExamRoutine extends React.Component {
 
           <BreadcrumComponent
             pageTitle="Exam Routine"
-            menuStepFirst="More"
+            menuStepFirst="Academic Info"
             menuStepSenond="Routine"
             menuStepThird="Exam Routine"
           />

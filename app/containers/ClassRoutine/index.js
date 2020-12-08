@@ -107,13 +107,13 @@ export class ClassRoutine extends React.Component {
 
       difference = (tStop - tStart) / (1000 * 60);
 
-      if( difference < 0){
+      if (difference < 0) {
         // difference12 = ( tStart - tStop ) / (1000 * 60);
-        difference12 = Math.ceil((12 - (( tStart - tStop ) / (1000 * 60)) / 60 )*60);
+        difference12 = Math.ceil((12 - ((tStart - tStop) / (1000 * 60)) / 60) * 60);
 
         console.log("difference12", difference12);
       }
-      else{
+      else {
         difference12 = ""
       }
       // else{
@@ -121,7 +121,7 @@ export class ClassRoutine extends React.Component {
       // }
 
       // if (diff<0) { sMin-=12*60;  diff = eMin-sMin }
-      
+
     }
     else {
       difference = "";
@@ -129,7 +129,7 @@ export class ClassRoutine extends React.Component {
 
     return <th>
       {period}<br />
-      (Duration: { difference12 || difference} min)
+      (Duration: {difference12 || difference} min)
         </th>
   }
 
@@ -140,13 +140,13 @@ export class ClassRoutine extends React.Component {
 
     let dayList = []
     let periodList = []
-    let periodStaticList = ["firstPeriod", "secondPeriod", "thirdPeriod", "fourthPeriod", "fifthPeriod", "sixthPeriod", "seventhPeriod", "eighthPeriod", "ninethPeriod", "tenthPeriod", "eleventhPeriod", "twelvethPeriod" ]
-    let periodCustomList = ["1st Period", "2nd Period", "3rd Period", "4th Period", "5th Period", "6th Period", "7th Period", "8th Period", "9th Period", "10th Period", "11th Period", "12th Period" ]
-    let periodOriginalList =[]
+    let periodStaticList = ["firstPeriod", "secondPeriod", "thirdPeriod", "fourthPeriod", "fifthPeriod", "sixthPeriod", "seventhPeriod", "eighthPeriod", "ninethPeriod", "tenthPeriod", "eleventhPeriod", "twelvethPeriod"]
+    let periodCustomList = ["1st Period", "2nd Period", "3rd Period", "4th Period", "5th Period", "6th Period", "7th Period", "8th Period", "9th Period", "10th Period", "11th Period", "12th Period"]
+    let periodOriginalList = []
     let timeList = []
     let allTimes = []
     let uniqueTimes = []
-    
+
     if (classRoutineListData) {
       dayList = classRoutineListData.map((item, index) =>
         item.dayName
@@ -156,10 +156,10 @@ export class ClassRoutine extends React.Component {
 
         periodStaticList.map((item6, index6) => {
 
-          if(item.periodCellViewer[item6] && item.periodCellViewer[item6][0]){
+          if (item.periodCellViewer[item6] && item.periodCellViewer[item6][0]) {
             allTimes.push(item.periodCellViewer[item6] && item.periodCellViewer[item6][0].periodTime)
           }
-          else{
+          else {
             // allTimes.push('')
           }
           // console.log("item.item6", item.periodCellViewer[item6] && item.periodCellViewer[item6][0].periodTime);
@@ -168,7 +168,7 @@ export class ClassRoutine extends React.Component {
 
           //   // allTimes.push(item6[0].periodTime)
           // })
-          
+
         });
 
         if (index == 0) {
@@ -176,39 +176,37 @@ export class ClassRoutine extends React.Component {
 
             let setPeriod = ""
             item2 == "firstPeriod" ? setPeriod = "1st Period" :
-            item2 == "secondPeriod" ? setPeriod = "2nd Period" :
-            item2 == "thirdPeriod" ? setPeriod = "3rd Period" :
-            item2 == "fourthPeriod" ? setPeriod = "4th Period" :
-            item2 == "fifthPeriod" ? setPeriod = "5th Period" :
-            item2 == "sixthPeriod" ? setPeriod = "6th Period" :
-            item2 == "seventhPeriod" ? setPeriod = "7th Period" :
-            item2 == "eighthPeriod" ? setPeriod = "8th Period" :
-            item2 == "ninethPeriod" ? setPeriod = "9th Period" :
-            item2 == "tenthPeriod" ? setPeriod = "10th Period" :
-            item2 == "eleventhPeriod" ? setPeriod = "11th Period" :
-            item2 == "twelvethPeriod" ? setPeriod = "12th Period" :
-            ""
+              item2 == "secondPeriod" ? setPeriod = "2nd Period" :
+                item2 == "thirdPeriod" ? setPeriod = "3rd Period" :
+                  item2 == "fourthPeriod" ? setPeriod = "4th Period" :
+                    item2 == "fifthPeriod" ? setPeriod = "5th Period" :
+                      item2 == "sixthPeriod" ? setPeriod = "6th Period" :
+                        item2 == "seventhPeriod" ? setPeriod = "7th Period" :
+                          item2 == "eighthPeriod" ? setPeriod = "8th Period" :
+                            item2 == "ninethPeriod" ? setPeriod = "9th Period" :
+                              item2 == "tenthPeriod" ? setPeriod = "10th Period" :
+                                item2 == "eleventhPeriod" ? setPeriod = "11th Period" :
+                                  item2 == "twelvethPeriod" ? setPeriod = "12th Period" :
+                                    ""
 
             periodOriginalList.push(item2)
 
-            periodOriginalList.sort(function(a, b){  
+            periodOriginalList.sort(function (a, b) {
               return periodStaticList.indexOf(a) - periodStaticList.indexOf(b);
             });
 
             periodList.push(setPeriod)
-            periodList.sort(function(a, b){  
+            periodList.sort(function (a, b) {
               return periodCustomList.indexOf(a) - periodCustomList.indexOf(b);
             });
           })
 
-          
-
           periodOriginalList.map((item3, index) => {
             // console.log("item.periodCellViewer[item3][0]", item.periodCellViewer[item3][0]);
 
-            item.periodCellViewer[item3].map((item4, index4)=>{
+            item.periodCellViewer[item3].map((item4, index4) => {
               // console.log("item.periodCellViewer[item3][0] ITEM", item4);
-              timeList.push( item4.periodTime)
+              timeList.push(item4.periodTime)
             })
 
             // if(item.periodCellViewer[item3][0] && item.periodCellViewer[item3][0].periodTime){
@@ -222,12 +220,12 @@ export class ClassRoutine extends React.Component {
           // console.log("periodOriginalList...........//", periodOriginalList);
           // console.log("periodList...........//", periodList);
           // console.log("timeList...........//", timeList);
-          
+
         }
         // console.log("allTimes...........//", allTimes);
-          uniqueTimes = Array.from(new Set(allTimes))
-          
-          // console.log("uniquePointNames...........//", uniqueTimes);
+        uniqueTimes = Array.from(new Set(allTimes))
+
+        // console.log("uniquePointNames...........//", uniqueTimes);
       })
     }
 
@@ -241,7 +239,7 @@ export class ClassRoutine extends React.Component {
           {/* <FormattedMessage {...messages.header} /> */}
           <BreadcrumComponent
             pageTitle="Class Routine"
-            menuStepFirst="More"
+            menuStepFirst="Academic Info"
             menuStepSenond="Routine"
             menuStepThird="Class Routine"
           />
@@ -263,7 +261,7 @@ export class ClassRoutine extends React.Component {
                                     className=" bg-white"
                                     type="select"
                                     name="examType"
-                                    onChange={e =>{ this.props.onChangeSection(e); this.setState({ errors:{class: ''}})}}
+                                    onChange={e => { this.props.onChangeSection(e); this.setState({ errors: { class: '' } }) }}
                                   >
                                     <option value=''>Select Class</option>
                                     {
@@ -375,13 +373,13 @@ export class ClassRoutine extends React.Component {
 
                             {
                               classRoutineListData && classRoutineListData.length ? classRoutineListData.map((item, index) => {
-                                
+
                                 return <>
                                   <tr>
                                     <td>{item.dayName}</td>
-                                    { periodOriginalList.map((item2, index) =>
-                                        this.getPeriodWiseResult(item.periodCellViewer[item2])
-                                      )
+                                    {periodOriginalList.map((item2, index) =>
+                                      this.getPeriodWiseResult(item.periodCellViewer[item2])
+                                    )
                                     }
                                   </tr>
 

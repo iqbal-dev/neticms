@@ -122,7 +122,7 @@ export class FindPayslip extends React.PureComponent {
           </Helmet>
           <BreadcrumComponent
             pageTitle="Find Payslip"
-            menuStepFirst="Academic Info"
+            menuStepFirst="Details Info"
             menuStepSenond="Fees Info"
             menuStepThird="Find Payslip Info"
           />

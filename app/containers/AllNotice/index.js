@@ -272,8 +272,7 @@ export class AllNotice extends React.Component {
           <BreadcrumComponent
             pageTitle="All Notice"
             menuStepFirst="More"
-            menuStepSenond="More"
-            menuStepThird="All Notice"
+            menuStepSenond="All Notice"
           />
 
           <section>

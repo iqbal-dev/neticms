@@ -189,6 +189,7 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/institute/booklist' className='nav-link'>  Book List</Link></NavItem>
                                 <NavItem><Link to='/institute/dressCode' className='nav-link'> Dress Code</Link></NavItem>
                                 <NavItem><Link to='/institute/fees_info' className='nav-link'> Fees Info</Link></NavItem>
+                                <NavItem><Link to='/institute/find_paySlip' className='nav-link'>Find Payslip Info</Link></NavItem>
                                 <NavItem><Link to='/institute/seatInfo' className='nav-link'>  Seat Info</Link></NavItem>
                                 <NavItem><Link to='/institute/syllabus_info' className='nav-link'> Syllabus</Link></NavItem>
                               </DropdownMenu>
@@ -204,13 +205,23 @@ export class Menu extends React.Component {
                                 <NavItem><Link to='/institute/studentWise_attendance' className='nav-link'> Student Wise</Link></NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
-
+                            {/* 
                             <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Fees Info</DropdownToggle>
                               <DropdownMenu right>
                                 <NavItem>
                                   <Link to='/institute/find_paySlip' className='nav-link'>Find Payslip Info</Link>
                                 </NavItem>
+                              </DropdownMenu>
+                            </UncontrolledDropdown> */}
+
+                            {/* Routine Menu */}
+                            <UncontrolledDropdown nav inNavbar>
+                              <DropdownToggle nav caret>Routine</DropdownToggle>
+                              <DropdownMenu right>
+                                <NavItem><Link to='/institute/class_routine' className='nav-link'>Class Routine</Link> </NavItem>
+                                <NavItem><Link to='/institute/online_class_routine' className='nav-link'>Online Class Routine</Link> </NavItem>
+                                <NavItem><Link to='/institute/exam_routine' className='nav-link'>Exam Routine</Link> </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
@@ -280,22 +291,12 @@ export class Menu extends React.Component {
                               <DropdownMenu right>
 
                                 {/* <NavItem><Link to='#' className='nav-link'>Academic Calendar</Link> </NavItem> */}
-                                <NavItem><Link to='/institute/all_notice' className='nav-link'>Institute Notice</Link> </NavItem>
+                                {/* <NavItem><Link to='/institute/all_notice' className='nav-link'>Institute Notice</Link> </NavItem> */}
                                 {/* <NavItem><Link to='#' className='nav-link'>Important Link</Link> </NavItem> */}
-                                <NavItem><Link to='/institute/download_corner' className='nav-link'>Download Corner</Link> </NavItem>
+                                {/* <NavItem><Link to='/institute/download_corner' className='nav-link'>Download Corner</Link> </NavItem> */}
                                 {/* <NavItem><Link to='#' className='nav-link'>Job Circular</Link> </NavItem> */}
                                 {/* <NavItem><Link to='#' className='nav-link'>Contact</Link> </NavItem> */}
 
-                              </DropdownMenu>
-                            </UncontrolledDropdown>
-
-                            {/* Routine Menu */}
-                            <UncontrolledDropdown nav inNavbar>
-                              <DropdownToggle nav caret>Routine</DropdownToggle>
-                              <DropdownMenu right>
-                                <NavItem><Link to='/institute/class_routine' className='nav-link'>Class Routine</Link> </NavItem>
-                                <NavItem><Link to='/institute/online_class_routine' className='nav-link'>Online Class Routine</Link> </NavItem>
-                                <NavItem><Link to='/institute/exam_routine' className='nav-link'>Exam Routine</Link> </NavItem>
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
@@ -321,6 +322,9 @@ export class Menu extends React.Component {
 
                               </DropdownMenu>
                             </UncontrolledDropdown> */}
+
+                            <NavItem><Link to='/institute/all_notice' className='nav-link'>Institute Notice</Link> </NavItem>
+                            <NavItem><Link to='/institute/download_corner' className='nav-link'>Download Corner</Link> </NavItem>
 
                           </DropdownMenu>
                         </UncontrolledDropdown>
