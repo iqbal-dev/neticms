@@ -285,20 +285,20 @@ export class Menu extends React.Component {
                               </DropdownMenu>
                             </UncontrolledDropdown>
 
-                            <UncontrolledDropdown nav inNavbar>
+                            {/* <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>More</DropdownToggle>
 
-                              <DropdownMenu right>
+                              <DropdownMenu right> */}
 
-                                {/* <NavItem><Link to='#' className='nav-link'>Academic Calendar</Link> </NavItem> */}
-                                {/* <NavItem><Link to='/institute/all_notice' className='nav-link'>Institute Notice</Link> </NavItem> */}
-                                {/* <NavItem><Link to='#' className='nav-link'>Important Link</Link> </NavItem> */}
-                                {/* <NavItem><Link to='/institute/download_corner' className='nav-link'>Download Corner</Link> </NavItem> */}
-                                {/* <NavItem><Link to='#' className='nav-link'>Job Circular</Link> </NavItem> */}
-                                {/* <NavItem><Link to='#' className='nav-link'>Contact</Link> </NavItem> */}
+                            {/* <NavItem><Link to='#' className='nav-link'>Academic Calendar</Link> </NavItem> */}
+                            {/* <NavItem><Link to='/institute/all_notice' className='nav-link'>Institute Notice</Link> </NavItem> */}
+                            {/* <NavItem><Link to='#' className='nav-link'>Important Link</Link> </NavItem> */}
+                            {/* <NavItem><Link to='/institute/download_corner' className='nav-link'>Download Corner</Link> </NavItem> */}
+                            {/* <NavItem><Link to='#' className='nav-link'>Job Circular</Link> </NavItem> */}
+                            {/* <NavItem><Link to='#' className='nav-link'>Contact</Link> </NavItem> */}
 
-                              </DropdownMenu>
-                            </UncontrolledDropdown>
+                            {/* </DropdownMenu>
+                            </UncontrolledDropdown> */}
 
                             {/* <UncontrolledDropdown nav inNavbar>
                               <DropdownToggle nav caret>Login</DropdownToggle>
