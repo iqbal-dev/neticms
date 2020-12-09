@@ -338,3 +338,26 @@
   background: $orangeColor !important;
   color: $colorWhite !important;
 }
+
+//application form download scss below
+
+.institute-info-wrapper {
+  display: inline-flex;
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  .institute-name {
+    padding-left: 36px;
+    padding-top: 16px;
+    font-size: $fontSizePrimary;
+    font-weight: $fontWeightSecondary;
+    color: #fff;
+
+    // .address {
+    //   color: #fff;
+    // }
+  }
+}
+
+//application form download scss END

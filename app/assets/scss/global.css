@@ -2807,6 +2807,18 @@
   background: #ff4e31 !important;
   color: #fff !important; }
 
+.institute-info-wrapper {
+  display: inline-flex;
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+  .institute-info-wrapper .institute-name {
+    padding-left: 36px;
+    padding-top: 16px;
+    font-size: 25px;
+    font-weight: 500;
+    color: #fff; }
+
 .rbc-calendar .rbc-toolbar .rbc-btn-group button {
   font-size: 12px; }
 .rbc-calendar .rbc-toolbar .rbc-toolbar-label {

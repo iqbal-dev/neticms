@@ -63,7 +63,12 @@ export class ApplicationFormDownload extends React.Component {
   render() {
 
     let applicantInfoDetails = JSON.parse(sessionStorage.applicantFromDownloadData);
-    console.log('download-applicantInfoList', applicantInfoDetails);
+    // console.log('download-applicantInfoList', applicantInfoDetails);
+
+    let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+    let baseInstituteInfo = '';
+    { instituteUrlInfo && instituteUrlInfo.length ? baseInstituteInfo = instituteUrlInfo[0] : baseInstituteInfo }
+    // console.log('baseInstituteInfo', baseInstituteInfo);
 
     return (
       <div class="admisia">
@@ -79,19 +84,27 @@ export class ApplicationFormDownload extends React.Component {
 
               <div class="canvas_div_pdf" style={{ marginTop: '20px' }}>
 
-                <div className="row m-0 text-center bg-smoke-white section-top-page" >
-                  <div className="col-xl-4 py-5 text-center one active">
-                    <div className='page'>1</div>
-                    <div>Information</div>
+                <div className="row m-0 bg-primary-color-dark section-top-page" >
+
+                  <div className="col-12 col-sm-12 col-xl-12 institute-info-wrapper">
+                    <div className="institute-logo">
+                      <img src={baseInstituteInfo && baseInstituteInfo.logoContent ? "data:image/*;base64," + baseInstituteInfo.logoContent : ''} height="100px" />
+                    </div>
+                    <div className="institute-name">
+                      Institute Name : {baseInstituteInfo.instituteName}
+                      <address className="address font-s-20 font-w-401">{baseInstituteInfo.instituteAddress}</address>
+                    </div>
+                    {/* <div className='page'>1</div>
+                    <div>Information</div> */}
                   </div>
-                  <div className="col-xl-4 py-5 two active" >
+                  {/* <div className="col-xl-4 py-5 two active" >
                     <div className='page'>2</div>
                     <div>Review</div>
                   </div>
                   <div className="col-xl-4 py-5 three active">
                     <div className='page'>3</div>
                     <div>Completed</div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="row mt-1">
