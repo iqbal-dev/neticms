@@ -222,7 +222,8 @@ export class AdmissionConfirmationLetter extends React.Component {
                             <td>
                               <div className="row">
                                 <div class="col-xl-12">
-                                  I, Md. Rashid Khan, do hereby declare that the above mentioned information and photo are correct. If any
+                                  
+                                  I, {applicantInfoList ? applicantInfoList.applicantName : ''}, do hereby declare that the above mentioned information and photo are correct. If any
                                   information provided provided by me is found false, the institute reserves the right to cancel my
                                   admission. I shall be obliged to obey the rules and regulations of the institute as well as pay all the
                                   required fees.
