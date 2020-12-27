@@ -14,68 +14,75 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { Link } from 'react-router-dom';
 import makeSelectTrackApplication from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { Link } from 'react-router-dom';
-import { Button, FormGroup, Input, Label, Table, Modal, ModalBody } from 'reactstrap';
+import {
+  Button,
+  FormGroup,
+  Input,
+  Label,
+  Table,
+  Modal,
+  ModalBody,
+} from 'reactstrap';
 
-//customs imports
-import { makeSelectRegistrationNo, makeSelectApplicantInfoList } from './selectors';
+// customs imports
+import {
+  makeSelectRegistrationNo,
+  makeSelectApplicantInfoList,
+} from './selectors';
 import { setRegistrationNo, submitSearch } from './actions';
 
 import { AppLayout } from '../../AppLayout';
 import BreadcrumComponent from '../../../components/BreadcrumComponent';
 import staticImg from '../../../assets/img/demo-image.jpg';
 import { get_DDMMM_YY_Format_WithComma } from '../../../utils/dateFormat';
-import { BASE_URL_NETI_CMS, ADMISIA_ADMIT_CARD_DOWNLOAD } from '../../../utils/serviceUrl';
+import {
+  BASE_URL_NETI_CMS,
+  ADMISIA_ADMIT_CARD_DOWNLOAD,
+} from '../../../utils/serviceUrl';
 
 export class TrackApplication extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       errors: {},
       modalVisible: false,
-
-    }
+    };
   }
 
-  onChangeRegNumber = (e) => {
-    var filteredValue = e.target.value.replace(/\D/g, "");
+  onChangeRegNumber = e => {
+    let filteredValue = e.target.value.replace(/\D/g, '');
     this.props.onChangeRegNo(filteredValue);
-    this.clearErrorMsg('registrationNo')
-  }
+    this.clearErrorMsg('registrationNo');
+  };
 
   submitSearchBtn = () => {
-
     if (this.emptyFieldCheck()) {
       this.props.onSubmitSearch();
     }
-
-  }
+  };
 
   emptyFieldCheck = () => {
-
-    let { errors } = this.state;
+    const { errors } = this.state;
     let formIsValid = true;
 
     if (this.props.registrationNo === '') {
       formIsValid = false;
-      errors["registrationNo"] = "Registration No. can't left empty";
+      errors.registrationNo = "Registration No. can't left empty";
     }
     this.setState({ errors });
     return formIsValid;
+  };
 
-  }
-
-  clearErrorMsg = (name) => {
-    let { errors } = this.state;
+  clearErrorMsg = name => {
+    const { errors } = this.state;
     errors[name] = '';
-    this.setState({ errors })
-
-  }
+    this.setState({ errors });
+  };
 
   getApplicantStatus = () => {
 
@@ -103,7 +110,7 @@ export class TrackApplication extends React.Component {
             </div>
           </div>
 
-        } else if (applicantInfoList.applicantStatus === 1) {
+        } if (applicantInfoList.applicantStatus === 1) {
 
           // true for approved assessment
           return (<div className="row">
@@ -303,17 +310,20 @@ export class TrackApplication extends React.Component {
   onChangeModalStatus = () => {
     const visibleStatus = this.state.modalVisible;
     this.setState({ modalVisible: !visibleStatus });
-  }
+  };
 
   onDownloadAdmitCard = () => {
-
-    let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-    let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
-    let regId = this.props.applicantInfoList.registrationId;
+    const instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+    const cmsId =
+      instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
+    const regId = this.props.applicantInfoList.registrationId;
 
     if (this.props.applicantInfoList.applicantFeeStatus === 1) {
-
-      const requestURL = BASE_URL_NETI_CMS.concat(ADMISIA_ADMIT_CARD_DOWNLOAD).concat('?cmsId=').concat(cmsId).concat('&registrationIds=').concat(regId);
+      const requestURL = BASE_URL_NETI_CMS.concat(ADMISIA_ADMIT_CARD_DOWNLOAD)
+        .concat('?cmsId=')
+        .concat(cmsId)
+        .concat('&registrationIds=')
+        .concat(regId);
       const finalURL = requestURL;
       if (finalURL) {
         setTimeout(() => {
@@ -321,23 +331,20 @@ export class TrackApplication extends React.Component {
             file: finalURL,
           };
           window.location.href = response.file;
-
         }, 100);
-
       }
-
     }
-
-  }
+  };
 
   render() {
-
-    let { errors } = this.state;
-    let { applicantInfoList } = this.props;
-    const coreConfigDetails = JSON.parse(localStorage.getItem('admisiaCoreConfigDetails'));
+    const { errors } = this.state;
+    const { applicantInfoList } = this.props;
+    const coreConfigDetails = JSON.parse(
+      localStorage.getItem('admisiaCoreConfigDetails'),
+    );
 
     return (
-      <div class="admisia">
+      <div className="admisia">
         <AppLayout>
           <Helmet>
             <title>ApplicationForm</title>
@@ -355,24 +362,39 @@ export class TrackApplication extends React.Component {
             <div className="container-fluid">
               <div className="container m-t-40 online-application">
                 <div className="row">
-                  <div className="col-xl-12"><h3 className="text-center text-orange text-bold mb-3">Track Your Application</h3></div>
+                  <div className="col-xl-12">
+                    <h3 className="text-center text-orange text-bold mb-3">
+                      Track Your Application
+                    </h3>
+                  </div>
 
                   <div className="col-xl-12">
                     <div className="">
                       <Table striped className="application-form-table">
                         <thead>
                           <tr>
-                            <th>Academic Year: {coreConfigDetails.currentAdmissionYear ? coreConfigDetails.currentAdmissionYear : ''}</th>
+                            <th>
+                              Academic Year:{' '}
+                              {coreConfigDetails.currentAdmissionYear
+                                ? coreConfigDetails.currentAdmissionYear
+                                : ''}
+                            </th>
                             {/* <th className="text-right"><span>Application End Date : { get_DDMMM_YY_Format_WithComma( (getApplicantView && getApplicantView.applicantPersonalViewResponse && getApplicantView.applicantPersonalViewResponse.applicationEndDate) || (admissionObj && admissionObj.applicationEndDate) ) }</span></th> */}
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td colSpan="2" class="p-4">
+                            <td colSpan="2" className="p-4">
                               <div className="row">
                                 <div className="col-xl-4">
                                   <FormGroup>
-                                    <Label for="class-group" className="admisia-level">Registration No. <span className="required">*</span></Label>
+                                    <Label
+                                      for="class-group"
+                                      className="admisia-level"
+                                    >
+                                      Registration No.{' '}
+                                      <span className="required">*</span>
+                                    </Label>
                                     <Input
                                       className=" bg-white border-0 rounded-0"
                                       name="class-group"
@@ -380,9 +402,10 @@ export class TrackApplication extends React.Component {
                                       value={this.props.registrationNo}
                                       onChange={this.onChangeRegNumber}
                                       maxLength="15"
-                                    >
-                                    </Input>
-                                    <span className='error-message'>{errors['registrationNo']}</span>
+                                    />
+                                    <span className="error-message">
+                                      {errors['registrationNo']}
+                                    </span>
                                   </FormGroup>
                                 </div>
 
@@ -394,7 +417,7 @@ export class TrackApplication extends React.Component {
                                       className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
                                       onClick={this.submitSearchBtn}
                                     >
-                                      <i class="fas fa-search" ></i> Search
+                                      <i className="fas fa-search" /> Search
                                     </Button>
                                   </FormGroup>
                                   {/* <span className='error-message'>{errors['preExamInfo']}</span> */}
@@ -402,9 +425,15 @@ export class TrackApplication extends React.Component {
 
                                 {/* <div className="col-xl-4"></div> */}
                                 <div className="col-xl-4 text-center my-xl-auto text-primary d-flex my-3">
-                                  <span className="shape-squire"></span>
-                                  <span className="shape-squire"></span>
-                                  <b className="ml-3"><u><Link to="/institute/admisia/find_registration_no">Forgot your Registration No. ?</Link></u></b>
+                                  <span className="shape-squire" />
+                                  <span className="shape-squire" />
+                                  <b className="ml-3">
+                                    <u>
+                                      <Link to="/institute/admisia/find_registration_no">
+                                        Forgot your Registration No. ?
+                                      </Link>
+                                    </u>
+                                  </b>
                                 </div>
                               </div>
                             </td>
@@ -425,11 +454,10 @@ export class TrackApplication extends React.Component {
                           </tr>
                         </thead>
                         <tbody>
-
-                          {applicantInfoList && applicantInfoList.registrationId ?
-
+                          {applicantInfoList &&
+                          applicantInfoList.registrationId ? (
                             <tr>
-                              <td class="p-4 bg-white shadow">
+                              <td className="p-4 bg-white shadow">
                                 {/* <div className="row"> */}
 
                                 {this.getApplicantStatus()}
@@ -534,10 +562,11 @@ export class TrackApplication extends React.Component {
                                 {/* </div> */}
                               </td>
                             </tr>
-
-                            : <tr><td colSpan='12'>No Data Found</td></tr>
-
-                          }
+                          ) : (
+                            <tr>
+                              <td colSpan="12">No Data Found</td>
+                            </tr>
+                          )}
                         </tbody>
                       </Table>
                     </div>
@@ -555,88 +584,183 @@ export class TrackApplication extends React.Component {
                         </thead>
 
                         <tbody>
-
-                          {applicantInfoList && applicantInfoList.registrationId ?
-
+                          {applicantInfoList &&
+                          applicantInfoList.registrationId ? (
                             <tr className="bg-white shadow">
                               <td>
                                 <div className="row p-4">
-                                  <div class="col-xl-3">
-
+                                  <div className="col-xl-3">
                                     <div className="mb-2">
-                                      {
-                                        applicantInfoList.fileContent ?
-                                          <img src={"data:image/jpg;base64," + applicantInfoList.fileContent} height="120px" className="border rounded" />
-                                          : <img src={staticImg} height="150px" className="border rounded" />
-                                      }
+                                      {applicantInfoList.fileContent ? (
+                                        <img
+                                          src={
+                                            'data:image/jpg;base64,' +
+                                            applicantInfoList.fileContent
+                                          }
+                                          height="120px"
+                                          className="border rounded"
+                                        />
+                                      ) : (
+                                        <img
+                                          src={staticImg}
+                                          height="150px"
+                                          className="border rounded"
+                                        />
+                                      )}
                                     </div>
 
                                     <div className="mb-2">
-                                      <Label for="class-group" className="text-primary-light">Registration No. </Label>
-                                      <h4><b>{applicantInfoList.registrationId}</b></h4>
+                                      <Label
+                                        for="class-group"
+                                        className="text-primary-light"
+                                      >
+                                        Registration No.{' '}
+                                      </Label>
+                                      <h4>
+                                        <b>
+                                          {applicantInfoList.registrationId}
+                                        </b>
+                                      </h4>
                                     </div>
 
                                     <div className="mb-0">
-                                      <Label for="class-group" className="text-primary-light">Roll No. </Label>
-                                      <h4><b>{applicantInfoList.rollNo}</b></h4>
+                                      <Label
+                                        for="class-group"
+                                        className="text-primary-light"
+                                      >
+                                        Roll No.{' '}
+                                      </Label>
+                                      <h4>
+                                        <b>{applicantInfoList.rollNo}</b>
+                                      </h4>
                                     </div>
-
                                   </div>
 
-                                  <div class="col-xl-6 seperator">
-                                    <div class=" student-details-info">
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Student Name</label>: {applicantInfoList.applicantName}</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Gender</label>: {applicantInfoList.gender}</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Religion</label>: {applicantInfoList.religion}</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Date of Birth</label>: {applicantInfoList.dob ? get_DDMMM_YY_Format_WithComma(applicantInfoList.dob) : ''}</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Father's Name</label>: {applicantInfoList.fatherName}</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Mother's Name</label>: {applicantInfoList.motherName}</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Guardian Mobile No.</label>: {applicantInfoList.mobileNo}</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Address</label>: {applicantInfoList.addressDetails}</div>
-
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Application Fee</label>: {applicantInfoList.totalFee} TK</div>
-                                      <div className="d-flex align-items-center"><div class="task-badge found"></div><label>Payment Status</label>:
-                                      {applicantInfoList.applicantFeeStatus === 1 ? <span className="text-success ml-1"><b>Paid</b></span>
-                                          : applicantInfoList.applicantFeeStatus === 0 ? <span className="text-orange ml-1"><b>Unpaid</b></span>
-                                            : ''}
+                                  <div className="col-xl-6 seperator">
+                                    <div className=" student-details-info">
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Student Name</label>:{' '}
+                                        {applicantInfoList.applicantName}
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Gender</label>:{' '}
+                                        {applicantInfoList.gender}
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Religion</label>:{' '}
+                                        {applicantInfoList.religion}
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Date of Birth</label>:{' '}
+                                        {applicantInfoList.dob
+                                          ? get_DDMMM_YY_Format_WithComma(
+                                              applicantInfoList.dob,
+                                            )
+                                          : ''}
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Father's Name</label>:{' '}
+                                        {applicantInfoList.fatherName}
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Mother's Name</label>:{' '}
+                                        {applicantInfoList.motherName}
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Guardian Mobile No.</label>:{' '}
+                                        {applicantInfoList.mobileNo}
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Address</label>:{' '}
+                                        {applicantInfoList.addressDetails}
                                       </div>
 
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Application Fee</label>:{' '}
+                                        {applicantInfoList.totalFee} TK
+                                      </div>
+                                      <div className="d-flex align-items-center">
+                                        <div class="task-badge found" />
+                                        <label>Payment Status</label>:
+                                        {applicantInfoList.applicantFeeStatus === 1 ? <span className="text-success ml-1"><b>Paid</b></span>
+                                        ) : applicantInfoList.applicantFeeStatus ===
+                                        0 ? (
+                                          <span className="text-orange ml-1">
+                                            <b>Unpaid</b>
+                                          </span>
+                                        ) : (
+                                          ''
+                                        )}
+                                      </div>
                                     </div>
                                   </div>
 
-                                  <div class="col-xl-3 seperator">
+                                  <div className="col-xl-3 seperator">
                                     <div className="mb-3">
-                                      <Label className="text-primary-light mb-0">Class </Label>
-                                      <h5 className='font-weight-bold'>{applicantInfoList.clasName}</h5>
+                                      <Label className="text-primary-light mb-0">
+                                        Class{' '}
+                                      </Label>
+                                      <h5 className="font-weight-bold">
+                                        {applicantInfoList.clasName}
+                                      </h5>
                                     </div>
 
                                     <div className="mb-3">
-                                      <Label className="text-primary-light mb-0">Group </Label>
-                                      <h5 className='font-weight-bold'>{applicantInfoList.groupName}</h5>
+                                      <Label className="text-primary-light mb-0">
+                                        Group{' '}
+                                      </Label>
+                                      <h5 className="font-weight-bold">
+                                        {applicantInfoList.groupName}
+                                      </h5>
                                     </div>
 
                                     <div className="mb-3">
-                                      <Label className="text-primary-light mb-0">Application Date</Label>
-                                      {applicantInfoList.applicationDate ?
-                                        <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationDate)}</h5>
-                                        : ''}
+                                      <Label className="text-primary-light mb-0">
+                                        Application Date
+                                      </Label>
+                                      {applicantInfoList.applicationDate ? (
+                                        <h5 className="font-weight-bold">
+                                          {get_DDMMM_YY_Format_WithComma(
+                                            applicantInfoList.applicationDate,
+                                          )}
+                                        </h5>
+                                      ) : (
+                                        ''
+                                      )}
                                     </div>
 
                                     <div className="mb-3">
-                                      <Label className="text-primary-light mb-0">Application End Date</Label>
-                                      {applicantInfoList.applicationDate ?
-                                        <h5 className='font-weight-bold'>{get_DDMMM_YY_Format_WithComma(applicantInfoList.applicationEndDate)}</h5>
-                                        : ''}
+                                      <Label className="text-primary-light mb-0">
+                                        Application End Date
+                                      </Label>
+                                      {applicantInfoList.applicationDate ? (
+                                        <h5 className="font-weight-bold">
+                                          {get_DDMMM_YY_Format_WithComma(
+                                            applicantInfoList.applicationEndDate,
+                                          )}
+                                        </h5>
+                                      ) : (
+                                        ''
+                                      )}
                                     </div>
-
                                   </div>
-
                                 </div>
                               </td>
                             </tr>
-                            : <tr><td colSpan='12'>No Data Found</td></tr>
-
-                          }
+                          ) : (
+                            <tr>
+                              <td colSpan="12">No Data Found</td>
+                            </tr>
+                          )}
                         </tbody>
                       </Table>
                     </div>
@@ -777,17 +901,15 @@ export class TrackApplication extends React.Component {
                 </div>
 
  */}
-
               </div>
 
               <div className="container">
                 <div className="row">
                   <div className="offset-xl-1 col-xl-10">
-                    <div className="custom-title-border-center mb-2"></div>
+                    <div className="custom-title-border-center mb-2" />
                   </div>
                 </div>
               </div>
-
             </div>
           </section>
 
@@ -796,36 +918,34 @@ export class TrackApplication extends React.Component {
             isOpen={this.state.modalVisible}
             toggle={this.onChangeModalStatus}
           >
-            <button
-              className="close-btn"
-              onClick={this.onChangeModalStatus}
-            >
+            <button className="close-btn" onClick={this.onChangeModalStatus}>
               <i className="fas fa-times" />
             </button>
 
             <ModalBody>
               <div className="content-wrapper content-padding-sm pt-0 pb-0">
                 <div className="book-list-wrapper">
-                  <div className="table-responsive" style={{ boxShadow: 'none' }}>
+                  <div
+                    className="table-responsive"
+                    style={{ boxShadow: 'none' }}
+                  >
                     <table className="book-list w-100">
-
                       <tr>
-
                         <td>
                           <table className="book-details">
                             <tr>
                               <td colSpan="12">
                                 <span className="title">Exam Instruction</span>
                               </td>
-
                             </tr>
 
                             <tr>
                               <td colSpan="12">
-                                <span className="">{applicantInfoList.admissionExamInstruction}</span>
+                                <span className="">
+                                  {applicantInfoList.admissionExamInstruction}
+                                </span>
                               </td>
                             </tr>
-
                           </table>
                         </td>
                       </tr>
@@ -835,7 +955,6 @@ export class TrackApplication extends React.Component {
               </div>
             </ModalBody>
           </Modal>
-
         </AppLayout>
       </div>
     );
@@ -849,14 +968,18 @@ TrackApplication.propTypes = {
 const mapStateToProps = createStructuredSelector({
   trackApplication: makeSelectTrackApplication(),
   registrationNo: makeSelectRegistrationNo(),
-  applicantInfoList: makeSelectApplicantInfoList()
+  applicantInfoList: makeSelectApplicantInfoList(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onChangeRegNo: (value) => { dispatch(setRegistrationNo(value)) },
-    onSubmitSearch: () => { dispatch(submitSearch()) },
+    onChangeRegNo: value => {
+      dispatch(setRegistrationNo(value));
+    },
+    onSubmitSearch: () => {
+      dispatch(submitSearch());
+    },
   };
 }
 
