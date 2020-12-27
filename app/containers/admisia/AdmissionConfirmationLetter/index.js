@@ -108,7 +108,7 @@ export class AdmissionConfirmationLetter extends React.Component {
                   </div>
 
                   <div class="col-xl-12 text-center mt-1 text-primary-light">
-                    <h3><b className="" style={{ borderBottomStyle: "dotted" }}>Admission Confirmation Letter</b></h3>
+                    <h3><b className="" style={{ borderBottomStyle: "dotted" }}>Application Confirmation Letter</b></h3>
                   </div>
                 </div>
 
@@ -157,7 +157,7 @@ export class AdmissionConfirmationLetter extends React.Component {
                 </div>
 
                 <div className="row my-4">
-                  <div className="col-xl-12">
+         {/*          <div className="col-xl-12">
                     <strong> Dear Applicant,</strong>
                     <br />
                     <br />
@@ -166,7 +166,7 @@ export class AdmissionConfirmationLetter extends React.Component {
                   ''{instituteUrlInfoDetails.instituteName}'' community.
                   <br />
                     Bring your required documents on the admission date. We Look forward to receiving you.
-                </div>
+                </div> */}
                 </div>
 
                 <div className="row mt-1">

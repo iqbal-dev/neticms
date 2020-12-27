@@ -280,13 +280,13 @@ export class AdmisiaDownload extends React.Component {
 
                                     <div class="col-xl-8 text-success mt-5">
                                       {applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ?
-                                        <h4><b><i className="fas fa-info-circle"></i> Download your Admission Confirmation Letter. </b></h4>
+                                        <h4><b><i className="fas fa-info-circle"></i> Download your Application Confirmation Letter. </b></h4>
                                         :
                                         applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.admissionExamStatus === 1 && applicantInfoList.applicantStatus === 1
                                           || applicantInfoList.applicantStatus === 2 || applicantInfoList.applicantStatus === 0 ?
                                           <h4><b><i className="fas fa-info-circle"></i> Download your Admit Card for upcoming assessment. </b></h4>
                                           :
-                                          <h4><b><i className="fas fa-info-circle"></i> Download your Admission Confirmation Letter. </b></h4>
+                                          <h4><b><i className="fas fa-info-circle"></i> Download your Application Confirmation Letter. </b></h4>
                                       }
                                     </div>
                                     : applicantInfoList.applicantFeeStatus === 0 ?
@@ -306,7 +306,7 @@ export class AdmisiaDownload extends React.Component {
                                             to={{ pathname: '/institute/admission_confirmation_letter' }}
                                             target="_blank"
                                           >
-                                            Admission Confirmation Letter
+                                            Application Confirmation Letter
                                           </Link>
 
                                           // <Button
@@ -341,7 +341,7 @@ export class AdmisiaDownload extends React.Component {
                                                 className="btn all-border-radious no-border btn-no-hover border-0"
                                                 disabled={true}
                                               >
-                                                Admission Confirmation Letter
+                                                Application Confirmation Letter
                                             </Button>
 
                                           //   <Link
@@ -350,7 +350,7 @@ export class AdmisiaDownload extends React.Component {
                                           //     target="_blank"
                                           //     to=""
                                           //   >
-                                          //     Admission Confirmation Letter
+                                          //     Application Confirmation Letter
                                           // </Link>
 
                                           // <Button

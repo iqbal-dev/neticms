@@ -192,7 +192,7 @@ export class TrackApplication extends React.Component {
               // onClick={examInfoDialog}
               disabled
             >
-              ADMISSION CONFIRMATION LETTER
+              APPLICATION CONFIRMATION LETTER
           </Button>
           </div>
         </div>
@@ -213,7 +213,7 @@ export class TrackApplication extends React.Component {
               // onClick={examInfoDialog}
               disabled
             >
-              ADMISSION CONFIRMATION LETTER
+              APPLICATION CONFIRMATION LETTER
           </Button>
           </div>
           <div class="col-xl-3 d-flex align-items-center pl-0">
@@ -240,7 +240,7 @@ export class TrackApplication extends React.Component {
               // onClick={examInfoDialog}
               disabled
             >
-              ADMISSION CONFIRMATION LETTER
+              APPLICATION CONFIRMATION LETTER
           </Button>
           </div>
           <div class="col-xl-3 d-flex align-items-center pl-0">
@@ -269,14 +269,14 @@ export class TrackApplication extends React.Component {
               disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ? false : true}
               target="_blank"
             >
-              Admission Confirmation Letter
+              Application Confirmation Letter
             </Link>
 
             {/* <Button
               className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
             // onClick={examInfoDialog}
             >
-              ADMISSION CONFIRMATION LETTER
+              APPLICATION CONFIRMATION LETTER
           </Button> */}
           </div>
 
@@ -514,7 +514,7 @@ export class TrackApplication extends React.Component {
                                     // onClick={examInfoDialog}
                                     disabled
                                   >
-                                    ADMISSION CONFIRMATION LETTER
+                                    APPLICATION CONFIRMATION LETTER
                                   </Button>
                                 </div>
                                 <div class="col-xl-3 d-flex align-items-center pl-0">
