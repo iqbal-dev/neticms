@@ -44,7 +44,7 @@ import {
 } from './selectors';
 import { inputFieldLoaderLarge, centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
 import { getDownloadTablePDF } from '../../utils/generatePdf';
-import { BASE_URL_NETI_CMS, ADMISIA_ADMIT_CARD_DOWNLOAD } from '../../utils/serviceUrl';
+import { BASE_URL_NETI_CMS, ADMISIA_ADMIT_CARD_DOWNLOAD, BASE_URL_EM, STUDENT_INDIVISULA_RESULT_DOWNLOAD } from '../../utils/serviceUrl';
 
 /* eslint-disable react/prefer-stateless-function */
 export class IndividualResult extends React.Component {
@@ -120,30 +120,34 @@ export class IndividualResult extends React.Component {
     this.setState({ errors })
   }
 
-  // downloadIndividualResult = () => {
+  downloadIndividualResult = () => {
 
-  //   let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
-  //   let cmsId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].cmsId;
-  //   let regId = this.props.applicantInfoList.registrationId;
+    let emToken = JSON.parse(localStorage.getItem('emToken'));
+   
 
-  //   if (this.props.applicantInfoList.applicantFeeStatus === 1) {
+    let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
+    let instituteId = instituteUrlInfo && instituteUrlInfo[0] && instituteUrlInfo[0].emInstituteList[0].edumanInstituteId;
 
-  //     const requestURL = BASE_URL_NETI_CMS.concat(ADMISIA_ADMIT_CARD_DOWNLOAD).concat('?cmsId=').concat(cmsId).concat('&registrationIds=').concat(regId);
-  //     const finalURL = requestURL;
-  //     if (finalURL) {
-  //       setTimeout(() => {
-  //         const response = {
-  //           file: finalURL,
-  //         };
-  //         window.location.href = response.file;
+    let studentId = this.props.studentID;
+    let examConfigId = this.props.examConfigId;
+    let academicYear = this.props.academicYear;
 
-  //       }, 100);
+      const requestURL = BASE_URL_EM.concat(STUDENT_INDIVISULA_RESULT_DOWNLOAD).concat('?customStudentId=').concat(studentId).concat('&examId=').concat(examConfigId).concat('&instituteId=').concat(instituteId).concat('&academicYear=').concat(academicYear);
+      const finalURL = requestURL.concat('&access_token=').concat(emToken.access_token);
+      if (finalURL) {
+        setTimeout(() => {
+          const response = {
+            file: finalURL,
+          };
+          window.location.href = response.file;
 
-  //     }
+        }, 100);
 
-  //   }
+      
 
-  // }
+    }
+
+  }
 
   render() {
 
@@ -300,7 +304,7 @@ export class IndividualResult extends React.Component {
                       <h2>
                         <span className="font-20">
                           Showing Result for Student ID. <span className="text-orange">{resultData && resultData.customStudentId}</span></span>
-                        {/* <span className="print text-orange cursor-pointer" onClick={this.downloadIndividualResult}><i className="fas fa-print"></i> Print Result</span> */}
+                        <span className="print text-orange cursor-pointer" onClick={this.downloadIndividualResult}><i className="fas fa-print"></i> Print Result</span>
                       </h2>
                       <div className="custom-title-border-left my-4" />
                     </div>
