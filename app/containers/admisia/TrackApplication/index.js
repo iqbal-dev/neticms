@@ -269,7 +269,7 @@ export class TrackApplication extends React.Component {
               disabled={applicantInfoList.applicantFeeStatus === 1 && applicantInfoList.applicantStatus === 5 ? false : true}
               target="_blank"
             >
-              Application Confirmation Letter
+              Admission Confirmation Letter
             </Link>
 
             {/* <Button
@@ -458,6 +458,9 @@ export class TrackApplication extends React.Component {
                                     className="btn all-border-radious no-border explore-btn border-0 mt-xl-2 px-4"
                                   // onClick={examInfoDialog}
                                   >
+
+
+                                  
                                     ADMIT CARD
                                   </Button>
                                 </div>
