@@ -42,9 +42,8 @@ import {
 import {
   makeSelectStudentID,
 } from './selectors';
-import { inputFieldLoaderLarge, centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
-import { getDownloadTablePDF } from '../../utils/generatePdf';
-import { BASE_URL_NETI_CMS, ADMISIA_ADMIT_CARD_DOWNLOAD, BASE_URL_EM, STUDENT_INDIVISULA_RESULT_DOWNLOAD } from '../../utils/serviceUrl';
+import { centerTableLoader, inputFieldLoader } from '../../utils/contentLoader';
+import { BASE_URL_EM, STUDENT_INDIVISULA_RESULT_DOWNLOAD } from '../../utils/serviceUrl';
 
 /* eslint-disable react/prefer-stateless-function */
 export class IndividualResult extends React.Component {
