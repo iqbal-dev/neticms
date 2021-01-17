@@ -75,7 +75,7 @@ export class TeacherInformation extends React.PureComponent {
                   <div className="col-md-12">
                     <div className="page-inner-title">
                       <h2 className="text-orange d-flex justify-content-between align-items-center">Teacher's Information
-                      {
+                      {/* {
                           teachers.length > 0 ?
                             <FormGroup className="mb-0">
                               <Button
@@ -86,7 +86,7 @@ export class TeacherInformation extends React.PureComponent {
                           </Button>
                             </FormGroup>
                             : ''
-                        }
+                        } */}
                       </h2>
                       <div className="custom-title-border-left"></div>
                     </div>
