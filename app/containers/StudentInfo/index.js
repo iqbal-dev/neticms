@@ -240,6 +240,7 @@ export class StudentInfo extends React.Component {
                   <div className="row">
                     <h5 className="col-lg-12 d-flex justify-content-between align-items-center">
                       <span>Showing result for <span className="text-orange"> Class {classNameFind ? classNameFind : ''} ({studentInfiList ? studentInfiList.length + ' Students' : ''})</span></span>
+                    
                       {/* {
                         studentInfiList.length > 0 ?
                           <FormGroup className="mb-0">

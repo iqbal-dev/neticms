@@ -84,7 +84,8 @@ export class TeacherInformation extends React.PureComponent {
                               >
                                 <i class="fas fa-file-pdf" ></i> Download
                           </Button>
-                            </FormGroup>
+                            </FormGroup>    
+                            
                             : ''
                         } */}
                       </h2>
