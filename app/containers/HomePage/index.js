@@ -51,6 +51,7 @@ import {
   makeSelectEventLoader
 } from './selectors';
 import { getFullMonthName, getTotalDaysDifference_TillToday } from '../../utils/dateFormat';
+import {setIp,setBrowser,setOs} from '../../utils/localStorageMethod'
 import { AppLayout } from '../AppLayout';
 import staticImg from '../../assets/img/avatar.png';
 import blank_image from '../../assets/img/blank-image-2.png';
@@ -62,6 +63,8 @@ import ReadMoreAndLess from 'react-read-more-less';
 
 import { speechLoader, listLoader, threeDotLoader } from '../../utils/contentLoader';
 import { unset } from 'lodash';
+const browserInfo = require('browser-info');
+const publicIp = require('public-ip');
 //
 
 let speechIndex = 0;
@@ -97,6 +100,32 @@ export class HomePage extends React.Component {
     this.clearErrorMsg = this.clearErrorMsg.bind(this);
 
   }
+
+
+
+
+  componentDidMount() {
+
+    setBrowser(browserInfo().name + "-" + browserInfo().version);
+    console.log("++++++browserInfo().name + "-" + browserInfo().version +++++++ ",browserInfo().name + "-" + browserInfo().version);
+    console.log("++++++browserInfo().os+++++++",browserInfo().os);
+
+
+    // var instituteInfo = JSON.parse(localStorage.instituteInfo);
+
+    console.log("++++++++instituteInfo++++++++ ",instituteInfo);
+
+    
+    setOs(browserInfo().os);
+    publicIp.v4().then(ip => {
+
+      setIp(ip);
+      console.log("++++++ip+++++++ ",ip);
+    });
+  }
+
+
+
 
   onChange = date => this.setState({ date });
 

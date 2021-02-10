@@ -53,6 +53,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
           key: 1,
           urlName: response.item.urlName,
           cmsId: response.item.cmsId,
+          customCmsId: response.item.customCmsId,
           emInstituteList: response.item.edumanInstituteList,
           instituteName: response.item.instituteName,
           instituteAddress: response.item.instituteAddress,
@@ -74,6 +75,7 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
           instituteInfo[i].urlName = response.item.urlName;
           instituteInfo[i].cmsId = response.item.cmsId;
+          instituteInfo[i].customCmsId = response.item.customCmsId;
           instituteInfo[i].instituteName = response.item.instituteName;
           instituteInfo[i].instituteAddress = response.item.instituteAddress;
           instituteInfo[i].instituteContact = response.item.instituteContact;

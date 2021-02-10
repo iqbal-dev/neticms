@@ -233,7 +233,7 @@ export class MeritList extends React.Component {
                     <div className="page-inner-title with-print">
                       <h2>
                         <span>Total Student Found <span className="text-orange">({meritList && meritList.length ? meritList.length : 0})</span></span>
-                        <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span>
+                        {/* <span className="print text-orange cursor-pointer" onClick={this.onDownloadPdf}><i className="fas fa-print"></i> Print Result</span> */}
                       </h2>
                       <div className="custom-title-border-left" />
                     </div>
