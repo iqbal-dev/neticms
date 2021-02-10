@@ -11,6 +11,7 @@ import {
   fetch_coreConfigListBy_cmsId
 
 } from '../../utils/serviceUrl';
+import {setCustomcmsId} from '../../utils/localStorageMethod'
 
 import {
   setUrlInfo, setWelcomeSpeech, setNotice, setUrlId, setMenu, setLatestNews, setHistoryDetails, setTopEvents, setEmAccessToken, setGlobalAcademicYearList, setGlobalSectionList, setUseFullLinks, setHomeSlider, visibleInstMappingDialog, hideInstMappingDialog, setMappingInstitute, setLoader, setHomeSliderLoader, setNoticeLoader, setSpeechLoader, setLinkLoader, setImageLoader, setEventLoader
@@ -18,6 +19,8 @@ import {
 import { makeSelectEmAccessToken, makeSelectMappingInstId } from './selectors';
 import { setAcademicYearList } from '../FailList/actions';
 import { SUBMIT_MAP } from './constants';
+import {activityLogService} from '../ActivityLog/saga';
+import {HOME,FETCH_LOG,HOME_ID} from '../../utils/pageIdentity'
 
 export function* fetch_instituteUrlInfo_byUrlName() {
 
@@ -43,6 +46,8 @@ export function* fetch_instituteUrlInfo_byUrlName() {
   try {
 
     if (response) {
+
+      setCustomcmsId(response.item.customCmsId);
 
       let instituteUrlInfo = JSON.parse(localStorage.getItem('instituteInfo'));
       // console.log('after-response', instituteUrlInfo);
@@ -130,7 +135,15 @@ export function* fetch_instituteUrlInfo_byUrlName() {
 
     }
 
-    // console.log('after updt', JSON.parse(localStorage.instituteInfo));
+      //+++++++++++++++++ActivityLog Info Save Start Here+++++++++++++++++++++++++++
+  try {
+
+    yield activityLogService(FETCH_LOG, HOME, HOME_ID, "STUDENT_UPDATE_CLASS_INFO_SEARCH", "", "");
+
+  } catch (error) {
+    console.log(error)
+  }
+  //+++++++++++++++++ActivityLog Info Save End Here+++++++++++++++++++++++++++
 
   } catch (error) { }
 

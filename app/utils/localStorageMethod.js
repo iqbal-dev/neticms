@@ -13,3 +13,45 @@ export function getAuthenticatedStatus() {
 export function setAuthenticatedStatus(authStatus) {
     return localStorage.setItem('authStatus', authStatus);
 }
+
+
+export function setIp(ip) {
+    return localStorage.setItem('ip', ip);
+}
+
+
+export function setCustomcmsId(customcmsid) {
+    return localStorage.setItem('customcmsid', customcmsid);
+}
+
+
+
+export function setBrowser(browser) {
+    return localStorage.setItem('browser', browser);
+}
+
+
+export function setOs(os) {
+    return localStorage.setItem('os', os);
+}
+
+
+export function getClientIp() {
+    return localStorage.getItem('ip');
+}
+
+export function getBrowser() {
+    return localStorage.getItem('browser');
+}
+
+export function getOs() {
+    return localStorage.getItem('os');
+}
+
+
+export function getCustomcmsId() {
+    return localStorage.getItem('customcmsid');
+}
+
+
+

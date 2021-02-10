@@ -113,7 +113,7 @@ export class HomePage extends React.Component {
 
     // var instituteInfo = JSON.parse(localStorage.instituteInfo);
 
-    console.log("++++++++instituteInfo++++++++ ",instituteInfo);
+    // console.log("++++++++instituteInfo++++++++ ",instituteInfo);
 
     
     setOs(browserInfo().os);
